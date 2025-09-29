@@ -148,7 +148,6 @@ Nicolas Trotignon\footnotemark[4]
 \end{abstract}
 
 
-\section{Preleminaries}
 Given a digraph $D$, the \emph{line digraph} $L(D)$ of $D$ is the digraph whose
 vertices are the arcs of $D$ and in which there is an arc from $a$ to $b$ if the
 head of $a$ is the tail of $b$ in $D$. The \emph{$k$-iterated line digraph} $L^k(D)$
@@ -167,13 +166,32 @@ which two vertices $a = (a_1, \dots a_k)$ and $b = (b_1, \dots b_k)$ are
 adjacent if $b_i = a_{i+1}$ for all $i \in [k-1]$ (or $a_i = b_{i+1}$ for all
 $i \in [k-1]$). From this definition, it is straightforward to check that
 $G_{n,k}$ is the support of the $(k-1)$-iterated line digraph of the transitive
-tournament on $n$ vertices.
+tournament on $n$ vertices. The graph $G_{n,k}$ has odd-girth $2k+1$, in
+particular shift graphs are triangle-free.
 
 The class of $k$-shift graphs (or simply shift graphs for $k=2$) is the
 hereditary closure of the graphs $\{G_{n,k} : n \ge 1\}$, that is, all induced
 subgraph of some $G_{n,k}$. Note that this definition is equivalent to saying
 that $k$-shift graphs are the supports of the $(k-1)$-iterated line digraphs of
 all directed acyclic graphs.
+
+The following result of Beineke shows that line digraphs of digraphs can be
+recognised in polynomial time.
+\begin{lemma}[Beineke~\cite{beineke1968Derived}]
+  A digraph $D$ is the line digraph of a digraph if and only if the two
+  following conditions are satisfied:
+  \begin{enumerate}
+  \item If $D$ contains three arcs $a$, $b$ and $c$ such that $a$ and $b$ have
+    the same tail, and $b$ and $c$ have the same head, then $D$ also contains an
+    arc from the tail of $c$ to the head of $a$.
+  \item $D$ does not contain four arcs $a$, $b$, $c$ and $d$ such that the tails
+    of $a$ and $c$ are identical, the heads of $d$ and $b$ are identical, and
+    the head of $a$ (resp. $c$) is the tail of $b$ (resp. $d$).  
+  \end{enumerate}
+\end{lemma}
+
+However, Chv\'atal and Ebenegger showed that recognising their support is
+NP-complete~\cite{chvatal1990Note}.
 
 
 
