@@ -34,17 +34,18 @@
 \usepackage{hyperref}
 
 \usepackage{tikz}
+\tikzstyle{classic}=[draw=black,fill = black,inner sep = 1pt,circle]
 
 \newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}[section]
-\newtheorem{claim}[lemma]{Claim}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
 \newtheorem*{claim*}{Claim}
-\newtheorem{conjecture}{Conjecture}
-\newtheorem{corollary}[lemma]{Corollary}
-\newtheorem{question}[lemma]{Question}
-\theoremstyle{definition}
-\newtheorem{remark}[lemma]{Remark}
-\newtheorem{problem}[lemma]{Problem}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{question}[theorem]{Question}
+% \theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{problem}[theorem]{Problem}
 
 \makeatletter
 \def\namedlabel#1#2{\begingroup
@@ -55,6 +56,9 @@
 
 \newenvironment{poc}{\begin{proof}[Proof of
     Claim]\renewcommand*{\qedsymbol}{$\blacksquare$}}{\end{proof}}
+
+\newenvironment{csproblem}[1]{\textsc{#1}:\\}{}
+
 
 \crefname{subsection}{Subsection}{Subsections}
 
@@ -131,7 +135,7 @@
 Bartosz Walczak\footnotemark[1] \and 
 Cl\'ement Legrand-Duchesne\footnotemark[1]\and
 Ugo Giocanti\footnotemark[1] \and
-Nicolas Trotignon\footnotemark[4]
+Nicolas Trotignon\footnotemark[2]
 }
 
 \begin{document}
@@ -148,13 +152,14 @@ Nicolas Trotignon\footnotemark[4]
 \end{abstract}
 
 
+\paragraph{Line digraphs}
 Given a digraph $D$, the \emph{line digraph} $L(D)$ of $D$ is the digraph whose
 vertices are the arcs of $D$ and in which there is an arc from $a$ to $b$ if the
 head of $a$ is the tail of $b$ in $D$. The \emph{$k$-iterated line digraph} $L^k(D)$
 of $D$ is then defined recursively by $L^k(D) = L(L^{k-1}(D))$ and $L^0(D) = D$.
-Equivalently, the vertices of $L^k(D)$ are the directed path on $k+1$ vertices
+Equivalently, the vertices of $L^k(D)$ are the directed walks on $k+1$ vertices
 in $D$ and $L^k(D)$ contains an arc from $a$ to $b$ if the corresponding
-directed path overlap on the $k$ last vertices of $a$ and the $k$ first vertices
+directed walks overlap on the $k$ last vertices of $a$ and the $k$ first vertices
 of $b$, namely $a = (v_0, \dots v_k)$ and $b=(v_1, \dots v_{k+1})$ with
 $(v_i,v_{i+1}) \in A(D)$ for all $i$. The \emph{support} of a digraph $D$ is the
 non-directed graph $G$ obtained by removing the orientations of the arcs of $D$,
@@ -169,16 +174,9 @@ $G_{n,k}$ is the support of the $(k-1)$-iterated line digraph of the transitive
 tournament on $n$ vertices. The graph $G_{n,k}$ has odd-girth $2k+1$, in
 particular shift graphs are triangle-free.
 
-The class of $k$-shift graphs (or simply shift graphs for $k=2$) is the
-hereditary closure of the graphs $\{G_{n,k} : n \ge 1\}$, that is, all induced
-subgraph of some $G_{n,k}$. Note that this definition is equivalent to saying
-that $k$-shift graphs are the supports of the $(k-1)$-iterated line digraphs of
-all directed acyclic graphs.
-
-The following result of Beineke shows that line digraphs of digraphs can be
-recognised in polynomial time.
+The following result of Beineke characterise line digraphs of digraphs.
 \begin{lemma}[Beineke~\cite{beineke1968Derived}]
-  A digraph $D$ is the line digraph of a digraph if and only if the two
+  A digraph $D$ is the line digraph of a digraph $D'$ if and only if the two
   following conditions are satisfied:
   \begin{enumerate}
   \item If $D$ contains three arcs $a$, $b$ and $c$ such that $a$ and $b$ have
@@ -189,33 +187,102 @@ recognised in polynomial time.
     the head of $a$ (resp. $c$) is the tail of $b$ (resp. $d$).  
   \end{enumerate}
 \end{lemma}
+% \begin{figure}[ht]
+%   \centering
+%   \begin{subfigure}{.4\textwidth}
+%     \centering
+%     \begin{tikzpicture}
+%       \node[classic] (1) at (0,0);
+%       \node[classic] (2) at (1,.5);
+%       \node[classic] (3) at (1,-.5);
+%       \node[classic] (4) at (2,0);
 
-However, Chv\'atal and Ebenegger showed that recognising their support is
-NP-complete~\cite{chvatal1990Note}.
+%       \draw (1) -> (2);
+%       \draw (1) -> (3);
+%       \draw (2) -> (4);     
+%     \end{tikzpicture}
+%     \caption{Consistent neighbourhoods}
+%     \label{sfig:config1}
+%   \end{subfigure}%
+%   \hfill
+  
+%   \begin{subfigure}{.4\textwidth}
+%     \centering
+%     \begin{tikzpicture}
+%       \node[classic] (1) at (0,0);
+%       \node[classic] (2) at (1,.5);
+%       \node[classic] (3) at (1,-.5);
+%       \node[classic] (4) at (2,0);
 
+%       \draw (1) -> (2);
+%       \draw (1) -> (3);
+%       \draw (2) -> (4);     
+%     \end{tikzpicture}
+%     \caption{Forbidden configuration, Condition 2:Consistent neighbourhoods}
+%     \label{sfig:config2}
+%   \end{subfigure}%
+%   \caption{Characterisation of orientations of line digraphs.}
+%   \label{fig:config_line_digraph}
+% \end{figure}
+Note that the second condition forbids parallel arcs in $D'$, while the first
+one ensures that the all arcs of $D'$ entering a fixed vertex have identical
+out-neighbourhood in $D$. Moreover, note
+that these two conditions ensure that the only allowed orientations of the 4-cycles
+of $D$ are the cyclic ones and the ones alternating at each vertex.
 
+Beineke's characterisation shows that line digraphs of digraphs can be
+recognised in polynomial time. However, Chv\'atal and Ebenegger showed that
+recognising their support is NP-complete~\cite{chvatal1990Note}.
 
-\section{Recognizing supports of line digraphs}
+\paragraph{Shift graphs}
+The class of $k$-shift graphs (or simply shift graphs for $k=2$) is the
+hereditary closure of the graphs $\{G_{n,k} : n \ge 1\}$, that is, all induced
+subgraph of some $G_{n,k}$. Note that this definition is equivalent to saying
+that $k$-shift graphs are the supports of the $(k-1)$-iterated line digraphs of
+all directed acyclic graphs. Equivalently, shift graphs are often defined by
+their interval representation and the natural acyclic orientation that arises
+from it: the vertices of a shift graph are indexed by intervals $[a,b]$ with
+$1 \le a < b \le n$, and contains an arc from $[a,b]$ to $[c,d]$ if $b = c$. More precisely,
+\begin{lemma}
+  A graph is a shift graph if and only if it admits an acyclic orientation that
+  is the line digraph of a digraph.
+\end{lemma}
+As a result all 4-cycles in the natural orientation of a shift graph are
+alternating at each vertex.
+
+\section{Recognising supports of line digraphs}
 \clement{With Ugo, we noticed a mistake in our proof for high girth. Here is a
   sktch of proof for girth 4. We simplified the clause gadget to a path with
   four pending edges.}
+
+By Schaefer's dichotomy theorem, the following problem is NP-complete. 
+\begin{csproblem}{Not all equal (NAE3SAT)}
+  Given a formula $\phi$ in conjonctive normal form with three literals per
+  clause, recognise if there exists an assignment to the variables such that each
+  clause of $\phi$ contains literals with different values.    
+\end{csproblem}
+
+
+
 \begin{theorem}
-  Recognizing the support of a shift graph is an NP-complete problem.
+  Recognising a shift graph (or equivalently, the support of the line digraph of
+  a digraph) is an NP-complete problem.
 \end{theorem}
 \begin{proof}
-  We reduce the ``not all equal'' 3-SAT problem to shift graph
-  recognition.
+  We reduce \textsc{NAE3SAT} to the shift graph recognition problem.
 
   Let $\phi$ be a formula in conjonctive normal form, with three litterals per
   clause.
 
-  Let $H$ be the four sun, that is the graph on eight vertices composed of a
-  four-cycle and a pending edge attached to each of the vertices of the cycle.
-  Let $m$ be the number of clauses. For each variable $x$, consider the
-  gadget composed of a path on $8m-1$ vertices $u_x^0, \dots u_x^{8m-2}$ in which
-  we connect each $u_x^{2i}$ to a vertex $v_x^{2i}$ itself adjacent to $w_x^{2i}$
-  and to a copy of $H$ via one of the
-  vertices of degree three (see \cref{fig:variable_gadget}).
+  We first describe the gadget used for the variables. Let $H$ be the 4-sun,
+  that is the graph on eight vertices composed of a 4-cycle with one pending
+  edge attached to each of the vertices of the cycle. Let $m$ be the number of
+  clauses. For each variable $x$, consider the gadget composed of a path on
+  $8m-1$ vertices $u_x^0, \dots, u_x^{8m-2}$ in which we connect each $u_x^{2i}$
+  to a vertex $v_x^{2i}$ itself adjacent to $w_x^{2i}$. Finally, connect each
+  $u_x^{2i}$ to a distinct copy of $H$ via one of the vertices of degree three (see
+  \cref{fig:variable_gadget}). For each variable $x$, denote $H_x$ the copy of
+  this gadget.
 
   \begin{figure}[h!]
     \centering
@@ -250,41 +317,46 @@ NP-complete~\cite{chvatal1990Note}.
         \draw (a\i) -- (b\i) -- (a\j);
       }
 
-      \node[below left] at (a0) {$u_x^0$};
-      \node[below left] at (e01) {$v_x^0$};
-      \node[below left] at (e02) {$w_x^0$};
-      \node[below left] at (a7) {$u_x^{8m-2}$};
-      \node[below left] at (e71) {$v_x^{8m-2}$};
-      \node[below left] at (e72) {$w_x^{8m-2}$};
+      \node[below left] at (a0) {\small $u_x^0$};
+      \node[below left] at (e01) {\small $v_x^0$};
+      \node[below left] at (e02) {\small $w_x^0$};
+      \node[below left] at (a1) {\small $u_x^2$};
+      \node[below left] at (b0) {\small $u_x^1$};
+      \node[below left] at (e11) {\small $v_x^2$};
+      \node[below left] at (e12) {\small $w_x^2$};
+      \node[below right] at (a7) {\small $u_x^{8m-2}$};
+      \node[below right] at (e71) {\small $v_x^{8m-2}$};
+      \node[below right] at (e72) {\small $w_x^{8m-2}$};
     \end{tikzpicture}  
-    \caption{Variable gadget}
+    \caption{Variable gadget $H_x$}
     \label{fig:variable_gadget}    
   \end{figure}
+  
+  For each $i \in {0, \dots m-1}$, we attach the gadgets of the variable
+  appearing in the $i$-th clause $C_i$ as follows. Let $x, y, z$ be the variables
+  appearing in $C_i$. Add four edges to form a 4-cycle on the vertices $a_i$,
+  $b_i$, $c_i$ and $d_i$, such that $a_i$ and $c_i$ are both adjacent to $b_i$ and $d_i$, where:
+  \begin{itemize}
+  \item $a_i=w_x^{8i}$ if $x$ appears positively in $C_i$, and $a_i=w_x^{8i+2}$ otherwise,
+  \item $b_i=w_y^{8i}$ if $y$ appears negatively in $C_i$, and $b_i=w_y^{8i+2}$ otherwise,
+  \item $c_i=w_z^{8i}$ if $z$ appears positively in $C_i$, and $c_i=w_z^{8i+2}$
+    otherwise,
+  \item $d_i=w_y^{8i+4}$ if $y$ appears negatively in $C_i$, and $d_i=w_y^{8i+6}$ otherwise.
+  \end{itemize}
+
+  Denote $G$ the constructed graph. We will say that an orientation of a graph
+  is \emph{valid} if it is acyclic and forms a line digraph. Before proving that
+  there is an assignment such that $\phi$ has literals with different values in
+  each clause if and only if $G$ admits a valid orientation, we prove several
+  claims describing valid orientations of $G$.
 
   \begin{claim}\label{cl:variable_alternating}
-    There are only two possible orientations of the variable gadget. If
-    $w_x^0 \to v_x^0$ then for all $i$, we have $w_x^{4i} \to v_x^{4i}$ and
+    There are only two possible orientations of $H_x$. If $w_x^0 \to v_x^0$ then
+    for all $i$, we have $w_x^{4i} \to v_x^{4i}$ and
     $v_x^{4i+2} \to w_x^{4i+2}$.
   \end{claim}
   \begin{proof}
   \end{proof}
-  
-  For each $i \in {0, \dots m-1}$, we attach the gadget corresponding to the
-  $i$-th clause as follows. Let $x, y, z$ be the litterals in the
-  clause. Consider a path on six vertices with interior vertices
-  $a_i,b_i,c_i,d_i$ and identify the following vertices:
-
-  \begin{itemize}
-  \item $a_i$ with $w_x^{8i}$ if $a_i = x$ and with $w_x^{8i+2}$ if
-    $a_i = \neg x$,
-  \item $b_i$ with $w_y^{8i}$ if $b_i = \neg y$ and with $w_y^{8i+2}$ if
-    $b_i = y$,
-  \item $c_i$ with $w_y^{8i+4}$ if $c_i = \neg y$ and with $w_y^{8i+6}$ if
-    $c_i = y$,
-  \item $d_i$ with $w_z^{8i}$ if $d_i = z$ and with $w_z^{8i+2}$ if
-    $d_i = \neg z$.
-  \end{itemize}
-
   Given an valid orientation, we say that $a_i$ (respectively $b_i$, $c_i$ or
   $d_i$) is \emph{positive} if the edge connecting $a_i$ to the variable gadget
   is oriented towards $a_i$, otherwise we say it is \emph{negative}.
