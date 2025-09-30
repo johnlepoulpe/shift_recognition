@@ -34,6 +34,7 @@
 \usepackage{hyperref}
 
 \usepackage{tikz}
+\usetikzlibrary{decorations.markings}
 \tikzstyle{classic}=[draw=black,fill = black,inner sep = 1pt,circle]
 
 \newtheorem{theorem}{Theorem}
@@ -175,7 +176,7 @@ tournament on $n$ vertices. The graph $G_{n,k}$ has odd-girth $2k+1$, in
 particular shift graphs are triangle-free.
 
 The following result of Beineke characterise line digraphs of digraphs.
-\begin{lemma}[Beineke~\cite{beineke1968Derived}]
+\begin{lemma}[Beineke~\cite{beineke1968Derived}]\label{lem:forbidden_config}
   A digraph $D$ is the line digraph of a digraph $D'$ if and only if the two
   following conditions are satisfied:
   \begin{enumerate}
@@ -243,7 +244,7 @@ all directed acyclic graphs. Equivalently, shift graphs are often defined by
 their interval representation and the natural acyclic orientation that arises
 from it: the vertices of a shift graph are indexed by intervals $[a,b]$ with
 $1 \le a < b \le n$, and contains an arc from $[a,b]$ to $[c,d]$ if $b = c$. More precisely,
-\begin{lemma}
+\begin{lemma}\label{lem:valid}
   A graph is a shift graph if and only if it admits an acyclic orientation that
   is the line digraph of a digraph.
 \end{lemma}
@@ -289,19 +290,19 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
     \begin{tikzpicture}[scale = 1]
       \foreach \i in {0,...,7}{
         \begin{scope}[shift={(2*\i,0)}]
-          \node[draw,circle,fill=black,inner sep=1pt] (a\i) at (0,0) {};
+          \node[classic] (a\i) at (0,0) {};
           
-          \node[draw,circle,fill=black,inner sep=1pt] (e\i1) at (0,-.75) {};
-          \node[draw,circle,fill=black,inner sep=1pt] (e\i2) at (0,-1.5) {};
+          \node[classic] (e\i1) at (0,-.75) {};
+          \node[classic] (e\i2) at (0,-1.5) {};
 
-          \node[draw,circle,fill=black,inner sep=1pt] (H\i11) at (0,.5) {};
-          \node[draw,circle,fill=black,inner sep=1pt] (H\i12) at (-.25,.25) {};
-          \node[draw,circle,fill=black,inner sep=1pt] (H\i21) at (.25,.75) {};
-          \node[draw,circle,fill=black,inner sep=1pt] (H\i22) at (.5,.75) {};
-          \node[draw,circle,fill=black,inner sep=1pt] (H\i31) at (0,1) {};
-          \node[draw,circle,fill=black,inner sep=1pt] (H\i32) at (0,1.25) {};
-          \node[draw,circle,fill=black,inner sep=1pt] (H\i41) at (-.25,.75) {};
-          \node[draw,circle,fill=black,inner sep=1pt] (H\i42) at (-.5,.75) {};
+          \node[classic] (H\i11) at (0,.5) {};
+          \node[classic] (H\i12) at (-.25,.25) {};
+          \node[classic] (H\i21) at (.25,.75) {};
+          \node[classic] (H\i22) at (.5,.75) {};
+          \node[classic] (H\i31) at (0,1) {};
+          \node[classic] (H\i32) at (0,1.25) {};
+          \node[classic] (H\i41) at (-.25,.75) {};
+          \node[classic] (H\i42) at (-.5,.75) {};
           \draw (H\i11) -- (H\i21) -- (H\i31) -- (H\i41) -- (H\i11);
           \draw (H\i11) -- (a\i) -- (e\i1) -- (e\i2) ;
           \foreach \j in {1,...,4}{
@@ -312,7 +313,7 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
         
       }
       \foreach \i in {0,...,6}{
-        \node[draw,circle,fill=black,inner sep=1pt] (b\i) at (2*\i+1,0) {};
+        \node[classic] (b\i) at (2*\i+1,0) {};
         \pgfmathsetmacro{\j}{\i+1}
         \draw (a\i) -- (b\i) -- (a\j);
       }
@@ -348,15 +349,65 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
   is \emph{valid} if it is acyclic and forms a line digraph. Before proving that
   there is an assignment such that $\phi$ has literals with different values in
   each clause if and only if $G$ admits a valid orientation, we prove several
-  claims describing valid orientations of $G$.
+  lemmas describing valid orientations of $G$.
 
-  \begin{claim}\label{cl:variable_alternating}
+  \begin{lemma}
+    There are only two valid orientations of the 4-sun, which are opposite (see
+    ~\cref{fig:sun_orientation}). The 4-cycle is alternating, and no vertex of
+    degree three is a source or a sink.
+  \end{lemma}
+  \begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[decoration={
+        markings,
+        mark=at position 0.5 with {\arrow[scale=1.5]{>}}}
+      ]
+      
+      \node[classic] (a) at (0,0) {};
+      \node[classic] (a') at (-1,0) {};
+      \node[classic] (b) at (1,1) {};
+      \node[classic] (b') at (1,2) {};
+      \node[classic] (c) at (2,0) {};
+      \node[classic] (c') at (3,0) {};
+      \node[classic] (d) at (1,-1) {};
+      \node[classic] (d') at (1,-2) {};
+
+      \draw[postaction={decorate}] (a) -- (b);
+      \draw[postaction={decorate}] (c) -- (b);
+      \draw[postaction={decorate}] (a) -- (d);
+      \draw[postaction={decorate}] (c) -- (d);
+
+      \draw[postaction={decorate}] (a') -- (a);
+      \draw[postaction={decorate}] (b) -- (b');
+      \draw[postaction={decorate}] (c') -- (c);
+      \draw[postaction={decorate}] (d) -- (d');
+
+    \end{tikzpicture}
+    \caption{The only valid orientation of the 4-sun (and its opposite).}
+    \label{fig:sun_orientation}
+  \end{figure}
+  \begin{proof}
+    Let $D$ be a digraph with a valid orientation and whose support is the
+    4-sun. By~\cref{lem:valid}, the 4-cycle $C$ of $D$ is alternating. Let $v$ a
+    vertex of degree three. Without loss of generality, assume that $v$ has two
+    out-neighbours in $C$. Let $u$ be the remaining neighbour of $v$, and $w$
+    and $x$ be two vertices of $C$ such that $w$ is adjacent to $v$, while $x$
+    is not. So $D$ contains the arcs $v \to w$ and $x \to w$. Since $D$ is the
+    line digraph of a graph, by the first condition
+    of~\cref{lem:forbidden_config}, the edge between $u$ and $v$ is oriented
+    towards $v$, hence $v$ is not a source and $D$ is of the form depicted on~\cref{fig:sun_orientation}. 
+  \end{proof}
+
+  
+  \begin{lemma}\label{lem:variable_alternating}
     There are only two possible orientations of $H_x$. If $w_x^0 \to v_x^0$ then
     for all $i$, we have $w_x^{4i} \to v_x^{4i}$ and
     $v_x^{4i+2} \to w_x^{4i+2}$.
-  \end{claim}
+  \end{lemma}
   \begin{proof}
   \end{proof}
+
+  
   Given an valid orientation, we say that $a_i$ (respectively $b_i$, $c_i$ or
   $d_i$) is \emph{positive} if the edge connecting $a_i$ to the variable gadget
   is oriented towards $a_i$, otherwise we say it is \emph{negative}.
