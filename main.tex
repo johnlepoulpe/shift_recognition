@@ -414,7 +414,7 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
     such that none of the degree three vertices is a source or a sink.
 
     Let $i \in \{0,...,4m-1\}$ and assume that $t^{2i}_x \to u^{2i}_x$
-    (respectively $u^{2i}_x \to t^{2i}_x$). By \cref{lem:sun_orientation},
+    (respectively $u^{2i}_x \to t^{2i}_x$). By \cref{cl:sun_orientation},
     $t^{2i}_x$ is neither a source or a sink in the copy of the 4-sun it belongs
     to, so $t^{2i}_x$ has an outneighbour (resp. an inneighbour). Therefore,
     $u^{2i+1}_x$, $u^{2i-1}_x$ and $v^{2i}_x$ are all outneighbours of
@@ -433,7 +433,7 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
   
   \begin{claim}\label{cl:clause_orientation}
     In any valid orientation, the edges $e_i$ cannot be all positive, or all
-    negative. Reciprocally, any orientation of the edges $e_i$ such that $e_2$
+    negative. Conversely, any orientation of the edges $e_i$ such that $e_2$
     and $e_3$ are both positive (or both negative), and the edges $e_i$ are not
     all positive (or all negative) can be extended onto $D$ into a valid orientation. 
   \end{claim}
@@ -445,7 +445,7 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
     and an outneighbour and $e_1$ is negative. By the symmetry, if we had $c \to
     b$, $e_4$ would be negative.
 
-    Reciprocally, consider an orientation of $e_1, \dots e_4$, such that $e_2$
+    Conversely, consider an orientation of $e_1, \dots e_4$, such that $e_2$
     and $e_3$ are say positive, but not all four edges are positive. Say without
     loss of generality $e_1$ is negative. Then orienting $D$ as on picture
     \cref{fig:variable_gadget} forms a line digraph by
