@@ -295,6 +295,22 @@ alternating at each vertex.
   we add $b_i \to e$ and $e \to a_j$. The support of the line digraph of $H$ is
   $G^{**}$ which proves that $G^{**}$ is a shift graph.
 \end{proof}
+
+\begin{theorem}
+  \textsc{3-Col} is NP-complete on shift graphs.
+\end{theorem}
+\begin{proof}
+  We reduce \textsc{3-Col} on general graphs to \textsc{3-Col} on shift
+  graphs. We construct gadget $H$ with two marked vertices $u$ and $v$ such that
+  any 3-colouring of $H$ colours $u$ and $v$ differently. By replacing each
+  edge $uv$ of a graph $G$ by $H$, we obtain a shift graph $G'$ that is
+  3-colourable if and only $G$ is 3-colourable.
+
+  \paragraph{The gadget $H$}
+
+  \paragraph{$G'$ is a shift graph}
+  
+\end{proof}
 \section{Recognising supports of line digraphs}
 \clement{With Ugo, we noticed a mistake in our proof for high girth. Here is a
   sktch of proof for girth 4. We simplified the clause gadget to a path with
