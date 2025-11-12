@@ -276,6 +276,25 @@ $1 \le a < b \le n$, and contains an arc from $[a,b]$ to $[c,d]$ if $b = c$. Mor
 As a result all 4-cycles in the natural orientation of a shift graph are
 alternating at each vertex.
 
+\section{Maximum independent set and 3-Colouring of shift graphs}
+\begin{lemma}\label{lem:subdivision_MIS}
+  For all graph $G$, we have $\alpha(G^{**}) = \alpha(G) + |E(G)|$, where
+  $G^{**}$ is the graph obtained by subdividing each edge of $G$ twice. 
+\end{lemma}
+
+\begin{corollary}
+  \textsc{MIS} is NP-complete on shift graphs.
+\end{corollary}
+\begin{proof}
+  Let $G$ be a graph and denote $[n]=V(G)$. We claim that $G^{**}$ is a shift
+  graph. By \cref{lem:subdivision_MIS}, this implies directly that \textsc{MIS}
+  is NP-complete on shift graphs. To prove our claim, consider the tournament
+  $H$ on the vertex set $V'$ composed of $E(G)$ and two copies of $V(G)$, that
+  is $V' := {\{a_i : i \in [n]\} \cup} {\{b_i: i \in [n]\} \cup} E(G)$. For all
+  $i \in [n]$ we add the arc $a_i \to b_i$ and for all $e =\{i,j\}$ with $i<j$,
+  we add $b_i \to e$ and $e \to a_j$. The support of the line digraph of $H$ is
+  $G^{**}$ which proves that $G^{**}$ is a shift graph.
+\end{proof}
 \section{Recognising supports of line digraphs}
 \clement{With Ugo, we noticed a mistake in our proof for high girth. Here is a
   sktch of proof for girth 4. We simplified the clause gadget to a path with
