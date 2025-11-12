@@ -177,6 +177,8 @@ Nicolas Trotignon\footnotemark[2]
 \end{table}
 
 \paragraph{Line digraphs}
+We say that a vertex $u$ of a digraph is \emph{transitive} if it is neither a
+source nor a sink.
 Given a digraph $D$, the \emph{line digraph} $L(D)$ of $D$ is the digraph whose
 vertices are the arcs of $D$ and in which there is an arc from $a$ to $b$ if the
 head of $a$ is the tail of $b$ in $D$. The \emph{$k$-iterated line digraph} $L^k(D)$
@@ -280,11 +282,10 @@ alternating at each vertex.
   four pending edges.}
 
 By Schaefer's dichotomy theorem, the following problem is NP-complete. 
-\begin{csproblem}{Monotone Not all equal (NAE3SAT)}
+\begin{csproblem}{Monotone Not all equal (MNAE3SAT)}
   Given a monotone 3-CNF formula $\phi$ (in conjonctive normal form with three
   non-negated variables per clause), recognise if there exists an assignment to
-  the variables such that each clause of $\phi$ contains literals with different
-  values.
+  the variables such that each clause of $\phi$ contains true and false variables.
 \end{csproblem}
 
 
@@ -294,7 +295,7 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
   a digraph) is an NP-complete problem.
 \end{theorem}
 \begin{proof}
-  We reduce \textsc{Monotone NAE3SAT} to the shift graph recognition problem.
+  We reduce \textsc{MNAE3SAT} to the shift graph recognition problem.
 
   \paragraph{Gadgets}
   Let $\phi$ be a monotone 3-CNF formula. We first describe the gadget used for the
@@ -362,16 +363,16 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
   $d_i=w_z^{8i}$. Denote $G_\phi$ the constructed graph.
 
   \paragraph{Line digraph orientations of $G_\phi$}
-  We will say that an orientation of a graph
-  is \emph{valid} if it is acyclic and forms a line digraph. Before proving that
-  there is an assignment such that $\phi$ has literals with different values in
-  each clause if and only if $G_\phi$ admits a valid orientation, we prove several
-  lemmas describing valid orientations of $G_\phi$ and some of its subgraphs.
+  We will say that an orientation of a graph is \emph{valid} if it is acyclic
+  and forms a line digraph. Before proving that there is an assignment such that
+  $\phi$ has true and false variables in each clause if and only if $G_\phi$
+  admits a valid orientation, we prove several lemmas describing valid
+  orientations of $G_\phi$ and some of its subgraphs.
 
   \begin{claim}\label{cl:sun_orientation}
     There are only two valid orientations of the 4-sun, which are opposite (see
     ~\cref{fig:sun_orientation}). In these orientations, the 4-cycle is
-    alternating and no vertex of degree three is a source or a sink.
+    alternating and all vertices of degree three are transitive.
   \end{claim}
   \begin{figure}[ht]
     \centering
@@ -422,18 +423,21 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
 
   \begin{claim}\label{cl:gadget_orientation}
    
-    There are only two valid orientations of $A_x$, which are opposite. If
+    Consider a valid orientation of $H_x$. There are only two possible orientations for
+    its restriction to the subgraph induced by $A_x$, which are opposite. If
     $w_x^0 \to v_x^0$ then for all $i$, we have $w_x^{2i} \to v_x^{2i}$ if $i$
     is even and $v_x^{2i} \to w_x^{2i}$ if $i$ is odd.
   \end{claim}
   \begin{poc}
     Without loss of generality, assume that $w_x^0 \to v_x^0$.
     By~\cref{cl:sun_orientation}, each copy of the 4-sun in $H_x$ is oriented
-    such that none of the degree three vertices is a source or a sink.
+    such that all the vertices of degree three are transitive (however,
+    each copy of the 4-sun may be oriented independently to any of its two
+    possible orientations).
 
     Let $i \in \{0,...,4m-1\}$ and assume that $t^{2i}_x \to u^{2i}_x$
     (respectively $u^{2i}_x \to t^{2i}_x$). By \cref{cl:sun_orientation},
-    $t^{2i}_x$ is neither a source or a sink in the copy of the 4-sun it belongs
+    $t^{2i}_x$ is transitive in the copy of the 4-sun it belongs
     to, so $t^{2i}_x$ has an outneighbour (resp. an inneighbour). Therefore,
     $u^{2i+1}_x$, $u^{2i-1}_x$ and $v^{2i}_x$ are all outneighbours of
     $u^{2i}_x$ (resp. inneighbours). As $v^{2i}_xu^{2i}_xu^{2i+1}_x$ is an
@@ -499,8 +503,8 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
 
   \paragraph{Equivalence of the instances}
   We are now ready to prove that $\phi$ admits an assignment such that each
-  clause contain literals with different values if and only if $G_\phi$ is a
-  shift graph.
+  clause contain true and false variables with different values if and only if
+  $G_\phi$ is a shift graph.
 
   We first prove the direct implication. Consider such an assignment. For all
   variable $x$ choose the orientation of $H_x$ such that $w^{0}_x \to v^{0}_x$
@@ -510,17 +514,17 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
   subgraph of $G_\phi$, with $e_1,\dots e_4$ the edges attached to the vertices
   of the path of length three. By construction and \cref{cl:gadget_orientation},
   $e_2$ and $e_3$ are either both negative or both positive. Since $C_i$
-  contains literals with different values, we can apply
-  \cref{cl:clause_orientation} to orient the remaining edges of $D_i$. The
-  orientation we constructed is valid when restricted to each $D_i$ and to each
-  $H_x$. To check that is forms a valid orientation of $G_\phi$, we only need to
-  check the first condition of \cref{lem:forbidden_config} at the junctions
-  between the clause and the variables gadgets, and the orientations of the
-  cycles using these junctions. Note that any such cycle must pass by some
-  $u^{2i}_x$, at which it alternates. Finally, as each $u^{2i}_xv^{2i}_xw^{2i}_x$
-  forms a non-alternating path, the first condition of
-  \cref{lem:forbidden_config} is satisfied and the orientation of $G_\phi$ is
-  that of an acyclic line digraph. In other words, $G_\phi$ is a shift graph.
+  contains true and false variables, we can apply \cref{cl:clause_orientation}
+  to orient the remaining edges of $D_i$. The orientation we constructed is
+  valid when restricted to each $D_i$ and to each $H_x$. To check that is forms
+  a valid orientation of $G_\phi$, we only need to check the first condition of
+  \cref{lem:forbidden_config} at the junctions between the clause and the
+  variables gadgets, and the orientations of the cycles using these
+  junctions. Note that any such cycle must pass by some $u^{2i}_x$, at which it
+  alternates. Finally, as each $u^{2i}_xv^{2i}_xw^{2i}_x$ forms a
+  non-alternating path, the first condition of \cref{lem:forbidden_config} is
+  satisfied and the orientation of $G_\phi$ is that of an acyclic line
+  digraph. In other words, $G_\phi$ is a shift graph.
 
   We now prove the reverse implication. Consider a valid orientation of
   $G_\phi$. For each variable $x$, assign $x$ to true if $w^{0}_x \to v^0_x$ and
@@ -528,9 +532,9 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
   corresponding variable gadget. By construction and by
   \cref{cl:gadget_orientation}, each of the edges $e_1, \dots e_4$ attached to
   the internal vertices of $D_i$ is positive if and only if the corresponding
-  literal is true. By \cref{cl:clause_orientation}, the edges $e_1, \dots e_4$
+  variable is true. By \cref{cl:clause_orientation}, the edges $e_1, \dots e_4$
   cannot be all positive or all negative because the orientation is valid. Hence
-  $C_i$ contains a true and a false literal, which concludes the proof.
+  $C_i$ contains a true and a false variable, which concludes the proof.
 \end{proof}
 
 \nocite{*}
