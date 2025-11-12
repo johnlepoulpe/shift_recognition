@@ -1,6 +1,10 @@
 \documentclass[11pt,a4aper]{article}
 \pdfoutput=1
 
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\usepackage[lf,enc=t1]{berenis}
+
 \renewcommand{\baselinestretch}{1}
 \usepackage[UKenglish]{isodate}
 \cleanlookdateon
@@ -152,6 +156,24 @@ Nicolas Trotignon\footnotemark[2]
 \begin{abstract}
 \end{abstract}
 
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+    Graph class & Recognition & Minimum Independent set & 3-Colouring \\
+    \hline
+    Mycielski & P & NPC & NPC \\
+    Zykov & NPC \cite{marin2024Structural}& NPC & NPC \\
+    Blanche-Descartes & NPC \cite{marin2024Structural} & NPC & NPC \\
+    Burling & P \cite{rzazewski2024Polynomial} & P \cite{rzazewski2024Polynomial} & NPC \\
+    Twincut & P & NPC & NPC  \\
+    Shift & NPC & NPC & NPC \\
+    \hline
+  \end{tabular}  
+  \caption{Complexity of Recognition, Minimum independent set and 3-Colouring of
+    the main constructions of triangle-free graph of large chromatic number}
+  \label{tab:complexity}
+\end{table}
 
 \paragraph{Line digraphs}
 Given a digraph $D$, the \emph{line digraph} $L(D)$ of $D$ is the digraph whose
@@ -257,10 +279,11 @@ alternating at each vertex.
   four pending edges.}
 
 By Schaefer's dichotomy theorem, the following problem is NP-complete. 
-\begin{csproblem}{Not all equal (NAE3SAT)}
-  Given a 3-CNF formula $\phi$ (in conjonctive normal form with three literals per
-  clause), recognise if there exists an assignment to the variables such that each
-  clause of $\phi$ contains literals with different values.    
+\begin{csproblem}{Monotone Not all equal (NAE3SAT)}
+  Given a monotone 3-CNF formula $\phi$ (in conjonctive normal form with three
+  non-negated variables per clause), recognise if there exists an assignment to
+  the variables such that each clause of $\phi$ contains literals with different
+  values.
 \end{csproblem}
 
 
@@ -270,10 +293,10 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
   a digraph) is an NP-complete problem.
 \end{theorem}
 \begin{proof}
-  We reduce \textsc{NAE3SAT} to the shift graph recognition problem.
+  We reduce \textsc{Monotone NAE3SAT} to the shift graph recognition problem.
 
   \paragraph{Gadgets}
-  Let $\phi$ be a 3-CNF formula. We first describe the gadget used for the
+  Let $\phi$ be a monotone 3-CNF formula. We first describe the gadget used for the
   variables. Let $H$ be the 4-sun, that is the graph on eight vertices composed
   of a 4-cycle with one pending edge attached to each of the vertices of the
   cycle. Let $m$ be the number of clauses. For each variable $x$, consider the
