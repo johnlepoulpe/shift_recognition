@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{polski}
 \usepackage[lf,enc=t1]{berenis}
+\usepackage[main=english,polish]{babel}
 
 \renewcommand{\baselinestretch}{1}
 \usepackage[UKenglish]{isodate}
@@ -355,16 +356,10 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
   \end{figure}
   
   For each $i \in {0, \dots m-1}$, we attach the gadgets of the variable
-  appearing in the $i$-th clause $C_i$ as follows. Let $x, y, z$ be the variables
-  appearing in $C_i$. Add three edges to form a path $a_ib_ic_id_i$, where:
-  \begin{itemize}
-  \item $a_i=w_x^{8i}$ if $x$ appears positively in $C_i$, and $a_i=w_x^{8i+2}$ otherwise,
-  \item $b_i=w_y^{8i}$ if $y$ appears negatively in $C_i$, and $b_i=w_y^{8i+2}$ otherwise,
-  \item $c_i=w_y^{8i+4}$ if $y$ appears negatively in $C_i$, and $c_i=w_y^{8i+6}$
-    otherwise,
-  \item $d_i=w_z^{8i}$ if $z$ appears positively in $C_i$, and $d_i=w_z^{8i+2}$ otherwise.
-  \end{itemize}
-  Denote $G_\phi$ the constructed graph.
+  appearing in the $i$-th clause $C_i$ as follows. Let $x, y, z$ be the
+  variables appearing in $C_i$. Add three edges to form a path $a_ib_ic_id_i$,
+  where $a_i=w_x^{8i}$, $b_i=w_y^{8i+2}$, $c_i=w_y^{8i+6}$ and
+  $d_i=w_z^{8i}$. Denote $G_\phi$ the constructed graph.
 
   \paragraph{Line digraph orientations of $G_\phi$}
   We will say that an orientation of a graph
