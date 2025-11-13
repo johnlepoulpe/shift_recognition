@@ -338,7 +338,15 @@ alternating at each vertex and shift graphs are triangle-free.
   \paragraph{The gadget $H$}
   We construct an acyclic digraph $H$ with two marked arcs $e$ and $f$ with a
   common marked head $x$ such that any 3-edge-colouring of $H$ colours $e$ and $f$
-  differently.
+  differently. Let $H$ be the digraph on ten vertices $u_0, \dots u_8$ and $x$
+  constructed as follows. For each $i, j \in \{0, \dots, 6\} \cup \{8\}$, add
+  the arc $u_i \to u_j$ if $i < j < i+5$. Add also the arcs $u_3 \to u_7$,
+  $u_4 \to u_7$, $u_5 \to x$ and $u_6 \to x$. In $H$, $x$ is a sink and a
+  computer check shows that $H$ is 3-edge-colourable, and that all
+  3-edge-colourings of $H$  use distinct colours on $u_5 \to x$ and $u_6 \to
+  x$. Indeed, $L(H)$ admits 1248 3-colourings and the graph $L(H)'$ obtained
+  from $L(H)$ by adding an edge between $u_5x$ and $u_6x$ also has 1248
+  3-colourings (although it is not a shift graph anymore).
 
   \paragraph{Constructing the shift graph}
   Let $G$ be a graph. Consider the root graph $G'$ constructed as follows. Order
