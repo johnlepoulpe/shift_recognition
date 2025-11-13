@@ -359,7 +359,10 @@ alternating at each vertex and shift graphs are triangle-free.
 \end{theorem}
 \begin{proof}
   We reduce \textsc{3-Col} on general graphs to \textsc{3-Col} on shift
-  graphs. 
+  graphs. If $G_2$ is the directed line graph of the a digraph $G_1$, we will
+  for convenience see the $k$-colourings of $G_2$ as $k$-colourings of the arcs of
+  $G_1$ such that the arcs $u \to v$ and $v \to w$ are coloured differently for
+  any $v$ (however, several arcs of the same colour can enter $v$). 
 
   \paragraph{The gadget $H$}
   We construct an acyclic digraph $H$ with two marked arcs $e$ and $f$ with a
@@ -448,6 +451,9 @@ alternating at each vertex and shift graphs are triangle-free.
             \node[classic] (y\i) at (.5,-1) {};
             \node[above left] at (y\i) {\small $y_{\i}$};
             \node (H\i) at (.5,1.5) {\small $H_{\i}$};
+            \draw[postaction=decorate] (.6,.7) -- (x\i);
+            \draw[postaction=decorate] (.8,.7) -- (x\i);
+
             \draw[color3,postaction=decorate] (x\i) -- (y\i);
           \end{scope}
         }
