@@ -79,6 +79,7 @@
 
 %%%%% mathbold and mathcal
 \newcommand*{\eps}{\varepsilon}
+\renewcommand{\phi}{\varphi}
 \newcommand*{\bE}{\mathbb{E}}
 \newcommand*{\bN}{\mathbb{N}}
 \newcommand*{\bP}{\mathbb{P}}
@@ -417,9 +418,10 @@ alternating at each vertex and shift graphs are triangle-free.
   $H_u$ of $H$, with an arc $e_u=x_u \to y_u$ starting in the marked vertex
   $x_u$ of $H_u$. For each edge $uv \in E(G)$, with $u < v$, add the arc
   $x_u \to x_v$ (see \cref{fig:NP-col}). The digraph $G'$ constructed is acyclic
-  because each copy of $H$ is acyclic and separated from the rest of $G'$ by a
-  cut vertex, and the additional edges can be ordered acyclically following the
-  order on the vertices of $G$. Therefore $L(G')$ is a shift graph.
+  because each copy $H_u$ of $H$ is acyclic and separated from the rest of $G'$
+  by the cut vertex $x_u$, and the additional edges can be ordered acyclically
+  following the order on the vertices of $G$. Therefore $L(G')$ is a shift
+  graph.
 
   \begin{figure}[h!]
     \begin{subfigure}[t]{.3\textwidth}
@@ -492,9 +494,6 @@ alternating at each vertex and shift graphs are triangle-free.
   the colour of $v \in V(G)$. Thus $G$ is 3-colourable.  
 \end{proof}
 \section{Recognising supports of line digraphs}
-\clement{With Ugo, we noticed a mistake in our proof for high girth. Here is a
-  sktch of proof for girth 4. We simplified the clause gadget to a path with
-  four pending edges.}
 
 By Schaefer's dichotomy theorem, the following problem is NP-complete. 
 \begin{csproblem}{Monotone Not all equal (MNAE3SAT)}
@@ -513,19 +512,20 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
   We reduce \textsc{MNAE3SAT} to the shift graph recognition problem.
 
   \paragraph{Gadgets}
-  Let $\phi$ be a monotone 3-CNF formula. We first describe the gadget used for the
-  variables. Let $H$ be the 4-sun, that is the graph on eight vertices composed
-  of a 4-cycle with one pending edge attached to each of the vertices of the
-  cycle. Let $m$ be the number of clauses. For each variable $x$, consider the
-  gadget composed of a path on $8m-1$ vertices $u_x^0, \dots, u_x^{8m-2}$ in
-  which we connect each $u_x^{2i}$ to a vertex $v_x^{2i}$ itself adjacent to
-  $w_x^{2i}$. Finally, connect each $u_x^{2i}$ to a distinct copy of $H$ via one
+  Let $\phi$ be a monotone 3-CNF formula. We first describe the gadget used for
+  the variables. Let $H$ be the 4-sun, that is the graph on eight vertices
+  composed of a 4-cycle with one pending edge attached to each of the vertices
+  of the cycle. Let $m$ be the number of clauses. For each variable $x$,
+  consider the gadget composed of a path on $8m+3$ vertices
+  $u_x^{-2}, \dots, u_x^{8m}$ in which for each $i \in \{0, \ldots, 2(m-1)\}$ we
+  connect each $u_x^{2i}$ to a vertex $v_x^{2i}$ itself adjacent to
+  $w_x^{2i}$, and each $u_x^{2i}$ to a distinct copy of $H$ via one
   of the vertices of degree three that we will call $t_x^{2i}$ (see
   \cref{fig:variable_gadget}). For each variable $x$, denote $H_x$ the copy of
   this gadget.
   \begin{figure}[h!]
     \centering
-    \begin{tikzpicture}[scale = 1]
+    \begin{tikzpicture}[scale = .8]
       \foreach \i in {0,...,7}{
         \begin{scope}[shift={(2*\i,0)}]
           \node[classic] (a\i) at (0,0) {};
@@ -550,34 +550,46 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
         \end{scope}        
         
       }
-      \foreach \i in {0,...,6}{
+
+
+      \node[classic] (a) at (-2,0) {};
+      \node[classic] (b) at (-1,0) {};
+      \node[classic] (a8) at (16,0) {};
+
+      \draw (a) -- (b) -- (a0);
+
+      \foreach \i in {0,...,7}{
         \node[classic] (b\i) at (2*\i+1,0) {};
         \pgfmathsetmacro{\j}{\i+1}
         \draw (a\i) -- (b\i) -- (a\j);
       }
-
-      \node[below left] at (a0) {\small $u_x^0$};
-      \node[below left] at (e01) {\small $v_x^0$};
-      \node[below left] at (e02) {\small $w_x^0$};
-      \node[below left] at (a1) {\small $u_x^2$};
-      \node[below left] at (b0) {\small $u_x^1$};
-      \node[below left] at (e11) {\small $v_x^2$};
-      \node[below left] at (e12) {\small $w_x^2$};
-      \node[below right] at (a7) {\small $u_x^{8m-2}$};
-      \node[below right] at (e71) {\small $v_x^{8m-2}$};
-      \node[below right] at (e72) {\small $w_x^{8m-2}$};
+      
+      
+      \node[below right=-.15cm] at (H011) {\scriptsize $t_x^0$};
+      \node[below right=-.15cm] at (a0) {\scriptsize $u_x^0$};
+      \node[below right=-.15cm] at (e01) {\scriptsize $v_x^0$};
+      \node[below right=-.15cm] at (e02) {\scriptsize $w_x^0$};
+      \node[below right=-.15cm] at (H111) {\scriptsize $t_x^2$};
+      \node[below right=-.15cm] at (a1) {\scriptsize $u_x^2$};
+      \node[below right=-.15cm] at (b0) {\scriptsize $u_x^1$};
+      \node[below right=-.15cm] at (e11) {\scriptsize $v_x^2$};
+      \node[below right=-.15cm] at (e12) {\scriptsize $w_x^2$};
+      \node[below right=-.15cm] at (H711) {\scriptsize $t_x^{8m-2}$};
+      \node[below right=-.15cm] at (a7) {\scriptsize $u_x^{8m-2}$};
+      \node[below right=-.15cm] at (e71) {\scriptsize $v_x^{8m-2}$};
+      \node[below right=-.15cm] at (e72) {\scriptsize $w_x^{8m-2}$};
     \end{tikzpicture}  
     \caption{Variable gadget $H_x$}
     \label{fig:variable_gadget}    
   \end{figure}
   
-  For each $i \in {0, \dots m-1}$, we attach the gadgets of the variable
-  appearing in the $i$-th clause $C_i$ as follows. Let $x, y, z$ be the
-  variables appearing in $C_i$. Add three edges to form a path $a_ib_ic_id_i$,
-  where $a_i=w_x^{8i}$, $b_i=w_y^{8i+2}$, $c_i=w_y^{8i+6}$ and
-  $d_i=w_z^{8i}$. Denote $G_\phi$ the constructed graph.
+  For each $i \in {0, \dots, m-1}$, we attach the gadgets $H_x$, $H_y$ and $H_z$
+  of the variables appearing in the $i$-th clause $C_i = (x \vee y \vee z)$ as
+  follows. Add three edges to form a path $a_ib_ic_id_i$, where $a_i=w_x^{8i}$,
+  $b_i=w_y^{8i+2}$, $c_i=w_y^{8i+6}$ and $d_i=w_z^{8i}$. Denote $G_\phi$ the
+  constructed graph.
 
-  \paragraph{Line digraph orientations of $G_\phi$}
+  \paragraph{Valid orientations of $G_\phi$}
   We will say that an orientation of a graph is \emph{valid} if it is acyclic
   and forms a line digraph. Before proving that there is an assignment such that
   $\phi$ has true and false variables in each clause if and only if $G_\phi$
@@ -650,7 +662,7 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
     each copy of the 4-sun may be oriented independently to any of its two
     possible orientations).
 
-    Let $i \in \{0,...,4m-1\}$ and assume that $t^{2i}_x \to u^{2i}_x$
+    Let $i \in \{0,\dots,4m-1\}$ and assume that $t^{2i}_x \to u^{2i}_x$
     (respectively $u^{2i}_x \to t^{2i}_x$). By \cref{cl:sun_orientation},
     $t^{2i}_x$ is transitive in the copy of the 4-sun it belongs
     to, so $t^{2i}_x$ has an outneighbour (resp. an inneighbour). Therefore,
