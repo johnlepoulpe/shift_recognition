@@ -333,15 +333,40 @@ alternating at each vertex and shift graphs are triangle-free.
 \end{theorem}
 \begin{proof}
   We reduce \textsc{3-Col} on general graphs to \textsc{3-Col} on shift
-  graphs. We construct gadget $H$ with two marked vertices $u$ and $v$ such that
-  any 3-colouring of $H$ colours $u$ and $v$ differently. By replacing each
-  edge $uv$ of a graph $G$ by $H$, we obtain a shift graph $G'$ that is
-  3-colourable if and only $G$ is 3-colourable.
+  graphs. 
 
   \paragraph{The gadget $H$}
+  We construct an acyclic digraph $H$ with two marked arcs $e$ and $f$ with a
+  common marked head $x$ such that any 3-edge-colouring of $H$ colours $e$ and $f$
+  differently.
 
-  \paragraph{$G'$ is a shift graph}
-  
+  \paragraph{Constructing the shift graph}
+  Let $G$ be a graph. Consider the root graph $G'$ constructed as follows. Order
+  the vertices of $G$ arbitrarily and for each vertex $u$ of $G$, take a copy
+  $H_u$ of $H$, with an arc $e_u=x_u \to y_u$ starting in the marked vertex
+  $x_u$ of $H_u$. For each edge $uv \in E(G)$, with $u < v$, add the arc $x_u
+  \to x_v$. The digraph $G'$ constructed is acyclic because each copy of $H$ is
+  acyclic and separated from the rest of $G'$ by a cut vertex, and the
+  additional edges can be ordered acyclically following the order on the
+  vertices of $G$. Therefore $L(G')$ is a shift graph. 
+
+  \paragraph{Equivalence of the instances}
+  Assume that there exists a 3-colouring $\alpha$ of $G$. Colour each arc
+  starting in $x_u$ with the colour of $u$ in $\alpha$. At this stage it remains
+  only to colour the copies of $H$. Let $\beta$ be a 3-colouring of $H$. For
+  each copy $H_u$, permute the colours of $\beta$ such that the marked arcs $e$
+  and $f$ use colours different from $\alpha(u)$. The resulting colouring is a
+  3-edge-colouring of $G'$. Indeed, at each $x_v$, the arcs starting in $x_v$
+  have an identical colour $\alpha(v)$, and the arcs entering $x_v$ are either
+  coming from the copy $H_v$ or of the form $x_u \to x_v$ for some $u < v$, in
+  both case they use colours different from $\alpha(v)$. Thus $L(G')$ is
+  3-colourable.
+
+  Conversely, in a proper 3-egde-colouring of $G'$, by design of $H$, all the
+  arcs starting in $x_u$ are coloured identically. Colour $u$ with this
+  colour. For all edge $uv$ in $E(G)$ with $u<v$, the colour of $u \in V(G)$ is the
+  colour of $x_u\to x_v$ which differs from the colour of $x_v \to y_v$, that is
+  the colour of $v \in V(G)$. Thus $G$ is 3-colourable.  
 \end{proof}
 \section{Recognising supports of line digraphs}
 \clement{With Ugo, we noticed a mistake in our proof for high girth. Here is a
