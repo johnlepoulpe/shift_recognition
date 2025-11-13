@@ -2,16 +2,19 @@
 \pdfoutput=1
 
 \usepackage[utf8]{inputenc}
-\usepackage{polski}
+%\usepackage{polski}
 \usepackage[lf,enc=t1]{berenis}
-\usepackage[main=english,polish]{babel}
+%\usepackage[main=english,polish]{babel}
 
 \renewcommand{\baselinestretch}{1}
 \usepackage[UKenglish]{isodate}
 \cleanlookdateon
 
 %%%%% Fonts, symbols, colours, microtypography
-\usepackage{amsfonts,amsmath,amssymb,amsthm,mathtools,microtype} % Symbols & microtypography
+\usepackage{amsfonts,amsmath,amssymb,amsthm,mathtools,microtype} % Symbols &microtypography
+
+
+
 \usepackage[dvipsnames]{xcolor} % Colours with names -- see https://www.overleaf.com/learn/latex/Using_colours_in_LaTeX for list
 \usepackage[noBBpl]{mathpazo} % Palatino, but not for mathbb
 
@@ -161,7 +164,7 @@ Nicolas Trotignon\footnotemark[2]
 A class of graphs is \emph{hereditary} if it closed under taking
 induced subgraphs.  A hereditary class $\mathcal C$ of graph is
 $\chi$-bounded if there exists a function $f$ such that for all graphs
-$G\in \mathcal C$, $\chi(G) \leq f(\omega(G))$.  Not all hereditary
+$G\in \mathcal C$, $\chi(G) \le f(\omega(G))$.  Not all hereditary
 classes of graphs are $\chi$-bounded because there exist triangle-free
 graphs of arbitrarily large chromatic number.  Several constructions
 are known and their structure attracted some attention lately. In
