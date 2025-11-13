@@ -235,28 +235,36 @@ number.
 \end{table}
 
 \paragraph{Line digraphs}
-We say that a vertex $u$ of a digraph is \emph{transitive} if it is neither a
-source nor a sink.
-Given a digraph $D$, the \emph{line digraph} $L(D)$ of $D$ is the digraph whose
+We say that a vertex $u$ of a digraph $D$ is \emph{transitive} if it is neither
+a source nor a sink. The \emph{line digraph} $L(D)$ of $D$ is the digraph whose
 vertices are the arcs of $D$ and in which there is an arc from $a$ to $b$ if the
-head of $a$ is the tail of $b$ in $D$. The \emph{$k$-iterated line digraph} $L^k(D)$
-of $D$ is then defined recursively by $L^k(D) = L(L^{k-1}(D))$ and $L^0(D) = D$.
-Equivalently, the vertices of $L^k(D)$ are the directed walks on $k+1$ vertices
-in $D$ and $L^k(D)$ contains an arc from $a$ to $b$ if the corresponding
-directed walks overlap on the $k$ last vertices of $a$ and the $k$ first vertices
-of $b$, namely $a = (v_0, \dots v_k)$ and $b=(v_1, \dots v_{k+1})$ with
-$(v_i,v_{i+1}) \in A(D)$ for all $i$. The \emph{support} of a digraph $D$ is the
+head of $a$ is the tail of $b$ in $D$. We refer to $D$ as a \emph{root} digraph
+of $L(D)$. % The \emph{$k$-iterated line digraph} $L^k(D)$
+% of $D$ is then defined recursively by $L^k(D) = L(L^{k-1}(D))$ and $L^0(D) = D$.
+% Equivalently, the vertices of $L^k(D)$ are the directed walks on $k+1$ vertices
+% in $D$ and $L^k(D)$ contains an arc from $a$ to $b$ if the corresponding
+% directed walks overlap on the $k$ last vertices of $a$ and the $k$ first vertices
+% of $b$, namely $a = (v_0, \ldots, v_k)$ and $b=(v_1, \ldots, v_{k+1})$ with
+% $(v_i,v_{i+1}) \in A(D)$ for all $i$.
+The \emph{support} of a digraph $D$ is the
 non-directed graph $G$ obtained by removing the orientations of the arcs of $D$,
 that is $V(G) = V(D)$ and $E(G) = \{\{x,y\} \colon (x,y) \in A(D)\}$. 
 
-The shift graph $G_{n,k}$ is the graph whose vertices are ordered $k$-tuples
-$(a_1, \dots a_k)$ of $[n]$ such that $1 \le a_1 < a_2 < \dots < a_k \le n$, in
-which two vertices $a = (a_1, \dots a_k)$ and $b = (b_1, \dots b_k)$ are
-adjacent if $b_i = a_{i+1}$ for all $i \in [k-1]$ (or $a_i = b_{i+1}$ for all
-$i \in [k-1]$). From this definition, it is straightforward to check that
-$G_{n,k}$ is the support of the $(k-1)$-iterated line digraph of the transitive
-tournament on $n$ vertices. The graph $G_{n,k}$ has odd-girth $2k+1$, in
-particular shift graphs are triangle-free.
+% The shift graph $G_{n,k}$ is the graph whose vertices are ordered $k$-tuples
+% $(a_1, \ldots, a_k)$ of $[n]$ such that $1 \le a_1 < a_2 < \ldots, < a_k \le n$, in
+% which two vertices $a = (a_1, \ldots, a_k)$ and $b = (b_1, \ldots, b_k)$ are
+% adjacent if $b_i = a_{i+1}$ for all $i \in [k-1]$ (or $a_i = b_{i+1}$ for all
+% $i \in [k-1]$). From this definition, it is straightforward to check that
+% $G_{n,k}$ is the support of the $(k-1)$-iterated line digraph of the transitive
+% tournament on $n$ vertices. The graph $G_{n,k}$ has odd-girth $2k+1$, in
+% particular shift graphs are triangle-free.
+
+The shift graph $G_n$ is the graph whose vertices are ordered pairs $(a_1,a_2$
+of $[n]$ such that $1 \le a_1 < a_2 \le n$, in which two vertices
+$a = (a_1, a_2)$ and $b = (b_1, b_2)$ are adjacent if $b_1 = a_2$ (or
+$a_1 = b_2$). From this definition, it is straightforward to check that
+$G_n$ is the support of the line digraph of the transitive
+tournament on $n$ vertices. The graph $G_n$ is triangle-free.
 
 The following result of Beineke characterise line digraphs of digraphs.
 \begin{lemma}[Beineke~\cite{beineke1968Derived}]\label{lem:forbidden_config}
@@ -320,14 +328,20 @@ recognised in polynomial time. However, Chv\'atal and Ebenegger showed that
 recognising their support is NP-complete~\cite{chvatal1990Note}.
 
 \paragraph{Shift graphs}
-The class of $k$-shift graphs (or simply shift graphs for $k=2$) is the
-hereditary closure of the graphs $\{G_{n,k} : n \ge 1\}$, that is, all induced
-subgraph of some $G_{n,k}$. Note that this definition is equivalent to saying
-that $k$-shift graphs are the supports of the $(k-1)$-iterated line digraphs of
-all directed acyclic graphs. Equivalently, shift graphs are often defined by
-their interval representation and the natural acyclic orientation that arises
-from it: the vertices of a shift graph are indexed by intervals $[a,b]$ with
-$1 \le a < b \le n$, and contains an arc from $[a,b]$ to $[c,d]$ if $b = c$. More precisely,
+% The class of $k$-shift graphs (or simply shift graphs for $k=2$) is the
+% hereditary closure of the graphs $\{G_{n,k} : n \ge 1\}$, that is, all induced
+% subgraph of some $G_{n,k}$. Note that this definition is equivalent to saying
+% that $k$-shift graphs are the supports of the $(k-1)$-iterated line digraphs of
+% all directed acyclic graphs.
+
+The class of shift graphs is the hereditary closure of the graphs
+$\{G_n : n \ge 1\}$, that is, all induced subgraph of some $G_n$. Note that this
+definition is equivalent to saying that shift graphs are the supports of the
+line digraphs of all directed acyclic graphs. Equivalently,
+shift graphs are often defined by their interval representation and the natural
+acyclic orientation that arises from it: the vertices of a shift graph are
+indexed by intervals $[a,b]$ with $1 \le a < b \le n$, and contains an arc from
+$[a,b]$ to $[c,d]$ if $b = c$. More precisely,
 \begin{lemma}\label{lem:valid}
   A graph is a shift graph if and only if it admits an acyclic orientation that
   is the line digraph of a digraph.
@@ -347,9 +361,10 @@ alternating at each vertex and shift graphs are triangle-free.
 \begin{proof}
   Let $G$ be a graph and denote $[n]=V(G)$. We claim that $G^{**}$ is a shift
   graph. By \cref{lem:subdivision_MIS}, this implies directly that \textsc{MIS}
-  is NP-complete on shift graphs. To prove our claim, consider the tournament
-  $H$ on the vertex set $V'$ composed of $E(G)$ and two copies of $V(G)$, that
-  is $V' := {\{a_i : i \in [n]\} \cup} {\{b_i: i \in [n]\} \cup} E(G)$. For all
+  is NP-complete on shift graphs. To prove our claim, consider the following
+  directed acyclic graph $H$ on the vertex set $V'$ composed of $E(G)$ and two
+  copies of $V(G)$, that is
+  $V' := {\{a_i : i \in [n]\} \cup} {\{b_i: i \in [n]\} \cup} E(G)$. For all
   $i \in [n]$ we add the arc $a_i \to b_i$ and for all $e =\{i,j\}$ with $i<j$,
   we add $b_i \to e$ and $e \to a_j$. The support of the line digraph of $H$ is
   $G^{**}$ which proves that $G^{**}$ is a shift graph.
@@ -360,7 +375,7 @@ alternating at each vertex and shift graphs are triangle-free.
 \end{theorem}
 \begin{proof}
   We reduce \textsc{3-Col} on general graphs to \textsc{3-Col} on shift
-  graphs. If $G_2$ is the directed line graph of the a digraph $G_1$, we will
+  graphs. If $G_2$ is the line digraph of the a digraph $G_1$, we will
   for convenience see the $k$-colourings of $G_2$ as $k$-colourings of the arcs of
   $G_1$ such that the arcs $u \to v$ and $v \to w$ are coloured differently for
   any $v$ (however, several arcs of the same colour can enter $v$). 
@@ -368,9 +383,9 @@ alternating at each vertex and shift graphs are triangle-free.
   \paragraph{The gadget $H$}
   We construct an acyclic digraph $H$ with two marked arcs $e$ and $f$ with a
   common marked head $x$ such that any 3-edge-colouring of $H$ colours $e$ and
-  $f$ differently. Let $H$ be the digraph on ten vertices $u_0, \dots u_8$ and
+  $f$ differently. Let $H$ be the digraph on ten vertices $u_0, \ldots, u_8$ and
   $x$ constructed as follows (see \cref{fig:gadget_3col}). For each
-  $i, j \in \{0, \dots, 6\} \cup \{8\}$, add the arc $u_i \to u_j$ if
+  $i, j \in \{0, \ldots, 6\} \cup \{8\}$, add the arc $u_i \to u_j$ if
   $i < j < i+5$ (in black in \cref{fig:gadget_3col}). Add also the arcs
   $u_3 \to u_7$, $u_4 \to u_7$ and $u_5 \to x$, $u_6 \to x$ (respectively in red
   and blue in \cref{fig:gadget_3col}). In $H$, $x$ is a
@@ -498,7 +513,7 @@ alternating at each vertex and shift graphs are triangle-free.
 By Schaefer's dichotomy theorem, the following problem is NP-complete. 
 \begin{csproblem}{Monotone Not all equal (MNAE3SAT)}
   Given a monotone 3-CNF formula $\phi$ (in conjonctive normal form with three
-  non-negated variables per clause), recognise if there exists an assignment to
+  non-negated variables per clause), recognise if there exists a valuation to
   the variables such that each clause of $\phi$ contains true and false variables.
 \end{csproblem}
 
@@ -583,7 +598,7 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
     \label{fig:variable_gadget}    
   \end{figure}
   
-  For each $i \in {0, \dots, m-1}$, we attach the gadgets $H_x$, $H_y$ and $H_z$
+  For each $i \in \{0, \ldots, m-1\}$, we attach the gadgets $H_x$, $H_y$ and $H_z$
   of the variables appearing in the $i$-th clause $C_i = (x \vee y \vee z)$ as
   follows. Add three edges to form a path $a_ib_ic_id_i$, where $a_i=w_x^{8i}$,
   $b_i=w_y^{8i+2}$, $c_i=w_y^{8i+6}$ and $d_i=w_z^{8i}$. Denote $G_\phi$ the
@@ -591,7 +606,7 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
 
   \paragraph{Valid orientations of $G_\phi$}
   We will say that an orientation of a graph is \emph{valid} if it is acyclic
-  and forms a line digraph. Before proving that there is an assignment such that
+  and forms a line digraph. Before proving that there is a valuation such that
   $\phi$ has true and false variables in each clause if and only if $G_\phi$
   admits a valid orientation, we prove several lemmas describing valid
   orientations of $G_\phi$ and some of its subgraphs.
@@ -640,7 +655,7 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
     $v$, while $x$ is not. So $D$ contains the arcs $v \to w$ and $x \to
     w$. Since $D$ is the line digraph of a graph, by the first condition
     of~\cref{lem:forbidden_config}, the edge between $u$ and $v$ is oriented
-    towards $v$, hence $v$ is not a source and $D$ is of the form depicted
+    towards $v$, hence $v$ is transitive and $D$ is of the form depicted
     on~\cref{fig:sun_orientation}.
   \end{poc}
 
@@ -659,10 +674,10 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
     Without loss of generality, assume that $w_x^0 \to v_x^0$.
     By~\cref{cl:sun_orientation}, each copy of the 4-sun in $H_x$ is oriented
     such that all the vertices of degree three are transitive (however,
-    each copy of the 4-sun may be oriented independently to any of its two
-    possible orientations).
+    each copy of the 4-sun may be oriented in any of its two opposite
+    orientations independently of any other copy).
 
-    Let $i \in \{0,\dots,4m-1\}$ and assume that $t^{2i}_x \to u^{2i}_x$
+    Let $i \in \{0,\ldots,4m-1\}$ and assume that $t^{2i}_x \to u^{2i}_x$
     (respectively $u^{2i}_x \to t^{2i}_x$). By \cref{cl:sun_orientation},
     $t^{2i}_x$ is transitive in the copy of the 4-sun it belongs
     to, so $t^{2i}_x$ has an outneighbour (resp. an inneighbour). Therefore,
@@ -675,26 +690,27 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
 
 
   Let $D$ be the graph formed by a path of length three and four pending edges
-  $e_1, \dots e_4$, attached to the vertices of the path. Given an valid
-  orientation, we say that $e_1$ and $e_4$ (respectively $e_2$ and $e_3$) are
+  $e_1, \ldots, e_4$, attached to the vertices of the path. Given an valid
+  orientation of $D$, we say that $e_1$ and $e_4$ (respectively $e_2$ and $e_3$) are
   \emph{positive} if they are orientaed away (resp. towards) the path, and that
   they are \emph{negative} otherwise.
   
   \begin{claim}\label{cl:clause_orientation}
-    In any valid orientation, the edges $e_i$ cannot be all positive, or all
-    negative. Conversely, any orientation of the edges $e_i$ such that $e_2$
+    In any valid orientation of $D$, the edges $e_i$ cannot be all positive, or
+    all negative. Conversely, any orientation of the edges $e_i$ such that $e_2$
     and $e_3$ are both positive (or both negative), and the edges $e_i$ are not
-    all positive (or all negative) can be extended onto $D$ into a valid orientation. 
+    all positive (or respectively all negative) can be extended onto $D$ into a
+    valid orientation.
   \end{claim}
   \begin{poc}
     Assume that there exists a valid orientation of $D$ with all edges $e_i$
     positive. Label $a,b,c,d$ the internal vertices of $D$. Without loss of
-    generality, assume that $b \to c$. As $c$ has both an in and an
-    outneighbour, the edge $ab$ is oriented $a \to b$. Hence $b$ has also an in
-    and an outneighbour and $e_1$ is negative. By the symmetry, if we had $c \to
-    b$, $e_4$ would be negative.
+    generality, assume that $b \to c$. As $c$ has both an inneighbour and an
+    outneighbour, the edge $ab$ is oriented $a \to b$. Hence $b$ has also an
+    inneighbour and an outneighbour and $e_1$ is negative. By the symmetry, if
+    we had $c \to b$, $e_4$ would be negative.
 
-    Conversely, consider an orientation of $e_1, \dots e_4$, such that $e_2$
+    Conversely, consider an orientation of $e_1, \ldots, e_4$, such that $e_2$
     and $e_3$ are say positive, but not all four edges are positive. Say without
     loss of generality $e_1$ is negative. Then orienting $D$ as on picture
     \cref{fig:variable_gadget} forms a line digraph by
@@ -729,16 +745,16 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
   \end{poc}
 
   \paragraph{Equivalence of the instances}
-  We are now ready to prove that $\phi$ admits an assignment such that each
-  clause contain true and false variables with different values if and only if
+  We are now ready to prove that $\phi$ admits a valuation such that each
+  clause contains true and false variables with different values if and only if
   $G_\phi$ is a shift graph.
 
-  We first prove the direct implication. Consider such an assignment. For all
+  We first prove the direct implication. Consider such a valuation. For all
   variable $x$ choose the orientation of $H_x$ such that $w^{0}_x \to v^{0}_x$
-  (by \cref{cl:gadget_orientation} there exists only one such orientation. The
-  only edges that remain to be oriented are the edges forming the path in the
-  variable gadget. Let $C_i$ be a clause of $\phi$, $D_i$ the corresponding
-  subgraph of $G_\phi$, with $e_1,\dots e_4$ the edges attached to the vertices
+  (by \cref{cl:gadget_orientation} there exists only one such orientation). The
+  only edges that remain to be oriented are the edges forming the path in each
+  clause gadget. Let $C_i$ be a clause of $\phi$, $D_i$ the corresponding
+  subgraph of $G_\phi$, with $e_1,\ldots, e_4$ the edges attached to the vertices
   of the path of length three. By construction and \cref{cl:gadget_orientation},
   $e_2$ and $e_3$ are either both negative or both positive. Since $C_i$
   contains true and false variables, we can apply \cref{cl:clause_orientation}
@@ -746,7 +762,7 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
   valid when restricted to each $D_i$ and to each $H_x$. To check that is forms
   a valid orientation of $G_\phi$, we only need to check the first condition of
   \cref{lem:forbidden_config} at the junctions between the clause and the
-  variables gadgets, and the orientations of the cycles using these
+  variable gadgets, and the orientation of the cycles using these
   junctions. Note that any such cycle must pass by some $u^{2i}_x$, at which it
   alternates. Finally, as each $u^{2i}_xv^{2i}_xw^{2i}_x$ forms a
   non-alternating path, the first condition of \cref{lem:forbidden_config} is
@@ -757,9 +773,9 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
   $G_\phi$. For each variable $x$, assign $x$ to true if $w^{0}_x \to v^0_x$ and
   to false otherwise. Let $C_i$ be a clause of $\phi$ and $D_i$ the
   corresponding variable gadget. By construction and by
-  \cref{cl:gadget_orientation}, each of the edges $e_1, \dots e_4$ attached to
+  \cref{cl:gadget_orientation}, each of the edges $e_1, \ldots, e_4$ attached to
   the internal vertices of $D_i$ is positive if and only if the corresponding
-  variable is true. By \cref{cl:clause_orientation}, the edges $e_1, \dots e_4$
+  variable is true. By \cref{cl:clause_orientation}, the edges $e_1, \ldots, e_4$
   cannot be all positive or all negative because the orientation is valid. Hence
   $C_i$ contains a true and a false variable, which concludes the proof.
 \end{proof}
