@@ -29,7 +29,7 @@
 \usepackage{comment}
 
 \usepackage{array}
-
+\usepackage{ifthen}
 
 %%%%% Hyperlinking
 \usepackage[hyphens]{url} % Urls together with line breaking them
@@ -125,6 +125,10 @@
 \newcommand{\cole}{\coloredbullet{\colore}}
 \newcommand{\colf}{\coloredbullet{\colorf}}
 \newcommand{\colg}{\coloredbullet{\colorg}}
+
+\definecolor{color1}{rgb}{.8,.1,.1}
+\definecolor{color2}{rgb}{.1,.8,.1}
+\definecolor{color3}{rgb}{.1,.1,.8}
 
   
 %%% Comments
@@ -359,26 +363,109 @@ alternating at each vertex and shift graphs are triangle-free.
 
   \paragraph{The gadget $H$}
   We construct an acyclic digraph $H$ with two marked arcs $e$ and $f$ with a
-  common marked head $x$ such that any 3-edge-colouring of $H$ colours $e$ and $f$
-  differently. Let $H$ be the digraph on ten vertices $u_0, \dots u_8$ and $x$
-  constructed as follows. For each $i, j \in \{0, \dots, 6\} \cup \{8\}$, add
-  the arc $u_i \to u_j$ if $i < j < i+5$. Add also the arcs $u_3 \to u_7$,
-  $u_4 \to u_7$, $u_5 \to x$ and $u_6 \to x$. In $H$, $x$ is a sink and a
-  computer check shows that $H$ is 3-edge-colourable, and that all
-  3-edge-colourings of $H$  use distinct colours on $u_5 \to x$ and $u_6 \to
+  common marked head $x$ such that any 3-edge-colouring of $H$ colours $e$ and
+  $f$ differently. Let $H$ be the digraph on ten vertices $u_0, \dots u_8$ and
+  $x$ constructed as follows (see \cref{fig:gadget_3col}). For each
+  $i, j \in \{0, \dots, 6\} \cup \{8\}$, add the arc $u_i \to u_j$ if
+  $i < j < i+5$ (in black in \cref{fig:gadget_3col}). Add also the arcs
+  $u_3 \to u_7$, $u_4 \to u_7$ and $u_5 \to x$, $u_6 \to x$ (respectively in red
+  and blue in \cref{fig:gadget_3col}). In $H$, $x$ is a
+  sink and a computer check shows that $H$ is 3-edge-colourable, and that all
+  3-edge-colourings of $H$ use distinct colours on $u_5 \to x$ and $u_6 \to
   x$. Indeed, $L(H)$ admits 1248 3-colourings and the graph $L(H)'$ obtained
   from $L(H)$ by adding an edge between $u_5x$ and $u_6x$ also has 1248
   3-colourings (although it is not a shift graph anymore).
+
+  \begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[decoration={
+        markings,
+        mark=at position 0.5 with {\arrow[scale=1.5]{>}}}
+      ]
+      \foreach \i in {0,...,8}{
+        \node[classic] (\i) at (\i,0) {};
+        \node[below left] at (\i) {$u_{\i}$};
+      }
+
+      \node[classic] (x) at (5.5,-1.5) {};
+      \node[below left] at (x) {$x$};
+
+      \foreach \i in {0,...,6}{
+        \pgfmathsetmacro{\a}{int(\i+1)}
+        \pgfmathsetmacro{\b}{min(int(\i+4),8)}
+        \foreach \j in {\a,...,\b}{
+          \ifthenelse{\j = 7}{}
+          {\draw (\i) edge[bend left=(\j-1-\i)*20, postaction=decorate] (\j);}
+        }
+      }
+      \foreach \i in {3,4}{
+        \draw[color1] (\i) edge[bend left=(6-\i)*20, postaction=decorate] (7);
+      }
+      \draw[color3,postaction=decorate] (5) -- (x);
+      \draw[color3,postaction=decorate] (6) -- (x);
+    \end{tikzpicture}
+    \caption{The gadget $H$}
+    \label{fig:gadget_3col}
+  \end{figure}
 
   \paragraph{Constructing the shift graph}
   Let $G$ be a graph. Consider the root graph $G'$ constructed as follows. Order
   the vertices of $G$ arbitrarily and for each vertex $u$ of $G$, take a copy
   $H_u$ of $H$, with an arc $e_u=x_u \to y_u$ starting in the marked vertex
-  $x_u$ of $H_u$. For each edge $uv \in E(G)$, with $u < v$, add the arc $x_u
-  \to x_v$. The digraph $G'$ constructed is acyclic because each copy of $H$ is
-  acyclic and separated from the rest of $G'$ by a cut vertex, and the
-  additional edges can be ordered acyclically following the order on the
-  vertices of $G$. Therefore $L(G')$ is a shift graph. 
+  $x_u$ of $H_u$. For each edge $uv \in E(G)$, with $u < v$, add the arc
+  $x_u \to x_v$ (see \cref{fig:NP-col}). The digraph $G'$ constructed is acyclic
+  because each copy of $H$ is acyclic and separated from the rest of $G'$ by a
+  cut vertex, and the additional edges can be ordered acyclically following the
+  order on the vertices of $G$. Therefore $L(G')$ is a shift graph.
+
+  \begin{figure}[h!]
+    \begin{subfigure}[t]{.3\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \foreach \i in {1,2,3,4,5}{
+          \node[classic] (a\i) at (\i,0) {};
+          \node[below] at (a\i) {\small $\i$};
+        }
+        \draw (a1) -- (a2) -- (a3) (a4) -- (a5);
+        \draw (a2) edge[bend left] (a4);
+        \draw (a2) edge[bend left=40] (a5);
+        \draw (a1) edge[bend left=40] (a4);
+      \end{tikzpicture}
+      \caption{A graph $G$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{.65\textwidth}
+      \centering
+      \begin{tikzpicture}[decoration={
+        markings,
+        mark=at position 0.5 with {\arrow[scale=1.5]{>}}}
+      ]
+        \foreach \i in {1,2,3,4,5}{
+          \begin{scope}[shift={(2*\i,0)}]
+            \draw[rounded corners] (0,0) rectangle (1,2);
+            \node[classic] (x\i) at (.5,0) {};
+            \node[above left] at (x\i) {\small $x_{\i}$};
+            \node[classic] (y\i) at (.5,-1) {};
+            \node[above left] at (y\i) {\small $y_{\i}$};
+            \node (H\i) at (.5,1.5) {\small $H_{\i}$};
+            \draw[color3,postaction=decorate] (x\i) -- (y\i);
+          \end{scope}
+        }
+
+        \draw[color1] (x1) edge[bend right,postaction=decorate] (x2);
+        \draw[color1] (x2) edge[bend right,postaction=decorate] (x3);
+        \draw[color1] (x4) edge[bend right,postaction=decorate] (x5);
+        \draw[color1] (x2) edge[bend right=40,postaction=decorate,looseness=1.6] (x4);
+        \draw[color1] (x2) edge[bend right=50,postaction=decorate,looseness=1.2] (x5);
+        \draw[color1] (x1) edge[bend right=50,postaction=decorate,looseness=1.2] (x4);
+
+      \end{tikzpicture}
+      \caption{The graph $G'$ constructed. The blue arcs $x_i \to y_i$
+        correspond to the vertices of $G$ and the red arcs to its edges.}
+    \end{subfigure}
+    \caption{Constructing an equivalent shift graph.}
+    \label{fig:NP-col}
+  \end{figure}
 
   \paragraph{Equivalence of the instances}
   Assume that there exists a 3-colouring $\alpha$ of $G$. Colour each arc
