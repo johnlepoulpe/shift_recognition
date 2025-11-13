@@ -156,6 +156,18 @@ Nicolas Trotignon\footnotemark[2]
 
 \begin{abstract}
 \end{abstract}
+\section{Introduction}
+
+A class of graphs is \emph{hereditary} if it closed under taking
+induced subgraphs.  A hereditary class $\mathcal C$ of graph is
+$\chi$-bounded if there exists a function $f$ such that for all graphs
+$G\in \mathcal C$, $\chi(G) \leq f(\omega(G))$.  Not all hereditary
+classes of graphs are $\chi$-bounded because there exist triangle-free
+graphs of arbitrarily large chromatic number.  Several constructions
+are known and their structure attracted some attention lately. In
+particular, a construction due to Burling turned out to be a
+counter-example to several conjectures. 
+
 
 \begin{table}[h!]
   \centering
@@ -459,8 +471,8 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
 
   \begin{claim}\label{cl:gadget_orientation}
    
-    Consider a valid orientation of $H_x$. There are only two possible orientations for
-    its restriction to the subgraph induced by $A_x$, which are opposite. If
+    Consider a valid orientation of $H_x$. There are only two possible
+    orientations for its restriction to $A_x$, which are opposite. If
     $w_x^0 \to v_x^0$ then for all $i$, we have $w_x^{2i} \to v_x^{2i}$ if $i$
     is even and $v_x^{2i} \to w_x^{2i}$ if $i$ is odd.
   \end{claim}
