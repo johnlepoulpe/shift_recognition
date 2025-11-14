@@ -261,13 +261,6 @@ that is $V(G) = V(D)$ and $E(G) = \{\{x,y\} \colon (x,y) \in A(D)\}$.
 % tournament on $n$ vertices. The graph $G_{n,k}$ has odd-girth $2k+1$, in
 % particular shift graphs are triangle-free.
 
-The shift graph $G_n$ is the graph whose vertices are ordered pairs $(a_1,a_2$
-of $[n]$ such that $1 \le a_1 < a_2 \le n$, in which two vertices
-$a = (a_1, a_2)$ and $b = (b_1, b_2)$ are adjacent if $b_1 = a_2$ (or
-$a_1 = b_2$). From this definition, it is straightforward to check that
-$G_n$ is the support of the line digraph of the transitive
-tournament on $n$ vertices. The graph $G_n$ is triangle-free.
-
 The following result of Beineke characterise line digraphs of digraphs.
 \begin{lemma}[Beineke~\cite{beineke1968Derived}]\label{lem:forbidden_config}
   A digraph $D$ is the line digraph of a digraph $D'$ if and only if the two
@@ -336,6 +329,13 @@ recognising their support is NP-complete~\cite{chvatal1990Note}.
 % that $k$-shift graphs are the supports of the $(k-1)$-iterated line digraphs of
 % all directed acyclic graphs.
 
+The shift graph construction is the sequence of graphs $(G_n)_{n\in \mathbb{N}}$
+such that $G_n$ is the graph whose vertices are ordered pairs $(a_1,a_2)$ of
+$[n]$ such that $1 \le a_1 < a_2 \le n$, in which two vertices $a = (a_1, a_2)$
+and $b = (b_1, b_2)$ are adjacent if $b_1 = a_2$ (or $a_1 = b_2$). From this
+definition, it is straightforward to check that $G_n$ is the support of the line
+digraph of the transitive tournament on $n$ vertices. 
+
 The class of shift graphs is the hereditary closure of the graphs
 $\{G_n : n \ge 1\}$, that is, all induced subgraph of some $G_n$. Note that this
 definition is equivalent to saying that shift graphs are the supports of the
@@ -349,7 +349,23 @@ $[a,b]$ to $[c,d]$ if $b = c$. More precisely,
   is the line digraph of a digraph.
 \end{lemma}
 As a result all 4-cycles in the natural orientation of a shift graph are
-alternating at each vertex and shift graphs are triangle-free.
+alternating at each vertex and shift graphs are triangle-free. Shift graphs also
+have unbounded chromatic number:
+\begin{lemma}
+  For all $n$, $\chi(G_{2^n+1}) > n$.
+\end{lemma}
+\begin{proof}
+  Let $K$ be the transitive tournament on $2^n+1$ vertices. We have
+  $L(K) = G_{2^n+1}$. Let $\alpha$ be an $n$-colouring of $G_{2^n+1}$. Let
+  $\beta$ be the colouring of $K$ such that $\beta(v)$ is the set of colours
+  used by the arcs entering $v$. The colouring $\beta$ is a proper colouring of
+  the support of $K$: let $u$ and $v$ be two vertices of $K$ such that
+  $u \to v$. Because the arcs entering $u$ use the colours in $\beta(u)$, the
+  arc $uv$ must be coloured in $\alpha$ by some colour in
+  $[n] \setminus \beta(u)$, hence $\beta(v) \neq \beta (u)$.  However, the
+  support of $K$ is a clique on $2^{n}+1$ vertices, hence in cannot be coloured
+  with $2^n$ colours, a contradiction.
+\end{proof}
 
 \section{Maximum independent set and 3-Colouring of shift graphs}
 \begin{lemma}\label{lem:subdivision_MIS}
@@ -367,9 +383,9 @@ alternating at each vertex and shift graphs are triangle-free.
   directed acyclic graph $H$ on the vertex set $V'$ composed of $E(G)$ and two
   copies of $V(G)$, that is
   $V' := {\{a_i : i \in [n]\} \cup} {\{b_i: i \in [n]\} \cup} E(G)$. For all
-  $i \in [n]$ we add the arc $a_i \to b_i$ and for all $e =\{i,j\}$ with $i<j$,
-  we add $b_i \to e$ and $e \to a_j$. The support of the line digraph of $H$ is
-  $G^{**}$ which proves that $G^{**}$ is a shift graph.
+  $i \in [n]$ we add the arc $a_i \to b_i$ and for all $e =\{i,j\} \in E(G)$
+  with $i<j$, we add $b_i \to e$ and $e \to a_j$.  The support of the line
+  digraph of $H$ is $G^{**}$ which proves that $G^{**}$ is a shift graph.
 \end{proof}
 
 \begin{theorem}
@@ -512,7 +528,8 @@ alternating at each vertex and shift graphs are triangle-free.
 \end{proof}
 \section{Recognising supports of line digraphs}
 
-By Schaefer's dichotomy theorem, the following problem is NP-complete. 
+By Schaefer's dichotomy theorem, the following problem is NP-complete.
+
 \begin{csproblem}{Monotone Not all equal (MNAE3SAT)}
   Given a monotone 3-CNF formula $\phi$ (in conjonctive normal form with three
   non-negated variables per clause), recognise if there exists a valuation to
