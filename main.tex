@@ -161,7 +161,6 @@ Nicolas Trotignon\footnotemark[2]
 
 \begin{abstract}
 \end{abstract}
-\section{Introduction}
 
 A class of graphs is \emph{hereditary} if it closed under taking
 induced subgraphs.  A hereditary class $\mathcal C$ of graph is
@@ -195,7 +194,7 @@ complete for shift graphs.
 
 
 
-\subsection{Abyssal classes}
+\paragraph{Abyssal classes}
 In \cite{abrishami2025Burling}, Abrishami et. al. prove that the class of
 Burling graph forms a minimal hereditary class of unbounded chromatic number:
 any proper hereditary subclass of Burling graph has bounded chromatic
@@ -236,6 +235,11 @@ chromatic number.
   \label{tab:complexity}
 \end{table}
 
+We prove in \cref{sec:MIS_3COL} that Minimum independent set (\textsc{MIS}) and
+3-Colouring (\textsc{3-COL}) are NP-complete and in \cref{sec:recognition} that
+recognising shift graphs is also NP-complete.
+
+\section{Preliminaries}
 \paragraph{Line digraphs}
 We say that a vertex $u$ of a digraph $D$ is \emph{transitive} if it is neither
 a source nor a sink. The \emph{line digraph} $L(D)$ of $D$ is the digraph whose
@@ -367,7 +371,9 @@ have unbounded chromatic number:
   with $2^n$ colours, a contradiction.
 \end{proof}
 
-\section{Maximum independent set and 3-Colouring of shift graphs}
+\section{Maximum independent set and 3-Colouring of shift
+  graphs}\label{sec:MIS_3COL}
+
 \begin{lemma}\label{lem:subdivision_MIS}
   For all graph $G$, we have $\alpha(G^{**}) = \alpha(G) + |E(G)|$, where
   $G^{**}$ is the graph obtained by subdividing each edge of $G$ twice. 
@@ -526,7 +532,8 @@ have unbounded chromatic number:
   colour of $x_u\to x_v$ which differs from the colour of $x_v \to y_v$, that is
   the colour of $v \in V(G)$. Thus $G$ is 3-colourable.  
 \end{proof}
-\section{Recognising supports of line digraphs}
+
+\section{Recognising shift graphs}\label{sec:recognition}
 
 By Schaefer's dichotomy theorem, the following problem is NP-complete.
 
