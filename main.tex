@@ -38,6 +38,31 @@
 \hypersetup{linkcolor={blue!70!black},citecolor={black},urlcolor={blue!70!black}}
 \usepackage{hyperref}
 
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{white},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+
 \usepackage{tikz}
 \usetikzlibrary{decorations.markings}
 \tikzstyle{classic}=[draw=black,fill = black,inner sep = 1pt,circle]
@@ -170,70 +195,77 @@ classes of graphs are $\chi$-bounded because there exist triangle-free
 graphs of arbitrarily large chromatic number.  Several constructions
 are known and their structure attracted some attention lately. In
 particular, a construction due to Burling turned out to be a
-counter-example to several conjectures about algorithm in non-$\chi$
+counter-example to several conjectures about algorithms in non-$\chi$
 bounded classes. 
 
-In \cref{tab:complexity}, we review the simplest and most well-known constructions of
-triangle-free graphs of arbitratily large chromatic number.  Note that
-most of these construction (all of them except shift) are usually
-obtained by generating a sequence of triangle-free graphs $(G_k)_{k\in
-\mathbb{N}}$ such that $\chi(G_k) = k$ for all $k$.  We
-turn this into a hereditary class by considering the induced subgraphs
-of the graphs in the sequence. 
-
-Three problems particularly attracted attention: recognition, maximum
-independent set problem and 3-coloring.  The complexity of all of them
-is known for all the classes from \cref{tab:complexity} (where a
-reference is given), except shift graphs.  The
-goal of the present paper is to prove that the three problems are NPC
-complete for shift graphs. 
-
-
-
-
-
-
-
-\paragraph{Abyssal classes}
-In \cite{abrishami2025Burling}, Abrishami et. al. prove that the class of
-Burling graph forms a minimal hereditary class of unbounded chromatic number:
-any proper hereditary subclass of Burling graph has bounded chromatic
-number. The only other known graph class with this property is cliques. At first
-view, the hereditary closures of any construction of triangle-free graphs with
-large chromatic number are natural candidates in the search for other minimal
-hereditary classes of unbounded chromatic number. However, the classes of
-Mycielski, Blanche-Descartes, Twincut, Zykov and shift graphs are not minimal.
-
-Indeed, Mycielski graphs are universal for triangle-free graphs, and
-Blanche-Descartes graphs (respectively Twincut graphs or shift graphs) contain
-graphs of arbitrarily large chromatic number and arbitrarily large girth
-(respectively odd girth). Thus none of these classes is
-minimal. Blanche-Descartes and Twincut graphs are special cases of Zykov graphs,
-hence Zykov graphs cannot form a minimal hereditary class of unbounded chromatic
-number.
-
-A class is \emph{abyssal} if it contains no minimal subclass of unbounded
-chromatic number. 
-
-
+In \cref{tab:complexity}, we review the simplest and most well-known
+constructions of triangle-free graphs of arbitratily large chromatic number.
+Note that most of these constructions (all of them except shift) are usually
+obtained by generating a sequence of triangle-free graphs
+$(G_k)_{k\in \mathbb{N}}$ such that $\chi(G_k) = k$ for all $k$.  We turn this
+into a hereditary class by considering the induced subgraphs of the graphs in
+the sequence.
 \begin{table}[h!]
   \centering
   \begin{tabular}{|l|c|c|c|}
     \hline
     Graph class & Recognition & Minimum Independent set & 3-Colouring \\
     \hline
-    Mycielski & P & NPC & NPC \\
-    Zykov & NPC \cite{marin2024Structural}& NPC & NPC \\
+    Mycielski & P & NPC \cite{poljak1974Note} & NPC \cite{lovasz1973Covering,maffray1996NPcompleteness} \\
+    Zykov & NPC \cite{marin2024Structural} & NPC & NPC \\
     Blanche-Descartes & NPC \cite{marin2024Structural} & NPC & NPC \\
     Burling & P \cite{rzazewski2024Polynomial} & P \cite{rzazewski2024Polynomial} & NPC \\
-    Twincut & P & NPC & NPC  \\
+    Twincut & P \cite[announced in]{bonnet2023Tamed} & NPC & NPC \cite[announced in]{bonnet2023Tamed} \\
     Shift & NPC [*] & NPC [*] & NPC [*] \\
+    Kneser \& Schrijver & & & \\
     \hline
   \end{tabular}  
   \caption{Complexity of Recognition, Minimum independent set and 3-Colouring of
     the main constructions of triangle-free graph of large chromatic number}
   \label{tab:complexity}
 \end{table}
+
+
+Three problems particularly attracted attention: recognition, maximum
+independent set problem and 3-coloring. The complexity of all of them is known
+for all the classes from \cref{tab:complexity} (where a reference is given),
+except shift graphs and Kneser graphs. The goal of the present paper is to prove
+that the three problems are NP-complete for shift graphs.
+
+For most of these constructions of triangle-free graphs with high chromatic
+number, there exist variants producing graphs with arbitrarily large girth (or
+odd-girth) and chromatic number. More precisely, shifts graphs of girth at least
+$g$ have unbounded chromatic number, and Zykov, Blanche-Descartes, Twincut or
+Mycielski graphs with odd-girth at least $g$ have unbounded chromatic number. We
+believe that the complexity results of \cref{tab:complexity} also hold with this
+additional condition in these classes.
+
+
+
+
+
+
+% \paragraph{Abyssal classes}
+% In \cite{abrishami2025Burling}, Abrishami et. al. prove that the class of
+% Burling graph forms a minimal hereditary class of unbounded chromatic number:
+% any proper hereditary subclass of Burling graph has bounded chromatic
+% number. The only other known graph class with this property is cliques. At first
+% view, the hereditary closures of any construction of triangle-free graphs with
+% large chromatic number are natural candidates in the search for other minimal
+% hereditary classes of unbounded chromatic number. However, the classes of
+% Mycielski, Blanche-Descartes, Twincut, Zykov and shift graphs are not minimal.
+
+% Indeed, Mycielski graphs are universal for triangle-free graphs, and
+% Blanche-Descartes graphs (respectively Twincut graphs or shift graphs) contain
+% graphs of arbitrarily large chromatic number and arbitrarily large girth
+% (respectively odd girth). Thus none of these classes is
+% minimal. Blanche-Descartes and Twincut graphs are special cases of Zykov graphs,
+% hence Zykov graphs cannot form a minimal hereditary class of unbounded chromatic
+% number.
+
+% A class is \emph{abyssal} if it contains no minimal subclass of unbounded
+% chromatic number. 
+
 
 We prove in \cref{sec:MIS_3COL} that Minimum independent set (\textsc{MIS}) and
 3-Colouring (\textsc{3-COL}) are NP-complete and in \cref{sec:recognition} that
@@ -265,7 +297,7 @@ that is $V(G) = V(D)$ and $E(G) = \{\{x,y\} \colon (x,y) \in A(D)\}$.
 % tournament on $n$ vertices. The graph $G_{n,k}$ has odd-girth $2k+1$, in
 % particular shift graphs are triangle-free.
 
-The following result of Beineke characterise line digraphs of digraphs.
+The following result of Beineke characterises line digraphs of digraphs.
 \begin{lemma}[Beineke~\cite{beineke1968Derived}]\label{lem:forbidden_config}
   A digraph $D$ is the line digraph of a digraph $D'$ if and only if the two
   following conditions are satisfied:
@@ -341,7 +373,7 @@ definition, it is straightforward to check that $G_n$ is the support of the line
 digraph of the transitive tournament on $n$ vertices. 
 
 The class of shift graphs is the hereditary closure of the graphs
-$\{G_n : n \ge 1\}$, that is, all induced subgraph of some $G_n$. Note that this
+$(G_n)_{n\in \mathbb{N}}$, that is, all induced subgraph of some $G_n$. Note that this
 definition is equivalent to saying that shift graphs are the supports of the
 line digraphs of all directed acyclic graphs. Equivalently,
 shift graphs are often defined by their interval representation and the natural
@@ -382,7 +414,7 @@ have unbounded chromatic number:
 \begin{corollary}
   \textsc{MIS} is NP-complete on shift graphs.
 \end{corollary}
-\begin{proof}
+\begin{proof}[Proof of \cref{lem:subdivision_MIS}]
   Let $G$ be a graph and denote $[n]=V(G)$. We claim that $G^{**}$ is a shift
   graph. By \cref{lem:subdivision_MIS}, this implies directly that \textsc{MIS}
   is NP-complete on shift graphs. To prove our claim, consider the following
@@ -394,7 +426,7 @@ have unbounded chromatic number:
   digraph of $H$ is $G^{**}$ which proves that $G^{**}$ is a shift graph.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:3col}
   \textsc{3-Col} is NP-complete on shift graphs.
 \end{theorem}
 \begin{proof}
@@ -406,18 +438,16 @@ have unbounded chromatic number:
 
   \paragraph{The gadget $H$}
   We construct an acyclic digraph $H$ with two marked arcs $e$ and $f$ with a
-  common marked head $x$ such that any 3-edge-colouring of $H$ colours $e$ and
+  common marked head $x$ such that any 3-arc-colouring of $H$ colours $e$ and
   $f$ differently. Let $H$ be the digraph on ten vertices $u_0, \ldots, u_8$ and
   $x$ constructed as follows (see \cref{fig:gadget_3col}). For each
   $i, j \in \{0, \ldots, 6\} \cup \{8\}$, add the arc $u_i \to u_j$ if
   $i < j < i+5$ (in black in \cref{fig:gadget_3col}). Add also the arcs
   $u_3 \to u_7$, $u_4 \to u_7$ and $u_5 \to x$, $u_6 \to x$ (respectively in red
   and blue in \cref{fig:gadget_3col}). In $H$, $x$ is a
-  sink and a computer check shows that $H$ is 3-edge-colourable, and that all
-  3-edge-colourings of $H$ use distinct colours on $u_5 \to x$ and $u_6 \to
-  x$. Indeed, $L(H)$ admits 1248 3-colourings and the graph $L(H)'$ obtained
-  from $L(H)$ by adding an edge between $u_5x$ and $u_6x$ also has 1248
-  3-colourings (although it is not a shift graph anymore).
+  sink and a computer check shows that $H$ is 3-arc-colourable, and that all
+  3-arc-colourings of $H$ use distinct colours on $u_5 \to x$ and $u_6 \to
+  x$ (see \cref{sec:computer_check}).
 
   \begin{figure}[h!]
     \centering
@@ -455,12 +485,12 @@ have unbounded chromatic number:
   Let $G$ be a graph. Consider the root graph $G'$ constructed as follows. Order
   the vertices of $G$ arbitrarily and for each vertex $u$ of $G$, take a copy
   $H_u$ of $H$, with an arc $e_u=x_u \to y_u$ starting in the marked vertex
-  $x_u$ of $H_u$. For each edge $uv \in E(G)$, with $u < v$, add the arc
-  $x_u \to x_v$ (see \cref{fig:NP-col}). The digraph $G'$ constructed is acyclic
-  because each copy $H_u$ of $H$ is acyclic and separated from the rest of $G'$
-  by the cut vertex $x_u$, and the additional edges can be ordered acyclically
-  following the order on the vertices of $G$. Therefore $L(G')$ is a shift
-  graph.
+  $x_u$ of $H_u$ and ending in a new vertex $y_u$. For each edge $uv \in E(G)$,
+  with $u < v$, add the arc $x_u \to x_v$ (see \cref{fig:NP-col}). The digraph
+  $G'$ constructed is acyclic because each copy $H_u$ of $H$ is acyclic and
+  separated from the rest of $G'$ by the cut vertex $x_u$, and the additional
+  edges can be ordered acyclically following the order on the vertices of
+  $G$. Therefore $L(G')$ is a shift graph.
 
   \begin{figure}[h!]
     \begin{subfigure}[t]{.3\textwidth}
@@ -517,16 +547,16 @@ have unbounded chromatic number:
   \paragraph{Equivalence of the instances}
   Assume that there exists a 3-colouring $\alpha$ of $G$. Colour each arc
   starting in $x_u$ with the colour of $u$ in $\alpha$. At this stage it remains
-  only to colour the copies of $H$. Let $\beta$ be a 3-colouring of $H$. For
+  only to colour the copies of $H$. Let $\beta$ be a 3-arc-colouring of $H$. For
   each copy $H_u$, permute the colours of $\beta$ such that the marked arcs $e$
   and $f$ use colours different from $\alpha(u)$. The resulting colouring is a
-  3-edge-colouring of $G'$. Indeed, at each $x_v$, the arcs starting in $x_v$
+  3-arc-colouring of $G'$. Indeed, at each $x_v$, the arcs starting in $x_v$
   have an identical colour $\alpha(v)$, and the arcs entering $x_v$ are either
   coming from the copy $H_v$ or of the form $x_u \to x_v$ for some $u < v$, in
   both case they use colours different from $\alpha(v)$. Thus $L(G')$ is
   3-colourable.
 
-  Conversely, in a proper 3-egde-colouring of $G'$, by design of $H$, all the
+  Conversely, in a proper 3-arc-colouring of $G'$, by design of $H$, all the
   arcs starting in $x_u$ are coloured identically. Colour $u$ with this
   colour. For all edge $uv$ in $E(G)$ with $u<v$, the colour of $u \in V(G)$ is the
   colour of $x_u\to x_v$ which differs from the colour of $x_v \to y_v$, that is
@@ -535,7 +565,8 @@ have unbounded chromatic number:
 
 \section{Recognising shift graphs}\label{sec:recognition}
 
-By Schaefer's dichotomy theorem, the following problem is NP-complete.
+By Schaefer's dichotomy theorem~\cite{schaefer1978Complexity}, the following
+problem is NP-complete.
 
 \begin{csproblem}{Monotone Not all equal (MNAE3SAT)}
   Given a monotone 3-CNF formula $\phi$ (in conjonctive normal form with three
@@ -553,17 +584,16 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
   We reduce \textsc{MNAE3SAT} to the shift graph recognition problem.
 
   \paragraph{Gadgets}
-  Let $\phi$ be a monotone 3-CNF formula. We first describe the gadget used for
-  the variables. Let $H$ be the 4-sun, that is the graph on eight vertices
-  composed of a 4-cycle with one pending edge attached to each of the vertices
-  of the cycle. Let $m$ be the number of clauses. For each variable $x$,
-  consider the gadget composed of a path on $8m+3$ vertices
-  $u_x^{-2}, \dots, u_x^{8m}$ in which for each $i \in \{0, \ldots, 2(m-1)\}$ we
-  connect each $u_x^{2i}$ to a vertex $v_x^{2i}$ itself adjacent to
-  $w_x^{2i}$, and each $u_x^{2i}$ to a distinct copy of $H$ via one
-  of the vertices of degree three that we will call $t_x^{2i}$ (see
-  \cref{fig:variable_gadget}). For each variable $x$, denote $H_x$ the copy of
-  this gadget.
+  Let $\phi$ be a monotone 3-CNF formula with $m$ clauses. We first describe the
+  gadget used for the variables. Let $H$ be the 4-sun, that is the graph on
+  eight vertices composed of a 4-cycle with one pending edge attached to each of
+  the vertices of the cycle. For each variable $x$, consider the gadget composed
+  of a path on $8m+3$ vertices $u_x^{-2}, \dots, u_x^{8m}$ in which for each
+  $i \in \{0, \ldots, 2(m-1)\}$ we connect each $u_x^{2i}$ to a vertex
+  $v_x^{2i}$ itself adjacent to $w_x^{2i}$, and each $u_x^{2i}$ to a distinct
+  copy of $H$ via one of the vertices of degree three that we will call
+  $t_x^{2i}$ (see \cref{fig:variable_gadget}). For each variable $x$, denote
+  $H_x$ the copy of this gadget.
   \begin{figure}[h!]
     \centering
     \begin{tikzpicture}[scale = .8]
@@ -631,8 +661,8 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
   constructed graph.
 
   \paragraph{Valid orientations of $G_\phi$}
-  We will say that an orientation of a graph is \emph{valid} if it is acyclic
-  and forms a line digraph. Before proving that there is a valuation such that
+  We will say that an orientation of a graph is \emph{valid} if it forms a line
+  digraph of an acyclic digraph. Before proving that there is a valuation such that
   $\phi$ has true and false variables in each clause if and only if $G_\phi$
   admits a valid orientation, we prove several lemmas describing valid
   orientations of $G_\phi$ and some of its subgraphs.
@@ -716,10 +746,10 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
 
 
   Let $D$ be the graph formed by a path of length three and four pending edges
-  $e_1, \ldots, e_4$, attached to the vertices of the path. Given an valid
-  orientation of $D$, we say that $e_1$ and $e_4$ (respectively $e_2$ and $e_3$) are
-  \emph{positive} if they are orientaed away (resp. towards) the path, and that
-  they are \emph{negative} otherwise.
+  $e_1, \ldots, e_4$, attached to the vertices of the path. Given a valid
+  orientation of $D$, we say that $e_1$ and $e_4$ (respectively $e_2$ and $e_3$)
+  are \emph{positive} if they are oriented away (resp. towards) the path, and
+  that they are \emph{negative} otherwise.
   
   \begin{claim}\label{cl:clause_orientation}
     In any valid orientation of $D$, the edges $e_i$ cannot be all positive, or
@@ -809,5 +839,36 @@ By Schaefer's dichotomy theorem, the following problem is NP-complete.
 \nocite{*}
 \bibliographystyle{abbrv}
 \bibliography{references}
+
+\appendix
+\section{Code use for the computer check of \cref{thm:3col}}\label{sec:computer_check}
+To check that all 3-arc-colourings of $H$ colour the two arcs entering $x$ with
+different colours, we compute the number of 3-colourings of $L(H)$ and the
+number of 3-colourings of $G$, where $G$ is obtained from $L(H)$ by
+adding an edge betwenn the vertices correspoding to arcs entering $x$ in
+$H$. The following code shows that these numbers are equal, so all 3-colourings
+of $L(H)$ are 3-colourings of $G$, which implies the desired result.
+\begin{lstlisting}[language=Python]
+from sage.graphs.graph_coloring import chromatic_number, number_of_n_colorings
+
+# Constructing L(H)
+vertices = [(i,j) for i in range(7) for j in range(i+1,7) if j-i <= 4]
+for i in [3,4]:
+    vertices.append((i,7))
+for i in [5,6]:
+    vertices.append((i,9))  # the vertex x of H is labelled 9 here
+for i in [4,5,6]:
+    vertices.append((i,8))
+d =dict()
+for u in vertices: 
+    L = [v for v in vertices if (v[1] == u[0] or v[0] == u[1])] 
+    d[u] = L
+LH = Graph(d)
+
+# Computing the number of 3-colourings
+print("L(H) has " + str(number_of_n_colorings(LH,3)) + " proper 3-colourings")
+LH.add_edge((6,9),(5,9)) # LH is now the graph G
+print("G has " + str(number_of_n_colorings(LH,3)) + " proper 3-colourings")
+\end{lstlisting}
 \end{document}
 
