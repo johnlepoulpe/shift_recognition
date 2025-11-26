@@ -402,18 +402,21 @@ have unbounded chromatic number:
   with $2^n$ colours, a contradiction.
 \end{proof}
 
-\section{Maximum independent set and 3-Colouring of shift
-  graphs}\label{sec:MIS_3COL}
+\section{Maximum independent set problem}\label{sec:MIS}
 
-\begin{lemma}\label{lem:subdivision_MIS}
-  For all graph $G$, we have $\alpha(G^{**}) = \alpha(G) + |E(G)|$, where
-  $G^{**}$ is the graph obtained by subdividing each edge of $G$ twice. 
+Given a graph $G$, denote $G^{*k}$ the graph obtained by subdividing $2k$ times each edge
+of $G$.
+
+\begin{lemma}[REF]\label{lem:subdivision_MIS}
+  For all graph $G$, we have $\alpha(G^{*1}) = \alpha(G) + |E(G)|$, where
+  $G^{*1}$ is the graph obtained by subdividing each edge of $G$ twice. 
 \end{lemma}
 
 \begin{corollary}
-  \textsc{MIS} is NP-complete on shift graphs.
+  \textsc{MIS} is NP-complete on shift graph, even when restricting to
+  $k$-iterated shift graphs of girth at least $2k$ for any $k$. 
 \end{corollary}
-\begin{proof}[Proof of \cref{lem:subdivision_MIS}]
+\begin{proof}
   Let $G$ be a graph and denote $[n]=V(G)$. We claim that $G^{**}$ is a shift
   graph. By \cref{lem:subdivision_MIS}, this implies directly that \textsc{MIS}
   is NP-complete on shift graphs. To prove our claim, consider the following
@@ -425,6 +428,7 @@ have unbounded chromatic number:
   digraph of $H$ is $G^{**}$ which proves that $G^{**}$ is a shift graph.
 \end{proof}
 
+\section{3-Colouring shift graphs}\label{sec:3COL}
 \begin{theorem}\label{thm:3col}
   \textsc{3-Col} is NP-complete on shift graphs.
 \end{theorem}
@@ -562,6 +566,29 @@ have unbounded chromatic number:
   the colour of $v \in V(G)$. Thus $G$ is 3-colourable.  
 \end{proof}
 
+\begin{theorem}
+  Any shift graph of girth at least five is 3-colourable.
+\end{theorem}
+\begin{proof}
+  Let $G$ be a shift graph of girth at least five and let $H$ be a root digraph
+  of $G$. The vertices of $H$ have either in or out-degree at most one, because
+  a vertex with in and out degree at least two produces a four-cycle in the line
+  digraph. We partition the vertices of $H$ in two subsets: $X$ contains the
+  vertices of indegree at most one, and $Y$ the remaining vertices, which have
+  outdegree at moste one. We partition the arcs of $H$ in two subsets: $A$
+  contains the arcs entering $X$ or starting in $Y$, and $B$ contains the other
+  arcs, which start in $X$ and end in $Y$. The arcs of $B$ are independent so
+  they can be coloured with one colour, say 1. We claim that the arcs of $A$
+  form a forest, so they can be coloured with two additional colours, which
+  results in a 3-arc-colouring of $H$. Let $A_1$, $A_2$ and $A_3$ the subgraphs
+  formed by the arcs of $A$ that respectively connect two vertices of $X$,
+  connect to vertices of $Y$, start in a vertex of $Y$ and end in a vertex of
+  $X$. Because $H[X]$ has indegree at most one, the subgraph $A_1$ forms a
+  forest of trees directed towards their root. Likewise, $A_2$ forms a forest of
+  trees directed away their root. Because $X$ and $Y$ have respectively in and
+  outdegree at most one, $A_3$ forms a matching between the roots of these two
+  forests. Hence $A$ form a forest, which concludes the proof.
+\end{proof}
 \section{Recognising shift graphs}\label{sec:recognition}
 
 By Schaefer's dichotomy theorem~\cite{schaefer1978Complexity}, the following
