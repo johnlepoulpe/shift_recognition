@@ -205,6 +205,13 @@ obtained by generating a sequence of triangle-free graphs
 $(G_k)_{k\in \mathbb{N}}$ such that $\chi(G_k) = k$ for all $k$.  We turn this
 into a hereditary class by considering the induced subgraphs of the graphs in
 the sequence.
+
+
+Three problems particularly attracted attention: recognition, maximum
+independent set problem and 3-coloring. The complexity of all of them is known
+for all the classes from \cref{tab:complexity} (where a reference is given),
+except shift graphs and Kneser graphs. The goal of the present paper is to prove
+that the three problems are NP-complete for shift graphs.
 \begin{table}[h!]
   \centering
   \begin{tabular}{|l|c|c|c|}
@@ -212,10 +219,14 @@ the sequence.
     Graph class & Recognition & Minimum Independent set & 3-Colouring \\
     \hline
     Mycielski & P & NPC \cite{poljak1974Note} & NPC \cite{lovasz1973Covering,maffray1996NPcompleteness} \\
-    Zykov & NPC \cite{marin2024Structural} & NPC & NPC \\
-    Blanche-Descartes & NPC \cite{marin2024Structural} & NPC & NPC \\
+    Zykov & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} &
+                                                                              NPC \cite{marin2024Structural} \\
+    Blanche-Descartes & NPC \cite{marin2024Structural} & NPC
+                                                         \cite{marin2024Structural}
+                                                        & NPC \cite{marin2024Structural} \\
     Burling & P \cite{rzazewski2024Polynomial} & P \cite{rzazewski2024Polynomial} & NPC \\
-    Twincut & P \cite[announced in]{bonnet2023Tamed} & NPC & NPC \cite[announced in]{bonnet2023Tamed} \\
+    Twincut & P \cite[announced in]{bonnet2023Tamed} & NPC \cite[announced
+                                                       in]{bonnet2023Tamed} & NPC \cite[announced in]{bonnet2023Tamed} \\
     Shift & NPC [*] & NPC [*] & NPC [*] \\
     Kneser \& Schrijver & & & \\
     \hline
@@ -240,10 +251,6 @@ number. We believe that the complexity results of \cref{tab:complexity} also
 hold with this additional condition in these classes.
 
 
-
-
-
-
 % \paragraph{Abyssal classes}
 % In \cite{abrishami2025Burling}, Abrishami et. al. prove that the class of
 % Burling graph forms a minimal hereditary class of unbounded chromatic number:
@@ -266,9 +273,11 @@ hold with this additional condition in these classes.
 % chromatic number. 
 
 
-We prove in \cref{sec:MIS_3COL} that Minimum independent set (\textsc{MIS}) and
-3-Colouring (\textsc{3-COL}) are NP-complete and in \cref{sec:recognition} that
-recognising shift graphs is also NP-complete.
+We prove in \cref{sec:MIS} that Minimum independent set (\textsc{MIS}) is
+NP-complete in shift graphs, even when restricted to iterated shift graphs of
+arbitrarily large girth. We prove in \cref{sec:3COL} that 3-Colouring
+(\textsc{3-COL}) is NP-complete in shift graphs and in \cref{sec:recognition}
+that recognising (iterated) shift graphs is also NP-complete.
 
 \section{Preliminaries}
 \paragraph{Line digraphs}
@@ -404,28 +413,39 @@ have unbounded chromatic number:
 
 \section{Maximum independent set problem}\label{sec:MIS}
 
-Given a graph $G$, denote $G^{*k}$ the graph obtained by subdividing $2k$ times each edge
+Given a graph $G$, denote $G^{*\ell}$ the graph obtained by subdividing $\ell$ times each edge
 of $G$.
 
 \begin{lemma}[REF]\label{lem:subdivision_MIS}
-  For all graph $G$, we have $\alpha(G^{*1}) = \alpha(G) + |E(G)|$, where
-  $G^{*1}$ is the graph obtained by subdividing each edge of $G$ twice. 
+  For all graph $G$ and all even integer $\ell$, we have $\alpha(G^{*\ell}) = \alpha(G) + \frac{\ell}2|E(G)|$. 
 \end{lemma}
 
 \begin{corollary}
-  \textsc{MIS} is NP-complete on shift graph, even when restricting to
-  $k$-iterated shift graphs of girth at least $2k$ for any $k$. 
+  For any $k$ and $\ell$, \textsc{MIS} is NP-complete on $k$-iterated shift
+  graph of girth at least $\ell$.
 \end{corollary}
 \begin{proof}
-  Let $G$ be a graph and denote $[n]=V(G)$. We claim that $G^{**}$ is a shift
-  graph. By \cref{lem:subdivision_MIS}, this implies directly that \textsc{MIS}
-  is NP-complete on shift graphs. To prove our claim, consider the following
-  directed acyclic graph $H$ on the vertex set $V'$ composed of $E(G)$ and two
-  copies of $V(G)$, that is
-  $V' := {\{a_i : i \in [n]\} \cup} {\{b_i: i \in [n]\} \cup} E(G)$. For all
-  $i \in [n]$ we add the arc $a_i \to b_i$ and for all $e =\{i,j\} \in E(G)$
-  with $i<j$, we add $b_i \to e$ and $e \to a_j$.  The support of the line
-  digraph of $H$ is $G^{**}$ which proves that $G^{**}$ is a shift graph.
+  Let $k$ and $\ell$ be two integers, and without loss of generality, assume
+  that $\ell$ is even. Let $G$ be a graph and denote $[n]=V(G)$. We claim that
+  $G^{*\ell}$ is a $k$-iterated shift graph of girth at least $\ell$. By
+  \cref{lem:subdivision_MIS}, this implies directly that \textsc{MIS} is
+  NP-complete on $k$-iterated shift graphs, and on shift graphs of high girth.
+  To prove our claim, consider the following directed acyclic graphs. Given
+  $i \in \{0, \dots k\}$, let $H_j$ be the directed graph on the vertex set $V'$
+  composed of $i+1$ copies of $V(G)$ and $\ell-1$ copies of $E(G)$, that is
+  $V' := \{u_j: u \in V(G), j \in [i+1]\} \cup \{e_j : e \in E(G), j \in
+  [\ell-1]\}$. For all $u \in V(G)$ we add the arcs forming the path
+  $u_1, \dots u_{i+1}$ and for all $e =\{u,v\} \in E(G)$ with $u<v$, we
+  add arcs forming the path $u_{i+1}, e_1 \dots e_{\ell-1}, v_1$. We have $L(H_j) = H_{j-1}$: by
+  labelling the arcs of $H_j$ by their tail
+
+
+  Let $H'$ be the $k$-iterated line graph of $H$. The vertices
+  of $H$ are the paths of length $k$, that is 
+
+
+  The support of the $k$-iterated line digraph of $H$ is
+  $G^{*k}$ which proves that $G^{*k}$ is a $k$-iterated shift graph.
 \end{proof}
 
 \section{3-Colouring shift graphs}\label{sec:3COL}
@@ -440,49 +460,84 @@ of $G$.
   any $v$ (however, several arcs of the same colour can enter $v$). 
 
   \paragraph{The gadget $H$}
-  We construct an acyclic digraph $H$ with two marked arcs $e$ and $f$ with a
-  common marked head $x$ such that any 3-arc-colouring of $H$ colours $e$ and
-  $f$ differently. Let $H$ be the digraph on ten vertices $u_0, \ldots, u_8$ and
-  $x$ constructed as follows (see \cref{fig:gadget_3col}). For each
-  $i, j \in \{0, \ldots, 6\} \cup \{8\}$, add the arc $u_i \to u_j$ if
-  $i < j < i+5$ (in black in \cref{fig:gadget_3col}). Add also the arcs
-  $u_3 \to u_7$, $u_4 \to u_7$ and $u_5 \to x$, $u_6 \to x$ (respectively in red
-  and blue in \cref{fig:gadget_3col}). In $H$, $x$ is a
-  sink and a computer check shows that $H$ is 3-arc-colourable, and that all
-  3-arc-colourings of $H$ use distinct colours on $u_5 \to x$ and $u_6 \to
-  x$ (see \cref{sec:computer_check}).
+  We construct a 3-arc-colourable acyclic digraph $H$, with a marked vertex $x$,
+  such that any 3-arc-colouring of $H$, the arcs entering $x$ uses exactly two
+  colours, so that all arcs starting in $x$ have the same colour.
 
-  \begin{figure}[h!]
-    \centering
-    \begin{tikzpicture}[decoration={
-        markings,
-        mark=at position 0.5 with {\arrow[scale=1.5]{>}}}
-      ]
-      \foreach \i in {0,...,8}{
-        \node[classic] (\i) at (\i,0) {};
-        \node[below left] at (\i) {$u_{\i}$};
-      }
+  Consider the maximum transitive tournament $T_n$ such that
+  $\chi(L(T_n))=3$. Let $v_n$ be the sink of $T_n$. The transitive tournament
+  $T_{n+1}$ is obtained from $T_n$ by adding a sink $v_{n+1}$, with all arcs
+  $u \to v_{n+1}$ for $u \in V(T_n)$. % For each $u \in V(T_n)\setminus \{v_n\}$,
+  % the arcs $u \to v_{n+1}$ and $u \to v_n$ are twins in $L(T_{n+1})$. Thus
+  % \begin{align*}
+  %   \chi(L(T_{n+1})) &= \chi(L(T_{n+1} - \{uv_{n+1}: u  \in V(T_n)\setminus
+  %                      \{v_n\}\})) \\
+  %                    &= \chi(L(T_n + v_nv_{n+1})) = 4
+  % \end{align*}
+  Let $H$ be the graph obtained from $T_{n+1}$ by removing arcs entering $v_n$
+  until the chromatic number of its line digraph drops to three. Note that $H$
+  is well defined because
+  $T_{n+1}-\{uv_n : u \in V(T_{n+1})\setminus\{v_n,v_{n+1}\}\}$ is isomorphic to
+  the graph obtained from $T_n$ by adding a vertex $u$ with $u \to v_n$, and
+  this graph $G$ is 3-arc-colourable, because $T_n$ is 3-arc-colourable and
+  $uv_n$ is isolated in the line digraph of $G$. Let $uv_n$ be the last arc
+  removed in the construciton of $H$, we have $\chi(L(H + uv_n)) = 4$ and
+  $\chi(L(H)) = 3$. Let $\alpha$ be a 3-arc colouring of $H$ and without loss of
+  generality, assume that $v_nv_{n+1}$ is couloured 1 in $\alpha$. The arcs
+  entering $v_n$ in $H$ cannot be coloured 1 by $\alpha$, so they use at most
+  two colours. Suppose that they are all using the same colour, say 2. Let
+  $c = \alpha(uv_{n+1})$. Let $\beta$ be the 3-arc colouring of $H+uv_n$ such
+  that $\beta(uv_n) = c$, $\beta(v_nv_{n+1}) \in \{1,3\}\setminus \{c\}$ and
+  $\beta(xy)= \alpha(xy)$ for all other arcs $xy$. The arc-colouring $\beta$ is
+  proper, which constricts $\chi(L(H+uv_n)=4$. So the arcs entering $v_n$ in $H$
+  use the colours 2 and 3.
+  To sum up, $H$ is 3-colourable and in each 3-arc-colouring of $H$, the arcs
+  entering $x:=v_n$ use two different colours.
 
-      \node[classic] (x) at (5.5,-1.5) {};
-      \node[below left] at (x) {$x$};
+  
+  % We construct an acyclic digraph $H$ with two marked arcs $e$ and $f$ with a
+  % common marked head $x$ such that any 3-arc-colouring of $H$ colours $e$ and
+  % $f$ differently. Let $H$ be the digraph on ten vertices $u_0, \ldots, u_8$ and
+  % $x$ constructed as follows (see \cref{fig:gadget_3col}). For each
+  % $i, j \in \{0, \ldots, 6\} \cup \{8\}$, add the arc $u_i \to u_j$ if
+  % $i < j < i+5$ (in black in \cref{fig:gadget_3col}). Add also the arcs
+  % $u_3 \to u_7$, $u_4 \to u_7$ and $u_5 \to x$, $u_6 \to x$ (respectively in red
+  % and blue in \cref{fig:gadget_3col}). In $H$, $x$ is a
+  % sink and a computer check shows that $H$ is 3-arc-colourable, and that all
+  % 3-arc-colourings of $H$ use distinct colours on $u_5 \to x$ and $u_6 \to
+  % x$ (see \cref{sec:computer_check}).
 
-      \foreach \i in {0,...,6}{
-        \pgfmathsetmacro{\a}{int(\i+1)}
-        \pgfmathsetmacro{\b}{min(int(\i+4),8)}
-        \foreach \j in {\a,...,\b}{
-          \ifthenelse{\j = 7}{}
-          {\draw (\i) edge[bend left=(\j-1-\i)*20, postaction=decorate] (\j);}
-        }
-      }
-      \foreach \i in {3,4}{
-        \draw[color1] (\i) edge[bend left=(6-\i)*20, postaction=decorate] (7);
-      }
-      \draw[color3,postaction=decorate] (5) -- (x);
-      \draw[color3,postaction=decorate] (6) -- (x);
-    \end{tikzpicture}
-    \caption{The gadget $H$}
-    \label{fig:gadget_3col}
-  \end{figure}
+  % \begin{figure}[h!]
+  %   \centering
+  %   \begin{tikzpicture}[decoration={
+  %       markings,
+  %       mark=at position 0.5 with {\arrow[scale=1.5]{>}}}
+  %     ]
+  %     \foreach \i in {0,...,8}{
+  %       \node[classic] (\i) at (\i,0) {};
+  %       \node[below left] at (\i) {$u_{\i}$};
+  %     }
+
+  %     \node[classic] (x) at (5.5,-1.5) {};
+  %     \node[below left] at (x) {$x$};
+
+  %     \foreach \i in {0,...,6}{
+  %       \pgfmathsetmacro{\a}{int(\i+1)}
+  %       \pgfmathsetmacro{\b}{min(int(\i+4),8)}
+  %       \foreach \j in {\a,...,\b}{
+  %         \ifthenelse{\j = 7}{}
+  %         {\draw (\i) edge[bend left=(\j-1-\i)*20, postaction=decorate] (\j);}
+  %       }
+  %     }
+  %     \foreach \i in {3,4}{
+  %       \draw[color1] (\i) edge[bend left=(6-\i)*20, postaction=decorate] (7);
+  %     }
+  %     \draw[color3,postaction=decorate] (5) -- (x);
+  %     \draw[color3,postaction=decorate] (6) -- (x);
+  %   \end{tikzpicture}
+  %   \caption{The gadget $H$}
+  %   \label{fig:gadget_3col}
+  % \end{figure}
 
   \paragraph{Constructing the shift graph}
   Let $G$ be a graph. Consider the root graph $G'$ constructed as follows. Order
@@ -603,23 +658,29 @@ problem is NP-complete.
 
 
 \begin{theorem}
-  Recognising a shift graph (or equivalently, the support of the line digraph of
-  a digraph) is an NP-complete problem.
+  Let $k \ge 1$. Recognising a $k$-iterated shift graph (or equivalently, the
+  support of the $k$-iterated line digraph of
+  an acyclic digraph) is an NP-complete problem.
 \end{theorem}
 \begin{proof}
-  We reduce \textsc{MNAE3SAT} to the shift graph recognition problem.
+  We reduce \textsc{MNAE3SAT} to the shift graph recognition problem.  Let
+  $\phi$ be a monotone 3-CNF formula with $m$ clauses. We build a graph $G_\phi$
+  that is a $k$-iterated shift graph if $\phi$ is a valid instance of
+  \textsc{MNAE3SAT}, but is not a shift graph (and \emph{a fortiori} not a
+  $k$-iterated shift graph) if $\phi$ is not a valid instance of
+  \textsc{MNAE3SAT}.
 
   \paragraph{Gadgets}
-  Let $\phi$ be a monotone 3-CNF formula with $m$ clauses. We first describe the
-  gadget used for the variables. Let $H$ be the 4-sun, that is the graph on
-  eight vertices composed of a 4-cycle with one pending edge attached to each of
-  the vertices of the cycle. For each variable $x$, consider the gadget composed
-  of a path on $8m+3$ vertices $u_x^{-2}, \dots, u_x^{8m}$ in which for each
-  $i \in \{0, \ldots, 2(m-1)\}$ we connect each $u_x^{2i}$ to a vertex
-  $v_x^{2i}$ itself adjacent to $w_x^{2i}$, and each $u_x^{2i}$ to a distinct
-  copy of $H$ via one of the vertices of degree three that we will call
-  $t_x^{2i}$ (see \cref{fig:variable_gadget}). For each variable $x$, denote
-  $H_x$ the copy of this gadget.
+  We first describe the gadget used for the variables. Let $H$ be the 4-sun,
+  that is the graph on eight vertices composed of a 4-cycle with one pending
+  edge attached to each of the vertices of the cycle. For each variable $x$,
+  consider the gadget composed of a path on $8m+3$ vertices
+  $u_x^{-2}, \dots, u_x^{8m}$ in which for each $i \in \{0, \ldots, 2(m-1)\}$ we
+  connect each $u_x^{2i}$ to a vertex $v_x^{2i}$ itself adjacent to $w_x^{2i}$,
+  and each $u_x^{2i}$ to a distinct copy of $H$ via one of the vertices of
+  degree three that we will call $t_x^{2i}$ (see
+  \cref{fig:variable_gadget}). For each variable $x$, denote $H_x$ the copy of
+  this gadget.
   \begin{figure}[h!]
     \centering
     \begin{tikzpicture}[scale = .8]
@@ -866,35 +927,35 @@ problem is NP-complete.
 \bibliographystyle{abbrv}
 \bibliography{references}
 
-\appendix
-\section{Code use for the computer check of \cref{thm:3col}}\label{sec:computer_check}
-To check that all 3-arc-colourings of $H$ colour the two arcs entering $x$ with
-different colours, we compute the number of 3-colourings of $L(H)$ and the
-number of 3-colourings of $G$, where $G$ is obtained from $L(H)$ by
-adding an edge betwenn the vertices correspoding to arcs entering $x$ in
-$H$. The following code shows that these numbers are equal, so all 3-colourings
-of $L(H)$ are 3-colourings of $G$, which implies the desired result.
-\begin{lstlisting}[language=Python]
-from sage.graphs.graph_coloring import chromatic_number, number_of_n_colorings
+% \appendix
+% \section{Code use for the computer check of \cref{thm:3col}}\label{sec:computer_check}
+% To check that all 3-arc-colourings of $H$ colour the two arcs entering $x$ with
+% different colours, we compute the number of 3-colourings of $L(H)$ and the
+% number of 3-colourings of $G$, where $G$ is obtained from $L(H)$ by
+% adding an edge betwenn the vertices correspoding to arcs entering $x$ in
+% $H$. The following code shows that these numbers are equal, so all 3-colourings
+% of $L(H)$ are 3-colourings of $G$, which implies the desired result.
+% \begin{lstlisting}[language=Python]
+% from sage.graphs.graph_coloring import chromatic_number, number_of_n_colorings
 
-# Constructing L(H)
-vertices = [(i,j) for i in range(7) for j in range(i+1,7) if j-i <= 4]
-for i in [3,4]:
-    vertices.append((i,7))
-for i in [5,6]:
-    vertices.append((i,9))  # the vertex x of H is labelled 9 here
-for i in [4,5,6]:
-    vertices.append((i,8))
-d =dict()
-for u in vertices: 
-    L = [v for v in vertices if (v[1] == u[0] or v[0] == u[1])] 
-    d[u] = L
-LH = Graph(d)
+% # Constructing L(H)
+% vertices = [(i,j) for i in range(7) for j in range(i+1,7) if j-i <= 4]
+% for i in [3,4]:
+%     vertices.append((i,7))
+% for i in [5,6]:
+%     vertices.append((i,9))  # the vertex x of H is labelled 9 here
+% for i in [4,5,6]:
+%     vertices.append((i,8))
+% d =dict()
+% for u in vertices: 
+%     L = [v for v in vertices if (v[1] == u[0] or v[0] == u[1])] 
+%     d[u] = L
+% LH = Graph(d)
 
-# Computing the number of 3-colourings
-print("L(H) has " + str(number_of_n_colorings(LH,3)) + " proper 3-colourings")
-LH.add_edge((6,9),(5,9)) # LH is now the graph G
-print("G has " + str(number_of_n_colorings(LH,3)) + " proper 3-colourings")
-\end{lstlisting}
-\end{document}
+% # Computing the number of 3-colourings
+% print("L(H) has " + str(number_of_n_colorings(LH,3)) + " proper 3-colourings")
+% LH.add_edge((6,9),(5,9)) # LH is now the graph G
+% print("G has " + str(number_of_n_colorings(LH,3)) + " proper 3-colourings")
+% \end{lstlisting}
+% \end{document}
 
