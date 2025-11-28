@@ -180,7 +180,7 @@ Nicolas Trotignon\footnotemark[2]
 \renewcommand{\thefootnote}{\fnsymbol{footnote}} % Make affiliation marks symbols
 
 \footnotetext[1]{Theoretical Computer Science Department, Faculty of Mathematics and Computer Science, Jagiellonian University, Kraków, Poland.}
-\footnotetext[2]{}
+\footnotetext[2]{Univ Lyon, EnsL, UCBL, CNRS, LIP, F-69342, LYON Cedex 07, France}
 
 \renewcommand{\thefootnote}{\arabic{footnote}} % Return to normal footnote symbols
 
@@ -280,9 +280,9 @@ arbitrarily large girth.
 % chromatic number. 
 
 
-We prove in \cref{sec:MIS} that Minimum independent set (\textsc{MIS}) is
+We prove in \cref{sec:MIS} that Maximum independent set (\textsc{MIS}) is
 NP-complete in shift graphs. We prove in \cref{sec:3COL} that 3-Colouring
-(\textsc{3-COL}) is NP-complete in shift graphs and in \cref{sec:recognition}
+(\textsc{3-Col}) is NP-complete in shift graphs and in \cref{sec:recognition}
 that recognising shift graphs is also NP-complete.
 
 \section{Preliminaries}
@@ -295,9 +295,9 @@ arcs. The \emph{support} of a digraph $D$ is the non-directed graph $G$ obtained
 by removing the orientations of the arcs of $D$, that is $V(G) = V(D)$ and
 $E(G) = \{\{x,y\} \colon (x,y) \in A(D)\}$. We say that a vertex $u$ of a
 digraph $D$ is \emph{transitive} if it is neither a source nor a sink. A
-$k$-walk (respectively $k$-path) is a sequence of $k$ (distinct) consecutive
-arcs. The prefix (resp. suffix) of length $k$ of a path $P$ are the first (or
-last) $k$ arcs of $P$.
+\emph{$k$-walk} (respectively \emph{$k$-path}) is a sequence of $k$ (distinct)
+consecutive arcs. The \emph{prefix} (resp. \emph{suffix}) of length $k$ of a path $P$ are the
+first (or last) $k$ arcs of $P$.
 
 \paragraph{Line digraphs}
 The \emph{line digraph} $L(D)$ of $D$ is the digraph whose vertices are the arcs
@@ -955,6 +955,11 @@ problem is NP-complete.
   cannot be all positive or all negative because the orientation is valid. Hence
   $C_i$ contains a true and a false variable, which concludes the proof.
 \end{proof}
+
+
+\section*{Acknowledgements}
+The research was initiated during a one-week research visit by Nicolas Trotignon
+at Jagiellonian University in January 2025, supported by the grant FILL.
 
 \nocite{*}
 \bibliographystyle{abbrv}
