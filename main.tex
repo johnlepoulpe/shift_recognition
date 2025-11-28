@@ -187,31 +187,29 @@ Nicolas Trotignon\footnotemark[2]
 \begin{abstract}
 \end{abstract}
 
-A class of graphs is \emph{hereditary} if it closed under taking
-induced subgraphs.  A hereditary class $\mathcal C$ of graph is
-$\chi$-bounded if there exists a function $f$ such that for all graphs
-$G\in \mathcal C$, $\chi(G) \le f(\omega(G))$.  Not all hereditary
-classes of graphs are $\chi$-bounded because there exist triangle-free
-graphs of arbitrarily large chromatic number.  Several constructions
-are known and their structure attracted some attention lately. In
-particular, a construction due to Burling turned out to be a
-counter-example to several conjectures about algorithms in non-$\chi$
-bounded classes. 
+A class of graphs is \emph{hereditary} if it closed under taking induced
+subgraphs.  A hereditary class $\mathcal C$ of graph is $\chi$-bounded if there
+exists a function $f$ such that for all graphs $G\in \mathcal C$,
+$\chi(G) \le f(\omega(G))$.  Not all hereditary classes of graphs are
+$\chi$-bounded because there exist triangle-free graphs of arbitrarily large
+chromatic number.  Several constructions are known and their structure attracted
+some attention lately. In particular, a construction due to Burling turned out
+to be a counter-example to several conjectures about algorithms in non-$\chi$
+bounded classes.
 
 In \cref{tab:complexity}, we review the simplest and most well-known
 constructions of triangle-free graphs of arbitratily large chromatic number.
 Note that most of these constructions (all of them except shift) are usually
 obtained by generating a sequence of triangle-free graphs
-$(G_k)_{k\in \mathbb{N}}$ such that $\chi(G_k) = k$ for all $k$.  We turn this
+$(G_k)_{k\in \mathbb{N}}$ such that $\chi(G_k) = k$ for all $k$. We turn this
 into a hereditary class by considering the induced subgraphs of the graphs in
 the sequence.
-
 
 Three problems particularly attracted attention: recognition, maximum
 independent set problem and 3-coloring. The complexity of all of them is known
 for all the classes from \cref{tab:complexity} (where a reference is given),
-except shift graphs and Kneser graphs. The goal of the present paper is to prove
-that the three problems are NP-complete for shift graphs.
+except shift graphs. The goal of the present paper is to prove that the three
+problems are NP-complete for shift graphs.
 \begin{table}[h!]
   \centering
   \begin{tabular}{|l|c|c|c|}
@@ -219,16 +217,11 @@ that the three problems are NP-complete for shift graphs.
     Graph class & Recognition & Minimum Independent set & 3-Colouring \\
     \hline
     Mycielski & P & NPC \cite{poljak1974Note} & NPC \cite{lovasz1973Covering,maffray1996NPcompleteness} \\
-    Zykov & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} &
-                                                                              NPC \cite{marin2024Structural} \\
-    Blanche-Descartes & NPC \cite{marin2024Structural} & NPC
-                                                         \cite{marin2024Structural}
-                                                        & NPC \cite{marin2024Structural} \\
-    Burling & P \cite{rzazewski2024Polynomial} & P \cite{rzazewski2024Polynomial} & NPC \\
-    Twincut & P \cite[announced in]{bonnet2023Tamed} & NPC \cite[announced
-                                                       in]{bonnet2023Tamed} & NPC \cite[announced in]{bonnet2023Tamed} \\
+    Zykov & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} \\
+    Blanche-Descartes & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} \\
+    Burling & P \cite{rzazewski2024Polynomial} & P \cite{rzazewski2024Polynomial} & NPC \cite{walczak2025Private}\\
+    Twincut & P \cite{bourneuf2025Private} & NPC \cite{bourneuf2025Private} & NPC \cite{bourneuf2025Private} \\
     Shift & NPC [*] & NPC [*] & NPC [*] \\
-    Kneser \& Schrijver & & & \\
     \hline
   \end{tabular}  
   \caption{Complexity of Recognition, Minimum independent set and 3-Colouring of
@@ -236,19 +229,33 @@ that the three problems are NP-complete for shift graphs.
   \label{tab:complexity}
 \end{table}
 
-
-Three problems particularly attracted attention: recognition, maximum
-independent set problem and 3-coloring. The complexity of all of them is known
+Three problems particularly attracted attention: Recognition, Maximum
+independent set problem and 3-Colouring. The complexity of all of them is known
 for all the classes from \cref{tab:complexity} (where a reference is given),
 except shift graphs and Kneser graphs. The goal of the present paper is to prove
-that the three problems are NP-complete for shift graphs.
+that the three problems are NP-complete for shift graphs. Surprisingly, we see
+from \cref{tab:complexity} that 3-Colouring is NP-complete in all known
+constructions of triangle-free graphs of high chromatic number, which motivates
+the following conjecture:
+\begin{conjecture}
+  For all sequence $(G_n)_{n \in \mathbb{N}}$ of triangle-graphs of unbounded
+  chromatic number, 3-Colouring is NP-complete in the hereditary closure of
+  $\{G_n : n \in \mathbb{N}\}$.
+\end{conjecture}
+
 
 For most of these constructions of triangle-free graphs with high chromatic
-number, there exist variants producing graphs with arbitrarily large odd-girth
-and chromatic number. More precisely, shifts graphs, Zykov, Blanche-Descartes,
-Twincut or Mycielski graphs with odd-girth at least $g$ have unbounded chromatic
-number. We believe that the complexity results of \cref{tab:complexity} also
-hold with this additional condition in these classes.
+number, there exist variants producing graphs with arbitrarily large girth or
+odd-girth, and unbounded chromatic number. More precisely, shifts graphs, Zykov,
+Blanche-Descartes, Twincut or Mycielski graphs with odd-girth at least $g$ have
+unbounded chromatic number. We believe that the complexity results of
+\cref{tab:complexity} also hold with this additional condition in these
+classes. In the particular case of shift graphs, $k$-iterated shift graphs have
+odd-girth at least $2k+3$ but may contain four-cycles. Each of our
+NP-completeness results extends to the class of $k$-iterated shift graphs.
+Moreover, we prove that shift graphs of girth at least five are 3-colourable,
+but that maximum independent set is still NP-complete on shift graphs of
+arbitrarily large girth.
 
 
 % \paragraph{Abyssal classes}
@@ -274,10 +281,9 @@ hold with this additional condition in these classes.
 
 
 We prove in \cref{sec:MIS} that Minimum independent set (\textsc{MIS}) is
-NP-complete in shift graphs, even when restricted to iterated shift graphs of
-arbitrarily large girth. We prove in \cref{sec:3COL} that 3-Colouring
+NP-complete in shift graphs. We prove in \cref{sec:3COL} that 3-Colouring
 (\textsc{3-COL}) is NP-complete in shift graphs and in \cref{sec:recognition}
-that recognising (iterated) shift graphs is also NP-complete.
+that recognising shift graphs is also NP-complete.
 
 \section{Preliminaries}
 \paragraph{Line digraphs}
@@ -426,24 +432,20 @@ times each edge of $G$.
   graph of girth at least $\ell$.
 \end{corollary}
 \begin{proof}
-  Let $k$ and $\ell$ be two integers, and without loss of generality, assume
-  that $\ell$ is even. Let $G$ be a graph and denote $[n]=V(G)$. We claim that
-  $G^{*\ell}$ is a $k$-iterated shift graph of girth at least $\ell$. By
-  \cref{lem:subdivision_MIS}, this implies directly that \textsc{MIS} is
-  NP-complete on $k$-iterated shift graphs, and on shift graphs of high girth.
-  To prove our claim, consider the following directed acyclic graphs. Given
-  $i \in \{0, \dots k\}$, let $H_j$ be the directed graph on the vertex set $V'$
-  composed of $i+1$ copies of $V(G)$ and $\ell-1$ copies of $E(G)$, that is
-  $V' := \{u_j: u \in V(G), j \in [i+1]\} \cup \{e_j : e \in E(G), j \in
-  [\ell-1]\}$. For all $u \in V(G)$ we add the arcs forming the path
-  $u_1, \dots u_{i+1}$ and for all $e =\{u,v\} \in E(G)$ with $u<v$, we add arcs
-  forming the path $u_{i+1}, e_1 \dots e_{\ell-1}, v_1$. We have
-  $L(H_j) = H_{j-1}$: by labelling the arcs of $H_j$ by their tail
+  Let $k$ and $\ell$ be two integers. Let $G$ be a graph and denote
+  $[n]=V(G)$. We claim that $G^{*\ell}$ is a $k$-iterated shift graph of girth
+  at least $\ell$. By \cref{lem:subdivision_MIS}, this implies directly that
+  \textsc{MIS} is NP-complete on shift graphs, even when restricting to iterated
+  shift graphs of high girth. To prove our claim, consider the following
+  directed acyclic graphs. Given $i \in \{0, \dots k\}$, let $H_{i,\ell}$ be the
+  directed graph constructed as follows. For each edge $e=uv$ of $G$ with $u<v$,
+  let $P_e$ be a directed path on $i+\ell+2$ vertices. For each $v$, identify the
+  prefixes of length $k$ of all the paths $P_{vw}$ with $v<w$ and the suffixes
+  of all the paths $P_{uv}$ of all the paths $P_{uv}$ (see \cref{fig:MIS}).
+  In particular, we have $H_{0,\ell} = G^{*\ell}$.
 
-
-  Let $H'$ be the $k$-iterated line graph of $H$. The vertices
-  of $H$ are the paths of length $k$, that is 
-
+  
+  We have $L(H_{i, \ell}) = H_{i-1,\ell}$. 
 
   The support of the $k$-iterated line digraph of $H$ is
   $G^{*k}$ which proves that $G^{*k}$ is a $k$-iterated shift graph.
