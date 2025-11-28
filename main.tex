@@ -296,8 +296,8 @@ by removing the orientations of the arcs of $D$, that is $V(G) = V(D)$ and
 $E(G) = \{\{x,y\} \colon (x,y) \in A(D)\}$. We say that a vertex $u$ of a
 digraph $D$ is \emph{transitive} if it is neither a source nor a sink. A
 $k$-walk (respectively $k$-path) is a sequence of $k$ (distinct) consecutive
-arcs.
-
+arcs. The prefix (resp. suffix) of length $k$ of a path $P$ are the first (or
+last) $k$ arcs of $P$.
 
 \paragraph{Line digraphs}
 The \emph{line digraph} $L(D)$ of $D$ is the digraph whose vertices are the arcs
@@ -424,7 +424,7 @@ have unbounded chromatic number:
   the support of $K$: let $u$ and $v$ be two vertices of $K$ such that
   $u \to v$. Because the arcs entering $u$ use the colours in $\beta(u)$, the
   arc $uv$ must be coloured in $\alpha$ by some colour in
-  $[n] \setminus \beta(u)$, hence $\beta(v) \neq \beta (u)$.  However, the
+  $[n] \setminus \beta(u)$, hence $\beta(v) \neq \beta (u)$. However, the
   support of $K$ is a clique on $2^{n}+1$ vertices, hence in cannot be coloured
   with $2^n$ colours, a contradiction.
 \end{proof}
@@ -441,7 +441,7 @@ times each edge of $G$.
 
 \begin{corollary}
   For any $k$ and $\ell$, \textsc{MIS} is NP-complete on $k$-iterated shift
-  graph of girth at least $\ell$.
+  graphs of girth at least $\ell$.
 \end{corollary}
 \begin{proof}
   Let $k$ and $\ell$ be two integers. Let $G$ be a graph and denote
@@ -451,16 +451,15 @@ times each edge of $G$.
   shift graphs of high girth. To prove our claim, consider the following
   directed acyclic graphs. Given $i \in \{0, \dots k\}$, let $H_{i,\ell}$ be the
   directed graph constructed as follows. For each edge $e=uv$ of $G$ with $u<v$,
-  let $P_e$ be a directed path on $i+\ell+2$ vertices. For each $v$, identify the
+  let $P_e$ be a directed $(i+\ell+1)$-path. For each $v$, identify the
   prefixes of length $k$ of all the paths $P_{vw}$ with $v<w$ and the suffixes
-  of all the paths $P_{uv}$ of all the paths $P_{uv}$ (see \cref{fig:MIS}).
+  of all the paths $P_{uv}$ of all the paths $P_{uv}$ (see \cref{fig:MIS}).\todo[inline]{image}
   In particular, we have $H_{0,\ell} = G^{*\ell}$.
-
-  
-  We have $L(H_{i, \ell}) = H_{i-1,\ell}$. 
-
-  The support of the $k$-iterated line digraph of $H$ is
-  $G^{*k}$ which proves that $G^{*k}$ is a $k$-iterated shift graph.
+  We also have $L(H_{i, \ell}) = H_{i-1,\ell}$. Indeed, each $(i+\ell+1)$-path
+  $P_{uv}$ is mapped to a $(i+\ell)$-path and the identified sections of length $i$
+  $P_{uv}$ are mapped to the identified sections of length $i-1$ of $L(H_{i,
+    \ell})$. So $L^k(H_{k, \ell}) = H_{0,\ell}= G^{*\ell}$, which proves that
+  $G^{*\ell}$ is a $k$-iterated shift graph and concludes this proof.
 \end{proof}
 
 \section{3-Colouring shift graphs}\label{sec:3COL}
