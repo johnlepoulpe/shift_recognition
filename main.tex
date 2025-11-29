@@ -558,11 +558,11 @@ times each edge of $G$.
 
   \paragraph{Constructing the shift graph}
   Let $G$ be a graph. We contruct an acyclic oriented graph $G'$ such that
-  $\chi(G) \le 3$ if and only if $\chi(L(G')) \le 3$ as follows. Order
-  the vertices of $G$ arbitrarily and for each vertex $u$ of $G$, take a copy
-  $H_u$ of $H$, with an arc $e_u=x_u \to y_u$ starting in the marked vertex
-  $x_u$ of $H_u$ and ending in a new vertex $y_u$. For each edge $uv \in E(G)$,
-  with $u < v$, add the arc $x_u \to x_v$ (see \cref{fig:NP-col}). The oriented graph
+  $\chi(G) \le 3$ if and only if $\chi(L(G')) \le 3$ as follows. Order the
+  vertices of $G$ arbitrarily and for each vertex $u$ of $G$, take a copy $H_u$
+  of $H$, with an arc $e_u=x_u \to y_u$ starting in the marked vertex $x_u$ of
+  $H_u$ and ending in a new vertex $y_u$. For each edge $uv \in E(G)$, with
+  $u < v$, add the arc $x_u \to x_v$ (see \cref{fig:NP-col}). The oriented graph
   $G'$ constructed is acyclic because each copy $H_u$ of $H$ is acyclic and
   separated from the rest of $G'$ by the cut vertex $x_u$, and the additional
   edges can be ordered acyclically following the order on the vertices of
@@ -719,7 +719,18 @@ times each edge of $G$.
   sum up, $L^k(H)$ is 3-colourable and in each 3-colouring of $L^k(H)$, the
   $k$-paths with prefix $X$ use two different colours.
 
-  \todo[inline]{Clément: I am here}
+  We finish the reduction in a similar way as for shift graphs. Let $G$ be a
+  graph, with an arbitrary oreder on its vertices. For each vertex $u$ of $v$,
+  take a copy $H_u$ of $H$ and attach an arc $x_uy_u$ to the last vertex $x_u$
+  of the marked $(k-1)$-path of $H_u$. For each edge $uv$ of $G$ with $u<v$, add
+  a pending arc $x_uz_{uv}$ to $x_u$ and identify the marked $(k-1)$-path $X_v$
+  with the $(k-1)$-path formed by concatenating the suffix of length $k-2$ of
+  $X_u$ with $z_{uv}$. The oriented graph $G'$ constructed is acyclic because
+  each the copies $H_u$ are acyclic and odered following the order of the
+  vertices of $G$. Checking that $G$ is 3-colourable if and only if $L^k(G)$ is
+  then very similar to the shift graph case.
+  
+  \todo[inline]{Clément: I am here} 
 \end{proof}
 
 \begin{theorem}
