@@ -468,65 +468,50 @@ times each edge of $G$.
 \end{theorem}
 \begin{proof}
   We reduce \textsc{3-Col} on general graphs to \textsc{3-Col} on $k$-iterated
-  shift graphs. If $G_2$ is the $k$-iterated line digraph of the oriented graph $G_1$,
-  we will for convenience see the $k$-colourings of $G_2$ as $k$-colourings of
-  the $k$-paths of $G_1$ such that the $k$-paths arcs $u_0\dots u_k$ and
-  $u_1\dots u_{k+1}$ are coloured differently (however, several $k$-paths of the
-  same colour can end in a vertex $v$).
+  shift graphs. For simplicity, we first describe our reduction for shift
+  graphs before adapting it to $k$-iterated shift graphs. We will often view
+  colourings of $L(G)$ as arc-colourings of $G$, that is an assignement of
+  colors to $A(G)$ such that $u\to v$ and $v\to w$ have distinct colors for all
+  $u,v,w \in V(G)$.
 
   \paragraph{The gadget $H$}
-  We construct an acyclic oriented graph $H$ such that $\chi(L^k(H))=3$, with a marked
-  vertex $x$ with the following property: for any fixed $(k-1)$-path $P$ ending
-  in $x$, the set of $k$-paths with suffix $P$ is coloured with exactly two
-  colours. In the special case of $k=1$ this can be simplified as follows: in
-  any 3-arc-colouring of $H$, the arcs entering $x$ use exactly two colours.
+  We construct an acyclic oriented graph $H$ such that $\chi(L(H))=3$, with a
+  marked vertex $x$ with the following property: in any 3-arc-colouring of $H$
+  the set of arcs entering $x$ uses exactly two colours. 
 
-  Consider the maximum transitive tournament $T_n$ such that
-  $\chi(L^k(T_n))=3$. Let $v_n$ be the sink of $T_n$. The transitive tournament
-  $T_{n+1}$ is obtained from $T_n$ by adding a sink $v_{n+1}$, with all arcs
-  $u \to v_{n+1}$ for $u \in V(T_n)$. % For each $u \in V(T_n)\setminus \{v_n\}$,
-  % the arcs $u \to v_{n+1}$ and $u \to v_n$ are twins in $L(T_{n+1})$. Thus
-  % \begin{align*}
-  %   \chi(L(T_{n+1})) &= \chi(L(T_{n+1} - \{uv_{n+1}: u  \in V(T_n)\setminus
-  %                      \{v_n\}\})) \\
-  %                    &= \chi(L(T_n + v_nv_{n+1})) = 4
-  % \end{align*}
-  Let $H$ be the graph obtained from $T_{n+1}$ by removing arcs entering $v_n$
-  until the chromatic number of its $k$-iterated line digraph drops to
-  three. Note that $T_{n+1}-\{uv_n : u \in V(T_{n+1})\setminus\{v_n,v_{n+1}\}\}$
-  is isomorphic to the graph $T_n^+$ obtained from $T_n$ by adding a vertex $u$
-  with $u \to v_n$.  If $k >1$, we have $L^k(T_n^+)= L^k(T_n)$ and if $k=1$ then
-  $L(T_n^+)$ consists of $L(T_n)$ with an additional isolated vertex
-  corresponding to $v_nv_{n+1}$. Thus we have
-  \begin{align*}
-    \chi(L^k(T_{n+1}-\{uv_n : u \in V(T_{n+1})\setminus\{v_n,v_{n+1}\}\}))&=
-                                                                            \chi(L^k(T_n^+))\\
-                                                                          &=\chi(L^k(T_n)) = 3
-  \end{align*}
-  and $H$ is well defined.
+  Consider the minimum transitive tournament $T_n$ such that
+  $\chi(L(T_n))=4$. Let $v_{n-1}$ and $v_n$ be the vertices of $T_n$ of in
+  degree $n-1$ and $n-1$ respectively. Let $S_n$ be the subgraph of $T_n$
+  obtained by removing all the arcs $uv_n$ with $u \in V(G) \setminus
+  \{v_{n-1},v_n\}$. Given an arc-colouring $\alpha$ of $S_n$,
+  let $\beta$ be the arc-colouring of $T_n$ such that $\beta(xy) = \alpha(xy)$
+  if $xy\in A(S_n)$ and $\beta(uv_n) = \alpha(uv_{n-1})$ for all
+  $u \in V(T_n) \setminus \{v_{n-1},v_n\}$. The arc-colouring $\beta$ is
+  proper because $uv_n$ and $uv_{n-1}$ are twins in $L(T_n)$. Since $\alpha$ and
+  $\beta$ use the same amount of colours and $S_n$ is a subgraph of $T_n$, we
+  have $\chi(L(S_n)) = \chi(L(T_n)) = 4$.
 
-  \todo[inline]{for $k$-iterated line graphs, the argument is subtle, the
-    neighbours of any fixed
-    $k$-path with penultimate vertex $v_n$ have exactly two colours, but for
-    two different $k$-paths with penultimate vertex $x$, these colours might be different}
-    
-  Let $uv_n$ be the last arc removed in the construction of $H$, we have
-  $\chi(L^k(H + uv_n)) = 4$ and $\chi(L^k(H)) = 3$. Let $\alpha$ be a
-  3-colouring of $L^k(H)$. Let $P$ be a $(k-1)$-path ending in $v_n$ and without
-  loss of generality, assume that $Pv_{n+1}$ is couloured 1 in $\alpha$. The
-  $k$-paths of $H$ with $P$ as suffix cannot be coloured 1 by $\alpha$, so they
-  use at most two colours. Suppose that they are all using the same colour, say
-  2. Let $c = \alpha(Pv_{n+1})$. Let $\beta$
-  be the 3-colouring of $L^k(H+uv_n)$ such that $\beta(wP) =
-  $\todo[inline]{Clément: I am here}
+  Let $H$ be the graph obtained from $T_n$ by removing arcs entering $v_{n-1}$
+  until the chromatic number of its line digraph drops to three. Note that
+  $R_n = T_n-\{uv_{n-1} : u \in V(S_{n})\setminus\{v_{n-1},v_{n}\}\}$ is the
+  transitive tournament on the vertices $V(G)\setminus \{v_{n-1}\}$, with an
+  additional vertex $v_{n-1}$ whose only incident arc ends in the sink $v_n$. Thus
+  $R_n$ is 3-arc-colourable, and $H$ is well defined.
 
-  if $P$ contains ,
-  $\beta(v_nv_{n+1}) \in \{1,3\}\setminus \{c\}$ and $\beta(xy)= \alpha(xy)$ for
-  all other arcs $xy$. The arc-colouring $\beta$ is proper, which constricts
-  $\chi(L(H+uv_n)=4$. So the arcs entering $v_n$ in $H$ use the colours 2 and 3.
+  Let $uv_{n-1}$ be the last arc removed in the construction of $H$, we have
+  $\chi(L(H + uv_{n-1})) = 4$ and $\chi(L(H)) = 3$. Let $\alpha$ be a
+  3-colouring of $L(H)$, where $v_{n-1}v_n$ is without loss of generality
+  coloured 1. The arcs entering $v_{n-1}$ cannot use the colour 1, so they use
+  at most two colours. Suppose that they are all using the same colour, say
+  2. Let $c = \alpha(uv_n)$. Let $\beta$ be the 3-colouring of $L(H+uv_{n-1})$
+  such that $\beta(uv_{n-1})= c$,
+  $\beta(v_{n-1}v_n) \in \{2,3\} \setminus \{c\}$ and $\beta(xy) = \alpha(xy)$
+  for all other arcs. The arc-colouring $\beta$ uses 3 colours like $\alpha$ and
+  is proper because $\alpha$ is proper and $v_{n-1}v_n$, the only arc starting
+  in $v_{n-1}$, uses a colour different from 1 and $c$. This contradicts 
+  $\chi(L(H+uv_n)=4$. So the arcs entering $v_{n-1}$ in $H$ use the colours 2 and 3.
   To sum up, $H$ is 3-colourable and in each 3-arc-colouring of $H$, the arcs
-  entering the marked vertex $x:=v_n$ use two different colours.
-
+  entering the marked vertex $x:=v_{n-1}$ use two different colours.
   
   % We construct an acyclic oriented graph $H$ with two marked arcs $e$ and $f$ with a
   % common marked head $x$ such that any 3-arc-colouring of $H$ colours $e$ and
@@ -573,7 +558,8 @@ times each edge of $G$.
   % \end{figure}
 
   \paragraph{Constructing the shift graph}
-  Let $G$ be a graph. Consider the root graph $G'$ constructed as follows. Order
+  Let $G$ be a graph. We contruct an acyclic oriented graph $G'$ such that
+  $\chi(G) \le 3$ if and only if $\chi(L(G')) \le 3$ as follows. Order
   the vertices of $G$ arbitrarily and for each vertex $u$ of $G$, take a copy
   $H_u$ of $H$, with an arc $e_u=x_u \to y_u$ starting in the marked vertex
   $x_u$ of $H_u$ and ending in a new vertex $y_u$. For each edge $uv \in E(G)$,
@@ -607,7 +593,7 @@ times each edge of $G$.
       ]
         \foreach \i in {1,2,3,4,5}{
           \begin{scope}[shift={(2*\i,0)}]
-            \draw[rounded corners] (0,0) rectangle (1,2);
+            \draw[rounded corners] (-.2,0) rectangle (1.2,2);
             \node[classic] (x\i) at (.5,0) {};
             \node[above left] at (x\i) {\small $x_{\i}$};
             \node[classic] (y\i) at (.5,-1) {};
@@ -615,6 +601,7 @@ times each edge of $G$.
             \node (H\i) at (.5,1.5) {\small $H_{\i}$};
             \draw[postaction=decorate] (.6,.7) -- (x\i);
             \draw[postaction=decorate] (.8,.7) -- (x\i);
+            \draw[postaction=decorate] (x\i) -- (1,.3);
 
             \draw[color3,postaction=decorate] (x\i) -- (y\i);
           \end{scope}
@@ -651,11 +638,92 @@ times each edge of $G$.
   arcs starting in $x_u$ are coloured identically. Colour $u$ with this
   colour. For all edge $uv$ in $E(G)$ with $u<v$, the colour of $u \in V(G)$ is the
   colour of $x_u\to x_v$ which differs from the colour of $x_v \to y_v$, that is
-  the colour of $v \in V(G)$. Thus $G$ is 3-colourable.  
+  the colour of $v \in V(G)$. Thus $G$ is 3-colourable.
+
+  \paragraph{$k$-iterated shift graphs}
+  To adpat our reduction to $k$-iterated shift graph, we will only need to
+  change our gadget. Given a $k$-iterated line digraph $G_2$ of an oriented
+  graph $G_1$, we will for convenience see the $k$-colourings of $G_2$ as
+  $k$-colourings of the $k$-paths of $G_1$ such that the $k$-paths
+  $u_0\dots u_k$ and $u_1\dots u_{k+1}$ are coloured differently (however,
+  several $k$-paths of the same colour can end in a vertex $v$).
+
+  For our gadget, we construct an acyclic oriented graph $H$ such that
+  $\chi(L^k(H))=3$, with a marked $(k-1)$-path $X$ with the following property:
+  in any 3-colouring of $L^k(H)$, the set of $k$-paths with prefix $X$ use
+  exactly two colours.
+
+  Consider the minimum transitive tournament $T_n$ such that
+  $\chi(L^k(T_n))=4$. For each $i \in [n]$, let $v_i$ be the vertex of indegree
+  $i-1$ in $T_n$. Let $S_n$ be the subgraph of $T_n$ obtained by removing all
+  for all $i \in \{0, \dots, k-1\}$ all the arcs $v_jv_{n-i}$ with
+  $j<n-i-1$. The oriented graph $S_n$ consists of a transitive tournament on the
+  vertices $\{v_i : i \in [n-k]\}$, with a $k$-path on the vertices
+  $v_{n-k}, \dots v_n$. Let $\phi$ be the following map from the $k$-paths of if
+  $xy\in A(S_n)$ and $\beta(uv_n) = \alpha(uv_{n-1})$ for all
+  $u \in V(T_n) \setminus \{v_{n-1},v_n\}$. The arc-colouring $\beta$ is proper
+  because $uv_n$ and $uv_{n-1}$ are twins in $L(T_n)$.  $T_n$ to the $k$-paths
+  of $S_n$. For all $k$-paths $P$ of $S_n$, $\phi(P) = P$. Any other $k$-path
+  $P$ of $T_n$ is the concatenation of a $i$-path $Q$ on the vertices of
+  $\{v_j : j < n-k\}$ and a $k-i-1$-path on vertices of
+  $\{v_j: \in \{n-k, \dots n\}$. For such paths, $\phi(P)$ is the concatenation
+  of $Q$ with $v_{n-k}, \dots v_{n-k+i-1}$. In particular, note that $P$ and
+  $P'$ are consecutive in $T_n$, \emph{i.e.} the suffix of length $k-1$ of $P$
+  is the prefix of length $k-1$ of $P'$, then $\phi(P)$ and $\phi(P')$ are
+  consecutive in $S_n$. Thus, given a colouring $\alpha$ of $L^k(S_n)$, the
+  colouring $\beta$ of $L^k(T_n)$ such that $\beta(P) = \alpha(\phi(P))$ for all
+  $P$ is a proper colouring. Since $\alpha$ and $\beta$ use the same amount of
+  colours and $S_n$ is a subgraph of $T_n$, we have
+  $\chi(L(S_n)) = \chi(L(T_n)) = 4$.
+
+  Let $H$ be the subgraph of $T_n$ obtained by removing vertices of the form
+  $v_iv_{n-k}$ with $i<n-k$ until the chromatic number of its $k$-iterated line
+  digraph drops to three. Note that $R_n = T_n-\{v_iv_{n-k} : i <n-k\}$ is the
+  transitive tournament on the vertices
+  $v_1, \dots v_{n-k-1}, v_{n-k+1} \dots v_n$ with the additional vertex
+  $v_{n-k}$ and all arcs of the form $v_{n-k}v_j$ with $j>n-k$. As such,
+  $L^k(R_n)$ is isomorphic to the $k$-iterated line digraph of the transitive
+  tournament on $n-1$ vertices, with one additional isolated vertex,
+  corresponding to the $k$-path $v_{n-k}, \dots v_n$. So $L^k(R_n) = 3$ and $H$
+  is well defined. Let $v_iv_{n-k}$ be the last arc removed in the construction
+  of $H$, we have $\chi(L^k(H))= 3$ and $\chi(L^k(H+v_iv_{n-k}))=4$.
+
+  Let $\alpha$ be a 3-colouring of $L^k(H)$, and without loss of generality
+  assume that the $k$-path $v_{n-k}, \dots v_n$ is coloured 1 by $\alpha$. We
+  will now argue that the set of $k$-paths with suffix $X:=v_{n-k}\dots v_{n-1}$
+  is coloured with the colours 2 and 3, and thus that all the $k$-paths with
+  prefix $X$ in the second part of the reduction are coloured 1. First, since
+  $P=v_{n-k}\dots v_n$ is coloured 1 and is the only $k$-path starting in
+  $v_{n-k}$, the $k$-paths of $H$ with suffix $X$ coloured using a subset of
+  $\{2,3\}$.
+
+  Suppose that they all use the same colour, say 2.  Let $c$ be the colour of
+  the $k$-path $v_iv_{n-k+1} \dots v_n$. Let $\psi$ be the map from the
+  $k$-paths of $H+v_iv_{n-k}$ to $H$ defined as follows. For each $k$-path $P$
+  avoiding the arc $v_iv_{n-k}$, $\psi(P) =P$. Given a $k$-path $P$ passing by
+  $v_iv_{n-k}$, let $Q$ its prefix ending at $v_i$ and $R$ its suffix starting
+  at $v_{n-k}$ and let $\psi(P)$ be the concatenation of $Q$ and
+  $v_{n-k+1}, \dots v_{n-k+1+q}$ where $q$ is the length of $Q$. In particular,
+  if $P$ and $P'$ are consecutive in $T_n$, then so are $\psi(P)$ and
+  $\psi(P')$. Let $\beta$ be the 3-colouring of $L(H+v_iv_{n-k})$ defined as
+  follows. For any $k$-path $P$ without $X$ as suffix or prefix, let
+  $\beta(P) = \beta(\psi(P))$. Any $k$-path $P$ with suffix $X$ in
+  $H+v_iv_{n-k}$ is either a $k$-path of $H$, in which case $\alpha(P)=2$ and we
+  define $\beta(P) = 2$, or the $k$-path $v_iv_{n-k}\dots v_{n-1}$, in which
+  case we let $\beta(P) = \alpha(v_iv_{n-k+1}\dots v_n) = c$. The only remaining
+  $k$-path where $\beta$ is undefined is the path $P = v_{n-k} \dots v_n$ with
+  $X$ as prefix. By construction the indicent paths in $L^k(H+v_iv_{n-k})$ are
+  colored 2 and $c$, so we can colour this path with a colour from
+  $\{1,3\}\setminus\{c\}$. The colouring $\beta$ is a proper 3-colouring of
+  $L^k(H+v_iv_n)$, which contradicts $\chi(L^k(H+v_iv_{n-k})$. So the $k$-paths
+  with suffix $X=v_{n-k}\dots v_{n-1}$ use the colours 2 and 3 in $\alpha$. To
+  sum up, $L^k(H)$ is 3-colourable and in each 3-colouring of $L^k(H)$, the
+  $k$-paths with prefix $X$ use two different colours.
+
 \end{proof}
 
 \begin{theorem}
-  Any shift graph of girth at least five is 3-colourable.
+  All shift graphs of girth at least five are 3-colourable.
 \end{theorem}
 \begin{proof}
   Let $G$ be a shift graph of girth at least five and let $H$ be a root oriented graph
