@@ -241,6 +241,9 @@ the following conjecture:
   3-Colouring is NP-complete in all hereditary graph classes of unbounded
   chormatic number.
 \end{conjecture}
+\todo[inline]{I think it is false because we can construct a sequence of graphs
+  $G_n$ such that $\chi(G_n) = n$ and $\chi(H) \le 3$ for each induced subgraph
+  of $G_n$ of size at most $2^n + |G_n|$}
 
 
 For most of these constructions of triangle-free graphs with high chromatic
@@ -463,7 +466,8 @@ times each edge of $G$.
 
 \section{3-Colouring shift graphs}\label{sec:3COL}
 \begin{theorem}\label{thm:3col}
-  For any $k$, \textsc{3-Col} is NP-complete on $k$-iterated shift graphs.
+  For any $k$, \textsc{3-Col} is NP-complete on $k$-iterated shift graphs (and
+  \emph{a fortiori} in shift graphs of odd-girth at least $k$).
 \end{theorem}
 \begin{proof}
   We reduce \textsc{3-Col} on general graphs to \textsc{3-Col} on $k$-iterated
