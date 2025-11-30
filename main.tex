@@ -451,8 +451,8 @@ times each edge of $G$.
   directed acyclic graphs. Given $i \in \{0, \dots k\}$, let $H_{i,\ell}$ be the
   directed graph constructed as follows. For each edge $e=uv$ of $G$ with $u<v$,
   let $P_e$ be a directed $(i+\ell+1)$-path. For each $v$, identify the
-  prefixes of length $k$ of all the paths $P_{vw}$ with $v<w$ and the suffixes
-  of all the paths $P_{uv}$ of all the paths $P_{uv}$ (see \cref{fig:MIS}).\todo[inline]{image}
+  prefixes of length $i$ of all the paths $P_{vw}$ with $v<w$ and the suffixes
+  of all the paths $P_{uv}$ of all the paths $P_{uv}$.
   In particular, we have $H_{0,\ell} = G^{*\ell}$.
   We also have $L(H_{i, \ell}) = H_{i-1,\ell}$. Indeed, each $(i+\ell+1)$-path
   $P_{uv}$ is mapped to a $(i+\ell)$-path and the identified sections of length $i$
