@@ -471,11 +471,10 @@ times each edge of $G$.
 \end{theorem}
 \begin{proof}
   We reduce \textsc{3-Col} on general graphs to \textsc{3-Col} on $k$-iterated
-  shift graphs. For simplicity, we first describe our reduction for shift
-  graphs before adapting it to $k$-iterated shift graphs. We will often view
-  colourings of $L(G)$ as arc-colourings of $G$, that is an assignement of
-  colors to $A(G)$ such that $u\to v$ and $v\to w$ have distinct colors for all
-  $u,v,w \in V(G)$.
+  shift graphs. For simplicity, we first describe our reduction for shift graphs
+  before adapting it to $k$-iterated shift graphs. We will often view colourings
+  of $L(G)$ as arc-colourings of $G$, that is an assignement of colors to $A(G)$
+  such that $u\to v$ and $v\to w$ have distinct colors for all $u,v,w \in V(G)$.
 
   \paragraph{The gadget $H$}
   We construct an acyclic oriented graph $H$ such that $\chi(L(H))=3$, with a
@@ -800,19 +799,21 @@ problem is NP-complete.
   an acyclic oriented graph) is an NP-complete problem.
 \end{theorem}
 \begin{proof}
-  We reduce \textsc{MNAE3SAT} to the shift graph recognition problem.  Let
-  $\phi$ be a monotone 3-CNF formula with $m$ clauses. We build a graph $G_\phi$
-  that is a $k$-iterated shift graph if $\phi$ is a valid instance of
-  \textsc{MNAE3SAT}, but is not a shift graph (and \emph{a fortiori} not a
-  $k$-iterated shift graph) if $\phi$ is not a valid instance of
-  \textsc{MNAE3SAT}.
+  % Here again, we first explain the reduction to shift graphs before adapting it
+  % to iterated shift graphs.
+  Let $k \in \mathbb{N}$. We reduce \textsc{MNAE3SAT} to the $k$-iterated shift
+  graph recognition problem.  Let $\phi$ be a monotone 3-CNF formula with $m$
+  clauses. We build a graph $G_\phi$ that is a $k$-iterated shift graph if
+  $\phi$ is a valid instance of \textsc{MNAE3SAT}, but is not a shift graph (and
+  \emph{a fortiori} not a $k$-iterated shift graph) if $\phi$ is not a valid
+  instance of \textsc{MNAE3SAT}.
 
   \paragraph{Gadgets}
   We first describe the gadget used for the variables. Let $H$ be the 4-sun,
   that is the graph on eight vertices composed of a 4-cycle with one pending
   edge attached to each of the vertices of the cycle. For each variable $x$,
-  consider the gadget composed of a path on $8m+3$ vertices
-  $u_x^{-2}, \dots, u_x^{8m}$ in which for each $i \in \{0, \ldots, 2(m-1)\}$ we
+  consider the gadget composed of a path on $8mk+3$ vertices
+  $u_x^{-2}, \dots, u_x^{8mk}$ in which for each $i \in \{0, \ldots, 2(mk-1)\}$ we
   connect each $u_x^{2i}$ to a vertex $v_x^{2i}$ itself adjacent to $w_x^{2i}$,
   and each $u_x^{2i}$ to a distinct copy of $H$ via one of the vertices of
   degree three that we will call $t_x^{2i}$ (see
@@ -869,10 +870,10 @@ problem is NP-complete.
       \node[below right=-.15cm] at (b0) {\scriptsize $u_x^1$};
       \node[below right=-.15cm] at (e11) {\scriptsize $v_x^2$};
       \node[below right=-.15cm] at (e12) {\scriptsize $w_x^2$};
-      \node[below right=-.15cm] at (H711) {\scriptsize $t_x^{8m-2}$};
-      \node[below right=-.15cm] at (a7) {\scriptsize $u_x^{8m-2}$};
-      \node[below right=-.15cm] at (e71) {\scriptsize $v_x^{8m-2}$};
-      \node[below right=-.15cm] at (e72) {\scriptsize $w_x^{8m-2}$};
+      \node[below right=-.15cm] at (H711) {\scriptsize $t_x^{8mk-2}$};
+      \node[below right=-.15cm] at (a7) {\scriptsize $u_x^{8mk-2}$};
+      \node[below right=-.15cm] at (e71) {\scriptsize $v_x^{8mk-2}$};
+      \node[below right=-.15cm] at (e72) {\scriptsize $w_x^{8mk-2}$};
     \end{tikzpicture}  
     \caption{Variable gadget $H_x$}
     \label{fig:variable_gadget}    
@@ -880,8 +881,8 @@ problem is NP-complete.
   
   For each $i \in \{0, \ldots, m-1\}$, we attach the gadgets $H_x$, $H_y$ and $H_z$
   of the variables appearing in the $i$-th clause $C_i = (x \vee y \vee z)$ as
-  follows. Add three edges to form a path $a_ib_ic_id_i$, where $a_i=w_x^{8i}$,
-  $b_i=w_y^{8i+2}$, $c_i=w_y^{8i+6}$ and $d_i=w_z^{8i}$. Denote $G_\phi$ the
+  follows. Add three edges to form a path $a_ib_ic_id_i$, where $a_i=w_x^{8ki}$,
+  $b_i=w_y^{8ki+2}$, $c_i=w_y^{8ki+2+4k}$ and $d_i=w_z^{8ki}$. Denote $G_\phi$ the
   constructed graph.
 
   \paragraph{Valid orientations of $G_\phi$}
@@ -941,7 +942,7 @@ problem is NP-complete.
 
 
   For each variable $x$, denote $A_x$ the subgraph of $H_x$ induced by
-  $\bigcup_{i=0}^{4m-1} \{t_x^{2i}, u_x^{2i}, u_x^{2i+1}, v_x^{2i}, w_x^{2i}\}$.
+  $\bigcup_{i=0}^{4mk-1} \{t_x^{2i}, u_x^{2i}, u_x^{2i+1}, v_x^{2i}, w_x^{2i}\}$.
 
   \begin{claim}\label{cl:gadget_orientation}
    
@@ -957,7 +958,7 @@ problem is NP-complete.
     each copy of the 4-sun may be oriented in any of its two opposite
     orientations independently of any other copy).
 
-    Let $i \in \{0,\ldots,4m-1\}$ and assume that $t^{2i}_x \to u^{2i}_x$
+    Let $i \in \{0,\ldots,4mk-1\}$ and assume that $t^{2i}_x \to u^{2i}_x$
     (respectively $u^{2i}_x \to t^{2i}_x$). By \cref{cl:sun_orientation},
     $t^{2i}_x$ is transitive in the copy of the 4-sun it belongs
     to, so $t^{2i}_x$ has an outneighbour (resp. an inneighbour). Therefore,
@@ -1027,7 +1028,8 @@ problem is NP-complete.
   \paragraph{Equivalence of the instances}
   We are now ready to prove that $\phi$ admits a valuation such that each
   clause contains true and false variables with different values if and only if
-  $G_\phi$ is a shift graph.
+  $G_\phi$ is a $k$-iterated shift graph. More precisely, we prove that if
+  $\phi$ admits so such valuation, then $G_\phi$ is not even a shift graph.
 
   We first prove the direct implication. Consider such a valuation. For all
   variable $x$ choose the orientation of $H_x$ such that $w^{0}_x \to v^{0}_x$
@@ -1047,7 +1049,11 @@ problem is NP-complete.
   alternates. Finally, as each $u^{2i}_xv^{2i}_xw^{2i}_x$ forms a
   non-alternating path, the first condition of \cref{lem:forbidden_config} is
   satisfied and the orientation of $G_\phi$ is that of an acyclic line
-  digraph. In other words, $G_\phi$ is a shift graph.
+  digraph. In other words, $G_\phi$ is a shift graph. To prove that $G_\phi$ is
+  a $k$-iterated shift graph, we construct an oriented acyclic graph $F_\phi$
+  such that $L^k(F_\phi)=G_\phi$.
+
+  
 
   We now prove the reverse implication. Consider a valid orientation of
   $G_\phi$. For each variable $x$, assign $x$ to true if $w^{0}_x \to v^0_x$ and
