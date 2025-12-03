@@ -241,10 +241,6 @@ the following conjecture:
   3-Colouring is NP-complete in all hereditary graph classes of unbounded
   chormatic number.
 \end{conjecture}
-\todo[inline]{I think it is false because we can construct a sequence of graphs
-  $G_n$ such that $\chi(G_n) = n$ and $\chi(H) \le 3$ for each induced subgraph
-  of $G_n$ of size at most $2^n + |G_n|$}
-
 
 For most of these constructions of triangle-free graphs with high chromatic
 number, there exist variants producing graphs with arbitrarily large girth or
@@ -971,7 +967,8 @@ problem is NP-complete.
 
   Let $N$ be the graph formed by a path of length three and four pending edges
   $e_1, \ldots, e_4$, attached to the vertices of the path ($N$ is the support
-  of the oriented graph drawn on \cref{fig:variable_gadget}). Given a valid
+  of the oriented graph drawn on \cref{fig:variable_gadget}). We will call
+  \emph{spine} the path of length tree $N -\{e_1,e_2,e_3,e_4\}$. Given a valid
   orientation of $N$, we say that $e_1$ and $e_4$ (respectively $e_2$ and $e_3$)
   are \emph{positive} if they are oriented away (resp. towards) the path, and
   that they are \emph{negative} otherwise.
@@ -981,7 +978,7 @@ problem is NP-complete.
     all negative. Conversely, any orientation of the edges $e_i$ such that $e_2$
     and $e_3$ are both positive (or both negative), and the edges $e_i$ are not
     all positive (or respectively all negative) can be extended onto $N$ into a
-    valid orientation.
+    valid orientation such that the spine of $N$ is a directed path.
   \end{claim}
   \begin{poc}
     Assume towards contradiction that there exists a valid orientation of $N$
@@ -998,9 +995,9 @@ problem is NP-complete.
 
     Conversely, consider an orientation of $e_1, \ldots, e_4$, such that $e_2$
     and $e_3$ are say positive, but not all four edges are positive. Say without
-    loss of generality $e_1$ is negative. Then orienting the path $a,b,c,d$ of
-    $N$ from $a$ to $d$ (as on picture \cref{fig:variable_gadget}) forms a line
-    digraph by \cref{lem:forbidden_config}.
+    loss of generality $e_1$ is negative. Then orienting the spine of $N$ as a
+    directed path from $a$ to $d$ (as on picture \cref{fig:variable_gadget})
+    forms a line digraph by \cref{lem:forbidden_config}.
 
     \begin{figure}[h!]
       \centering
@@ -1036,18 +1033,21 @@ problem is NP-complete.
   $G_\phi$ is a $k$-iterated shift graph. More precisely, we prove that if
   $\phi$ admits so such valuation, then $G_\phi$ is not even a shift graph.
 
-  We first prove the direct implication. Consider such a valuation. For all
-  variable $x$ choose the orientation of $L_x$ such that $w^{0}_x \to v^{0}_x$
-  (by \cref{cl:gadget_orientation} there exists only one such orientation). The
-  only edges that remain to be oriented are the edges forming the path in each
-  clause gadget. Let $C_i$ be a clause of $\phi$, $N_i$ the corresponding
-  subgraph of $G_\phi$, with $e_1,\ldots, e_4$ the edges attached to the vertices
-  of the path of length three. By construction and \cref{cl:gadget_orientation},
-  $e_2$ and $e_3$ are either both negative or both positive. Since $C_i$
-  contains true and false variables, we can apply \cref{cl:clause_orientation}
-  to orient the remaining edges of $N_i$. The orientation we constructed is
-  valid when restricted to each $N_i$ and to each $L_x$. To check that is forms
-  a valid orientation of $G_\phi$, we only need to check the first condition of
+  We first prove the direct implication. Consider such a valuation. For each
+  variable $x$, choose the orientation of $L_x$ such that $w^{0}_x \to v^{0}_x$
+  if $x$ is true (by \cref{cl:gadget_orientation} there exists only one such
+  orientation). Then orient each copy of the four-sun such that each $t^{2i}_x$
+  has in and outdegree equal to two (by \cref{cl:sun_orientation}, there exists
+  a unique such orientation for each $(x,i)$). The only edges that remain to be
+  oriented are the edges forming the path in each clause gadget. Let $C_i$ be a
+  clause of $\phi$, $N_i$ the corresponding subgraph of $G_\phi$, with
+  $e_1,\ldots, e_4$ the edges attached to the vertices of the path of length
+  three. By construction and \cref{cl:gadget_orientation}, $e_2$ and $e_3$ are
+  either both negative or both positive. Since $C_i$ contains true and false
+  variables, we can apply \cref{cl:clause_orientation} to orient the remaining
+  edges of $N_i$. The orientation we constructed is valid when restricted to
+  each $N_i$ and to each $L_x$. To check that is forms a valid orientation of
+  $G_\phi$, we only need to check the first condition of
   \cref{lem:forbidden_config} at the junctions between the clause and the
   variable gadgets, and the orientation of the cycles using these
   junctions. Note that any such cycle must pass by some $u^{2i}_x$, at which it
@@ -1056,8 +1056,7 @@ problem is NP-complete.
   satisfied and the orientation of $G_\phi$ is that of an acyclic line
   digraph. In other words, $G_\phi$ is a shift graph. To prove that $G_\phi$ is
   a $k$-iterated shift graph, we construct an oriented acyclic graph $F_\phi$
-  such that $L^k(F_\phi)=G_\phi$.
-  \todo[inline]{Clément: I am here}
+  such that $L^k(F_\phi)=G_\phi$.  \todo[inline]{Clément: I am here}
 
   
 
