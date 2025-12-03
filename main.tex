@@ -1034,29 +1034,130 @@ problem is NP-complete.
   $\phi$ admits so such valuation, then $G_\phi$ is not even a shift graph.
 
   We first prove the direct implication. Consider such a valuation. For each
-  variable $x$, choose the orientation of $L_x$ such that $w^{0}_x \to v^{0}_x$
+  variable $x$, choose the orientation of $M_x$ such that $w^{0}_x \to v^{0}_x$
   if $x$ is true (by \cref{cl:gadget_orientation} there exists only one such
   orientation). Then orient each copy of the four-sun such that each $t^{2i}_x$
   has in and outdegree equal to two (by \cref{cl:sun_orientation}, there exists
-  a unique such orientation for each $(x,i)$). The only edges that remain to be
-  oriented are the edges forming the path in each clause gadget. Let $C_i$ be a
-  clause of $\phi$, $N_i$ the corresponding subgraph of $G_\phi$, with
-  $e_1,\ldots, e_4$ the edges attached to the vertices of the path of length
-  three. By construction and \cref{cl:gadget_orientation}, $e_2$ and $e_3$ are
-  either both negative or both positive. Since $C_i$ contains true and false
-  variables, we can apply \cref{cl:clause_orientation} to orient the remaining
-  edges of $N_i$. The orientation we constructed is valid when restricted to
-  each $N_i$ and to each $L_x$. To check that is forms a valid orientation of
-  $G_\phi$, we only need to check the first condition of
-  \cref{lem:forbidden_config} at the junctions between the clause and the
-  variable gadgets, and the orientation of the cycles using these
-  junctions. Note that any such cycle must pass by some $u^{2i}_x$, at which it
-  alternates. Finally, as each $u^{2i}_xv^{2i}_xw^{2i}_x$ forms a
+  a unique such orientation for each $(x,i)$). The orientation of each variable
+  gadget $L_x$ is drawn on \cref{fig:oriented_variable}.
+
+    \begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale = 1.5,decoration={
+        markings,
+        mark=at position 0.5 with {\arrow[scale=1.5]{>}}}
+      ]
+      \foreach \i in {0,2}{
+        \begin{scope}[shift={(2*\i,0)}]
+          \node[classic] (a\i) at (0,0) {};
+          
+          \node[classic] (e\i1) at (0,-.75) {};
+          \node[classic] (e\i2) at (0,-1.5) {};
+
+          \node[classic] (H\i11) at (0,.5) {};
+          \node[classic] (H\i12) at (-.25,.25) {};
+          \node[classic] (H\i21) at (.25,.75) {};
+          \node[classic] (H\i22) at (.5,.75) {};
+          \node[classic] (H\i31) at (0,1) {};
+          \node[classic] (H\i32) at (0,1.25) {};
+          \node[classic] (H\i41) at (-.25,.75) {};
+          \node[classic] (H\i42) at (-.5,.75) {};
+          \draw[postaction={decorate}] (H\i11) to (H\i21);
+          \draw[postaction={decorate}] (H\i11) to (H\i41);
+          \draw[postaction={decorate}] (H\i31) to (H\i21);
+          \draw[postaction={decorate}] (H\i31) to (H\i41);
+          \draw[postaction={decorate}] (e\i1) to (a\i);
+          \draw[postaction={decorate}] (a\i) to (H\i11);
+          \draw[postaction={decorate}] (e\i2) to (e\i1);
+          \foreach \j in {1,3}{
+            \draw[postaction={decorate}] (H\i\j2) to (H\i\j1);
+          }
+          \foreach \j in {2,4}{
+            \draw[postaction={decorate}] (H\i\j1) to (H\i\j2);
+          }
+        \end{scope}                
+      }
+
+      \foreach \i in {1,3}{
+        \begin{scope}[shift={(2*\i,0)}]
+          \node[classic] (a\i) at (0,0) {};
+          
+          \node[classic] (e\i1) at (0,-.75) {};
+          \node[classic] (e\i2) at (0,-1.5) {};
+
+          \node[classic] (H\i11) at (0,.5) {};
+          \node[classic] (H\i12) at (-.25,.25) {};
+          \node[classic] (H\i21) at (.25,.75) {};
+          \node[classic] (H\i22) at (.5,.75) {};
+          \node[classic] (H\i31) at (0,1) {};
+          \node[classic] (H\i32) at (0,1.25) {};
+          \node[classic] (H\i41) at (-.25,.75) {};
+          \node[classic] (H\i42) at (-.5,.75) {};
+          \draw[postaction={decorate}] (H\i21) to (H\i11);
+          \draw[postaction={decorate}] (H\i21) to (H\i31);
+          \draw[postaction={decorate}] (H\i41) to (H\i11);
+          \draw[postaction={decorate}] (H\i41) to (H\i31);
+          \draw[postaction={decorate}] (H\i11) to (a\i);
+          \draw[postaction={decorate}] (a\i) to (e\i1);
+          \draw[postaction={decorate}] (e\i1) to (e\i2);
+          \foreach \j in {2,4}{
+            \draw[postaction={decorate}] (H\i\j2) to (H\i\j1);
+          }
+          \foreach \j in {1,3}{
+            \draw[postaction={decorate}] (H\i\j1) to (H\i\j2);
+          }
+          
+        \end{scope}        
+        
+      }
+
+
+      \node[classic] (a) at (-2,0) {};
+      \node[classic] (b) at (-1,0) {};
+      \node[classic] (a4) at (8,0) {};
+
+      \draw[postaction={decorate}] (a) to (b);
+      \draw[postaction={decorate}] (b)-- (a0);
+
+      \foreach \i in {1,3}{
+        \node[classic] (b\i) at (2*\i+1,0) {};
+        \pgfmathsetmacro{\j}{\i+1}
+        \draw[postaction={decorate}] (a\i) to (b\i);
+        \draw[postaction={decorate}] (b\i)to (a\j);
+      }
+      \foreach \i in {0,2}{
+        \node[classic] (b\i) at (2*\i+1,0) {};
+        \pgfmathsetmacro{\j}{\i+1}
+        \draw[postaction={decorate}] (a\j) to (b\i);
+        \draw[postaction={decorate}] (b\i)to (a\i);
+      }
+      
+       \end{tikzpicture}  
+    \caption{The orientation of $L_x$ when $x$ is true (for the false variables,
+    the orientation is reversed)}
+    \label{fig:oriented_variable}    
+  \end{figure}
+  
+  The only edges that remain to be oriented are the edges forming the spine of
+  each clause gadget. Let $C_i$ be a clause of $\phi$, $N_i$ the corresponding
+  subgraph of $G_\phi$, with $e_1,\ldots, e_4$ the edges attached to the
+  spine of $N_i$. By construction and
+  \cref{cl:gadget_orientation}, $e_2$ and $e_3$ are either both negative or both
+  positive. Since $C_i$ contains true and false variables, we can apply
+  \cref{cl:clause_orientation} to orient the spine of $N_i$. The
+  orientation we constructed is valid when restricted to each $N_i$ and to each
+  $L_x$. To check that is forms a valid orientation of $G_\phi$, we only need to
+  check the first condition of \cref{lem:forbidden_config} at the junctions
+  between the clause and the variable gadgets, and the orientation of the cycles
+  using these junctions. Note that any such cycle must pass by some $u^{2i}_x$,
+  at which it alternates. Finally, as each $u^{2i}_xv^{2i}_xw^{2i}_x$ forms a
   non-alternating path, the first condition of \cref{lem:forbidden_config} is
   satisfied and the orientation of $G_\phi$ is that of an acyclic line
   digraph. In other words, $G_\phi$ is a shift graph. To prove that $G_\phi$ is
   a $k$-iterated shift graph, we construct an oriented acyclic graph $F_\phi$
-  such that $L^k(F_\phi)=G_\phi$.  \todo[inline]{Clément: I am here}
+  such that $L^k(F_\phi)=G_\phi$.
+
+  \todo[inline]{Clément: I am here}
 
   
 
