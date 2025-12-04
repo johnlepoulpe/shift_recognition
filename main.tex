@@ -65,6 +65,7 @@
 
 \usepackage{tikz}
 \usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.pathreplacing}
 \tikzstyle{classic}=[draw=black,fill = black,inner sep = 1pt,circle]
 
 \newtheorem{theorem}{Theorem}
@@ -441,17 +442,14 @@ We say that $\phi(u)$ is \emph{private} if for all $v \in V(H) \setminus \{u\}$,
 the $(k-1)$-prefixes of $\phi(u)$ and $\phi(v)$ are different and likewise for
 their $(k-1)$-suffixes.
 
-\paragraph{Shift trees}Finally, we prove the following technical lemma that we will use to
-construct the root graph of $k$-iterated shift graphs.
+\paragraph{Shift trees}Finally, we prove the following technical lemma that we
+will use to construct the root graph of $k$-iterated shift graphs.
 
 \begin{lemma}\label{lem:shift_tree}
   Let $T$ be an oriented graph that is a shift graph and whose support is a
   tree. Then, for all $k$, $T$ is a $k$-iterated shift graph.\\
-  More precisely, there exists a graph $G$ and a $k$-shift embedding $\phi$ of $T$ in $G$
-  such that for each leaf $a$ of $T$, $\phi(a)$ is private.
-  % of $T$ and each node $n \in V(T)
-  % \setminus\{a\}$, the $k$-paths $\phi(a)$ and $\phi(n)$ have different
-  % $(k-1)$-prefixes if $a$ has indegree 0, and $(k-1)$-suffixes if $a$ has outdegree 0.
+  More precisely, there exists a graph $G$ and a $k$-shift embedding $\phi$ of
+  $T$ in $G$ such that for each leaf $a$ of $T$, $\phi(a)$ is private.
 \end{lemma}
 \begin{proof}
   Let $k > 1$ (the lemma is trivial for $k=1$). We proceed by induction on
@@ -1236,12 +1234,70 @@ problem is NP-complete.
   for shift graphs, but not for iterated shift graphs.
 
   To prove that $G_\phi$ is a $k$-iterated shift graph, we construct an oriented
-  acyclic graph $F_\phi$ such that $G_\phi$ is an induced subgraph of
-  $L^k(F_\phi)$. Let $x$ be a true variable. By \cref{lem:shift_tree}, there
-  exists a graph $F_x$ with a $k$-shift embedding $\phi_x$ of $L_x$ in
-  $F_x$. Moreover, for each vertex
+  acyclic graph $G_\phi'$ such that $G_\phi$ is an induced subgraph of
+  $L^k(G_\phi')$. Let $x$ be a true variable. By \cref{lem:shift_tree}, there
+  exists a graph $M'_x$ with a $k$-shift embedding $\phi_x$ of $M_x$ in
+  $M'_x$. Moreover, for each vertex
   $a \in \{w^{2i}_x : 0 \le i \le 4mk-1\} \cup \{t^{2i}_x: 0 \le i \le 4mk-1\}$,
-  $\phi_x(a)$ is private.
+  $\phi_x(a)$ is private. First, we identify the suffix of each $\phi(t^{4i}_x)$
+  with the path of length $(k-1)$ starting in the vertex $t$ of the graph drawn
+  on \cref{fig:sun_root} (or the prefix of each $\phi(t^{4i+2}_x)$ with the same
+  path in the reverse orientation of \cref{fig:sun_root}). It is straightforward
+  to check that the $k$-line digraph of the graph drawn on \cref{fig:sun_root}
+  is the 4-sun and since $\phi(t^{4i+2}_x)$ was private, $L_x$ is an induced
+  subgraph of $k$-line digraph of the graph $L'_x$ we obtained after
+  identification.
+  
+  \begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale = .6,decoration={
+        markings,
+        mark=at position 0.5 with {\arrow[scale=1.5]{>}}}]
+          
+      \node[classic] (a1) at (-2,0) {};
+      \node[classic] (a2) at (-1,0) {};
+      \node[classic] (a3) at (0,0) {};
+     
+      \node[classic] (b1) at (0,-2) {};
+      \node[classic, fill=red] (b2) at (0,-1) {};
+      \node[right=0cm] at (b2) {$t$};
+  
+      \coordinate (b3) at (a3);
+
+      \foreach \i in {1,...,3}{
+        \node[classic] (v\i) at (0.71*\i,0.71*\i) {};
+      }
+
+      \begin{scope}[shift={(2.84,2.84)}]
+        \node[classic] (c1) at (2,0) {};
+        \node[classic] (c2) at (1,0) {};
+        \node[classic] (c3) at (0,0) {};
+        
+        \node[classic] (d1) at (0,2) {};
+        \node[classic] (d2) at (0,1) {};
+        \coordinate (d3) at (c3);
+      \end{scope}
+
+      \foreach \u in {a,b}{
+        \draw[postaction={decorate}] (\u1) to (\u2);
+        \draw[postaction={decorate}] (\u2) to (\u3);
+      }
+      \foreach \u in {c,d}{
+        \draw[postaction={decorate}] (\u3) to (\u2);
+        \draw[postaction={decorate}] (\u2) to (\u1);
+      }
+
+      \draw[postaction={decorate}] (a3) to (v1);
+      \draw[postaction={decorate}] (v1) to (v2);
+      \draw[postaction={decorate}] (v2) to (v3);
+      \draw[postaction={decorate}] (v3) to (c3);
+
+      \draw [decorate,decoration={brace,amplitude=5pt,mirror,raise=1ex}] (c3) -- (a3) node[midway,xshift=-2ex,yshift=2ex,rotate=45]{$k-1$};
+    \end{tikzpicture}  
+    \caption{A graph whose $k$-line digraph is the $4$-sun}
+    \label{fig:sun_root}    
+  \end{figure}
+
   
   \todo[inline]{Clément: I am here}
 
