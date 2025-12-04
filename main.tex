@@ -500,7 +500,7 @@ will use to construct the root graph of some $k$-iterated shift graphs.
   are back in the case of the previous paragraph.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lem:gluing}
   Let $\phi$ be a $k$-shift embedding of $H$ in $G$ and let $u,v$ be two
   vertices of $H$ with private disjoint images by $\phi$, such that there is no
   directed path from $u$ to $v$ or vice-versa. Then $\phi$ is a $k$-shift
@@ -900,7 +900,7 @@ problem is NP-complete.
   consider the gadget composed of a path on $8m+1$ vertices
   $u_x^{-1}, \dots, u_x^{8m-1}$ in which for each $i \in \{0, \ldots, 4m-1\}$ we
   connect $u_x^{2i}$ to the extremity first vertex of the spine of a caterpillar
-  of length $k-1$. Denote $v_x^{2i}$ the last vertex of the spine of this
+  of length $k$. Denote $v_x^{2i}$ the last vertex of the spine of this
   caterpillar and $w_x^{2i}$ the vertex adjacent to $v_x^{2i}$ via the last leg.
   Connect each $u_x^{2i}$ to a distinct copy of $H$ via one of its vertices of
   degree three that we will call $t_x^{2i}$ (see
@@ -980,20 +980,21 @@ problem is NP-complete.
       \node[below left=-.1cm] at (d33) {\footnotesize $w_x^{8m-2}$};
 
       \draw [decorate,decoration={brace,amplitude=5pt,mirror,raise=1ex}] (e33)
-      -- (e31) node[midway,xshift=4ex]{\footnotesize $k-1$};
+      -- (e31) node[midway,xshift=4ex]{\footnotesize $k$};
 
     \end{tikzpicture}  
     \caption{The variable gadget $L_x$. The red vertices induce the subgraph $M_x$.}
     \label{fig:variable_gadget}    
   \end{figure}
   
-  For each $i \in \{0, \ldots, m-1\}$, we attach the gadgets $L_x$, $L_y$ and $L_z$
-  of the variables appearing in the $i$-th clause $C_i = (x \vee y \vee z)$ as
-  follows. Add three edges to form a path $a_ib_ic_id_i$, where $a_i=w_x^{8i}$,
-  $b_i=w_y^{8i+2}$, $c_i=w_y^{8i+6}$ and $d_i=w_z^{8i}$, so that the
-  vertex set $\{w_x^{8i}, w_y^{8i+2}, w_y^{8i+6}, w_z^{8i}, v_x^{8i},
-  v_y^{8i+2}, v_y^{8i+6}, v_z^{8i}\}$ forms a caterpillar of length three. Denote $G_\phi$ the
-  constructed graph.
+  For each $i \in \{0, \ldots, m-1\}$, we attach the gadgets $L_x$, $L_y$ and
+  $L_z$ of the variables appearing in the $i$\textsuperscript{th} clause
+  $(x \vee y \vee z)$ as follows. Add three edges to form a path $a_ib_ic_id_i$,
+  where $a_i=w_x^{8i}$, $b_i=w_y^{8i+2}$, $c_i=w_y^{8i+6}$ and $d_i=w_z^{8i}$,
+  so that the vertex set
+  $\{w_x^{8i}, w_y^{8i+2}, w_y^{8i+6}, w_z^{8i}, v_x^{8i}, v_y^{8i+2},
+  v_y^{8i+6}, v_z^{8i}\}$ forms a caterpillar $C_i$ of length three. Denote
+  $G_\phi$ the constructed graph.
 
   \paragraph{Valid orientations of $G_\phi$}
   We will say that an orientation of a graph is \emph{valid} if it forms a line
@@ -1078,37 +1079,33 @@ problem is NP-complete.
   \end{poc}
 
 
-  Let $N$ be the graph formed by a path of length three and four pending edges
-  $e_1, \ldots, e_4$, attached to the vertices of the path ($N$ is the support
-  of the oriented graph drawn on \cref{fig:variable_gadget}). We will call
-  \emph{spine} the path of length three $N -\{e_1,e_2,e_3,e_4\}$. Given a valid
-  orientation of $N$, we say that $e_1$ and $e_4$ (respectively $e_2$ and $e_3$)
-  are \emph{positive} if they are oriented away (resp. towards) the path, and
-  that they are \emph{negative} otherwise.
+  Given a valid orientation of the caterpillar $C_i$, we say that $e_1$ and
+  $e_4$ (respectively $e_2$ and $e_3$) are \emph{positive} if they are oriented
+  away (resp. towards) the path, and that they are \emph{negative} otherwise.
   
   \begin{claim}\label{cl:clause_orientation}
-    In any valid orientation of $N$, the edges $e_i$ cannot be all positive, or
-    all negative. Conversely, any orientation of the edges $e_i$ such that $e_2$
-    and $e_3$ are both positive (or both negative), and the edges $e_i$ are not
-    all positive (or respectively all negative) can be extended onto $N$ into a
-    valid orientation such that the spine of $N$ is a directed path.
+    In any valid orientation of $C_i$, the edges $e_j$ cannot be all positive, or
+    all negative. Conversely, any orientation of the edges $e_j$ such that $e_2$
+    and $e_3$ are both positive (or both negative), and the edges $e_j$ are not
+    all positive (or respectively all negative) can be extended onto $C_i$ into a
+    valid orientation such that the spine of $C_i$ is a directed path.
   \end{claim}
   \begin{poc}
-    Assume towards contradiction that there exists a valid orientation of $N$
-    with all edges $e_i$ positive. That is $e_1$ and $e_4$ are oriented away
+    Assume towards contradiction that there exists a valid orientation of $C_i$
+    with all edges $e_j$ positive. That is $e_1$ and $e_4$ are oriented away
     from $a$ and $d$, while $e_2$ and $e_3$ are oriented towards $b$ and $c$, where
-    $a,b,c,d$ are the internal vertices of $N$. Without loss of generality, assume
+    $a,b,c,d$ are the internal vertices of $C_i$. Without loss of generality, assume
     that $b \to c$. By \cref{lem:forbidden_config}, as $c$ has both an
     inneighbour and an outneighbour, the edge $ab$ is oriented $a \to b$. Hence
     $b$ has also an inneighbour and an outneighbour and $e_1$ is oriented
     towards $a$, that is $e_1$ is negative. By the symmetry, if we had
     $c \to b$, $e_4$ would be negative. So $e_1$ or $e_4$ is negative, a
     contradiction. Likewise, there exists no valid orientation of $N$ with all
-    edges $e_i$ negative.
+    edges $e_j$ negative.
 
     Conversely, consider an orientation of $e_1, \ldots, e_4$, such that $e_2$
     and $e_3$ are say positive, but not all four edges are positive. Say without
-    loss of generality $e_1$ is negative. Then orienting the spine of $N$ as a
+    loss of generality $e_1$ is negative. Then orienting the spine of $C_i$ as a
     directed path from $a$ to $d$ (as on picture \cref{fig:variable_gadget})
     forms a line digraph by \cref{lem:forbidden_config}.
 
@@ -1134,7 +1131,7 @@ problem is NP-complete.
       \draw (b4) -- (a4);
           
       \end{tikzpicture}
-      \caption{A valid orientation of $N$. The edge $e_1$ is negative, $e_2$ and
+      \caption{A valid orientation of $C_i$. The edge $e_1$ is negative, $e_2$ and
         $e_3$ are negative, and $e_4$ can eihter be positive or negative.}
       \label{fig:variable_gadget}
     \end{figure}
@@ -1148,22 +1145,25 @@ problem is NP-complete.
 
   We first prove the reverse implication. Consider a valid orientation of
   $G_\phi$. For each variable $x$, assign $x$ to true if $w^{0}_x \to v^0_x$ and
-  to false otherwise. Let $C_i$ be a clause of $\phi$ and $N_i$ the
-  corresponding variable gadget. By construction and by
-  \cref{cl:gadget_orientation}, each of the edges $e_1, \ldots, e_4$ attached to
-  the internal vertices of $N_i$ is positive if and only if the corresponding
-  variable is true. By \cref{cl:clause_orientation}, the edges $e_1, \ldots, e_4$
-  cannot be all positive or all negative because the orientation is valid. Hence
-  $C_i$ contains a true and a false variable, which concludes the proof.
+  to false otherwise. By construction and by \cref{cl:gadget_orientation}, each
+  of the edges $e_1, \ldots, e_4$ attached to the internal vertices of $N_i$ is
+  positive if and only if the corresponding variable is true. By
+  \cref{cl:clause_orientation}, the edges $e_1, \ldots, e_4$ cannot be all
+  positive or all negative because the orientation is valid. Hence
+  $i$\textsuperscript{th} clause contains a true and a false variable, which
+  concludes the proof.
 
 
-  We now prove the direct implication. Consider such a valuation. For each
-  variable $x$, choose the orientation of $M_x$ such that $w^{0}_x \to v^{0}_x$
-  if $x$ is true (by \cref{cl:gadget_orientation} there exists only one such
-  orientation). Then orient each copy of the four-sun such that each $t^{2i}_x$
-  has in and outdegree equal to two (by \cref{cl:sun_orientation}, there exists
-  a unique such orientation for each $(x,i)$). The orientation of each variable
-  gadget $L_x$ is drawn on \cref{fig:oriented_variable}.
+  We now prove the direct implication. Consider such a valuation. With a slight
+  abuse of notation, we will name the directed graph arising from the
+  progressive orientations of our gadgets with the same naming conventions. For
+  each variable $x$, choose the orientation of $M_x$ such that
+  $w^{0}_x \to v^{0}_x$ if $x$ is true (by \cref{cl:gadget_orientation} there
+  exists only one such orientation). Then orient each copy of the four-sun such
+  that each $t^{2i}_x$ has in and outdegree equal to two (by
+  \cref{cl:sun_orientation}, there exists a unique such orientation for each
+  $(x,i)$). The orientation of each variable gadget $L_x$ is drawn on
+  \cref{fig:oriented_variable}.
 
     \begin{figure}[h!]
     \centering
@@ -1263,13 +1263,13 @@ problem is NP-complete.
   \end{figure}
   
   The only edges that remain to be oriented are the edges forming the spine of
-  each clause gadget. Let $C_i$ be a clause of $\phi$, $N_i$ the corresponding
-  subgraph of $G_\phi$, with $e_1,\ldots, e_4$ the edges attached to the
-  spine of $N_i$. By construction and
+  each clause gadget. Consider the caterpillar $C_i$ corresponding to the
+  $i$\textsuperscript{th} clause of $\phi$, with $e_1,\ldots, e_4$ the edges attached to the
+  spine of $C_i$. By construction and
   \cref{cl:gadget_orientation}, $e_2$ and $e_3$ are either both negative or both
-  positive. Since $C_i$ contains true and false variables, we can apply
-  \cref{cl:clause_orientation} to orient the spine of $N_i$. The
-  orientation we constructed is valid when restricted to each $N_i$ and to each
+  positive. Since each clause contains true and false variables, we can apply
+  \cref{cl:clause_orientation} to orient the spine of $C_i$. The
+  orientation we constructed is valid when restricted to each $C_i$ and to each
   $L_x$. To check that is forms a valid orientation of $G_\phi$, we only need to
   check the first condition of \cref{lem:forbidden_config} at the junctions
   between the clause and the variable gadgets, and the orientation of the cycles
@@ -1282,19 +1282,36 @@ problem is NP-complete.
 
   To prove that $G_\phi$ is a $k$-iterated shift graph, we construct an oriented
   acyclic graph $G_\phi'$ such that $G_\phi$ is an induced subgraph of
-  $L^k(G_\phi')$. Let $x$ be a true variable. By \cref{lem:shift_tree}, there
-  exists a graph $M'_x$ with a $k$-shift embedding $\phi_x$ of $M_x$ in
-  $M'_x$. Moreover, for each vertex
+  $L^k(G_\phi')$. For each variable $x$, by \cref{lem:shift_tree}, there exists
+  a graph $M'_x$ with a convex $k$-shift embedding $\psi_x$ of $M_x$ in $M'_x$.
+  Moreover, for each vertex
   $a \in \{w^{2i}_x : 0 \le i \le 4mk-1\} \cup \{t^{2i}_x: 0 \le i \le 4mk-1\}$,
-  $\phi_x(a)$ is private. First, we identify the suffix of each $\phi(t^{4i}_x)$
-  with the path of length $(k-1)$ starting in the vertex $t$ of the graph drawn
-  on \cref{fig:sun_root} (or the prefix of each $\phi(t^{4i+2}_x)$ with the same
-  path in the reverse orientation of \cref{fig:sun_root}). It is straightforward
-  to check that the $k$-line digraph of the graph drawn on \cref{fig:sun_root}
-  is the 4-sun and since $\phi(t^{4i+2}_x)$ was private, $L_x$ is an induced
-  subgraph of $k$-line digraph of the graph $L'_x$ we obtained after
-  identification.
-  
+  $\psi(a)$ is private. By \cref{lem:shift_tree}, for each clause caterpillar
+  $C_i$, there exists a graph $C'_i$ with a convex $k$-shift embedding $\psi_i$
+  of $C_i$ in $C'_i$. Denote $\psi$ the union of these $k$-shift embedding.
+
+  First, we note that $(\psi(v^{2i}_x))_{i,x}$ forms a collection of pairwise
+  disjoint private $k$-paths because any distinct $v^{2i}_x$ and $v^{2j}_y$ are
+  either in different component of the support of $L_x$, or connected by a
+  unique path $P$ containing a directed subpath of length $k+1$ between
+  $v^{2i}_x$ and $u^{2i}_x$. As result, $\psi(v^{2i}_x)$ and $\psi(u^{2i}_x)$
+  are vertex disjoint and since $\psi$ is convex, so are the extremities of $P$:
+  $\psi(v^{2i}_x)$ and $\psi(v^{2j}_y)$. By iteratively applying
+  \cref{lem:gluing} to identify the leaves of the gadgets $N_i$ to the gadget
+  variables along the concerned vertices $v^{4i+2c}_x$ for some $c$, the images
+  of the vertices to be indentified remain private and disjoint. At the end of
+  this identification process, we have a $k$-shift embedding of $G_\phi$ minus
+  the 4-suns.
+
+  Finally, we identify the suffix of each private $\psi(t^{4i}_x)$ with the path
+  of length $(k-1)$ starting in the vertex $t$ of the graph $F$ drawn on
+  \cref{fig:sun_root} (or the prefix of each $\psi(t^{4i+2}_x)$ with the same
+  path in the reverse orientation of \cref{fig:sun_root}). It is
+  straightforward to check that the $k$-line digraph of the graph drawn on
+  \cref{fig:sun_root} is the 4-sun and since $\psi(t^{4i+2}_x)$ was private and
+  the $(k-1)$-path of $F$ along which $\psi(t^{4i+2}_x)$ was glued is the
+  beginning of a unique $k$-path of $F$, the resulting graph $G'_\phi$ is such
+  that $G_\phi$ is an induced subgraph of $G'_\phi$.  
   \begin{figure}[h!]
     \centering
     \begin{tikzpicture}[scale = .6,decoration={
@@ -1341,15 +1358,9 @@ problem is NP-complete.
 
       \draw [decorate,decoration={brace,amplitude=5pt,mirror,raise=1ex}] (c3) -- (a3) node[midway,xshift=-2ex,yshift=2ex,rotate=45]{$k-1$};
     \end{tikzpicture}  
-    \caption{A graph whose $k$-line digraph is the $4$-sun}
+    \caption{A graph $F$ whose $k$-line digraph is the $4$-sun}
     \label{fig:sun_root}    
   \end{figure}
-
-  
-  \todo[inline]{Clément: I am here}
-
-  
-
 \end{proof}
 
 
