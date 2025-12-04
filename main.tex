@@ -967,17 +967,17 @@ problem is NP-complete.
       
       \node[below right=-.15cm] at (H011) {\footnotesize $t_x^0$};
       \node[below right=-.15cm] at (a0) {\footnotesize $u_x^0$};
-      \node[below left=-.2cm] at (e03) {\footnotesize $v_x^0$};
-      \node[below left=-.2cm] at (d03) {\footnotesize $w_x^0$};
+      \node[below left=-.1cm] at (e03) {\footnotesize $v_x^0$};
+      \node[below left=-.1cm] at (d03) {\footnotesize $w_x^0$};
       \node[below right=-.15cm] at (H111) {\footnotesize $t_x^2$};
       \node[below right=-.15cm] at (a1) {\footnotesize $u_x^2$};
       \node[below right=-.15cm] at (b0) {\footnotesize $u_x^1$};
-      \node[below left=-.2cm] at (e13) {\footnotesize $v_x^2$};
-      \node[below left=-.2cm] at (d13) {\footnotesize $w_x^2$};
+      \node[below left=-.1cm] at (e13) {\footnotesize $v_x^2$};
+      \node[below left=-.1cm] at (d13) {\footnotesize $w_x^2$};
       \node[below right=-.15cm] at (H311) {\footnotesize $t_x^{8m-2}$};
       \node[below right=-.15cm] at (a3) {\footnotesize $u_x^{8m-2}$};
-      \node[below left=-.2cm] at (e33) {\footnotesize $v_x^{8m-2}$};
-      \node[below left=-.2cm] at (d33) {\footnotesize $w_x^{8m-2}$};
+      \node[below left=-.1cm] at (e33) {\footnotesize $v_x^{8m-2}$};
+      \node[below left=-.1cm] at (d33) {\footnotesize $w_x^{8m-2}$};
 
       \draw [decorate,decoration={brace,amplitude=5pt,mirror,raise=1ex}] (e33)
       -- (e31) node[midway,xshift=4ex]{\footnotesize $k-1$};
@@ -1038,15 +1038,15 @@ problem is NP-complete.
     \label{fig:sun_orientation}
   \end{figure}
   \begin{poc}
-    Consider $H'$ a valid orientation of $H$. By~\cref{lem:valid}, the 4-cycle $C$ of $H'$ is alternating at each
-    vertex. Let $v$ a vertex of degree three. Without loss of generality, assume
-    that $v$ has two out-neighbours in $C$. Let $u$ be the remaining neighbour
-    of $v$, and $w$ and $x$ be two vertices of $C$ such that $w$ is adjacent to
-    $v$, while $x$ is not. So $H'$ contains the arcs $v \to w$ and $x \to
-    w$. Since $H'$ is the line digraph of a graph, by the first condition
-    of~\cref{lem:forbidden_config}, the edge between $u$ and $v$ is oriented
-    towards $v$, hence $v$ is transitive and $H'$ is of the form depicted
-    on~\cref{fig:sun_orientation}.
+    Consider $H'$ a valid orientation of $H$. By~\cref{lem:valid}, the 4-cycle
+    $C$ of $H'$ is alternating at each vertex. Let $v$ a vertex of degree
+    three. Without loss of generality, assume that $v$ has two out-neighbours in
+    $C$. Let $u$ be the remaining neighbour of $v$, and $w$ and $x$ be two
+    vertices of $C$ such that $w$ is adjacent to $v$, while $x$ is not. So $H'$
+    contains the arcs $v \to w$ and $x \to w$. Since $H'$ is the line digraph of
+    a graph, by the first condition of~\cref{lem:forbidden_config}, the edge
+    between $u$ and $v$ is oriented towards $v$, hence $v$ is transitive and
+    $H'$ is of the form depicted on~\cref{fig:sun_orientation}.
   \end{poc}
 
 
@@ -1065,14 +1065,16 @@ problem is NP-complete.
     orientations independently of any other copy).
 
     Let $i \in \{0,\ldots,4mk-1\}$ and assume that $t^{2i}_x \to u^{2i}_x$
-    (respectively $u^{2i}_x \to t^{2i}_x$). By \cref{cl:sun_orientation},
-    $t^{2i}_x$ is transitive in the copy of the 4-sun it belongs
-    to, so $t^{2i}_x$ has an outneighbour (resp. an inneighbour). Therefore,
-    $u^{2i+1}_x$, $u^{2i-1}_x$ and $v^{2i}_x$ are all outneighbours of
-    $u^{2i}_x$ (resp. inneighbours). As $v^{2i}_xu^{2i}_xu^{2i+1}_x$ is an
-    alternating path, we also have $v^{2i}_x \to w^{2i}_x$ and $u^{2i+1}_x \to
-    u^{2i+2}_x$ (respectively $w^{2i}_x \to v^{2i}_x$ and $u^{2i+2}_x \to
-    u^{2i+1}_x$). The result follows from a  straightforward induction on $i$.
+    (if$u^{2i}_x \to t^{2i}_x$n reverse all the orientations in the following
+    reasoning). By \cref{cl:sun_orientation}, $t^{2i}_x$ is transitive in the
+    copy of the 4-sun it belongs to, so $t^{2i}_x$ has an outneighbour.
+    Therefore, $u^{2i+1}_x$, $u^{2i-1}_x$ and $v^{2i}_x$ are all outneighbours
+    of $u^{2i}_x$, which proves that $u^{2i}_x$ is transitive.  By propagating
+    the same reasoning along the vertices of the spine of the caterpillar
+    attached to $u^{2i}_x$, the spine of the caterpillar is oriented away from
+    $u^{2i}x$ and its legs away from the spine. In particular, we have
+    $v^{2i}_x \to w^{2i}_x$. We obtain $u^{2i+1}_x \to u^{2i+2}_x$ likewise. The
+    result follows from a straightforward induction on $i$.
   \end{poc}
 
 
