@@ -427,6 +427,63 @@ have unbounded chromatic number:
   with $2^n$ colours, a contradiction.
 \end{proof}
 
+\paragraph{Shift trees} Finally, we prove the following technical lemma that we will use to
+construct the root graph of $k$-iterated shift graphs.
+
+
+
+\begin{lemma}
+  Let $T$ be an oriented graph that is a shift graph and whose support is a
+  tree. Then, $T$ is a $k$-iterated shift graph.\\
+  More precisely, there exists a graph $G$ such that $T$ is an induced subgraph of
+  $L^k(G)$ and for each leaf $a$ of $T$ and each node $n \in V(T)
+  \setminus\{a\}$, the corresponding $k$-paths $P_a$ and $P_n$ have different
+  prefixes of length $k-1$ if $a$ has indegree 0, and suffixes if $a$ has outdegree 0.
+\end{lemma}
+\begin{proof}
+  Let $k > 1$ (the lemma is trivial for $k=1$). We proceed by induction on
+  $V(T)$. Let $a$ be a leaf of $T$, such that for some $b \in V(T)$ we have
+  $a \to b$ without loss of generality. Let $T'=T\setminus\{a\}$ and by
+  induction there exists an acyclic graph $G'$ such that $T'$ is an induced
+  subgraph of $L^k(G')$. Let $\phi$ be the map from the vertices of $T'$ to the
+  $k$-paths of $G'$ such that two vertices of $T$ are incident if and only if
+  there images by $\phi$ are consecutive. Let $P_a = \phi(b)$ and $v$, $w$, $x$,
+  $y$ be the first, second, penultimate and last vertex of $P$ path respectively
+  (with $w=x$ if $k = 2$). Let $Q_b$ be the prefix of length $k-1$ of $P$.
+
+  If for all $z \in N^+_{G'}(x)\setminus\{y\}$, $Q_bz \notin \phi(V(T'))$, then
+  let $G$ be the graph obtained from $G'$ by adding a new vertex $u$ with
+  $u \to v$. This creates a $k$-path $P_a$ whose suffix of length $k-1$ is the
+  prefix of length $k-1$ of $P_b$ but of no other $k$-path in
+  $\phi(V(T))$. Hence, $T$ is an induced subgraph of $L^k(G)$. Moreover, by
+  setting $\phi(a):=P_a$, $a$ is the only vertex of $T$ whose image by $\phi$
+  starts by $a$ and by assumption, $a$ is the only of $T$ whose image by $\phi$
+  has suffix of length $k-1$ equal to $Q_b$. Thus the second part of the lemma
+  holds as well and we can assume that there exists $c \in V(T) \setminus\{b\}$
+  such that $P_c =\phi(c)$ has $Q_b$ as prefix of length $k-1$ and ends at
+  $z \in N^+_{G'}(x)$.
+
+  \todo[inline]{picture}
+  For all $t \in N^-_{G'}(x)$, we have $xQ_b \notin \phi(V(T'))$, otherwise
+  there exists $d \in V(T')$ such that $d \to c$ and $d \to b$. We have
+  $a \to b$, so \cref{lem:forbidden_config} implies that $a \to d$ which
+  contradicts that $a$ is a leaf of $T$. Duplicate the vertex $v$ by creating a
+  vertex $v'$ that is a twin of $v$. Let $\psi$ be the map from $V(T')$ to the
+  graph $G''$ we have constructed such that
+  $\psi_{|V(T')\setminus \{b\}} = \phi_{|V(T')\setminus \{b\}}$ and $\psi(b)$ is
+  the $k$-path $P_b$ where $v$ was replaced by $v'$. For any two vertices $i,j$
+  of $V(T')$ we have $i \to j$ if and only if the suffix of length $k-1$ of
+  $\psi(i)$ is the prefix of length $k-1$ of $\psi(j)$. This is immediate if $i$
+  and $j$ are different from $b$, or if $i=b$ because $\psi(i)$ and $\phi(b)$
+  have the same suffix of length $k-1$. Since for all $t \in N^-_{G'}(x)$, we
+  have $xQ_b \notin \phi(V(T'))$, the case $b=j$ also follows. So $T'$ is an
+  induced subgraph of $L^k(G'')$ and $b$ is the only vertex of $T'$ whose
+  corresponding $k$-path $\psi(b)$ starts in $v'$, so we are back in the case of
+  the previous paragraph.
+\end{proof}
+
+
+
 \section{Maximum independent set problem}\label{sec:MIS}
 
 Given a graph $G$, denote $G^{*\ell}$ the graph obtained by subdividing $\ell$
@@ -1033,7 +1090,18 @@ problem is NP-complete.
   $G_\phi$ is a $k$-iterated shift graph. More precisely, we prove that if
   $\phi$ admits so such valuation, then $G_\phi$ is not even a shift graph.
 
-  We first prove the direct implication. Consider such a valuation. For each
+  We first prove the reverse implication. Consider a valid orientation of
+  $G_\phi$. For each variable $x$, assign $x$ to true if $w^{0}_x \to v^0_x$ and
+  to false otherwise. Let $C_i$ be a clause of $\phi$ and $N_i$ the
+  corresponding variable gadget. By construction and by
+  \cref{cl:gadget_orientation}, each of the edges $e_1, \ldots, e_4$ attached to
+  the internal vertices of $N_i$ is positive if and only if the corresponding
+  variable is true. By \cref{cl:clause_orientation}, the edges $e_1, \ldots, e_4$
+  cannot be all positive or all negative because the orientation is valid. Hence
+  $C_i$ contains a true and a false variable, which concludes the proof.
+
+
+  We now prove the direct implication. Consider such a valuation. For each
   variable $x$, choose the orientation of $M_x$ such that $w^{0}_x \to v^{0}_x$
   if $x$ is true (by \cref{cl:gadget_orientation} there exists only one such
   orientation). Then orient each copy of the four-sun such that each $t^{2i}_x$
@@ -1153,23 +1221,16 @@ problem is NP-complete.
   at which it alternates. Finally, as each $u^{2i}_xv^{2i}_xw^{2i}_x$ forms a
   non-alternating path, the first condition of \cref{lem:forbidden_config} is
   satisfied and the orientation of $G_\phi$ is that of an acyclic line
-  digraph. In other words, $G_\phi$ is a shift graph. To prove that $G_\phi$ is
-  a $k$-iterated shift graph, we construct an oriented acyclic graph $F_\phi$
-  such that $L^k(F_\phi)=G_\phi$.
+  digraph. In other words, $G_\phi$ is a shift graph. This concludes the proof
+  for shift graphs, but not for iterated shift graphs.
+
+  To prove that $G_\phi$ is a $k$-iterated shift graph, we construct an oriented
+  acyclic graph $F_\phi$ such that $L^k(F_\phi)=G_\phi$.
 
   \todo[inline]{Clément: I am here}
 
   
 
-  We now prove the reverse implication. Consider a valid orientation of
-  $G_\phi$. For each variable $x$, assign $x$ to true if $w^{0}_x \to v^0_x$ and
-  to false otherwise. Let $C_i$ be a clause of $\phi$ and $N_i$ the
-  corresponding variable gadget. By construction and by
-  \cref{cl:gadget_orientation}, each of the edges $e_1, \ldots, e_4$ attached to
-  the internal vertices of $N_i$ is positive if and only if the corresponding
-  variable is true. By \cref{cl:clause_orientation}, the edges $e_1, \ldots, e_4$
-  cannot be all positive or all negative because the orientation is valid. Hence
-  $C_i$ contains a true and a false variable, which concludes the proof.
 \end{proof}
 
 
