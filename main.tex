@@ -294,8 +294,8 @@ by removing the orientations of the arcs of $D$, that is $V(G) = V(D)$ and
 $E(G) = \{\{x,y\} \colon (x,y) \in A(D)\}$. We say that a vertex $u$ of a
 digraph $D$ is \emph{transitive} if it is neither a source nor a sink. A
 \emph{$k$-walk} (respectively \emph{$k$-path}) is a sequence of $k$ (distinct)
-consecutive arcs. The \emph{prefix} (resp. \emph{suffix}) of length $k$ of a path $P$ are the
-first (or last) $k$ arcs of $P$.
+consecutive arcs. The \emph{$k$-prefix} (resp. \emph{$k$-suffix}) of a path $P$
+are the first (or last) $k$ arcs of $P$.
 
 \paragraph{Line digraphs}
 The \emph{line digraph} $L(D)$ of $D$ is the digraph whose vertices are the arcs
@@ -438,7 +438,7 @@ construct the root graph of $k$-iterated shift graphs.
   More precisely, there exists a graph $G$ such that $T$ is an induced subgraph of
   $L^k(G)$ and for each leaf $a$ of $T$ and each node $n \in V(T)
   \setminus\{a\}$, the corresponding $k$-paths $P_a$ and $P_n$ have different
-  prefixes of length $k-1$ if $a$ has indegree 0, and suffixes if $a$ has outdegree 0.
+  $(k-1)$-prefixes if $a$ has indegree 0, and $(k-1)$-suffixes if $a$ has outdegree 0.
 \end{lemma}
 \begin{proof}
   Let $k > 1$ (the lemma is trivial for $k=1$). We proceed by induction on
@@ -449,18 +449,18 @@ construct the root graph of $k$-iterated shift graphs.
   $k$-paths of $G'$ such that two vertices of $T$ are incident if and only if
   there images by $\phi$ are consecutive. Let $P_a = \phi(b)$ and $v$, $w$, $x$,
   $y$ be the first, second, penultimate and last vertex of $P$ path respectively
-  (with $w=x$ if $k = 2$). Let $Q_b$ be the prefix of length $k-1$ of $P$.
+  (with $w=x$ if $k = 2$). Let $Q_b$ be the $(k-1)$-prefix of $P$.
 
   If for all $z \in N^+_{G'}(x)\setminus\{y\}$, $Q_bz \notin \phi(V(T'))$, then
   let $G$ be the graph obtained from $G'$ by adding a new vertex $u$ with
-  $u \to v$. This creates a $k$-path $P_a$ whose suffix of length $k-1$ is the
-  prefix of length $k-1$ of $P_b$ but of no other $k$-path in
+  $u \to v$. This creates a $k$-path $P_a$ whose $(k-1)$-suffix is the
+  $(k-1)$-prefix of $P_b$ but of no other $k$-path in
   $\phi(V(T))$. Hence, $T$ is an induced subgraph of $L^k(G)$. Moreover, by
   setting $\phi(a):=P_a$, $a$ is the only vertex of $T$ whose image by $\phi$
   starts by $a$ and by assumption, $a$ is the only of $T$ whose image by $\phi$
-  has suffix of length $k-1$ equal to $Q_b$. Thus the second part of the lemma
+  has $(k-1)$-suffix equal to $Q_b$. Thus the second part of the lemma
   holds as well and we can assume that there exists $c \in V(T) \setminus\{b\}$
-  such that $P_c =\phi(c)$ has $Q_b$ as prefix of length $k-1$ and ends at
+  such that $P_c =\phi(c)$ has $Q_b$ as $(k-1)$-prefix and ends at
   $z \in N^+_{G'}(x)$.
 
   \todo[inline]{picture}
@@ -472,10 +472,10 @@ construct the root graph of $k$-iterated shift graphs.
   graph $G''$ we have constructed such that
   $\psi_{|V(T')\setminus \{b\}} = \phi_{|V(T')\setminus \{b\}}$ and $\psi(b)$ is
   the $k$-path $P_b$ where $v$ was replaced by $v'$. For any two vertices $i,j$
-  of $V(T')$ we have $i \to j$ if and only if the suffix of length $k-1$ of
-  $\psi(i)$ is the prefix of length $k-1$ of $\psi(j)$. This is immediate if $i$
+  of $V(T')$ we have $i \to j$ if and only if the $(k-1)$-suffix of
+  $\psi(i)$ is the $(k-1)$-prefix of $\psi(j)$. This is immediate if $i$
   and $j$ are different from $b$, or if $i=b$ because $\psi(i)$ and $\phi(b)$
-  have the same suffix of length $k-1$. Since for all $t \in N^-_{G'}(x)$, we
+  have the same $(k-1)$-suffix. Since for all $t \in N^-_{G'}(x)$, we
   have $xQ_b \notin \phi(V(T'))$, the case $b=j$ also follows. So $T'$ is an
   induced subgraph of $L^k(G'')$ and $b$ is the only vertex of $T'$ whose
   corresponding $k$-path $\psi(b)$ starts in $v'$, so we are back in the case of
@@ -507,14 +507,13 @@ times each edge of $G$.
   directed acyclic graphs. Given $i \in \{0, \dots k\}$, let $H_{i,\ell}$ be the
   directed graph constructed as follows. For each edge $e=uv$ of $G$ with $u<v$,
   let $P_e$ be a directed $(i+\ell+1)$-path. For each $v$, identify the
-  prefixes of length $i$ of all the paths $P_{vw}$ with $v<w$ and the suffixes
-  of all the paths $P_{uv}$ of all the paths $P_{uv}$.
-  In particular, we have $H_{0,\ell} = G^{*\ell}$.
-  We also have $L(H_{i, \ell}) = H_{i-1,\ell}$. Indeed, each $(i+\ell+1)$-path
-  $P_{uv}$ is mapped to a $(i+\ell)$-path and the identified sections of length $i$
-  $P_{uv}$ are mapped to the identified sections of length $i-1$ of $L(H_{i,
-    \ell})$. So $L^k(H_{k, \ell}) = H_{0,\ell}= G^{*\ell}$, which proves that
-  $G^{*\ell}$ is a $k$-iterated shift graph and concludes this proof.
+  $i$-prefixes of all the paths $P_{vw}$ with $v<w$ and the $i$-suffixes of all
+  the paths $P_{uv}$. In particular, we have $H_{0,\ell} = G^{*\ell}$.  We also
+  have $L(H_{i, \ell}) = H_{i-1,\ell}$. Indeed, each $(i+\ell+1)$-path $P_{uv}$
+  is mapped to a $(i+\ell)$-path and the identified sections of length $i$
+  $P_{uv}$ are mapped to the identified sections of length $i-1$ of
+  $L(H_{i, \ell})$. So $L^k(H_{k, \ell}) = H_{0,\ell}= G^{*\ell}$, which proves
+  that $G^{*\ell}$ is a $k$-iterated shift graph and concludes this proof.
 \end{proof}
 
 \section{3-Colouring shift graphs}\label{sec:3COL}
@@ -778,7 +777,7 @@ times each edge of $G$.
   the last vertex $x_u$ of the marked $(k-1)$-path $X_u$ of $H_u$. For each edge
   $uv$ of $G$ with $u<v$, add a pending arc $x_uz_{uv}$ to $x_u$ and identify
   the marked $(k-1)$-path $X_v$ with the $(k-1)$-path formed by concatenating
-  the suffix of length $k-2$ of $X_u$ with $z_{uv}$. As a result, the $k$-paths
+  the $(k-2)$-suffix of $X_u$ with $z_{uv}$. As a result, the $k$-paths
   $X_ux_v$ and $X_vy_v$ are consecutive.  The oriented graph $G'$ constructed is
   acyclic because each the copies $H_u$ are acyclic and ordered following the
   order of the vertices of $G$. We consider the subgraph $L$ of $L^k(G')$
@@ -796,7 +795,7 @@ times each edge of $G$.
   permute the colours in a fixed 3-colouring of $L^k(H)$ to colour
   $L^k(H_u)$. Two consecutive $k$-paths of $L$ are either both contained in some
   $H_u$, or with suffix and prefix equal to some $X_u$, or with prefix equal to
-  some $X_u$ and formed by the suffix of length $k-2$ of $X_u$ concatenated with
+  some $X_u$ and formed by the $(k-2)$-suffix of $X_u$ concatenated with
   $x_vy_v$ for some $v>u$ with $uv \in E(G)$. In either case, their colours are
   different by construction. Conversely, given a proper 3-colouring $\beta$ of
   $L$, let $\alpha$ be the colouring of $G$ such that for each $u$, $\alpha(u)$
@@ -1025,7 +1024,7 @@ problem is NP-complete.
   Let $N$ be the graph formed by a path of length three and four pending edges
   $e_1, \ldots, e_4$, attached to the vertices of the path ($N$ is the support
   of the oriented graph drawn on \cref{fig:variable_gadget}). We will call
-  \emph{spine} the path of length tree $N -\{e_1,e_2,e_3,e_4\}$. Given a valid
+  \emph{spine} the path of length three $N -\{e_1,e_2,e_3,e_4\}$. Given a valid
   orientation of $N$, we say that $e_1$ and $e_4$ (respectively $e_2$ and $e_3$)
   are \emph{positive} if they are oriented away (resp. towards) the path, and
   that they are \emph{negative} otherwise.
