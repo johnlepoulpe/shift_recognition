@@ -66,7 +66,7 @@
 \usepackage{tikz}
 \usetikzlibrary{decorations.markings}
 \usetikzlibrary{decorations.pathreplacing}
-\tikzstyle{classic}=[draw=black,fill = black,inner sep = 1pt,circle]
+\tikzstyle{classic}=[draw=black,fill = black,inner sep = 1.5pt,circle]
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -916,11 +916,11 @@ problem is NP-complete.
     \begin{tikzpicture}[scale = 1.5]
       \foreach \i in {0,...,3}{
         \begin{scope}[shift={(2*\i,0)}]
-          \node[classic] (a\i) at (0,0) {};
+          \coordinate (a\i) at (0,0);
           
           \foreach \j in {1,...,3}{
-            \node[classic] (e\i\j) at (0,-.75*\j) {};
-            \node[classic] (d\i\j) at (-1.,-.75*\j) {};
+            \node[classic,fill=red] (e\i\j) at (0,-.75*\j) {};
+            \node[classic,fill=red] (d\i\j) at (-1.,-.75*\j) {};
             \draw (d\i\j) -- (e\i\j);
           }
 
@@ -929,7 +929,7 @@ problem is NP-complete.
             \draw (e\i\j) -- (e\i\jj);
           }
 
-          \node[classic] (H\i11) at (0,.5) {};
+          \node[classic,fill=red] (H\i11) at (0,.5) {};
           \node[classic] (H\i12) at (-.25,.25) {};
           \node[classic] (H\i21) at (.25,.75) {};
           \node[classic] (H\i22) at (.5,.75) {};
@@ -948,14 +948,20 @@ problem is NP-complete.
       }
 
 
-      \node[classic] (b) at (-1,0) {};
+      \node[classic,fill=red] (b) at (-1,0) {};
 
       \draw (b) -- (a0);
 
       \foreach \i in {0,...,3}{
-        \node[classic] (b\i) at (2*\i+1,0) {};
+        \coordinate (b\i) at (2*\i+1,0);
         \pgfmathsetmacro{\j}{\i+1}
         \draw (a\i) -- (b\i) -- (a\j);
+      }
+
+      \foreach \i in {0,...,3}{
+
+        \node[classic,fill=red] at (a\i) {};
+        \node[classic,fill=red] at (b\i) {};
       }
       
       
@@ -977,7 +983,7 @@ problem is NP-complete.
       -- (e31) node[midway,xshift=4ex]{\footnotesize $k-1$};
 
     \end{tikzpicture}  
-    \caption{The variable gadget $L_x$}
+    \caption{The variable gadget $L_x$. The red vertices induce the subgraph $M_x$.}
     \label{fig:variable_gadget}    
   \end{figure}
   
