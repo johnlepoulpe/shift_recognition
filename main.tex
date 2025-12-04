@@ -285,7 +285,7 @@ that recognising shift graphs is also NP-complete.
 
 \section{Preliminaries}
 
-\paragraph{Notations and glossary} A digraph $D$ consists of a set $V(D)$ of
+\subsection{Notations and glossary} A digraph $D$ consists of a set $V(D)$ of
 vertices and a set $A(D)$ of directed edges denoted $(u,v)$, $uv$ or $u \to v$
 and called \emph{arcs}. Given an arc $a=u \to v$, the \emph{head} of $a$ is $v$
 and its \emph{tail} is $u$. An oriented graph is a digraph with no opposite
@@ -297,13 +297,13 @@ digraph $D$ is \emph{transitive} if it is neither a source nor a sink. A
 consecutive arcs. The \emph{$k$-prefix} (resp. \emph{$k$-suffix}) of a path $P$
 are the first (or last) $k$ arcs of $P$.
 
-\paragraph{Line digraphs}
+\subsection{Line digraphs}
 The \emph{line digraph} $L(D)$ of $D$ is the digraph whose vertices are the arcs
 of $D$ and in which there is an arc from $a$ to $b$ if the head of $a$ is the
 tail of $b$ in $D$, in other words when $a$ and $b$ are consecutive. We refer to
 $D$ as a \emph{root} digraph of $L(D)$. The \emph{$k$-iterated line digraph}
 $L^k(D)$ of $D$ is then defined recursively by $L^k(D) = L(L^{k-1}(D))$ and
-$L^0(D) = D$.  Equivalently, the vertices of $L^k(D)$ are the directed $k$-walks
+$L^0(D) = D$. Equivalently, the vertices of $L^k(D)$ are the directed $k$-walks
 in $D$ and $L^k(D)$ contains an arc from $a$ to $b$ if the corresponding
 directed walks overlap on the $k$ last vertices of $a$ and the $k$ first
 vertices of $b$, namely $a = (v_0, \ldots, v_k)$ and $b=(v_1, \ldots, v_{k+1})$
@@ -370,7 +370,7 @@ Beineke's characterisation shows that line digraphs of digraphs can be
 recognised in polynomial time. However, Chv\'atal and Ebenegger showed that
 recognising their support is NP-complete~\cite{chvatal1990Note}.
 
-\paragraph{Shift graphs}
+\subsection{Shift graphs}
 % The class of $k$-shift graphs (or simply shift graphs for $k=2$) is the
 % hereditary closure of the graphs $\{G_{n,k} : n \ge 1\}$, that is, all induced
 % subgraph of some $G_{n,k}$. Note that this definition is equivalent to saying
@@ -384,25 +384,16 @@ and $b = (b_1, b_2)$ are adjacent if $b_1 = a_2$ (or $a_1 = b_2$). From this
 definition, it is straightforward to check that $G_n$ is the support of the line
 digraph of the transitive tournament on $n$ vertices.
 
-The $k$-iterated shift graph $G_{n,k}$ (sometimes referred to as generalised
-shift graph) is the graph whose vertices are ordered $(k+1)$-tuples
-$(a_0, \ldots, a_k)$ of $[n]$ such that $1 \le a_0 < a_1 < \ldots, < a_k \le n$,
-in which two vertices $a = (a_0, \ldots, a_k)$ and $b = (b_0, \ldots, b_k)$ are
-adjacent if $b_i = a_{i+1}$ for all $i \in [k-1]$ (or $a_i = b_{i+1}$ for all
-$i \in [k-1]$). From this definition, it is straightforward to check that
-$G_{n,k}$ is the support of the $k$-iterated line digraph of the transitive
-tournament on $n$ vertices. The graph $G_{n,k}$ has odd-girth $2k+3$, in
-particular shift graphs are triangle-free.
-
 The class of shift graphs is the hereditary closure of the graphs
-$(G_n)_{n\in \mathbb{N}}$, that is, all induced subgraph of some $G_n$. Note that this
-definition is equivalent to saying that shift graphs are the supports of the
-line digraphs of all directed acyclic graphs. Equivalently,
-shift graphs are often defined by their interval representation and the natural
-acyclic orientation that arises from it: the vertices of a shift graph are
-indexed by intervals $[a,b]$ with $1 \le a < b \le n$, and contains an arc from
-$[a,b]$ to $[c,d]$ if $b = c$. Since $L(D)$ is acyclic if and only if $D$ is
-acyclic, Beineke's characterisation gives the following equivalence:
+$(G_{n})_{n\in \mathbb{N}}$, that is, all induced subgraph of some
+$G_{n}$. Note that this definition is equivalent to saying that
+shift graphs are the supports of the line digraphs of all directed acyclic
+graphs. Equivalently, shift graphs are often defined by their interval
+representation and the natural acyclic orientation that arises from it: the
+vertices of a shift graph are indexed by intervals $[a,b]$ with
+$1 \le a < b \le n$, and contains an arc from $[a,b]$ to $[c,d]$ if $b =
+c$. Since $L(D)$ is acyclic if and only if $D$ is acyclic, Beineke's
+characterisation gives the following equivalence:
 \begin{lemma}\label{lem:valid}
   A graph is a shift graph if and only if it admits an acyclic orientation that
   is the line digraph of an oriented graph.
@@ -427,59 +418,79 @@ have unbounded chromatic number:
   with $2^n$ colours, a contradiction.
 \end{proof}
 
-\paragraph{Shift trees} Finally, we prove the following technical lemma that we will use to
+\paragraph{Iterated shift graphs}
+The $k$-iterated shift graph $G_{n,k}$ (sometimes referred to as generalised
+shift graph) is the graph whose vertices are ordered $(k+1)$-tuples
+$(a_0, \ldots, a_k)$ of $[n]$ such that $1 \le a_0 < a_1 < \ldots, < a_k \le n$,
+in which two vertices $a = (a_0, \ldots, a_k)$ and $b = (b_0, \ldots, b_k)$ are
+adjacent if $b_i = a_{i+1}$ for all $i \in [k-1]$ (or $a_i = b_{i+1}$ for all
+$i \in [k-1]$). From this definition, it is straightforward to check that
+$G_{n,k}$ is the support of the $k$-iterated line digraph of the transitive
+tournament on $n$ vertices. For any $k \ge 1$, the graph $G_{n,k}$ has odd-girth
+$2k+3$ and $(G_{n,k})_{n \in \mathbb{N}}$ has unbounded chromatic number. We
+call \emph{$k$-iterated shift graphs} the hereditary closure of
+$(G_{n,k})_{n \in \mathbb{N}}$, or equivalently, the induced subgraphs of
+$k$-line digraphs of directed acyclic graphs.
+
+
+Given an acyclic directed graph $G$ and an induced subgraph $H$ of $L^k(G)$, we
+call \emph{$k$-shift embedding} of $H$ in $G$ any map $\phi$ from the vertices of
+$H$ to the $k$-paths of $G$ such that for all $u,v\in V(H)$, $u\to v$ if and
+only if the $(k-1)$-prefix of $\phi(v)$ is the $(k-1)$-suffix of $\phi(u)$.
+We say that $\phi(u)$ is \emph{private} if for all $v \in V(H) \setminus \{u\}$,
+the $(k-1)$-prefixes of $\phi(u)$ and $\phi(v)$ are different and likewise for
+their $(k-1)$-suffixes.
+
+\paragraph{Shift trees}Finally, we prove the following technical lemma that we will use to
 construct the root graph of $k$-iterated shift graphs.
 
-
-
-\begin{lemma}
+\begin{lemma}\label{lem:shift_tree}
   Let $T$ be an oriented graph that is a shift graph and whose support is a
-  tree. Then, $T$ is a $k$-iterated shift graph.\\
-  More precisely, there exists a graph $G$ such that $T$ is an induced subgraph of
-  $L^k(G)$ and for each leaf $a$ of $T$ and each node $n \in V(T)
-  \setminus\{a\}$, the corresponding $k$-paths $P_a$ and $P_n$ have different
-  $(k-1)$-prefixes if $a$ has indegree 0, and $(k-1)$-suffixes if $a$ has outdegree 0.
+  tree. Then, for all $k$, $T$ is a $k$-iterated shift graph.\\
+  More precisely, there exists a graph $G$ and a $k$-shift embedding $\phi$ of $T$ in $G$
+  such that for each leaf $a$ of $T$, $\phi(a)$ is private.
+  % of $T$ and each node $n \in V(T)
+  % \setminus\{a\}$, the $k$-paths $\phi(a)$ and $\phi(n)$ have different
+  % $(k-1)$-prefixes if $a$ has indegree 0, and $(k-1)$-suffixes if $a$ has outdegree 0.
 \end{lemma}
 \begin{proof}
   Let $k > 1$ (the lemma is trivial for $k=1$). We proceed by induction on
   $V(T)$. Let $a$ be a leaf of $T$, such that for some $b \in V(T)$ we have
-  $a \to b$ without loss of generality. Let $T'=T\setminus\{a\}$ and by
-  induction there exists an acyclic graph $G'$ such that $T'$ is an induced
-  subgraph of $L^k(G')$. Let $\phi$ be the map from the vertices of $T'$ to the
-  $k$-paths of $G'$ such that two vertices of $T$ are incident if and only if
-  there images by $\phi$ are consecutive. Let $P_a = \phi(b)$ and $v$, $w$, $x$,
-  $y$ be the first, second, penultimate and last vertex of $P$ path respectively
-  (with $w=x$ if $k = 2$). Let $Q_b$ be the $(k-1)$-prefix of $P$.
+  $a \to b$ without loss of generality. Let $T'=T\setminus\{a\}$. By induction
+  there exists an acyclic graph $G'$ with a $k$-shift embedding $\phi$ of $T'$
+  in $G'$. Let $v$, $w$, $x$, $y$ be the first, second, penultimate and last
+  vertex of $\phi(b)$ respectively (with $w=x$ if $k = 2$). Let $Q_b$ be the
+  $(k-1)$-prefix of $\phi(b)$.
 
-  If for all $z \in N^+_{G'}(x)\setminus\{y\}$, $Q_bz \notin \phi(V(T'))$, then
-  let $G$ be the graph obtained from $G'$ by adding a new vertex $u$ with
-  $u \to v$. This creates a $k$-path $P_a$ whose $(k-1)$-suffix is the
-  $(k-1)$-prefix of $P_b$ but of no other $k$-path in
-  $\phi(V(T))$. Hence, $T$ is an induced subgraph of $L^k(G)$. Moreover, by
-  setting $\phi(a):=P_a$, $a$ is the only vertex of $T$ whose image by $\phi$
-  starts by $a$ and by assumption, $a$ is the only of $T$ whose image by $\phi$
-  has $(k-1)$-suffix equal to $Q_b$. Thus the second part of the lemma
+  If $b$ is the only vertex of $T'$ with $Q_b$ as the $(k-1)$-prefix of its
+  image by $\phi$, then let $G$ be the graph obtained from $G'$ by adding a new
+  vertex $u$ with $u \to v$. This creates a $k$-path $P_a$ whose $(k-1)$-suffix
+  is the $(k-1)$-prefix of $\phi(b)$ but of no other $k$-path in
+  $\phi(V(T))$. Hence, by defining $\phi(a) = P_a$, $\phi$ is a $k$-shift
+  embedding of $T$ in $G$. Moreover, $a$ is the only vertex of $T$ whose image
+  by $\phi$ starts by $a$ and by assumption, $a$ is the only of $T$ whose image
+  by $\phi$ has $(k-1)$-suffix equal to $Q_b$, so $\phi(a)$ is private.
+  Thus the second part of the lemma
   holds as well and we can assume that there exists $c \in V(T) \setminus\{b\}$
-  such that $P_c =\phi(c)$ has $Q_b$ as $(k-1)$-prefix and ends at
+  such that $\phi(c)$ has $Q_b$ as $(k-1)$-prefix and ends at
   $z \in N^+_{G'}(x)$.
 
-  \todo[inline]{picture}
-  For all $t \in N^-_{G'}(x)$, we have $xQ_b \notin \phi(V(T'))$, otherwise
-  there exists $d \in V(T')$ such that $d \to c$ and $d \to b$. We have
-  $a \to b$, so \cref{lem:forbidden_config} implies that $a \to d$ which
-  contradicts that $a$ is a leaf of $T$. Duplicate the vertex $v$ by creating a
-  vertex $v'$ that is a twin of $v$. Let $\psi$ be the map from $V(T')$ to the
-  graph $G''$ we have constructed such that
+  \todo[inline]{picture} For all $t \in N^-_{G'}(x)$, we have
+  $xQ_b \notin \phi(V(T'))$, otherwise there exists $d \in V(T')$ such that
+  $d \to c$ and $d \to b$. We have $a \to b$, so \cref{lem:forbidden_config}
+  implies that $a \to d$ which contradicts that $a$ is a leaf of $T$. Duplicate
+  the vertex $v$ by creating a vertex $v'$ that is a twin of $v$. Let $\psi$ be
+  the map from $V(T')$ to the graph $G''$ we have constructed such that
   $\psi_{|V(T')\setminus \{b\}} = \phi_{|V(T')\setminus \{b\}}$ and $\psi(b)$ is
-  the $k$-path $P_b$ where $v$ was replaced by $v'$. For any two vertices $i,j$
-  of $V(T')$ we have $i \to j$ if and only if the $(k-1)$-suffix of
-  $\psi(i)$ is the $(k-1)$-prefix of $\psi(j)$. This is immediate if $i$
-  and $j$ are different from $b$, or if $i=b$ because $\psi(i)$ and $\phi(b)$
-  have the same $(k-1)$-suffix. Since for all $t \in N^-_{G'}(x)$, we
-  have $xQ_b \notin \phi(V(T'))$, the case $b=j$ also follows. So $T'$ is an
-  induced subgraph of $L^k(G'')$ and $b$ is the only vertex of $T'$ whose
-  corresponding $k$-path $\psi(b)$ starts in $v'$, so we are back in the case of
-  the previous paragraph.
+  the $k$-path $\phi(b)$ where $v$ was replaced by $v'$. For any two vertices
+  $i,j$ of $V(T')$ we have $i \to j$ if and only if the $(k-1)$-suffix of
+  $\psi(i)$ is the $(k-1)$-prefix of $\psi(j)$. This is immediate if $i$ and $j$
+  are different from $b$, or if $i=b$ because $\psi(i)$ and $\phi(b)$ have the
+  same $(k-1)$-suffix. Since for all $t \in N^-_{G'}(x)$, we have
+  $xQ_b \notin \phi(V(T'))$, so the case $b=j$ also follows. So $\psi$ is a
+  $k$-shift embedding of $T'$ in $G''$, mapping leaves of $T'$ to private images
+  and $b$ is the only vertex of $T'$ whose corresponding $k$-path $\psi(b)$
+  starts in $v'$, so we are back in the case of the previous paragraph.
 \end{proof}
 
 
@@ -508,10 +519,11 @@ times each edge of $G$.
   directed graph constructed as follows. For each edge $e=uv$ of $G$ with $u<v$,
   let $P_e$ be a directed $(i+\ell+1)$-path. For each $v$, identify the
   $i$-prefixes of all the paths $P_{vw}$ with $v<w$ and the $i$-suffixes of all
-  the paths $P_{uv}$. In particular, we have $H_{0,\ell} = G^{*\ell}$.  We also
-  have $L(H_{i, \ell}) = H_{i-1,\ell}$. Indeed, each $(i+\ell+1)$-path $P_{uv}$
-  is mapped to a $(i+\ell)$-path and the identified sections of length $i$
-  $P_{uv}$ are mapped to the identified sections of length $i-1$ of
+  the paths $P_{uv}$ with $u<v$. In particular, we have
+  $H_{0,\ell} = G^{*\ell}$.  We also have $L(H_{i, \ell}) =
+  H_{i-1,\ell}$. Indeed, the line digraph operation maps each $(i+\ell+1)$-path
+  $P_{uv}$ of $H_{i,\ell}$ to an $(i+\ell)$-path and the identified sections of
+  length $i$ in $H_{i,\ell}$ to the identified sections of length $i-1$ of
   $L(H_{i, \ell})$. So $L^k(H_{k, \ell}) = H_{0,\ell}= G^{*\ell}$, which proves
   that $G^{*\ell}$ is a $k$-iterated shift graph and concludes this proof.
 \end{proof}
@@ -749,16 +761,16 @@ times each edge of $G$.
   $\{2,3\}$.
 
   Suppose that they all use the same colour, say 2.  Let $c$ be the colour of
-  the $k$-path $uv_{n-k+1} \dots v_n$. Let $\psi$ be the map from the
+  the $k$-path $uv_{n-k+1} \dots v_n$. Let $f$ be the map from the
   $k$-paths of $H+uv_{n-k}$ to $H$ defined as follows. For each $k$-path $P$
-  avoiding the arc $uv_{n-k}$, we let $\psi(P) =P$. Given a $k$-path $P$ passing by
+  avoiding the arc $uv_{n-k}$, we let $f(P) =P$. Given a $k$-path $P$ passing by
   $uv_{n-k}$, let $Q$ its prefix ending at $u$ and $R$ its suffix starting
-  at $v_{n-k}$ and let $\psi(P)$ be the concatenation of $Q$ and
+  at $v_{n-k}$ and let $f(P)$ be the concatenation of $Q$ and
   $v_{n-k+1}, \dots v_{n-k+1+q}$ where $q$ is the length of $Q$. In particular,
-  if $P$ and $P'$ are consecutive in $T_n$, then so are $\psi(P)$ and
-  $\psi(P')$. Let $\beta$ be the 3-colouring of $L(H+uv_{n-k})$ defined as
+  if $P$ and $P'$ are consecutive in $T_n$, then so are $f(P)$ and
+  $f(P')$. Let $\beta$ be the 3-colouring of $L(H+uv_{n-k})$ defined as
   follows. For any $k$-path $P$ without $X$ as suffix or prefix, let
-  $\beta(P) = \beta(\psi(P))$. Any $k$-path $P$ with suffix $X$ in
+  $\beta(P) = \beta(f(P))$. Any $k$-path $P$ with suffix $X$ in
   $H+uv_{n-k}$ is either a $k$-path of $H$, in which case $\alpha(P)=2$ and we
   define $\beta(P) = 2$, or the $k$-path $uv_{n-k}\dots v_{n-1}$, in which
   case we let $\beta(P) = \alpha(uv_{n-k+1}\dots v_n) = c$. The only remaining
@@ -1224,8 +1236,13 @@ problem is NP-complete.
   for shift graphs, but not for iterated shift graphs.
 
   To prove that $G_\phi$ is a $k$-iterated shift graph, we construct an oriented
-  acyclic graph $F_\phi$ such that $L^k(F_\phi)=G_\phi$.
-
+  acyclic graph $F_\phi$ such that $G_\phi$ is an induced subgraph of
+  $L^k(F_\phi)$. Let $x$ be a true variable. By \cref{lem:shift_tree}, there
+  exists a graph $F_x$ with a $k$-shift embedding $\phi_x$ of $L_x$ in
+  $F_x$. Moreover, for each vertex
+  $a \in \{w^{2i}_x : 0 \le i \le 4mk-1\} \cup \{t^{2i}_x: 0 \le i \le 4mk-1\}$,
+  $\phi_x(a)$ is private.
+  
   \todo[inline]{Clément: I am here}
 
   
