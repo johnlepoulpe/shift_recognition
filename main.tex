@@ -905,7 +905,12 @@ problem is NP-complete.
   Connect each $u_x^{2i}$ to a distinct copy of $H$ via one of its vertices of
   degree three that we will call $t_x^{2i}$ (see
   \cref{fig:variable_gadget}). For each variable $x$, denote $L_x$ the copy of
-  this gadget.
+  this gadget and $M_x$ the subgraph of $L_x$ obtained by removing
+  the 4-suns. In particular, $M_x$ is connected and contains
+  $\bigcup_{i=0}^{4m-1} \{t_x^{2i}, u_x^{2i}, u_x^{2i+1}, v_x^{2i},
+  w_x^{2i}\}$.
+
+
   \begin{figure}[h!]
     \centering
     \begin{tikzpicture}[scale = 1.5]
@@ -1038,11 +1043,6 @@ problem is NP-complete.
     on~\cref{fig:sun_orientation}.
   \end{poc}
 
-
-  For each variable $x$, denote $M_x$ the subgraph of $L_x$ obtained by removing
-  the 4-suns. In particular, $L_x$ is connected and contains
-  $\bigcup_{i=0}^{4m-1} \{t_x^{2i}, u_x^{2i}, u_x^{2i+1}, v_x^{2i},
-  w_x^{2i}\}$.
 
   \begin{claim}\label{cl:gadget_orientation}
    
