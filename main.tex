@@ -897,8 +897,8 @@ problem is NP-complete.
   We first describe the gadget used for the variables. Let $H$ be the 4-sun,
   that is the graph on eight vertices composed of a 4-cycle with one pending
   edge attached to each of the vertices of the cycle. For each variable $x$,
-  consider the gadget composed of a path on $8m-1$ vertices
-  $u_x^{0}, \dots, u_x^{8m-2}$ in which for each $i \in \{0, \ldots, 4m-1\}$ we
+  consider the gadget composed of a path on $8m+1$ vertices
+  $u_x^{-1}, \dots, u_x^{8m-1}$ in which for each $i \in \{0, \ldots, 4m-1\}$ we
   connect $u_x^{2i}$ to the extremity first vertex of the spine of a caterpillar
   of length $k-1$. Denote $v_x^{2i}$ the last vertex of the spine of this
   caterpillar and $w_x^{2i}$ the vertex adjacent to $v_x^{2i}$ via the last leg.
@@ -913,8 +913,16 @@ problem is NP-complete.
         \begin{scope}[shift={(2*\i,0)}]
           \node[classic] (a\i) at (0,0) {};
           
-          \node[classic] (e\i1) at (0,-.75) {};
-          \node[classic] (e\i2) at (0,-1.5) {};
+          \foreach \j in {1,...,3}{
+            \node[classic] (e\i\j) at (0,-.75*\j) {};
+            \node[classic] (d\i\j) at (-1.,-.75*\j) {};
+            \draw (d\i\j) -- (e\i\j);
+          }
+
+          \foreach \j in {1,2}{
+            \pgfmathsetmacro{\jj}{int(\j+1)}
+            \draw (e\i\j) -- (e\i\jj);
+          }
 
           \node[classic] (H\i11) at (0,.5) {};
           \node[classic] (H\i12) at (-.25,.25) {};
@@ -925,7 +933,7 @@ problem is NP-complete.
           \node[classic] (H\i41) at (-.25,.75) {};
           \node[classic] (H\i42) at (-.5,.75) {};
           \draw (H\i11) -- (H\i21) -- (H\i31) -- (H\i41) -- (H\i11);
-          \draw (H\i11) -- (a\i) -- (e\i1) -- (e\i2) ;
+          \draw (H\i11) -- (a\i) -- (e\i1);
           \foreach \j in {1,...,4}{
             \draw (H\i\j1) -- (H\i\j2);
           }
@@ -935,11 +943,9 @@ problem is NP-complete.
       }
 
 
-      \node[classic] (a) at (-2,0) {};
       \node[classic] (b) at (-1,0) {};
-      \node[classic] (a4) at (16,0) {};
 
-      \draw (a) -- (b) -- (a0);
+      \draw (b) -- (a0);
 
       \foreach \i in {0,...,3}{
         \node[classic] (b\i) at (2*\i+1,0) {};
@@ -948,28 +954,34 @@ problem is NP-complete.
       }
       
       
-      \node[below right=-.15cm] at (H011) {\scriptsize $t_x^0$};
-      \node[below right=-.15cm] at (a0) {\scriptsize $u_x^0$};
-      \node[below right=-.15cm] at (e01) {\scriptsize $v_x^0$};
-      \node[below right=-.15cm] at (e02) {\scriptsize $w_x^0$};
-      \node[below right=-.15cm] at (H111) {\scriptsize $t_x^2$};
-      \node[below right=-.15cm] at (a1) {\scriptsize $u_x^2$};
-      \node[below right=-.15cm] at (b0) {\scriptsize $u_x^1$};
-      \node[below right=-.15cm] at (e11) {\scriptsize $v_x^2$};
-      \node[below right=-.15cm] at (e12) {\scriptsize $w_x^2$};
-      \node[below right=-.15cm] at (H311) {\scriptsize $t_x^{8m-2}$};
-      \node[below right=-.15cm] at (a3) {\scriptsize $u_x^{8m-2}$};
-      \node[below right=-.15cm] at (e31) {\scriptsize $v_x^{8m-2}$};
-      \node[below right=-.15cm] at (e32) {\scriptsize $w_x^{8m-2}$};
+      \node[below right=-.15cm] at (H011) {\footnotesize $t_x^0$};
+      \node[below right=-.15cm] at (a0) {\footnotesize $u_x^0$};
+      \node[below left=-.15cm] at (e03) {\footnotesize $v_x^0$};
+      \node[below left=-.15cm] at (d03) {\footnotesize $w_x^0$};
+      \node[below right=-.15cm] at (H111) {\footnotesize $t_x^2$};
+      \node[below right=-.15cm] at (a1) {\footnotesize $u_x^2$};
+      \node[below right=-.15cm] at (b0) {\footnotesize $u_x^1$};
+      \node[below left=-.15cm] at (e13) {\footnotesize $v_x^2$};
+      \node[below left=-.15cm] at (d13) {\footnotesize $w_x^2$};
+      \node[below right=-.15cm] at (H311) {\footnotesize $t_x^{8m-2}$};
+      \node[below right=-.15cm] at (a3) {\footnotesize $u_x^{8m-2}$};
+      \node[below left=-.15cm] at (e33) {\footnotesize $v_x^{8m-2}$};
+      \node[below left=-.15cm] at (d33) {\footnotesize $w_x^{8m-2}$};
+
+      \draw [decorate,decoration={brace,amplitude=5pt,mirror,raise=1ex}] (e33)
+      -- (e31) node[midway,xshift=4ex]{\footnotesize $k-1$};
+
     \end{tikzpicture}  
-    \caption{Variable gadget $L_x$}
+    \caption{The variable gadget $L_x$}
     \label{fig:variable_gadget}    
   \end{figure}
   
   For each $i \in \{0, \ldots, m-1\}$, we attach the gadgets $L_x$, $L_y$ and $L_z$
   of the variables appearing in the $i$-th clause $C_i = (x \vee y \vee z)$ as
-  follows. Add three edges to form a path $a_ib_ic_id_i$, where $a_i=w_x^{8ki}$,
-  $b_i=w_y^{8ki+2}$, $c_i=w_y^{8ki+2+4k}$ and $d_i=w_z^{8ki}$. Denote $G_\phi$ the
+  follows. Add three edges to form a path $a_ib_ic_id_i$, where $a_i=w_x^{8i}$,
+  $b_i=w_y^{8i+2}$, $c_i=w_y^{8i+6}$ and $d_i=w_z^{8i}$, so that the
+  vertex set $\{w_x^{8i}, w_y^{8i+2}, w_y^{8i+6}, w_z^{8i}, v_x^{8i},
+  v_y^{8i+2}, v_y^{8i+6}, v_z^{8i}\}$ forms a caterpillar of length three. Denote $G_\phi$ the
   constructed graph.
 
   \paragraph{Valid orientations of $G_\phi$}
@@ -1027,8 +1039,10 @@ problem is NP-complete.
   \end{poc}
 
 
-  For each variable $x$, denote $M_x$ the subgraph of $L_x$ induced by
-  $\bigcup_{i=0}^{4mk-1} \{t_x^{2i}, u_x^{2i}, u_x^{2i+1}, v_x^{2i}, w_x^{2i}\}$.
+  For each variable $x$, denote $M_x$ the subgraph of $L_x$ obtained by removing
+  the 4-suns. In particular, $L_x$ is connected and contains
+  $\bigcup_{i=0}^{4m-1} \{t_x^{2i}, u_x^{2i}, u_x^{2i+1}, v_x^{2i},
+  w_x^{2i}\}$.
 
   \begin{claim}\label{cl:gadget_orientation}
    
