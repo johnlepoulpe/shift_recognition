@@ -34,8 +34,12 @@
 %%%%% Hyperlinking
 \usepackage[hyphens]{url} % Urls together with line breaking them
 \usepackage[linktoc=all,hidelinks,colorlinks,unicode=true]{hyperref} % Must be loaded after url
-\usepackage[capitalise,compress,nameinlink,noabbrev]{cleveref} % Must be loaded after hyperref
-\hypersetup{linkcolor={blue!70!black},citecolor={black},urlcolor={blue!70!black}}
+\usepackage[capitalise,compress,nameinlink,noabbrev]{cleveref} % Must be loaded
+% after hyperref
+\definecolor{color1}{rgb}{.8,.1,.1}
+\definecolor{color2}{rgb}{.1,.8,.1}
+\definecolor{color3}{rgb}{.1,.1,.8}
+\hypersetup{linkcolor={color3},citecolor={color1},urlcolor={purple!70!black}}
 \usepackage{hyperref}
 
 \usepackage{listings}
@@ -153,9 +157,6 @@
 \newcommand{\colf}{\coloredbullet{\colorf}}
 \newcommand{\colg}{\coloredbullet{\colorg}}
 
-\definecolor{color1}{rgb}{.8,.1,.1}
-\definecolor{color2}{rgb}{.1,.8,.1}
-\definecolor{color3}{rgb}{.1,.1,.8}
 
   
 %%% Comments
@@ -186,6 +187,7 @@ Nicolas Trotignon\footnotemark[2]
 \renewcommand{\thefootnote}{\arabic{footnote}} % Return to normal footnote symbols
 
 \begin{abstract}
+  \todo[inline]{TODO}
 \end{abstract}
 
 A class of graphs is \emph{hereditary} if it closed under taking induced
@@ -206,8 +208,8 @@ $(G_k)_{k\in \mathbb{N}}$ such that $\chi(G_k) = k$ for all $k$. We turn this
 into a hereditary class by considering the induced subgraphs of the graphs in
 the sequence.
 
-Three problems particularly attracted attention: recognition, maximum
-independent set problem and 3-coloring. The complexity of all of them is known
+Three problems particularly attracted attention: Recognition, Maximum
+Independent Set and 3-Colouring. The complexity of all of them is known
 for all the classes from \cref{tab:complexity} (where a reference is given),
 except shift graphs. The goal of the present paper is to prove that the three
 problems are NP-complete for shift graphs.
@@ -229,18 +231,13 @@ problems are NP-complete for shift graphs.
     the main constructions of triangle-free graph of large chromatic number}
   \label{tab:complexity}
 \end{table}
-
-Three problems particularly attracted attention: Recognition, Maximum
-independent set problem and 3-Colouring. The complexity of all of them is known
-for all the classes from \cref{tab:complexity} (where a reference is given),
-except shift graphs and Kneser graphs. The goal of the present paper is to prove
-that the three problems are NP-complete for shift graphs. Surprisingly, we see
+Surprisingly, we see
 from \cref{tab:complexity} that 3-Colouring is NP-complete in all known
 constructions of triangle-free graphs of high chromatic number, which motivates
 the following conjecture:
 \begin{conjecture}
-  3-Colouring is NP-complete in all hereditary graph classes of unbounded
-  chormatic number.
+  3-Colouring is NP-complete in all triangle-free hereditary graph classes of unbounded
+  chromatic number.
 \end{conjecture}
 
 For most of these constructions of triangle-free graphs with high chromatic
@@ -310,9 +307,9 @@ $D$ as a \emph{root} digraph of $L(D)$. The \emph{$k$-iterated line digraph}
 $L^k(D)$ of $D$ is then defined recursively by $L^k(D) = L(L^{k-1}(D))$ and
 $L^0(D) = D$. Equivalently, the vertices of $L^k(D)$ are the directed $k$-walks
 in $D$ and $L^k(D)$ contains an arc from $a$ to $b$ if the corresponding
-directed walks overlap on the $k$ last vertices of $a$ and the $k$ first
-vertices of $b$, namely $a = (v_0, \ldots, v_k)$ and $b=(v_1, \ldots, v_{k+1})$
-with $(v_i,v_{i+1}) \in A(D)$ for all $i$.
+directed walks overlap on the $(k-1)$-suffix of $a$ and the $(k-1)$-prefix of
+$b$, namely $a = (v_0, \ldots, v_k)$ and $b=(v_1, \ldots, v_{k+1})$ with
+$(v_i,v_{i+1}) \in A(D)$ for all $i$.
 
 The following result of Beineke characterises line digraphs of digraphs.
 \begin{lemma}[Beineke~\cite{beineke1968Derived}]\label{lem:forbidden_config}
@@ -365,9 +362,9 @@ The following result of Beineke characterises line digraphs of digraphs.
 %   \label{fig:config_line_digraph}
 % \end{figure}
 Note that the second condition forbids parallel arcs in $D'$, while the first
-one ensures that the all arcs of $D'$ entering a fixed vertex have identical
+one ensures that all the arcs of $D'$ entering a fixed vertex have identical
 out-neighbourhood in $D$. Moreover, note that these two conditions ensure that
-the only allowed orientations of a triangle is the cyclic one and the only
+the only allowed orientation of a triangle is the cyclic one and the only
 allowed orientations of the 4-cycles of $D$ are the cyclic ones and the ones
 alternating at each vertex.
 
@@ -392,16 +389,16 @@ digraph of the transitive tournament on $n$ vertices.
 The class of shift graphs is the hereditary closure of the graphs
 $(G_{n})_{n\in \mathbb{N}}$, that is, all induced subgraph of some
 $G_{n}$. Note that this definition is equivalent to saying that
-shift graphs are the supports of the line digraphs of all directed acyclic
-graphs. Equivalently, shift graphs are often defined by their interval
+shift graphs are the supports of the line digraphs of all acyclic
+digraphs. Equivalently, shift graphs are often defined by their interval
 representation and the natural acyclic orientation that arises from it: the
 vertices of a shift graph are indexed by intervals $[a,b]$ with
 $1 \le a < b \le n$, and contains an arc from $[a,b]$ to $[c,d]$ if $b =
 c$. Since $L(D)$ is acyclic if and only if $D$ is acyclic, Beineke's
 characterisation gives the following equivalence:
 \begin{lemma}\label{lem:valid}
-  A graph is a shift graph if and only if it admits an acyclic orientation that
-  is the line digraph of an oriented graph.
+  A graph is (the support of) a shift graph if and only if it admits an acyclic
+  orientation that is the line digraph of an oriented graph.
 \end{lemma}
 
 As a result all 4-cycles in the natural orientation of a shift graph are
@@ -414,10 +411,10 @@ have unbounded chromatic number:
   Let $K$ be the transitive tournament on $2^n+1$ vertices. We have
   $L(K) = G_{2^n+1}$. Let $\alpha$ be an $n$-colouring of $G_{2^n+1}$. Let
   $\beta$ be the colouring of $K$ such that $\beta(v)$ is the set of colours
-  used by the arcs entering $v$. The colouring $\beta$ is a proper colouring of
-  the support of $K$: let $u$ and $v$ be two vertices of $K$ such that
-  $u \to v$. Because the arcs entering $u$ use the colours in $\beta(u)$, the
-  arc $uv$ must be coloured in $\alpha$ by some colour in
+  used by $\alpha$ to colour the arcs entering $v$. The colouring $\beta$ is a
+  proper colouring of the support of $K$: let $u$ and $v$ be two vertices of $K$
+  such that $u \to v$. Because the arcs entering $u$ use the colours in
+  $\beta(u)$, the arc $uv$ must be coloured in $\alpha$ by some colour in
   $[n] \setminus \beta(u)$, hence $\beta(v) \neq \beta (u)$. However, the
   support of $K$ is a clique on $2^{n}+1$ vertices, hence in cannot be coloured
   with $2^n$ colours, a contradiction.
@@ -435,27 +432,28 @@ tournament on $n$ vertices. For any $k \ge 1$, the graph $G_{n,k}$ has odd-girth
 $2k+3$ and $(G_{n,k})_{n \in \mathbb{N}}$ has unbounded chromatic number. We
 call \emph{$k$-iterated shift graphs} the hereditary closure of
 $(G_{n,k})_{n \in \mathbb{N}}$, or equivalently, the induced subgraphs of
-$k$-line digraphs of directed acyclic graphs.
+$k$-line digraphs of acyclic digraphs.
 
 
-Given an acyclic directed graph $G$ and an induced subgraph $H$ of $L^k(G)$, we
+Given an acyclic digraph $G$ and an induced subgraph $H$ of $L^k(G)$, we
 call \emph{$k$-shift embedding} of $H$ in $G$ any map $\phi$ from the vertices
 of $H$ to the $k$-paths of $G$ such that for all $u,v\in V(H)$, $u\to v$ if and
-only if the $(k-1)$-prefix of $\phi(v)$ is the $(k-1)$-suffix of $\phi(u)$.  We
-say that $\phi(u)$ is \emph{private} if for all $v \in V(H) \setminus \{u\}$,
-the $(k-1)$-prefixes of $\phi(u)$ and $\phi(v)$ are different and likewise for
-their $(k-1)$-suffixes. We say that $\phi$ is \emph{convex} if for every
+only if the $(k-1)$-prefix of $\phi(v)$ is the $(k-1)$-suffix of $\phi(u)$.%   We
+% say that $\phi(u)$ is \emph{private} if for all $v \in V(H) \setminus \{u\}$,
+% the $(k-1)$-prefixes of $\phi(u)$ and $\phi(v)$ are different and likewise for
+% their $(k-1)$-suffixes.
+We say that $\phi$ is \emph{convex} if for every
 $u,v,w \in V(H)$ with $v$ on a (non-directed) path from $u$ to $w$,
 $V(\phi(u))\cap V(\phi(w)) \subseteq V(\phi(v))$
 
-\paragraph{Shift trees} We now prove two technical lemma that we
+\paragraph{Shift trees} We now prove two technical lemmas that we
 will use to construct the root graph of some $k$-iterated shift graphs.
 
 \begin{lemma}\label{lem:shift_tree}
   Let $T$ be an oriented graph that is a shift graph and whose support is a
   tree. Then, for all $k$, $T$ is a $k$-iterated shift graph.\\
   More precisely, there exists a graph $G$ and a convex $k$-shift embedding $\phi$ of
-  $T$ in $G$ such that for each leaf $a$ of $T$, $\phi(a)$ is private.
+  $T$ in $G$. %such that for each leaf $a$ of $T$, $\phi(a)$ is private.
 \end{lemma}
 \begin{proof}
   Let $k > 1$ (the lemma is trivial for $k=1$). We proceed by induction on
@@ -473,9 +471,10 @@ will use to construct the root graph of some $k$-iterated shift graphs.
   $\phi(V(T))$. Hence, by defining $\phi(a) = P_a$ and $\phi(c) = \phi'(c)$ for
   all other vertices, $\phi$ is a $k$-shift embedding of $T$ in $G$. The convex
   character of $\phi$ comes from the fact that $\phi(a)$ uses a vertex in
-  $V(G) \setminus V(G')$. Moreover, $a$ is the only vertex of $T$ whose image by
-  $\phi$ starts by $a$ and by assumption, $a$ is the only of $T$ whose image by
-  $\phi$ has $(k-1)$-suffix equal to $Q_b$, so $\phi(a)$ is private.  Thus the
+  $V(G) \setminus V(G')$. % Moreover, $a$ is the only vertex of $T$ whose image by
+  % $\phi$ starts by $a$ and by assumption, $a$ is the only of $T$ whose image by
+  % $\phi$ has $(k-1)$-suffix equal to $Q_b$, so $\phi(a)$ is private.
+  Thus the
   second part of the lemma holds as well and we can assume that there exists
   $c \in V(T) \setminus\{b\}$ such that $\phi(c)$ has $Q_b$ as $(k-1)$-prefix
   and ends at $z \in N^+_{G'}(x)$.
@@ -494,26 +493,25 @@ will use to construct the root graph of some $k$-iterated shift graphs.
   $\psi(i)$ is the $(k-1)$-prefix of $\psi(j)$. This is immediate if $i$ and $j$
   are different from $b$, or if $i=b$ because $\psi(i)$ and $\phi(b)$ have the
   same $(k-1)$-suffix. Since $N^-_{G'}(b)=\emptyset$, the case $b=j$ also
-  trivially follows and $\psi$ is convex. So $\psi$ is a convex $k$-shift embedding of
-  $T'$ in $G''$, mapping leaves of $T'$ to private images and $b$ is the only
-  vertex of $T'$ whose corresponding $k$-path $\psi(b)$ starts in $v'$, so we
-  are back in the case of the previous paragraph.
+  trivially follows and $\psi$ is convex. So $\psi$ is a convex $k$-shift
+  embedding of $T'$ in $G''$ and $b$ is the only vertex of $T'$ whose
+  corresponding $k$-path $\psi(b)$ starts in $v'$, so we are back in the case of
+  the previous paragraph.
 \end{proof}
 
 \begin{lemma}\label{lem:gluing}
   Let $\phi$ be a $k$-shift embedding of $H$ in $G$ and let $u,v$ be two
-  vertices of $H$ with private disjoint images by $\phi$, such that there is no
-  directed path from $u$ to $v$ or vice-versa. Then $\phi$ is a $k$-shift
-  embedding of the graph obtained from $H$ by identifying $u$ with $v$ into the
-  graph obtained from $G$ by identifying $\phi(u)$ with $\phi(v)$.
+  vertices of $H$ with $\phi(N(u))$ and $\phi(N(v))$ vertex disjoint, such that
+  there is no directed path from $u$ to $v$ or vice-versa. Then $\phi$ is a
+  $k$-shift embedding of the graph obtained from $H$ by identifying $u$ with $v$
+  into the graph obtained from $G$ by identifying $\phi(u)$ with $\phi(v)$.
 \end{lemma}
 
 \begin{proof}
-  First, note that this identification is well-defined because $\phi(u)$ and
-  $\phi(v)$ are vertex-disjoint, and creates no directed cycle because there are
-  no directed paths between $u$ and $v$ in $H$. The identification might create
-  edges in the $k$-line digraph, but not in the induced subgraph $H$ because
-  $\phi(u)$ and $\phi(v)$ are private.
+  First, note that this identification is well-defined because $\phi(N(u))$ and
+  $\phi(N(v))$ are vertex-disjoint, in particular, the neighbours of $u$ and $v$
+  are preserved. This indentification creates no directed cycle because there are
+  no directed paths between $u$ and $v$ in $H$.
 \end{proof}
 
 \section{Maximum independent set problem}\label{sec:MIS}
@@ -536,8 +534,8 @@ times each edge of $G$.
   at least $\ell$. By \cref{lem:subdivision_MIS}, this implies directly that
   \textsc{MIS} is NP-complete on shift graphs, even when restricting to iterated
   shift graphs of high girth. To prove our claim, consider the following
-  directed acyclic graphs. Given $i \in \{0, \dots k\}$, let $H_{i,\ell}$ be the
-  directed graph constructed as follows. For each edge $e=uv$ of $G$ with $u<v$,
+  acyclic digraphs. Given $i \in \{0, \dots k\}$, let $H_{i,\ell}$ be the
+  digraph constructed as follows. For each edge $e=uv$ of $G$ with $u<v$,
   let $P_e$ be a directed $(i+\ell+1)$-path. For each $v$, identify the
   $i$-prefixes of all the paths $P_{vw}$ with $v<w$ and the $i$-suffixes of all
   the paths $P_{uv}$ with $u<v$. In particular, we have
@@ -900,7 +898,7 @@ problem is NP-complete.
   consider the gadget composed of a path on $8m+1$ vertices
   $u_x^{-1}, \dots, u_x^{8m-1}$ in which for each $i \in \{0, \ldots, 4m-1\}$ we
   connect $u_x^{2i}$ to the extremity first vertex of the spine of a caterpillar
-  of length $k$. Denote $v_x^{2i}$ the last vertex of the spine of this
+  of length $k+1$. Denote $v_x^{2i}$ the last vertex of the spine of this
   caterpillar and $w_x^{2i}$ the vertex adjacent to $v_x^{2i}$ via the last leg.
   Connect each $u_x^{2i}$ to a distinct copy of $H$ via one of its vertices of
   degree three that we will call $t_x^{2i}$ (see
@@ -980,7 +978,7 @@ problem is NP-complete.
       \node[below left=-.1cm] at (d33) {\footnotesize $w_x^{8m-2}$};
 
       \draw [decorate,decoration={brace,amplitude=5pt,mirror,raise=1ex}] (e33)
-      -- (e31) node[midway,xshift=4ex]{\footnotesize $k$};
+      -- (e31) node[midway,xshift=4ex]{\footnotesize $k+1$};
 
     \end{tikzpicture}  
     \caption{The variable gadget $L_x$. The red vertices induce the subgraph $M_x$.}
@@ -1284,34 +1282,28 @@ problem is NP-complete.
   acyclic graph $G_\phi'$ such that $G_\phi$ is an induced subgraph of
   $L^k(G_\phi')$. For each variable $x$, by \cref{lem:shift_tree}, there exists
   a graph $M'_x$ with a convex $k$-shift embedding $\psi_x$ of $M_x$ in $M'_x$.
-  Moreover, for each vertex
-  $a \in \{w^{2i}_x : 0 \le i \le 4mk-1\} \cup \{t^{2i}_x: 0 \le i \le 4mk-1\}$,
-  $\psi(a)$ is private. By \cref{lem:shift_tree}, for each clause caterpillar
-  $C_i$, there exists a graph $C'_i$ with a convex $k$-shift embedding $\psi_i$
-  of $C_i$ in $C'_i$. Denote $\psi$ the union of these $k$-shift embedding.
+  By \cref{lem:shift_tree}, for each clause caterpillar $C_i$, there exists a
+  graph $C'_i$ with a convex $k$-shift embedding $\psi_i$ of $C_i$ in
+  $C'_i$. Denote $\psi$ the union of these $k$-shift embedding.
 
-  First, we note that $(\psi(v^{2i}_x))_{i,x}$ forms a collection of pairwise
-  disjoint private $k$-paths because any distinct $v^{2i}_x$ and $v^{2j}_y$ are
+  First, we note that $(\psi(N(v^{2i}_x)))_{i,x}$ forms a collection of pairwise
+  disjoint $k+2$-paths because any distinct $v^{2i}_x$ and $v^{2j}_y$ are
   either in different component of the support of $L_x$, or connected by a
-  unique path $P$ containing a directed subpath of length $k+1$ between
-  $v^{2i}_x$ and $u^{2i}_x$. As result, $\psi(v^{2i}_x)$ and $\psi(u^{2i}_x)$
+  unique path $P$ containing a directed subpath of length $k+2$ between
+  $v^{2i}_x$ and $u^{2i}_x$. As result, $\psi(N(v^{2i}_x))$ and $\psi(u^{2i}_x)$
   are vertex disjoint and since $\psi$ is convex, so are the extremities of $P$:
-  $\psi(v^{2i}_x)$ and $\psi(v^{2j}_y)$. By iteratively applying
+  $\psi(N(v^{2i}_x))$ and $\psi(N(v^{2j}_y))$. By iteratively applying
   \cref{lem:gluing} to identify the leaves of the gadgets $N_i$ to the gadget
   variables along the concerned vertices $v^{4i+2c}_x$ for some $c$, the images
-  of the vertices to be indentified remain private and disjoint. At the end of
+  of the vertices to be indentified remain disjoint. At the end of
   this identification process, we have a $k$-shift embedding of $G_\phi$ minus
   the 4-suns.
 
-  Finally, we identify the suffix of each private $\psi(t^{4i}_x)$ with the path
-  of length $(k-1)$ starting in the vertex $t$ of the graph $F$ drawn on
-  \cref{fig:sun_root} (or the prefix of each $\psi(t^{4i+2}_x)$ with the same
-  path in the reverse orientation of \cref{fig:sun_root}). It is
-  straightforward to check that the $k$-line digraph of the graph drawn on
-  \cref{fig:sun_root} is the 4-sun and since $\psi(t^{4i+2}_x)$ was private and
-  the $(k-1)$-path of $F$ along which $\psi(t^{4i+2}_x)$ was glued is the
-  beginning of a unique $k$-path of $F$, the resulting graph $G'_\phi$ is such
-  that $G_\phi$ is an induced subgraph of $G'_\phi$.  
+  Finally, we identify each $\psi(t^{4i}_x)$ with the path of length $k$
+  starting in the vertex $t$ of the graph $F$ drawn on \cref{fig:sun_root}. It
+  is straightforward to check that the $k$-line digraph of the graph drawn on
+  \cref{fig:sun_root} is the 4-sun and the resulting graph $G'_\phi$ is such
+  that $G_\phi$ is an induced subgraph of $G'_\phi$.
   \begin{figure}[h!]
     \centering
     \begin{tikzpicture}[scale = .6,decoration={
@@ -1358,7 +1350,7 @@ problem is NP-complete.
 
       \draw [decorate,decoration={brace,amplitude=5pt,mirror,raise=1ex}] (c3) -- (a3) node[midway,xshift=-2ex,yshift=2ex,rotate=45]{$k-1$};
     \end{tikzpicture}  
-    \caption{A graph $F$ whose $k$-line digraph is the $4$-sun}
+    \caption{A graph $F$ whose $k$-line digraph is the $4$-sun.}
     \label{fig:sun_root}    
   \end{figure}
 \end{proof}
