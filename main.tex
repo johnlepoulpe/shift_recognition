@@ -423,16 +423,26 @@ characterisation gives the following equivalence:
 
 
 
-\nicolas{I propose the following lemma, that is more general. Note
-  that I use a notation for odd girth, defined with a
+\nicolas{I propose the following lemma, that is more general and
+  simplifies stuff later. Note that I use notation og for odd girth, defined with a
   Declaremathoperator. 
   \begin{lemma}
 For any directed graph $G$, $\chi(L(G) \geq \log \chi(G)$ and $\og(L(G))
 > \og(G)$. 
     \end{lemma}
 \begin{proof}
-  To color 
-  
+  To prove the claim about $\chi$, consider a coloring $c$ of $L(G)$ with
+  $k$ colors. Then assign to every vertex $v$ of $G$ the set $S_v$ of
+  all colors of arcs entering $v$ (in $c$).  If
+  $uv$ is an arc of $G$, then from the definition of colorings,
+  $c(uv)\notin S_u$, so  $S_u\neq S_v$.  It follows that the sets
+  $S_\cdot$ define a coloring of $G$ with at most $2^k$ colors.
+  Hence, $\chi(G) \leq 2^{\chi(L(G))}$ and the claim follows.
+
+  The second claim is well known and a self contained proof is
+  annoying to write. I suggest relying on the equivalence with paths,
+  and possibly moving the lemma after the explanations about iterated
+  shift graphs. 
 \end{proof}
 
 
@@ -601,6 +611,14 @@ times each edge of $G$.
   marked vertex $x$ with the following property: in any 3-arc-colouring of $H$
   the set of arcs entering $x$ uses exactly two colours. 
 
+
+\nicolas{I think everything works fine by taking a graph $T$ with
+  odd girth $k$ and a minimum number of vertex $n$ and such that
+  $\chi(L(T)) = 4$. Then, we don't have to consider higher odd girths
+  separatly. The fact that $T$ comes from a tournament is not
+  essential. Very little has to be changed in the proof.}
+
+  
   Consider the minimum transitive $n$-vertex tournament $T_n$ such that
   $\chi(L(T_n))=4$. Let $v_{n-1}$ and $v_n$ be the vertices of $T_n$ of indegree
   $n-2$ and $n-1$ respectively. % Let $S_n$ be the subgraph of $T_n$
@@ -619,6 +637,12 @@ times each edge of $G$.
   additional vertex $v_{n-1}$ whose only incident arc ends in the sink $v_n$. Thus
   $S_n$ is 3-arc-colourable, and $H$ is well defined.
 
+
+  \nicolas{Typos in the paragraph below: line 5, it should be $\{1,
+    3\}\setminus c$ and line 7 it should be colour different from 2
+    and $c$.}
+
+  
   Let $uv_{n-1}$ be the last arc removed in the construction of $H$, we have
   $\chi(L(H + uv_{n-1})) = 4$ and $\chi(L(H)) = 3$. Let $\alpha$ be a
   3-colouring of $L(H)$, where $v_{n-1}v_n$ is without loss of generality
