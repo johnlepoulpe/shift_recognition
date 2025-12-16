@@ -170,7 +170,7 @@
 
 \title{Shift graph recognition is NP-complete}
 
-\date{\today}
+\date{}
 
 \author{
 Bartosz Walczak\footnotemark[1] \and 
@@ -184,7 +184,8 @@ Nicolas Trotignon\footnotemark[2]
 
 \renewcommand{\thefootnote}{\fnsymbol{footnote}} % Make affiliation marks symbols
 
-\footnotetext[1]{Theoretical Computer Science Department, Faculty of Mathematics and Computer Science, Jagiellonian University, Kraków, Poland.}
+\footnotetext[1]{Theoretical Computer Science Department, Faculty of Mathematics and Computer Science, Jagiellonian University, Kraków, Poland. U.G. is supported by the National Science Center of Poland
+under grant 2022/47/B/ST6/02837 within the OPUS 24 program}
 \footnotetext[2]{Univ Lyon, EnsL, UCBL, CNRS, LIP, F-69342, LYON Cedex 07, France}
 
 \renewcommand{\thefootnote}{\arabic{footnote}} % Return to normal footnote symbols
@@ -196,14 +197,16 @@ Nicolas Trotignon\footnotemark[2]
 \end{abstract}
 
 A class of graphs is \emph{hereditary} if it closed under taking induced
-subgraphs.  A hereditary class $\mathcal C$ of graph is $\chi$-bounded if there
-exists a function $f$ such that for all graphs $G\in \mathcal C$,
-$\chi(G) \le f(\omega(G))$.  Not all hereditary classes of graphs are
-$\chi$-bounded because there exist triangle-free graphs of arbitrarily large
-chromatic number.  Several constructions are known and their structure attracted
-some attention lately. In particular, a construction due to Burling turned out
+subgraphs.  A hereditary class $\mathcal C$ of graph is \emph{$\chi$-bounded} if there
+exists a function $f:\mathbb N\to \mathbb N$ such that for each graph $G\in \mathcal C$,
+$\chi(G) \le f(\omega(G))$.  A well-known fact is that not all hereditary classes of graphs are
+$\chi$-bounded. Even more, there exist triangle-free graphs with arbitrarily large
+chromatic number. The first such constructions are due to Zykov \ugo{Nicolas tu as une citation?} and Blanche Descartes \cite{Descartes}, and among other constructions with such properties, one can also mention Mycielski graphs \cite{Mycielski1955}, shift graphs \cite{EH68}, Burling graphs \cite{Burling},
+or some subfamilies of Kneser graphs \cite{lovasz1973Covering, Schrijver}. A common feature of all these graphs is that they all admit explicit constructions, allowing to derive a many interesting structural properties. 
+For example, a construction due to Burling turned out
 to be a counter-example to several conjectures about algorithms in non-$\chi$
-bounded classes. \nicolas{cite papers ?}
+bounded classes. \nicolas{cite papers ?}\ugo{We should either precise the sentence or remove it.}
+
 
 In \cref{tab:complexity}, we review the simplest and most well-known
 constructions of triangle-free graphs of arbitratily large chromatic number.
@@ -214,7 +217,7 @@ into a hereditary class by considering the induced subgraphs of the graphs in
 the sequence.  \nicolas{In fact, below, shift graphs are precisely
   defined as the closure of some sequence, so I would remove ``except
   shift graphs''. In fact, it is more a matter of presentation, so I
-  rephrase the paragraph below, keep it if you like it.}
+  rephrase the paragraph below, keep it if you like it.}\ugo{I agree. Also, don't you want to say that we take as a convention from now on that by abuse of notation, when we mean a ``shift'', ``Burling'', etc., then we mean ``induced subgraph of a shift, Burling, etc.\''?}
 
 
 
@@ -222,8 +225,13 @@ the sequence.  \nicolas{In fact, below, shift graphs are precisely
 constructions of triangle-free graphs of arbitratily large chromatic number.
 These constructions are often presented by generating a sequence of triangle-free graphs
 $(G_k)_{k\in \mathbb{N}}$ such that $\chi(G_k) = k$ for all $k$. We turn this
-into a hereditary class by considering the induced subgraphs of the graphs in
-the sequence.}
+into a hereditary class by considering all induced subgraphs of the graphs in
+the sequence $(G_k)_{k\in \mathbb N}$.}
+
+\ugo{Suggestion of paragraph instead of the next one (fundamentaly it says the same thing, it's just the phrasing): \\
+In view of the explicit constructions of each of the aforementioned classes, a natural question is to determine for each of them, whether there exists an efficient (i.e.\ polynomial) algorithm solving the associated membership problem, i.e.\ deciding whether a given graph belongs or not to them. This question has been recently investigated for some of these classes, as well as two other natural problems: Maximum Independent
+Set and 3-Colouring (see \cref{tab:complexity} for references). The goal of the present paper is to complement these works, and to prove that all three
+problems are NP-complete for shift graphs.}
 
 Three problems particularly attracted attention: Recognition, Maximum
 Independent Set and 3-Colouring. The complexity of all of them is known
@@ -238,7 +246,7 @@ problems are NP-complete for shift graphs.
     \hline
     Mycielski & P & NPC \cite{poljak1974Note} & NPC \cite{lovasz1973Covering,maffray1996NPcompleteness} \\
     Zykov & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} \\
-    Blanche-Descartes & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} \\
+    Blanche Descartes & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} \\
     Burling & P \cite{rzazewski2024Polynomial} & P \cite{rzazewski2024Polynomial} & NPC \cite{walczak2025Private}\\
     Twincut & P \cite{bourneuf2025Private} & NPC \cite{bourneuf2025Private} & NPC \cite{bourneuf2025Private} \\
     Shift & NPC [*] & NPC [*] & NPC [*] \\
@@ -248,7 +256,8 @@ problems are NP-complete for shift graphs.
     the main constructions of triangle-free graph of large chromatic number}
   \label{tab:complexity}
 \end{table}
-Surprisingly, we see
+
+Surprisingly, one can observe
 from \cref{tab:complexity} that 3-Colouring is NP-complete in all known
 constructions of triangle-free graphs of high chromatic number, which motivates
 the following conjecture: \nicolas{we could be more general, by saying
@@ -258,21 +267,22 @@ the following conjecture: \nicolas{we could be more general, by saying
   3-Colouring is NP-complete in all triangle-free hereditary graph classes of unbounded
   chromatic number.
 \end{conjecture}
+\ugo{We should check first whether Kneser/Schrijver constructions do not give a counterexample! Also, do you really want to state it as a Conjecture, and not as a Question?}
 
-For most of these constructions of triangle-free graphs with high chromatic
+For most of the constructions from \cref{tab:complexity} of triangle-free graphs with high chromatic
 number, there exist variants producing graphs with arbitrarily large girth or
-odd-girth, and unbounded chromatic number. More precisely, there exists shifts
+odd-girth, and unbounded chromatic number. More precisely, there exist shift
 graphs, Twincut and Mycielski graphs of arbitrarily large odd-girth and
-chromatic number, and Zykov and Blanche-Descartes graphs with arbitrarily large
-girth and chormatic number. We believe that the complexity results of
+chromatic number, and Zykov and Blanche Descartes graphs with arbitrarily large
+girth and chromatic number. We believe that the complexity results of
 \cref{tab:complexity} also hold with this additional condition in these
-classes. In the particular case of shift graphs, $k$-iterated shift graphs have
+classes. \ugo{I do not like the ``we believe''... You want to keep it?} In the particular case of shift graphs, $k$-iterated shift graphs have
 odd-girth at least $2k+3$ but may contain four-cycles. Each of our
 NP-completeness results extends to the class of $k$-iterated shift graphs.
 Moreover, we prove that shift graphs of girth at least five are 3-colourable,
 but that maximum independent set is still NP-complete on shift graphs of
 arbitrarily large girth.
-
+\ugo{It seems for me that in the litterature (already in Wikipedia), ``shift graphs'' refer to generalised shift graphs. We should at least precise in the intro, that it is not the case here, no?}
 
 % \paragraph{Abyssal classes}
 % In \cite{abrishami2025Burling}, Abrishami et. al. prove that the class of
@@ -282,27 +292,27 @@ arbitrarily large girth.
 % view, the hereditary closures of any construction of triangle-free graphs with
 % large chromatic number are natural candidates in the search for other minimal
 % hereditary classes of unbounded chromatic number. However, the classes of
-% Mycielski, Blanche-Descartes, Twincut, Zykov and shift graphs are not minimal.
+% Mycielski, Blanche Descartes, Twincut, Zykov and shift graphs are not minimal.
 
 % Indeed, Mycielski graphs are universal for triangle-free graphs, and
-% Blanche-Descartes graphs (respectively Twincut graphs or shift graphs) contain
+% Blanche Descartes graphs (respectively Twincut graphs or shift graphs) contain
 % graphs of arbitrarily large chromatic number and arbitrarily large girth
 % (respectively odd girth). Thus none of these classes is
-% minimal. Blanche-Descartes and Twincut graphs are special cases of Zykov graphs,
+% minimal. Blanche Descartes and Twincut graphs are special cases of Zykov graphs,
 % hence Zykov graphs cannot form a minimal hereditary class of unbounded chromatic
 % number.
 
 % A class is \emph{abyssal} if it contains no minimal subclass of unbounded
 % chromatic number. 
 
-
+We give in \cref{sec:Prelis} all basic definitions concerning shift graphs, as well as some known characterisations. 
 We prove in \cref{sec:MIS} that Maximum independent set (\textsc{MIS}) is
 NP-complete in shift graphs. We prove in \cref{sec:3COL} that 3-Colouring
 (\textsc{3-Col}) is NP-complete in shift graphs and in \cref{sec:recognition}
 that recognising shift graphs is also NP-complete.
 
 \section{Preliminaries}
-
+\label{sec:Prelis}
 \subsection{Notations and glossary} A digraph $D$ consists of a set $V(D)$ of
 vertices and a set $A(D)$ of directed edges denoted $(u,v)$, $uv$ or $u \to v$
 and called \emph{arcs}. Given an arc $a=u \to v$, the \emph{head} of $a$ is $v$
