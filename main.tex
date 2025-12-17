@@ -206,7 +206,7 @@ chromatic number. The first such constructions are due to Zykov \ugo{Nicolas tu 
 or some subfamilies of Kneser and Schrijver graphs \cite{lovasz1973Covering, Schrijver}. A common feature of all these graphs is that they all admit explicit constructions, allowing to derive a many interesting structural properties. 
 For example, a construction due to Burling turned out
 to be a counter-example to several conjectures about algorithms in non-$\chi$
-bounded classes. \nicolas{cite papers ?}\ugo{We should either precise the sentence or remove it.}
+bounded classes~\cite{scott2014Disprove,rzazewski2024Polynomial}. \nicolas{cite papers ?}\ugo{We should either precise the sentence or remove it.}
 
 
 In \cref{tab:complexity}, we review the simplest and most well-known
@@ -270,20 +270,22 @@ the following conjecture: \nicolas{we could be more general, by saying
 \end{conjecture}
 \ugo{We should check first whether Kneser/Schrijver constructions do not give a counterexample... Also, do you really want to state it as a Conjecture, and not as a Question?}
 
-For most of the constructions from \cref{tab:complexity} of triangle-free graphs with high chromatic
-number, there exist variants producing graphs with arbitrarily large girth or
-odd-girth, and unbounded chromatic number. More precisely, there exist shift
-graphs, Twincut and Mycielski graphs of arbitrarily large odd-girth and
-chromatic number, and Zykov and Blanche Descartes graphs with arbitrarily large
-girth and chromatic number. We believe that the complexity results of
-\cref{tab:complexity} also hold with this additional condition in these
-classes. \ugo{I do not like the ``we believe''... You want to keep it?} In the particular case of shift graphs, $k$-iterated shift graphs have
+For most of the constructions from \cref{tab:complexity} of triangle-free graphs
+with high chromatic number, there exist variants producing graphs with
+arbitrarily large girth or odd-girth, and unbounded chromatic number. More
+precisely, there exist shift graphs, Twincut and Mycielski graphs of arbitrarily
+large odd-girth and chromatic number, and Zykov and Blanche Descartes graphs
+with arbitrarily large girth and chromatic number. The complexity results of
+\cref{tab:complexity} might also hold with this additional condition in these
+classes. In the particular case of shift graphs, $k$-iterated shift graphs have
 odd-girth at least $2k+3$ but may contain four-cycles. Each of our
 NP-completeness results extends to the class of $k$-iterated shift graphs.
 Moreover, we prove that shift graphs of girth at least five are 3-colourable,
 but that maximum independent set is still NP-complete on shift graphs of
-arbitrarily large girth.
-\ugo{It seems for me that in the litterature (already in Wikipedia), ``shift graphs'' refer to generalised shift graphs. We should at least precise in the intro, that by shift we mean $G_{n,2}$ and its induced subgraphs, no?}
+arbitrarily large girth.  \ugo{It seems for me that in the litterature (already
+  in Wikipedia), ``shift graphs'' refer to generalised shift graphs. We should
+  at least precise in the intro, that by shift we mean $G_{n,2}$ and its induced
+  subgraphs, no?}
 
 % \paragraph{Abyssal classes}
 % In \cite{abrishami2025Burling}, Abrishami et. al. prove that the class of
@@ -660,9 +662,9 @@ times each edge of $G$.
   $S_n$ is 3-arc-colourable, and $H$ is well defined.
 
 
-  \nicolas{Typos in the paragraph below: line 5, it should be $\{1,
-    3\}\setminus c$ and line 7 it should be colour different from 2
-    and $c$.}
+  % \nicolas{Typos in the paragraph below: line 5, it should be $\{1,
+  %   3\}\setminus c$ and line 7 it should be colour different from 2
+  %   and $c$.}
 
   
   Let $uv_{n-1}$ be the last arc removed in the construction of $H$, we have
@@ -672,10 +674,10 @@ times each edge of $G$.
   at most two colours. Suppose that they are all using the same colour, say
   2. Let $c = \alpha(uv_n)$. Let $\beta$ be the 3-colouring of $L(H+uv_{n-1})$
   such that $\beta(uv_{n-1})= c$,
-  $\beta(v_{n-1}v_n) \in \{2,3\} \setminus \{c\}$ and $\beta(xy) = \alpha(xy)$
+  $\beta(v_{n-1}v_n) \in \{1,3\} \setminus \{c\}$ and $\beta(xy) = \alpha(xy)$
   for all other arcs. The arc-colouring $\beta$ uses three colours like $\alpha$ and
   is proper because $\alpha$ is proper and $v_{n-1}v_n$, the only arc starting
-  in $v_{n-1}$, uses a colour different from 1 and $c$. This contradicts 
+  in $v_{n-1}$, uses a colour different from 2 and $c$. This contradicts 
   $\chi(L(H+uv_n)=4$. So the arcs entering $v_{n-1}$ in $H$ use the colours 2 and 3.
   To sum up, $H$ is 3-colourable and in each 3-arc-colouring of $H$, the arcs
   entering the marked vertex $x:=v_{n-1}$ use two different colours.
