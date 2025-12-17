@@ -136,6 +136,7 @@
 \newcommand*{\cQ}{\mathcal{Q}}
 \newcommand*{\cA}{\mathcal{A}}
 \newcommand*{\cU}{\mathcal{U}}
+\newcommand*{\Cat}{\mathrm{Cat}}
 \DeclareMathOperator{\sq}{\square}
 
 \DeclarePairedDelimiter{\set}{\{}{\}}
@@ -170,7 +171,7 @@
 
 \title{Shift graph recognition is NP-complete}
 
-\date{\today}
+\date{}
 
 \author{
 Bartosz Walczak\footnotemark[1] \and 
@@ -184,7 +185,8 @@ Nicolas Trotignon\footnotemark[2]
 
 \renewcommand{\thefootnote}{\fnsymbol{footnote}} % Make affiliation marks symbols
 
-\footnotetext[1]{Theoretical Computer Science Department, Faculty of Mathematics and Computer Science, Jagiellonian University, Kraków, Poland.}
+\footnotetext[1]{Theoretical Computer Science Department, Faculty of Mathematics and Computer Science, Jagiellonian University, Kraków, Poland. U.G. is supported by the National Science Center of Poland
+under grant 2022/47/B/ST6/02837 within the OPUS 24 program}
 \footnotetext[2]{Univ Lyon, EnsL, UCBL, CNRS, LIP, F-69342, LYON Cedex 07, France}
 
 \renewcommand{\thefootnote}{\arabic{footnote}} % Return to normal footnote symbols
@@ -196,14 +198,16 @@ Nicolas Trotignon\footnotemark[2]
 \end{abstract}
 
 A class of graphs is \emph{hereditary} if it closed under taking induced
-subgraphs.  A hereditary class $\mathcal C$ of graph is $\chi$-bounded if there
-exists a function $f$ such that for all graphs $G\in \mathcal C$,
-$\chi(G) \le f(\omega(G))$.  Not all hereditary classes of graphs are
-$\chi$-bounded because there exist triangle-free graphs of arbitrarily large
-chromatic number.  Several constructions are known and their structure attracted
-some attention lately. In particular, a construction due to Burling turned out
+subgraphs.  A hereditary class $\mathcal C$ of graph is \emph{$\chi$-bounded} if there
+exists a function $f:\mathbb N\to \mathbb N$ such that for each graph $G\in \mathcal C$,
+$\chi(G) \le f(\omega(G))$.  A well-known fact is that not all hereditary classes of graphs are
+$\chi$-bounded. Even more, there exist triangle-free graphs with arbitrarily large
+chromatic number. The first such constructions are due to Zykov \ugo{Nicolas tu as une citation?} and Blanche Descartes \cite{Descartes}, and among other constructions with such properties, one can also mention Mycielski graphs \cite{Mycielski1955}, shift graphs \cite{EH68}, Burling graphs \cite{Burling},
+or some subfamilies of Kneser and Schrijver graphs \cite{lovasz1973Covering, Schrijver}. A common feature of all these graphs is that they all admit explicit constructions, allowing to derive a many interesting structural properties. 
+For example, a construction due to Burling turned out
 to be a counter-example to several conjectures about algorithms in non-$\chi$
-bounded classes. \nicolas{cite papers ?}
+bounded classes. \nicolas{cite papers ?}\ugo{We should either precise the sentence or remove it.}
+
 
 In \cref{tab:complexity}, we review the simplest and most well-known
 constructions of triangle-free graphs of arbitratily large chromatic number.
@@ -214,7 +218,7 @@ into a hereditary class by considering the induced subgraphs of the graphs in
 the sequence.  \nicolas{In fact, below, shift graphs are precisely
   defined as the closure of some sequence, so I would remove ``except
   shift graphs''. In fact, it is more a matter of presentation, so I
-  rephrase the paragraph below, keep it if you like it.}
+  rephrase the paragraph below, keep it if you like it.}\ugo{I agree. Also, don't you want to say that we take as a convention from now on that by abuse of notation, when we mean a ``shift'', ``Burling'', etc., then we mean ``induced subgraph of a shift, Burling, etc.\''?}
 
 
 
@@ -222,8 +226,13 @@ the sequence.  \nicolas{In fact, below, shift graphs are precisely
 constructions of triangle-free graphs of arbitratily large chromatic number.
 These constructions are often presented by generating a sequence of triangle-free graphs
 $(G_k)_{k\in \mathbb{N}}$ such that $\chi(G_k) = k$ for all $k$. We turn this
-into a hereditary class by considering the induced subgraphs of the graphs in
-the sequence.}
+into a hereditary class by considering all induced subgraphs of the graphs in
+the sequence $(G_k)_{k\in \mathbb N}$.}
+
+\ugo{Suggestion of paragraph instead of the next one (fundamentaly it says the same thing, it's just the phrasing): \\
+In view of the explicit constructions of each of the aforementioned classes, a natural question is to determine for each of them, whether there exists an efficient (i.e.\ polynomial) algorithm solving the associated membership problem, i.e.\ deciding whether a given graph belongs or not to them. This question has been recently investigated for some of these classes, as well as the complexity of two other natural problems, when restricted to these classes: Maximum Independent
+Set and 3-Colouring (see \cref{tab:complexity} for references). The goal of the present paper is to complement these works, and to prove that all three
+problems are NP-complete for shift graphs.}
 
 Three problems particularly attracted attention: Recognition, Maximum
 Independent Set and 3-Colouring. The complexity of all of them is known
@@ -238,7 +247,7 @@ problems are NP-complete for shift graphs.
     \hline
     Mycielski & P & NPC \cite{poljak1974Note} & NPC \cite{lovasz1973Covering,maffray1996NPcompleteness} \\
     Zykov & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} \\
-    Blanche-Descartes & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} \\
+    Blanche Descartes & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} \\
     Burling & P \cite{rzazewski2024Polynomial} & P \cite{rzazewski2024Polynomial} & NPC \cite{walczak2025Private}\\
     Twincut & P \cite{bourneuf2025Private} & NPC \cite{bourneuf2025Private} & NPC \cite{bourneuf2025Private} \\
     Shift & NPC [*] & NPC [*] & NPC [*] \\
@@ -248,7 +257,8 @@ problems are NP-complete for shift graphs.
     the main constructions of triangle-free graph of large chromatic number}
   \label{tab:complexity}
 \end{table}
-Surprisingly, we see
+
+Surprisingly, one can observe
 from \cref{tab:complexity} that 3-Colouring is NP-complete in all known
 constructions of triangle-free graphs of high chromatic number, which motivates
 the following conjecture: \nicolas{we could be more general, by saying
@@ -258,21 +268,22 @@ the following conjecture: \nicolas{we could be more general, by saying
   3-Colouring is NP-complete in all triangle-free hereditary graph classes of unbounded
   chromatic number.
 \end{conjecture}
+\ugo{We should check first whether Kneser/Schrijver constructions do not give a counterexample... Also, do you really want to state it as a Conjecture, and not as a Question?}
 
-For most of these constructions of triangle-free graphs with high chromatic
+For most of the constructions from \cref{tab:complexity} of triangle-free graphs with high chromatic
 number, there exist variants producing graphs with arbitrarily large girth or
-odd-girth, and unbounded chromatic number. More precisely, there exists shifts
+odd-girth, and unbounded chromatic number. More precisely, there exist shift
 graphs, Twincut and Mycielski graphs of arbitrarily large odd-girth and
-chromatic number, and Zykov and Blanche-Descartes graphs with arbitrarily large
-girth and chormatic number. We believe that the complexity results of
+chromatic number, and Zykov and Blanche Descartes graphs with arbitrarily large
+girth and chromatic number. We believe that the complexity results of
 \cref{tab:complexity} also hold with this additional condition in these
-classes. In the particular case of shift graphs, $k$-iterated shift graphs have
+classes. \ugo{I do not like the ``we believe''... You want to keep it?} In the particular case of shift graphs, $k$-iterated shift graphs have
 odd-girth at least $2k+3$ but may contain four-cycles. Each of our
 NP-completeness results extends to the class of $k$-iterated shift graphs.
 Moreover, we prove that shift graphs of girth at least five are 3-colourable,
 but that maximum independent set is still NP-complete on shift graphs of
 arbitrarily large girth.
-
+\ugo{It seems for me that in the litterature (already in Wikipedia), ``shift graphs'' refer to generalised shift graphs. We should at least precise in the intro, that by shift we mean $G_{n,2}$ and its induced subgraphs, no?}
 
 % \paragraph{Abyssal classes}
 % In \cite{abrishami2025Burling}, Abrishami et. al. prove that the class of
@@ -282,59 +293,60 @@ arbitrarily large girth.
 % view, the hereditary closures of any construction of triangle-free graphs with
 % large chromatic number are natural candidates in the search for other minimal
 % hereditary classes of unbounded chromatic number. However, the classes of
-% Mycielski, Blanche-Descartes, Twincut, Zykov and shift graphs are not minimal.
+% Mycielski, Blanche Descartes, Twincut, Zykov and shift graphs are not minimal.
 
 % Indeed, Mycielski graphs are universal for triangle-free graphs, and
-% Blanche-Descartes graphs (respectively Twincut graphs or shift graphs) contain
+% Blanche Descartes graphs (respectively Twincut graphs or shift graphs) contain
 % graphs of arbitrarily large chromatic number and arbitrarily large girth
 % (respectively odd girth). Thus none of these classes is
-% minimal. Blanche-Descartes and Twincut graphs are special cases of Zykov graphs,
+% minimal. Blanche Descartes and Twincut graphs are special cases of Zykov graphs,
 % hence Zykov graphs cannot form a minimal hereditary class of unbounded chromatic
 % number.
 
 % A class is \emph{abyssal} if it contains no minimal subclass of unbounded
 % chromatic number. 
 
-
+We give in \cref{sec:Prelis} all basic definitions concerning shift graphs, as well as some known characterisations. 
 We prove in \cref{sec:MIS} that Maximum independent set (\textsc{MIS}) is
-NP-complete in shift graphs. We prove in \cref{sec:3COL} that 3-Colouring
-(\textsc{3-Col}) is NP-complete in shift graphs and in \cref{sec:recognition}
+NP-complete in shift graphs. \cref{sec:3COL} contains a proof that 3-Colouring
+(\textsc{3-Col}) is NP-complete when restricted to shift graphs and \cref{sec:recognition} shows
 that recognising shift graphs is also NP-complete.
 
 \section{Preliminaries}
+\label{sec:Prelis}
+Unless stated otherwise, all graphs considered in this paper are finite, simple without loops. For every integer $n\in \mathbb N$, we use the notation $[n]$ to denote the set $\{1,\ldots,n\}$ of integers.
 
-\subsection{Notations and glossary} A digraph $D$ consists of a set $V(D)$ of
+\subsection{Notations and basic definitions} A digraph $D$ consists of a set $V(D)$ of
 vertices and a set $A(D)$ of directed edges denoted $(u,v)$, $uv$ or $u \to v$
 and called \emph{arcs}. Given an arc $a=u \to v$, the \emph{head} of $a$ is $v$
 and its \emph{tail} is $u$. An oriented graph is a digraph with no opposite
-arcs. The \emph{support} of a digraph $D$ is the non-directed graph $G$ obtained
-by removing the orientations of the arcs of $D$, that is $V(G) = V(D)$ and
+arcs. The \emph{support} of a digraph $D$ is the undirected graph $G$ obtained
+when removing the orientations of the arcs of $D$, that is $V(G) = V(D)$ and
 $E(G) = \{\{x,y\} \colon (x,y) \in A(D)\}$. We say that a vertex $u$ of a
-digraph $D$ is \emph{transitive} if it is neither a source nor a sink. A
-\emph{$k$-walk} (respectively \emph{$k$-path}) is a sequence of $k$ (distinct)
-consecutive arcs. The \emph{$k$-prefix} (resp. \emph{$k$-suffix}) of a path $P$
-are the first (or last) $k$ arcs of $P$.
+digraph $D$ is \emph{transitive} if it is neither a source nor a sink. For $k\in \mathbb N$, a
+\emph{$k$-walk} (resp.\ \emph{$k$-path}) is a sequence $(v_0,\ldots, v_k)$ of $k+1$ (distinct) vertices such that $v_i\to v_{i+1}$ for each $0\leq i\leq k-1$. Then \emph{length} of a path is defined as its number of edges.
+The \emph{$k$-prefix} (resp.\ \emph{$k$-suffix}) of a path $P$
+is the subpath obtained when keeping only its $k+1$ first (resp.\ last) vertices.
 
-In this paper, a \emph{caterpillar} of length $k$ is a path on $k$ edges (called
-\emph{spine}) with an additional edge (called \emph{leg}) attached to each
-vertex of the spine. The caterpillar of length 0 is a single leg.
+In this paper, the \emph{caterpillar} of length $k$ is the graph $\Cat_k$ obtained from a path on $k$ edges (the \emph{spine} of $\Cat_k$) to which we attach to each vertex an additional pendant edge (such edges are the \emph{legs} of $\Cat_k$). The caterpillar of length 0 is a single leg.
 
 \subsection{Line digraphs}
-The \emph{line digraph} $L(D)$ of $D$ is the digraph whose vertices are the arcs
+For a digraph $D$, the \emph{line digraph} $L(D)$ of $D$ is the digraph whose vertices are the arcs
 of $D$ and in which there is an arc from $a$ to $b$ if the head of $a$ is the
-tail of $b$ in $D$, in other words when $a$ and $b$ are consecutive. We refer to
-$D$ as a \emph{root} digraph of $L(D)$. The \emph{$k$-iterated line digraph}
-$L^k(D)$ of $D$ is then defined recursively by $L^k(D) = L(L^{k-1}(D))$ and
-$L^0(D) = D$. Equivalently, the vertices of $L^k(D)$ are the directed $k$-walks
+tail of $b$ in $D$, in other words when $a$ and $b$ are consecutive. An \emph{oriented graph} is a digraph such that for each pair $u,v$ of distinct vertices, $A(D)$ contains at most one of the two arcs $u\to v$ and $v\to u$.
+We refer to
+$D$ as a \emph{root} digraph of $L(D)$. For $k\in \mathbb N$, the \emph{$k$-iterated line digraph}
+$L^k(D)$ of $D$ is then defined recursively by setting $L^k(D) = L(L^{k-1}(D))$ when $k\geq 1$, and
+$L^0(D) = D$. Equivalently, when $k\geq 1$, the vertices of $L^k(D)$ are the directed $k$-walks
 in $D$ and $L^k(D)$ contains an arc from $a$ to $b$ if the corresponding
 directed walks overlap on the $(k-1)$-suffix of $a$ and the $(k-1)$-prefix of
 $b$, namely $a = (v_0, \ldots, v_k)$ and $b=(v_1, \ldots, v_{k+1})$ with
-$(v_i,v_{i+1}) \in A(D)$ for all $i$.
+$(v_i,v_{i+1}) \in A(D)$ for all $0\leq i\leq k$.
 
-The following result of Beineke characterises line digraphs of digraphs.
+The following result of Beineke characterises line digraphs of oriented graphs.
 \begin{lemma}[Beineke~\cite{beineke1968Derived}]\label{lem:forbidden_config}
-  A digraph $D$ is the line digraph of an oriented graph $D'$ if and only if the two
-  following conditions are satisfied:
+  A digraph $D$ is the line digraph of an oriented graph $D'$ if and only if the two 
+  following conditions are satisfied (see Figure \ref{fig: Beineke}):
   \begin{enumerate}
   \item If $D$ contains three arcs $a$, $b$ and $c$ such that $a$ and $b$ have
     the same tail, and $b$ and $c$ have the same head, then $D$ also contains an
@@ -344,6 +356,14 @@ The following result of Beineke characterises line digraphs of digraphs.
     the head of $a$ (resp. $c$) is the tail of $b$ (resp. $d$).  
   \end{enumerate}
 \end{lemma}
+
+\begin{figure}[htb]
+  \centering  
+  \includegraphics[scale=1]{Line_digraph}
+  \caption{The two configurations depicted in Lemma \ref{lem:forbidden_config}.}  
+  \label{fig: Beineke}
+\end{figure}
+
 % \begin{figure}[ht]
 %   \centering
 %   \begin{subfigure}{.4\textwidth}
@@ -388,9 +408,8 @@ the only allowed orientation of a triangle is the cyclic one and the only
 allowed orientations of the 4-cycles of $D$ are the cyclic ones and the ones
 alternating at each vertex.
 
-Beineke's characterisation shows that line digraphs of digraphs can be
-recognised in polynomial time. However, Chv\'atal and Ebenegger showed that
-recognising their support is NP-complete~\cite{chvatal1990Note}.
+Beineke's characterisation gives in particular a easy polynomial time algorithm to recognise line digraphs. On the other hand, Chv\'atal and Ebenegger proved that
+deciding if an unoriented graph is the support of a line digraph is NP-complete~\cite{chvatal1990Note}.
 
 \subsection{Shift graphs}
 % The class of $k$-shift graphs (or simply shift graphs for $k=2$) is the
@@ -399,8 +418,7 @@ recognising their support is NP-complete~\cite{chvatal1990Note}.
 % that $k$-shift graphs are the supports of the $(k-1)$-iterated line digraphs of
 % all directed acyclic graphs.
 
-The shift graph construction is the sequence of graphs $(G_n)_{n\in \mathbb{N}}$
-such that $G_n$ is the graph whose vertices are the ordered pairs $(a_1,a_2)$ of
+The shift graph construction is the sequence of graphs $(G_n)_{n\in \mathbb{N}}$, where $G_n$ is the graph whose vertices are all the ordered pairs $(a_1,a_2)$ of
 $[n]$ such that $1 \le a_1 < a_2 \le n$, in which two vertices $a = (a_1, a_2)$
 and $b = (b_1, b_2)$ are adjacent if $b_1 = a_2$ (or $a_1 = b_2$). From this
 definition, it is straightforward to check that $G_n$ is the support of the line
@@ -408,17 +426,20 @@ digraph of the transitive tournament on $n$ vertices.
 
 The class of shift graphs is the hereditary closure of the graphs
 $(G_{n})_{n\in \mathbb{N}}$, that is, all induced subgraph of some
-$G_{n}$. Note that this definition is equivalent to saying that
-shift graphs are the supports of the line digraphs of all acyclic
-digraphs. Equivalently, shift graphs are often defined by their interval
-representation and the natural acyclic orientation that arises from it: the
+$G_{n}$. \ugo{Is it  standard? cf.\ com plus haut.}
+% Note that this definition is equivalent to saying that
+% shift graphs are the supports of the line digraphs of all acyclic
+% digraphs. \ugo{Isn't it what is proved in next lemma?} 
+Equivalently, shift graphs are often defined by the natural acyclic orientation that arises from their interval
+representation: the
 vertices of a shift graph are indexed by intervals $[a,b]$ with
 $1 \le a < b \le n$, and contains an arc from $[a,b]$ to $[c,d]$ if $b =
-c$. Since $L(D)$ is acyclic if and only if $D$ is acyclic, Beineke's
+c$. \ugo{Do you mean that they are defined as digraphs, or something else?} 
+Since for every oriented graph $D$, its line graph $L(D)$ is acyclic if and only if $D$ is acyclic, Beineke's
 characterisation gives the following equivalence:
 \begin{lemma}\label{lem:valid}
-  A graph is (the support of) a shift graph if and only if it admits an acyclic
-  orientation that is the line digraph of an oriented graph.
+  A graph is (the support of \ugo{?}) a shift graph if and only if it admits an acyclic
+  orientation which is the line digraph of an oriented graph.
 \end{lemma}
 
 
@@ -427,7 +448,7 @@ characterisation gives the following equivalence:
   simplifies stuff later. Note that I use notation og for odd girth, defined with a
   Declaremathoperator. 
   \begin{lemma}
-For any directed graph $G$, $\chi(L(G) \geq \log \chi(G)$ and $\og(L(G))
+For any directed graph $G$, $\chi(L(G)) \geq \log \chi(G)$ and $\og(L(G))
 > \og(G)$. 
     \end{lemma}
 \begin{proof}
@@ -454,16 +475,17 @@ have unbounded chromatic number:
 \begin{lemma}
   For all $n$, $\chi(G_{2^n+1}) > n$.
 \end{lemma}
+\ugo{Shall we add a citation?}
 \begin{proof}
-  Let $K$ be the transitive tournament on $2^n+1$ vertices. We have
-  $L(K) = G_{2^n+1}$. Let $\alpha$ be an $n$-colouring of $G_{2^n+1}$. Let
-  $\beta$ be the colouring of $K$ such that $\beta(v)$ is the set of colours
-  used by $\alpha$ to colour the arcs entering $v$. The colouring $\beta$ is a
-  proper colouring of the support of $K$: let $u$ and $v$ be two vertices of $K$
-  such that $u \to v$. Because the arcs entering $u$ use the colours in
+  Let $K$ be the transitive tournament on $2^n+1$ vertices. Note that we then have
+  $L(K) = G_{2^n+1}$. Assume for a contradiction that there exists a proper $n$-colouring $\alpha$ of $G_{2^n+1}$. Let
+  $\beta: V(K)\to 2^{[n]}$ be the colouring of $K$ such that for each $v\in V(K)$, $\beta(v)$ is the set of colours
+  used by $\alpha$ to colour the arcs entering $v$. Then $\beta$ is a
+  proper colouring of the support of $K$. To see this, let $u$ and $v$ be two vertices of $K$
+  such that $u \to v$ in $K$. As $\alpha$ is a proper colouring of $L(K)$, and as the arcs entering $u$ use the colours in
   $\beta(u)$, the arc $uv$ must be coloured in $\alpha$ by some colour in
   $[n] \setminus \beta(u)$, hence $\beta(v) \neq \beta (u)$. However, the
-  support of $K$ is a clique on $2^{n}+1$ vertices, hence in cannot be coloured
+  support of $K$ is a clique on $2^{n}+1$ vertices, hence it cannot be coloured
   with $2^n$ colours, a contradiction.
 \end{proof}
 
