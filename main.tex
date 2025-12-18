@@ -136,6 +136,11 @@
 \newcommand*{\cQ}{\mathcal{Q}}
 \newcommand*{\cA}{\mathcal{A}}
 \newcommand*{\cU}{\mathcal{U}}
+\newcommand*{\orG}{\overrightarrow{G}}
+\newcommand*{\orGn}{\overrightarrow{G_n}}
+\newcommand*{\orGnk}{\overrightarrow{G_{n,k}}}
+\newcommand*{\orT}{\overrightarrow{T}}
+\newcommand*{\orTn}{\overrightarrow{T_n}}
 \newcommand*{\Comb}{\mathrm{Comb}}
 \DeclareMathOperator{\sq}{\square}
 
@@ -321,16 +326,17 @@ vertices and a set $A(D)$ of directed edges denoted $(u,v)$, $uv$ or $u \to v$
 and called \emph{arcs}. Given an arc $a=u \to v$, the \emph{head} of $a$ is $v$
 and its \emph{tail} is $u$.  An \emph{oriented graph} is a digraph such that for each pair $u,v$ of distinct vertices, $A(D)$ contains at most one of the two arcs $u\to v$ and $v\to u$. The \emph{support} of a digraph $D$ is the undirected graph $G$ obtained
 when removing the orientations of the arcs of $D$, that is $V(G) = V(D)$ and
-$E(G) = \{\{x,y\} \colon (x,y) \in A(D)\}$. We say that a vertex $u$ of a
+$E(G) = \{\{x,y\} \colon (x,y) \in A(D)\}$. For the sake of notation, we will often use the notation $\orG$ to denote an oriented graph whose support is the unoriented graph $G$. 
+We say that a vertex $u$ of a
 digraph $D$ is \emph{transitive} if it is neither a source nor a sink. For $k\in \mathbb N$, a
 \emph{$k$-walk} (resp.\ \emph{$k$-path}) is a sequence $(v_0,\ldots, v_k)$ of $k+1$ (distinct) vertices such that $v_i\to v_{i+1}$ for each $0\leq i\leq k-1$. Then \emph{length} of a path is defined as its number of edges.
 The \emph{$k$-prefix} (resp.\ \emph{$k$-suffix}) of a path $P$
 is the subpath obtained when keeping only its $k+1$ first (resp.\ last) vertices.
 
-For each $n\in \mathbb N$, the \emph{transitive tournament of order $n$} is the oriented graph $T_n$ with vertex set $[n]$, where there is an arc $i\to j$ for each $1\leq i<j\leq n$.
+For each $n\in \mathbb N$, the \emph{transitive tournament of order $n$} is the oriented graph $\orTn$ with vertex set $[n]$, where there is an arc $i\to j$ for each $1\leq i<j\leq n$.
 
 In this paper, the \emph{comb} of length $k$ is the graph $\Comb_k$ obtained from a path on $k$ edges (the \emph{spine} of $\Comb_k$) to which we attach to each vertex an additional pendant edge (such edges are the \emph{teeth} of $\Comb_k$). The comb of length 0 is a single tooth.
-
+ 
 For a graph $G$, we let $\mathrm g(G)$ and $\og(G)$ denote respectively its \emph{girth} (infimum over the sizes of its cycles) and its \emph{off girth} (infimum over the sizes of its odd cycles).
 
 \subsection{Line digraphs}
@@ -348,7 +354,7 @@ $(v_i,v_{i+1}) \in A(D)$ for all $0\leq i\leq k$. Observe that if $D$ is acyclic
 
 The following result of Beineke characterises line digraphs of oriented graphs.
 \begin{lemma}[Beineke~\cite{beineke1968Derived}]\label{lem:forbidden_config}
-  A digraph $D$ is the line digraph of an oriented graph $D'$ if and only if the two 
+  A digraph $D$ is the line digraph of an oriented graph $\orG$ if and only if the two 
   following conditions are satisfied (see Figure \ref{fig: Beineke}):
   \begin{enumerate}
   \item If $D$ contains three arcs $a$, $b$ and $c$ such that $a$ and $b$ have
@@ -426,12 +432,12 @@ $[n]$ such that $1 \le a_1 < a_2 \le n$, in which two vertices $a = (a_1, a_2)$
 and $b = (b_1, b_2)$ are adjacent if $b_1 = a_2$ (or $a_1 = b_2$). Note that the vertex set of $G_n$ corresponds equivalently to the set of all closed intervals between two distinct integers in $[n]$.
 From this
 definition, it is straightforward to check that $G_n$ is the support of the line
-digraph of the transitive tournament $T_n$.
+digraph of the transitive tournament $\orTn$.
 
 The class of \emph{shift graphs} is the hereditary closure of the graphs
 $(G_{n})_{n\in \mathbb{N}}$, that is, all induced subgraph of some
 $G_{n}$. Note that in the litterature, shift graphs might refer to what we will call later \emph{iterated shift graphs} in this paper.
-Observe that every shift graph admits a natural acyclic orientation, obtained when considering the arc $(a,b)\to(b,c)$ for each $1\leq a<b<c\leq n$.
+Observe that every shift graph admits a natural acyclic orientation, obtained when considering the arc $(a,b)\to(b,c)$ for each $1\leq a<b<c\leq n$. We call this orientation the \emph{shift orientation} and denote it with $\orGn$.
 % Note that this definition is equivalent to saying that
 % shift graphs are the supports of the line digraphs of all acyclic
 % digraphs. \ugo{Isn't it what is proved in next lemma?} 
@@ -440,7 +446,7 @@ Observe that every shift graph admits a natural acyclic orientation, obtained wh
 % vertices of a shift graph are indexed by intervals $[a,b]$ with
 % $1 \le a < b \le n$, and contains an arc from $[a,b]$ to $[c,d]$ if $b =
 % c$. 
-Since for every oriented graph $D$, its line graph $L(D)$ is acyclic if and only if $D$ is acyclic, Beineke's
+Since for every oriented graph $\orG$, its line graph $L(\orG)$ is acyclic if and only if $\orG$ is acyclic, Beineke's
 characterisation immediately implies the following equivalence:
 \begin{lemma}\label{lem:valid}
   A graph is a shift graph if and only if it admits an acyclic
@@ -457,8 +463,8 @@ For any directed graph $G$, $\chi(L(G)) \geq \log \chi(G)$ and $\og(L(G))
 > \og(G)$. 
     \end{lemma}
 \begin{proof}
-The first inequality is proved in 
-\cite[Lemma 2.21]{GraphsandHomomorphisms}.
+\ugo{The first inequality is proved in 
+\cite[Lemma 2.21]{GraphsandHomomorphisms}. I commented the proof}
 %   To prove the first inequality, consider a proper colouring $c$ of $L(G)$ using 
 %   $k$ colours. Then assign to every vertex $v$ of $G$ the set $S_v$ of
 %   all colours with of arcs entering $v$ (with respect to $c$). If
@@ -481,7 +487,7 @@ have unbounded chromatic number:
 \end{lemma}
 \ugo{Shall we add a citation?}
 \begin{proof}
-  Let $K:=T_{2^n+1}$ be the transitive tournament of order $2^n+1$. Note that we then have
+  Let $K:=\overrightarrow{T_{2^n+1}}$ be the transitive tournament of order $2^n+1$. Note that we then have
   $L(K) = G_{2^n+1}$. Assume for a contradiction that there exists a proper $n$-colouring $\alpha$ of $G_{2^n+1}$. Let
   $\beta: V(K)\to 2^{[n]}$ be the colouring of $K$ such that for each $v\in V(K)$, $\beta(v)$ is the set of colours
   used by $\alpha$ to colour the arcs entering $v$. Then $\beta$ is a
@@ -502,7 +508,7 @@ adjacent if $b_i = a_{i+1}$ for all $i \in [k-1]$ (or $a_i = b_{i+1}$ for all
 $i \in [k-1]$). 
 From this definition, it is straightforward to check that
 $G_{n,k}$ is the support of the $k$-iterated line digraph $L^k(T_n)$ of the transitive
-tournament $T_n$. Note that for each $n\in \mathbb N$, $G_{n,2}$ corresponds exactly to the shift graph $G_n$ defined earlier. Note also that for each $k\geq 2$, the graph $G_{n,k}$ is a shift graph, we respect to the definition we gave above, i.e.\ it is an induced subgraph of one of the graphs $G_n$. A simple way to see this is to observe that when $k\geq 3$, $G_{n,k}$ is the line digraph of the acyclic oriented graph $L^{k-1}(T_n)$.
+tournament $\orTn$. Note that for each $n\in \mathbb N$, $G_{n,2}$ corresponds exactly to the shift graph $G_n$ defined earlier, and that as before, $G_{n,k}$ admits a natural acyclic orientation, which we call its \emph{shift orientation}, and denote by $\orGnk$. Note also that for each $k\geq 2$, the graph $G_{n,k}$ is a shift graph, we respect to the definition we gave above, i.e.\ it is an induced subgraph of one of the graphs $G_n$. A simple way to see this is to observe that when $k\geq 3$, $G_{n,k}$ is the line digraph of the acyclic oriented graph $L^{k-1}(\orTn)$.
  
 It is not hard to show (see for example \cite[Lemma 2.22]{GraphsandHomomorphisms}) that $G_{n,k}$ has odd-girth 
 at least $2k+3$, and that by \cref{lem: line-graph}, $(G_{n,k})_{n \in \mathbb{N}}$ chromatic number at least $\log^{(k)}(n)$, where $\log^{(k)}$ denotes the $k$-iterated logarithm function. The class of the
@@ -520,22 +526,23 @@ only if the $(k-1)$-prefix of $\phi(v)$ is the $(k-1)$-suffix of $\phi(u)$. %   
 % their $(k-1)$-suffixes.
 We say that $\phi$ is \emph{convex} if for every
 $u,v,w \in V(H)$ such that $v$ is on a (non-directed) path from $u$ to $w$, then
-$V(\phi(u))\cap V(\phi(w)) \subseteq V(\phi(v))$
+$V(\phi(u))\cap V(\phi(w)) \subseteq V(\phi(v))$.
 
 \paragraph{Shift trees} We now prove two technical lemmas that we
 will use to construct the root graph of some $k$-iterated shift graphs.
 
 \begin{lemma}\label{lem:shift_tree}
-  Let $D$ be an oriented graph that is a shift graph and whose support $T$ is a
-  tree. Then, for all $k\geq 2$, $T$ is a $k$-iterated shift graph.\\
-  More precisely, there exists an acyclic digraph $D'$ and a convex $k$-shift embedding
-  $\phi$ of $T$ in
-  $D'$. %such that for each leaf $a$ of $T$, $\phi(a)$ is private.
+  Let $T$ be a shift graph with shift orientation $\orT$. Then, for all $k\geq 2$, $T$ is also a $k$-iterated shift graph.\\
+  More precisely, there exists an acyclic digraph $D$ and a convex $k$-shift embedding
+  $\phi$ of $\orT$ in
+  $D$. %such that for each leaf $a$ of $T$, $\phi(a)$ is private.
 \end{lemma}
 \begin{proof}
   We proceed by induction on
-  $V(T)$. Let $a$ be a leaf of $T$, such that for some $b \in V(T)$ we have
-  $a \to b$ without loss of generality. Let $T'=T\setminus\{a\}$. By induction
+  $|V(T)|$. Clearly, if $|V(T)|\leq 1$, then the result is immediate, as if $V(T)$ is empty, then $D$ can be chosen as the empty graph, and if $T$ has a single vertex, then $D$ can be chosen as the oriented path of length $k$. We now assume that $|V(T)|\geq 2$.
+  
+  Let $a$ be a leaf of $T$, and assume without loss of generality that for some $b \in V(T)$ we have
+  $a \to b$ in $D$. Let $T'=T\setminus\{a\}$. By induction hypothesis,
   there exists an acyclic graph $G'$ with a convex $k$-shift embedding $\phi'$ of
   $T'$ in $G'$. Let $v$, $w$, $x$, $y$ be the first, second, penultimate and
   last vertex of $\phi(b)$ respectively (with $w=x$ if $k = 2$). Let $Q_b$ be
