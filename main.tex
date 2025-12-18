@@ -137,6 +137,7 @@
 \newcommand*{\cA}{\mathcal{A}}
 \newcommand*{\cU}{\mathcal{U}}
 \newcommand*{\orG}{\overrightarrow{G}}
+\newcommand*{\orH}{\overrightarrow{H}}
 \newcommand*{\orGn}{\overrightarrow{G_n}}
 \newcommand*{\orGnk}{\overrightarrow{G_{n,k}}}
 \newcommand*{\orT}{\overrightarrow{T}}
@@ -529,59 +530,69 @@ $u,v,w \in V(H)$ such that $v$ is on a (non-directed) path from $u$ to $w$, then
 $V(\phi(u))\cap V(\phi(w)) \subseteq V(\phi(v))$.
 
 \paragraph{Shift trees} We now prove two technical lemmas that we
-will use to construct the root graph of some $k$-iterated shift graphs.
+will use to construct the root graph of some $k$-iterated shift graphs. The first states that for trees, $k$-iterated shift graphs and shift graphs are the same. 
 
 \begin{lemma}\label{lem:shift_tree}
   Let $T$ be a shift graph with shift orientation $\orT$. Then, for all $k\geq 2$, $T$ is also a $k$-iterated shift graph.\\
-  More precisely, there exists an acyclic digraph $D$ and a convex $k$-shift embedding
+  More precisely, there exists an acyclic oriented graph $\orG$ and a convex $k$-shift embedding
   $\phi$ of $\orT$ in
-  $D$. %such that for each leaf $a$ of $T$, $\phi(a)$ is private.
+  $\orG$. %such that for each leaf $a$ of $T$, $\phi(a)$ is private.
 \end{lemma}
 \begin{proof}
   We proceed by induction on
-  $|V(T)|$. Clearly, if $|V(T)|\leq 1$, then the result is immediate, as if $V(T)$ is empty, then $D$ can be chosen as the empty graph, and if $T$ has a single vertex, then $D$ can be chosen as the oriented path of length $k$. We now assume that $|V(T)|\geq 2$.
+  $|V(T)|$. Clearly, if $|V(T)|\leq 1$, then the result is immediate, as if $V(T)$ is empty, then $\orG$ can be chosen as the empty digraph, and if $T$ has a single vertex, then $\orG$ can be chosen as the oriented path of length $k$. We now assume that $|V(T)|\geq 2$.
   
   Let $a$ be a leaf of $T$, and assume without loss of generality that for some $b \in V(T)$ we have
-  $a \to b$ in $D$. Let $T'=T\setminus\{a\}$. By induction hypothesis,
-  there exists an acyclic graph $G'$ with a convex $k$-shift embedding $\phi'$ of
-  $T'$ in $G'$. Let $v$, $w$, $x$, $y$ be the first, second, penultimate and
+  $a \to b$ in $D$, the case $b\to a$ being symmetric. Let $T':=T-a$, and $\overrightarrow{T'}:=\orT-a$. By induction hypothesis,
+  there exists an acyclic oriented graph $\overrightarrow{G'}$ and a convex $k$-shift embedding $\phi'$ of
+  $\overrightarrow{T'}$ in $\overrightarrow{G'}$. Let $v$, $w$, $x$, $y$ be the first, second, penultimate and
   last vertex of $\phi(b)$ respectively (with $w=x$ if $k = 2$). Let $Q_b$ be
-  the $(k-1)$-prefix of $\phi(b)$.
+  the $(k-1)$-prefix of $\phi'(b)$.
 
   If $b$ is the only vertex of $T'$ with $Q_b$ as the $(k-1)$-prefix of its
-  image by $\phi$, then let $G$ be the graph obtained from $G'$ by adding a new
+  image by $\phi'$, then let $\orG$ be the oriented graph obtained from $\overrightarrow{G'}$ by adding a new
   vertex $u$ with $u \to v$. This creates a $k$-path $P_a$ whose $(k-1)$-suffix
   is the $(k-1)$-prefix of $\phi'(b)$ but of no other $k$-path in
-  $\phi(V(T))$. Hence, by defining $\phi(a) = P_a$ and $\phi(c) = \phi'(c)$ for
-  all other vertices, $\phi$ is a $k$-shift embedding of $T$ in $G$. The convex
-  character of $\phi$ comes from the fact that $\phi(a)$ uses a vertex in
-  $V(G) \setminus V(G')$. % Moreover, $a$ is the only vertex of $T$ whose image by
+  $\phi'(V(\orT))$. Hence, by defining $\phi(a) := P_a$ and $\phi(c) := \phi'(c)$ for
+  all other vertices, $\phi$ is a $k$-shift embedding of $T$ in $G$. The convexity
+  of $\phi$ comes from the fact that $\phi'$ was also convex, and that for each $u\in V(T')$, $\phi(u)\cap \phi(a)\subseteq V(Q_b)$. % Moreover, $a$ is the only vertex of $T$ whose image by
   % $\phi$ starts by $a$ and by assumption, $a$ is the only of $T$ whose image by
   % $\phi$ has $(k-1)$-suffix equal to $Q_b$, so $\phi(a)$ is private.
   Thus the
-  second part of the lemma holds as well and we can assume that there exists
-  $c \in V(T) \setminus\{b\}$ such that $\phi(c)$ has $Q_b$ as $(k-1)$-prefix
-  and ends at $z \in N^+_{G'}(x)$.
+  second part of the lemma holds as well and we can now assume that there exists
+  $c \in V(T') \setminus\{b\}$ such that $\phi(c)$ has $Q_b$ as $(k-1)$-prefix
+  and ends at $z \in N^+_{G'}(x)$ (see Figure \ref{fig: shiftTree}).
+ 
+ \begin{figure}[htb]
+  \centering  
+  \includegraphics[scale=1]{shiftTree}
+  \caption{Configuration in the proof of Lemma \ref{lem:shift_tree}.}  
+  \label{fig: shiftTree}
+ \end{figure}
 
-  \todo[inline]{picture}
-
-  For all $t \in N^-_{G'}(w)$, we have $tQ_b \notin \phi(V(T'))$, in particular
-  $N^-_{G'}(b) = \emptyset$. Otherwise there exists $d \in V(T')$ such that
-  $d \to c$ and $d \to b$. We have $a \to b$, so \cref{lem:forbidden_config}
-  implies that $a \to d$ which contradicts that $a$ is a leaf of $T$. Duplicate
-  the vertex $v$ by creating a vertex $v'$ that is a twin of $v$. Let $\psi$ be
-  the map from $V(T')$ to the graph $G''$ we have constructed such that
-  $\psi_{|V(T')\setminus \{b\}} = \phi_{|V(T')\setminus \{b\}}$ and $\psi(b)$ is
-  the $k$-path $\phi(b)$ where $v$ was replaced by $v'$. For any two vertices
-  $i,j$ of $V(T')$ we have $i \to j$ if and only if the $(k-1)$-suffix of
-  $\psi(i)$ is the $(k-1)$-prefix of $\psi(j)$. This is immediate if $i$ and $j$
+  First, observe that for each $t\in V(G')$ such that $t\to v$ in $\overrightarrow{G'}$,
+  we have $tQ_b \notin \phi(V(T'))$, and thus also in particular $b$ is a source in
+  $\overrightarrow{G'}$. Indeed, note that otherwise there would exist some node $d \in V(T')$ such that we both have
+  $d \to c$ and $d \to b$ in $\overrightarrow{T'}$ (and thus also in $\orT$). In particular, \cref{lem:forbidden_config} would then imply that $a \to b$ in $\orT$, contradicting that $a$ is a leaf of $T$. We now let $\overrightarrow{G''}$ be the oriented graph obtained after duplicating
+  the vertex $v$ by creating a vertex $v'$ that is a false twin of $v$ in $\overrightarrow{G'}$, i.e.\ $v'$ has exactly the same out- and in-neighbourhoods as $v$ in $\overrightarrow{G''}$ (note that such operation preserves acyclicity). We define $\psi$ as the map from $V(T')$ to the set of $k$-walks of $G''$ by setting
+  $\psi_{|V(T')\setminus \{b\}} := \phi_{|V(T')\setminus \{b\}}$ and define $\psi(b)$ as
+  the $k$-path $\phi(b)$ where $v$ was replaced by $v'$. 
+  We claim that for any two vertices
+  $i,j$ of $V(T')$ we have $i \to j$ in $\overrightarrow{T'}$ if and only if the $(k-1)$-suffix of
+  $\psi(i)$ equals to the $(k-1)$-prefix of $\psi(j)$. This is immediate if $i$ and $j$
   are different from $b$, or if $i=b$ because $\psi(i)$ and $\phi(b)$ have the
-  same $(k-1)$-suffix. Since $N^-_{G'}(b)=\emptyset$, the case $b=j$ also
-  trivially follows and $\psi$ is convex. So $\psi$ is a convex $k$-shift
-  embedding of $T'$ in $G''$ and $b$ is the only vertex of $T'$ whose
-  corresponding $k$-path $\psi(b)$ starts in $v'$, so we are back in the case of
-  the previous paragraph.
+  same $(k-1)$-suffix. Since $b$ is source in $\overrightarrow{G'}$, the case $b=j$ also
+  trivially follows, and as $\phi$ is convex, note that $\psi$ is also convex. We thus just proved that $\psi$ is a convex $k$-shift
+  embedding of $\overrightarrow{T'}$ in $\overrightarrow{G''}$ such that $b$ is the only vertex of $\overrightarrow{T'}$ whose
+  corresponding $k$-path $\psi(b)$ starts in $v'$. In particular, we are then back in the case of
+  the previous paragraph, and can thus conclude the proof.
 \end{proof}
+
+\ugo{I hope that I interpretated correctly in the next definition what you meant by ``identifying'' (it was not clear at all for me in a first time).}
+In a directed graph $D$, if $u,v$ are two distinct vertices, we let $D/\{u,v\}$ denote the digraph obtained after \emph{identifying} $u$ with $v$, i.e.\  $D/\{u,v\}$ is obtained from $D$ after removing $u,v$ and adding a new vertex $z$, with in-neighbourhood $(N^-_D(u)\cup N^-_D(v))\setminus \{u,v\}$ and
+out-neighbourhood $(N^+_D(u)\cup N^+_D(v))\setminus \{u,v\}$. Note that if $D$ is an oriented graph, in which $N_H(u)$ and $N_H(v)$ are disjoint, then $D/\{u,v\}$ is also an oriented graph. The next lemma shows that in this case, $k$-shift embeddings are also preserved.
+
+\ugo{I do not  understand at all the next lemma... Could you define what it does mean to identify $\phi(u)$ with $\phi(v)$? Is $G$ oriented?}
 
 \begin{lemma}\label{lem:gluing}
   Let $\phi$ be a $k$-shift embedding of $H$ in $G$ and let $u,v$ be two
@@ -594,7 +605,7 @@ will use to construct the root graph of some $k$-iterated shift graphs.
 \begin{proof}
   First, note that this identification is well-defined because $\phi(N(u))$ and
   $\phi(N(v))$ are vertex-disjoint, in particular, the neighbours of $u$ and $v$
-  are preserved. This indentification creates no directed cycle because there are
+  are preserved. This identification creates no directed cycle because there are
   no directed paths between $u$ and $v$ in $H$.
 \end{proof}
 
