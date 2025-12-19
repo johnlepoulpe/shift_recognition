@@ -142,6 +142,8 @@
 \newcommand*{\orHu}{\overrightarrow{H_u}}
 \newcommand*{\orHv}{\overrightarrow{H_v}}
 \newcommand*{\orGn}{\overrightarrow{G_n}}
+\newcommand*{\orGu}{\overrightarrow{G_1}}
+\newcommand*{\orGd}{\overrightarrow{G_d}}
 \newcommand*{\orGnk}{\overrightarrow{G_{n,k}}}
 \newcommand*{\orT}{\overrightarrow{T}}
 \newcommand*{\orTn}{\overrightarrow{T_n}}
@@ -361,7 +363,7 @@ $L^0(D) = D$. Equivalently, when $k\geq 1$, the vertices of $L^k(D)$ are the dir
 in $D$ and $L^k(D)$ contains an arc from $a$ to $b$ if the corresponding
 directed walks overlap on the $(k-1)$-suffix of $a$ and the $(k-1)$-prefix of
 $b$, namely $a = (v_0, \ldots, v_k)$ and $b=(v_1, \ldots, v_{k+1})$ with
-$(v_i,v_{i+1}) \in A(D)$ for all $0\leq i\leq k$. Observe that if $D$ is acyclic, then for each $k\geq 2$, the vertex set of $L^k(D)$ also corresponds to the set of $k$-paths of $D$.
+$(v_i,v_{i+1}) \in A(D)$ for all $0\leq i\leq k$. Observe that if $D$ is acyclic, then for each $k\geq 1$, the vertex set of $L^k(D)$ also corresponds to the set of $k$-paths of $D$.
 
 The following result of Beineke characterises line digraphs of oriented graphs.
 \begin{lemma}[Beineke~\cite{beineke1968Derived}]\label{lem:forbidden_config}
@@ -511,7 +513,7 @@ have unbounded chromatic number:
 \end{proof}
 
 \paragraph{Iterated shift graphs}
-For $k\geq 2$, the \emph{$k$-iterated shift graph} $G_{n,k}$ (sometimes referred to as generalised
+For $k\geq 1$, the \emph{$k$-iterated shift graph} $G_{n,k}$ (sometimes referred to as generalised
 shift graph, or shift graph) is the graph whose vertices are ordered $(k+1)$-tuples
 $(a_0, \ldots, a_k)$ of $[n]$ such that $1 \le a_0 < a_1 < \ldots < a_k \le n$,
 in which two vertices $a = (a_0, \ldots, a_k)$ and $b = (b_0, \ldots, b_k)$ are
@@ -519,12 +521,12 @@ adjacent if $b_i = a_{i+1}$ for all $i \in [k-1]$ (or $a_i = b_{i+1}$ for all
 $i \in [k-1]$). 
 From this definition, it is straightforward to check that
 $G_{n,k}$ is the support of the $k$-iterated line digraph $L^k(T_n)$ of the transitive
-tournament $\orTn$. Note that for each $n\in \mathbb N$, $G_{n,2}$ corresponds exactly to the shift graph $G_n$ defined earlier, and that as before, $G_{n,k}$ admits a natural acyclic orientation, which we call its \emph{shift orientation}, and denote by $\orGnk$. Note also that for each $k\geq 2$, the graph $G_{n,k}$ is a shift graph, we respect to the definition we gave above, i.e.\ it is an induced subgraph of one of the graphs $G_n$. A simple way to see this is to observe that when $k\geq 3$, $G_{n,k}$ is the line digraph of the acyclic oriented graph $L^{k-1}(\orTn)$.
+tournament $\orTn$. Note that for each $n\in \mathbb N$, $G_{n,2}$ corresponds exactly to the shift graph $G_n$ defined earlier, and that as before, $G_{n,k}$ admits a natural acyclic orientation, which we call its \emph{shift orientation}, and denote by $\orGnk$. Note also that for each $k\geq 1$, the graph $G_{n,k}$ is a shift graph, we respect to the definition we gave above, i.e.\ it is an induced subgraph of one of the graphs $G_n$. A simple way to see this is to observe that when $k\geq 2$, $G_{n,k}$ is the line digraph of the acyclic oriented graph $L^{k-1}(\orTn)$.
  
-The main interest of considering the graphs $G_{n,k}$ is that they give a families of graphs with unbounded chromatic number and arbitrarily large odd girth. More precisely, it is not hard to preve that for every $k\geq 2$ and $n\in \mathbb N$,
+The main interest of considering the graphs $G_{n,k}$ is that they give a families of graphs with unbounded chromatic number and arbitrarily large odd girth. More precisely, it is not hard to preve that for every $k\geq 1$ and $n\in \mathbb N$,
 $G_{n,k}$ has odd-girth 
 at least $2k+3$ (see for example \cite[Lemma 2.22]{GraphsandHomomorphisms}), and that by \cref{lem: line-graph}, $(G_{n,k})_{n \in \mathbb{N}}$ chromatic number at least $\log^{(k)}(n)$, where $\log^{(k)}$ denotes the $k$-iterated logarithm function. The class of the
-\emph{$k$-iterated shift graphs} is the hereditary closure of
+\emph{$k$-iterated shift graphs} is the hereditary closu`re of
 $(G_{n,k})_{n \in \mathbb{N}}$, or equivalently, the class of all induced subgraphs of
 $k$-line digraphs of acyclic digraphs.
 
@@ -544,7 +546,7 @@ $V(\phi(u))\cap V(\phi(w)) \subseteq V(\phi(v))$.
 will use to construct the root graph of some $k$-iterated shift graphs. The first states that for trees, $k$-iterated shift graphs and shift graphs are the same. 
 
 \begin{lemma}\label{lem:shift_tree}
-  Let $T$ be a shift graph with shift orientation $\orT$. Then, for all $k\geq 2$, $T$ is also a $k$-iterated shift graph.\\
+  Let $T$ be a shift graph with shift orientation $\orT$. Then, for all $k\geq 1$, $T$ is also a $k$-iterated shift graph.\\
   More precisely, there exists an acyclic oriented graph $\orG$ and a convex $k$-shift embedding
   $\phi$ of $\orT$ in
   $\orG$. %such that for each leaf $a$ of $T$, $\phi(a)$ is private.
@@ -653,7 +655,7 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
 
 \section{3-Colouring shift graphs}\label{sec:3COL}
 \begin{theorem}\label{thm:3col}
-  For any $k\geq 2$, \Col is NP-complete when restricted on the class of $k$-iterated shift graphs (and
+  For any $k\geq 1$, \Col is NP-complete when restricted on the class of $k$-iterated shift graphs (and
   \emph{a fortiori} in shift graphs of odd-girth at least $k$).
 \end{theorem}
 \begin{proof}
@@ -687,7 +689,7 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   % proper because $uv_n$ and $uv_{n-1}$ are twins in $L(T_n)$. Since $\alpha$ and
   % $\beta$ use the same amount of colours and $S_n$ is a subgraph of $T_n$, we
   % have $\chi(L(S_n)) = \chi(L(T_n)) = 4$.
-  Let $\orH$ be the graph obtained from $\orTn$ by iteratively removing all the arcs entering $v_{n-1}$
+  Let $\orH$ be the graph obtained from $\orTn$ by iteratively removing arcs entering $v_{n-1}$
   until the chromatic number of its line digraph drops to three. Note that
   $\overrightarrow{S_n} := \orTn-\{uv_{n-1} : u \in V(T_{n})\setminus\{v_{n-1},v_{n}\}\}$ is the
   transitive tournament on the vertices $V(T_n)\setminus \{v_{n-1}\}$, with an
@@ -855,19 +857,19 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   is the colour of $x_u\to x_v$ with respect to $\beta$, which must differ from the colour of $x_v \to y_v$ with respect to $\beta$. In particular, note that the colour of $x_v\to y_v$ with respect to $\beta$ is the colour of $v \in V(G)$ with respect to $\alpha$. Thus $G$ is 3-colourable.
 
   \paragraph{$k$-iterated shift graphs}
+  We fix $k\geq 1$.
   To adapt our reduction to $k$-iterated shift graph, we will first need to
-  change our gadget. Given a $k$-iterated line digraph $G_2$ of an oriented
-  graph $G_1$, we will for convenience see the $k$-colourings of $G_2$ as
-  $k$-colourings of the $k$-paths of $G_1$ such that the $k$-paths
-  $u_0\dots u_k$ and $u_1\dots u_{k+1}$ are coloured differently.
+  change our gadget. Given a $k$-iterated line digraph $\orGd$ of an oriented
+  acyclic graph $\orGu$, we will for convenience see the $k$-colourings of $\orGd$ as
+  $k$-colourings of the $k$-paths of $\orGu$ such that the every two $k$-paths of the form $u_0\dots u_k$ and $u_1\dots u_{k+1}$ are coloured differently.
 
-  For our gadget, we construct an acyclic oriented graph $H$ such that
-  $\chi(L^k(H))=3$, with a marked $(k-1)$-path $X$ with the following property:
-  in any 3-colouring of $L^k(H)$, the set of $k$-paths with suffix $X$ use
+  For our gadget, we construct an acyclic oriented graph $\orH$ such that
+  $\chi(L^k(\orH))=3$, with a marked $(k-1)$-path $X$ with the following property:
+  in any 3-colouring of $L^k(\orH)$, the set of $k$-paths with suffix $X$ uses
   exactly two colours.
 
-  Consider the minimum $n$-vertex transitive tournament $T_n$ such that
-  $\chi(L^k(T_n))=4$. For each $i \in [n]$, let $v_i$ be the vertex of indegree
+  Consider the minimum value of $n\in \mathbb N$ such that the vertex transitive tournament $\orTn$ verifies
+  $\chi(L^k(\orTn))=4$. For each $i \in [n]$, let $v_i$ be the (unique) vertex of indegree
   $i-1$ in $T_n$. % Let $S_n$ be the subgraph of $T_n$ obtained by removing all
   % the arcs $v_jv_{n-i}$  for all $i \in \{0, \dots, k-1\}$ and 
   % $j<n-i-1$. The oriented graph $S_n$ consists of a transitive tournament on the
@@ -888,7 +890,7 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   % $P$ is a proper colouring. Since $\alpha$ and $\beta$ use the same amount of
   % colours and $S_n$ is a subgraph of $T_n$, we have
   % $\chi(L(S_n)) = \chi(L(T_n)) = 4$.
-  Let $H$ be the subgraph of $T_n$ obtained by removing vertices of the form
+  Let $\orH$ be the subdigraph of $\orTn$ obtained by removing iteratively arcs of the form
   $v_iv_{n-k}$ with $i<n-k$ until the chromatic number of its $k$-iterated line
   digraph drops to three. Note that $S_n = T_n-\{v_iv_{n-k} : i <n-k\}$ is the
   transitive tournament on the vertices
