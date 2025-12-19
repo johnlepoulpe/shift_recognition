@@ -137,7 +137,10 @@
 \newcommand*{\cA}{\mathcal{A}}
 \newcommand*{\cU}{\mathcal{U}}
 \newcommand*{\orG}{\overrightarrow{G}}
+\newcommand*{\orGp}{\overrightarrow{G'}}
 \newcommand*{\orH}{\overrightarrow{H}}
+\newcommand*{\orHu}{\overrightarrow{H_u}}
+\newcommand*{\orHv}{\overrightarrow{H_v}}
 \newcommand*{\orGn}{\overrightarrow{G_n}}
 \newcommand*{\orGnk}{\overrightarrow{G_{n,k}}}
 \newcommand*{\orT}{\overrightarrow{T}}
@@ -768,16 +771,18 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   % \end{figure}
 
   \paragraph{Constructing the shift graph}
-  Let $G$ be a graph. We contruct an acyclic oriented graph $G'$ such that
-  $\chi(G) \le 3$ if and only if $\chi(L(G')) \le 3$ as follows. Order the
-  vertices of $G$ arbitrarily and for each vertex $u$ of $G$, take a copy $H_u$
-  of $H$, with an arc $e_u=x_u \to y_u$ starting in the marked vertex $x_u$ of
-  $H_u$ and ending in a new vertex $y_u$. For each edge $uv \in E(G)$, with
+  Let $G$ be a graph. We contruct an acyclic oriented graph $\orGp$ such that
+  $\chi(G) \le 3$ if and only if $\chi(L(\orGp)) \le 3$ as follows. Fix an arbitrary total order $<$ on the
+  vertex set of $G$ and for each vertex $u$ of $G$, take a copy $\orHu$
+  of $\orH$, with an arc $e_u:=x_u \to y_u$ starting in the marked vertex $x_u$ of
+  $H_u$ and ending in a new pendant vertex $y_u$. For each edge $uv \in E(G)$, with
   $u < v$, add the arc $x_u \to x_v$ (see \cref{fig:NP-col}). The oriented graph
-  $G'$ constructed is acyclic because each copy $H_u$ of $H$ is acyclic and
+  $\orGp$ constructed is acyclic because each copy $\orHu$ of $\orH$ is acyclic and
   separated from the rest of $G'$ by the cut vertex $x_u$, and the additional
   edges can be ordered acyclically following the order on the vertices of
-  $G$. Therefore $L(G')$ is a shift graph.
+  $G$. Therefore $L(\orGp)$ is a shift graph. 
+  
+  We will now show that $G$ is 3-colourable if and only if $L(\orGp)$ is 3-colourable.
 
   \begin{figure}[h!]
     \begin{subfigure}[t]{.3\textwidth}
@@ -825,7 +830,7 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
         \draw[color1] (x1) edge[bend right=50,postaction=decorate,looseness=1.2] (x4);
 
       \end{tikzpicture}
-      \caption{The graph $G'$ constructed. The blue arcs $x_i \to y_i$
+      \caption{The oriented graph $\orGp$ constructed. The blue arcs $x_i \to y_i$
         correspond to the vertices of $G$ and the red arcs to its edges.}
     \end{subfigure}
     \caption{Constructing an equivalent shift graph.}
