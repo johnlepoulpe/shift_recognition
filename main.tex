@@ -690,7 +690,7 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   $\overrightarrow{S_n} := \orTn-\{uv_{n-1} : u \in V(T_{n})\setminus\{v_{n-1},v_{n}\}\}$ is the
   transitive tournament on the vertices $V(T_n)\setminus \{v_{n-1}\}$, with an
   additional vertex $v_{n-1}$ whose only incident arc ends in the sink $v_n$. Thus
-  $\orSn$ is 3-arc-colourable, and $\orH$ is well defined.
+  $\orSn$ is 3-arc-colourable,  and $\orH$ is well defined.
 
 
   % \nicolas{Typos in the paragraph below: line 5, it should be $\{1,
@@ -699,17 +699,17 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
 
   
   Let $uv_{n-1}$ be the last arc removed in the construction of $\orH$. We thus have
-  $\chi(L(\orH + uv_{n-1})) = 4$ and $\chi(L(\orH)) = 3$. Let $\phi$ be a proper
+  $\chi(L(\orH + uv_{n-1})) = 4$ and $\chi(L(\orH)) = 3$. Let $\alpha$ be a proper
   3-colouring of $L(\orH)$, where $v_{n-1}v_n$ is without loss of generality
   coloured 1. The arcs entering $v_{n-1}$ cannot use the colour 1, so they use
   at most two colours. Suppose that they are all using the same colour, say
-  2 (see Figure \ref{fig: GadgetH}). Let $c := \phi(uv_n)$ (note that $c$ is well defined as $u\to v_n$ is an arc of $\orH$) and $\beta$ be the 3-colouring of $L(\orH+uv_{n-1})$
+  2 (see Figure \ref{fig: GadgetH}). Let $c := \alpha(uv_n)$ (note that $c$ is well defined as $u\to v_n$ is an arc of $\orH$) and $\beta$ be the 3-colouring of $L(\orH+uv_{n-1})$
   such that $\beta(uv_{n-1}):= c$,
-  $\beta(v_{n-1}v_n) \in \{1,3\} \setminus \{c\}$ and $\beta(xy) = \phi(xy)$
-  for all other arcs. The arc-colouring $\beta$ uses three colours like $\phi$ and we claim that it
+  $\beta(v_{n-1}v_n) \in \{1,3\} \setminus \{c\}$ and $\beta(xy) = \alpha(xy)$
+  for all other arcs. The arc-colouring $\beta$ uses three colours like $\alpha$ and we claim that it
   is a proper colouring of $L(\orH+uv_n)$. 
-  As $\phi$ is proper, it suffices to check 
-  that the colourings of the arcs $uv_{n-1}$ and $v_{n-1}v_n$ do not create a monochromatic edge. As $v_n$ is a sink, and as $uv_n$ was colored with $c$ by $\phi$, note that the arc $uv_{n-1}$ cannot have a neighbour of colour $c$ in $L(\orH+uv_n)$.
+  As $\alpha$ is proper, it suffices to check 
+  that the colourings of the arcs $uv_{n-1}$ and $v_{n-1}v_n$ do not create a monochromatic edge. As $v_n$ is a sink, and as $uv_n$ was colored with $c$ by $\alpha$, note that the arc $uv_{n-1}$ cannot have a neighbour of colour $c$ in $L(\orH+uv_n)$.
   Moreover, $v_{n-1}v_n$ is the only arc of $L(\orH+uv_n)$ starting in $v_{n-1}$, and uses a colour different from 2 and $c$, showing that $\beta$ is a proper $3$-colouring. This contradicts 
   $\chi(L(\orH+uv_n))=4$. We thus deduce that the set of arcs entering $v_{n-1}$ in $H$ use both the colours 2 and 3.
   To sum up, $\orH$ is 3-colourable and in each 3-arc-colouring of $\orH$, the arcs
@@ -718,7 +718,7 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
 \begin{figure}[htb]
   \centering  
   \includegraphics[scale=1]{GadgetH}
-  \caption{In red, the coloration $\phi$ depicted in  the first part of the proof of \cref{thm:3col}.}  
+  \caption{In red, the coloration $\alpha$ depicted in  the first part of the proof of \cref{thm:3col}.}  
   \label{fig: GadgetH}
 \end{figure}
 
@@ -866,7 +866,7 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
 
   Consider the minimum value of $n\in \mathbb N$ such that the vertex transitive tournament $\orTn$ verifies
   $\chi(L^k(\orTn))=4$. For each $i \in [n]$, let $v_i$ be the (unique) vertex of indegree
-  $i-1$ in $T_n$. % Let $S_n$ be the subgraph of $T_n$ obtained by removing all
+  $i-1$ in $\orTn$. % Let $S_n$ be the subgraph of $T_n$ obtained by removing all
   % the arcs $v_jv_{n-i}$  for all $i \in \{0, \dots, k-1\}$ and 
   % $j<n-i-1$. The oriented graph $S_n$ consists of a transitive tournament on the
   % vertices $\{v_i : i \in [n-k]\}$, with a $k$-path on the vertices
@@ -890,61 +890,89 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   $v_iv_{n-k}$ with $i<n-k$ until the chromatic number of its $k$-iterated line
   digraph drops to three. Note that $\orSn:= \orTn-\{v_iv_{n-k} : i <n-k\}$ is the
   transitive tournament on the vertices
-  $v_1, \dots v_{n-k-1}, v_{n-k+1} \dots v_n$ with the additional vertex
+  $v_1, \ldots, v_{n-k-1}, v_{n-k+1}, \ldots, v_n$ with the additional vertex
   $v_{n-k}$ and all arcs of the form $v_{n-k}v_j$ with $j>n-k$. As such,
-  $L^k(S_n)$ is isomorphic to the $k$-iterated line digraph of the transitive
+  $L^k(\orSn)$ is isomorphic to the $k$-iterated line digraph of the transitive
   tournament on $n-1$ vertices, with one additional isolated vertex, 
-  corresponding to the $k$-path $v_{n-k}, \dots v_n$. So $L^k(S_n) = 3$ and $H$
+  corresponding to the $k$-path $v_{n-k} \ldots v_n$. So $L^k(\orSn) = 3$ and $\orH$
   is well defined. Let $uv_{n-k}$ be the last arc removed in the construction
-  of $H$, we have $\chi(L^k(H))= 3$ and $\chi(L^k(H+uv_{n-k}))=4$.
+  of $\orH$. We then have $\chi(L^k(\orH))= 3$ and $\chi(L^k(\orH+uv_{n-k}))=4$.
 
-  Let $\alpha$ be a 3-colouring of $L^k(H)$, and without loss of generality
-  assume that the $k$-path $v_{n-k}, \dots v_n$ is coloured 1 by $\alpha$. We
+  Let $\alpha$ be a 3-colouring of $L^k(\orH)$, and without loss of generality
+  assume that the $k$-path $v_{n-k} \dots v_n$ is coloured 1 by $\alpha$. We
   will now argue that the set of $k$-paths with suffix $X:=v_{n-k}\dots v_{n-1}$
-  is coloured with the colours 2 and 3, and thus that all the $k$-paths with
-  prefix $X$ in the second part of the reduction are coloured 1. First, since
-  $P=v_{n-k}\dots v_n$ is coloured 1 and is the only $k$-path starting in
-  $v_{n-k}$, the $k$-paths of $H$ with suffix $X$ are coloured using a subset of
+  uses both the colours 2 and 3.
+%   , and thus that all the $k$-paths with
+%   prefix $X$ in the second part of the reduction are coloured 1. 
+  First, since
+  $P:=v_{n-k}\dots v_n$ is coloured 1 and is the only $k$-path starting in
+  $v_{n-k}$, the $k$-paths of $\orH$ with suffix $X$ all have their colours in
   $\{2,3\}$.
 
-  Suppose that they all use the same colour, say 2.  Let $c$ be the colour of
-  the $k$-path $uv_{n-k+1} \dots v_n$. Let $f$ be the map from the
-  $k$-paths of $H+uv_{n-k}$ to $H$ defined as follows. For each $k$-path $P$
-  avoiding the arc $uv_{n-k}$, we let $f(P) =P$. Given a $k$-path $P$ passing by
-  $uv_{n-k}$, let $Q$ its prefix ending at $u$ and $R$ its suffix starting
-  at $v_{n-k}$ and let $f(P)$ be the concatenation of $Q$ and
-  $v_{n-k+1}, \dots v_{n-k+1+q}$ where $q$ is the length of $Q$. In particular,
-  if $P$ and $P'$ are consecutive in $T_n$, then so are $f(P)$ and
-  $f(P')$. Let $\beta$ be the 3-colouring of $L(H+uv_{n-k})$ defined as
-  follows. For any $k$-path $P$ without $X$ as suffix or prefix, let
-  $\beta(P) = \beta(f(P))$. Any $k$-path $P$ with suffix $X$ in
-  $H+uv_{n-k}$ is either a $k$-path of $H$, in which case $\alpha(P)=2$ and we
-  define $\beta(P) = 2$, or the $k$-path $uv_{n-k}\dots v_{n-1}$, in which
-  case we let $\beta(P) = \alpha(uv_{n-k+1}\dots v_n) = c$. The only remaining
-  $k$-path where $\beta$ is undefined is the path $P = v_{n-k} \dots v_n$ with
-  $X$ as prefix. By construction the indicent paths in $L^k(H+uv_{n-k})$ are
-  colored 2 and $c$, so we can colour this path with a colour from
-  $\{1,3\}\setminus\{c\}$. The colouring $\beta$ is a proper 3-colouring of
-  $L^k(H+uv_n)$, which contradicts $\chi(L^k(H+uv_{n-k})$. So the $k$-paths
-  with suffix $X=v_{n-k}\dots v_{n-1}$ use the colours 2 and 3 in $\alpha$. To
-  sum up, $L^k(H)$ is 3-colourable and in each 3-colouring of $L^k(H)$, the
-  $k$-paths with prefix $X$ use two different colours.
 
-  We finish the reduction in a similar way as for shift graphs. Let $G$ be a
-  graph, with an arbitrary order on its vertices. For each vertex $u$ of $v$,
-  take a copy $H_u$ of $H$ and a new vertex $y_u$, and attach an arc $x_uy_u$ to
-  the last vertex $x_u$ of the marked $(k-1)$-path $X_u$ of $H_u$. For each edge
-  $uv$ of $G$ with $u<v$, add a pending arc $x_uz_{uv}$ to $x_u$ and identify
+  Suppose for a contradiction that they all use the same colour, say 2. In the next paragraph, we let $P_0:=v_{n-k}\dots v_n$. Let $c$ be the colour of
+  the $k$-path $uv_{n-k+1} \dots v_n$. Let $f$ be the map from the
+  $k$-paths of $\orH+uv_{n-k}$ to the $k$-paths of $\orH$ defined as follows. For each $k$-path $P$
+  avoiding the arc $uv_{n-k}$, we let $f(P) =P$. Given a $k$-path $P$ using
+  $uv_{n-k}$, let $Q$ denote its prefix ending at $u$ and $R$ its suffix starting
+  at $v_{n-k}$ and let $f(P)$ be the concatenation of $Q$ and
+  $u v_{n-k+1} \dots v_{n-k+1+q}$ where $q$ is the length of $Q$. Observe that for every 
+  two $k$-paths $P,P'$ in $\orH+uv_{n-k}$ distinct from $P_0$, if $P\to P'$ in $L^k(\orH+uv_{n-k})$, then we also have $f(P)\to f(P')$ in $L^k(\orH)$. In more sophisticated terms, $f$ induces a digraph homomorphism from $L^k((\orH+uv_{n-k})-P_0)$ to $L^k(\orH)$.
+%   In particular,
+%   if $P$ and $P'$ are consecutive in $T_n$, then so are $f(P)$ and
+%   $f(P')$. 
+  Let $\beta$ be the 3-colouring of $L(\orH+uv_{n-k})$ defined as
+  follows. 
+  \begin{enumerate}
+  \item\label{item: k-gadget-1} For any $k$-path $P$ of $\orH+uv_{n-k}$ without $X$ as a suffix or prefix, we let
+  $\beta(P) := \alpha(f(P))$.
+  \item\label{item: k-gadget-2} For any $k$-path $P$ of $\orH+uv_{n-k}$ having $X$ as a suffix, 
+  \begin{enumerate}
+   \item\label{item: k-gadget-2a} either $P$ is a $k$-path of $\orH$ and we set $\beta(P):=\alpha(P)=\alpha(f(P))=2$,
+   \item\label{item: k-gadget-2b} or $P=uv_{n-k}\dots v_{n-1}$ and we set $\beta(P) := \alpha(f(P))=
+   \alpha(uv_{n-k+1}\dots v_n) = c$.
+  \end{enumerate}
+  \item\label{item: k-gadget-2} For $P=P_0$ (which is the only $k$-path of $\orH+uv_{n-k}$ having $X$ as a prefix), we let $\beta(P)$ be any colour from $\{1,3\}\setminus \{c\}$.
+  \end{enumerate}
+  We show that $\beta$ is a 3-colouring of $L^k(\orH+uv_{n-k})$. First, observe that by our previous remark, for every two paths $P,P'$ distinct of $P_0$ from $\orH+uv_{n-k}$, as 
+  $f(P)$ and $f(P')$ are adjacent in $L^k(\orH)$, we have $\beta(P)=\alpha(f(P))\neq\alpha(f(P'))=\beta(P')$.  
+  This implies that the only arcs of $L^k(\orH+uv_{n-k})$ for which it remains to check that $\beta$ does not colour them monochromaticaly are the ones incident to $P_0$. In particular, note that every such arc is of the form $P\to P_0$, for some path $P$ of type \ref{item: k-gadget-2}. If $P$ has type \ref{item: k-gadget-2a}, then we have $\beta(P)=2$, while $\beta(P_0)\neq 2$ by construction. If $P$ has type \ref{item: k-gadget-2b}, then $\beta(P)=c$ and again by construction $c\neq \beta(P_0)$. It thus implies that $\beta$ is indeed a proper 3-colouring of $L^k(\orH+uv_{n-k})$. However, this contradicts our previous observation that $\chi(L^k(\orH+uv_{n-k}))=4$. We thus conclude that every 3-colouring of $L^k(\orH)$ gives to the set of $k$-paths having  $X$ as a suffix exactly two colors.
+  
+%   Any $k$-path $P$ with suffix $X$ in
+%   $\orH+uv_{n-k}$ is either a $k$-path of $H$, in which case $\alpha(P)=2$ and we
+%   define $\beta(P) = 2$, or the $k$-path $uv_{n-k}\dots v_{n-1}$, in which
+%   case we let $\beta(P) = \alpha(uv_{n-k+1}\dots v_n) = c$. The only remaining
+%   $k$-path where $\beta$ is undefined is the path $P = v_{n-k} \dots v_n$ with
+%   $X$ as prefix. 
+%   By construction all its incident paths in $L^k(\orH+uv_{n-k})$ are
+%   colored 2 and $c$ by $\beta$, so we can colour this path with a colour from
+%   $\{1,3\}\setminus\{c\}$. The colouring $\beta$ is a proper 3-colouring of
+%   $L^k(\orH+uv_n)$, which contradicts $\chi(L^k(\orH+uv_{n-k}))=4$. So the set of $k$-paths of $\orH$ with suffix $X=v_{n-k}\dots v_{n-1}$ uses both the colours 2 and 3 in $\alpha$. To
+%   sum up, $L^k(\orH)$ is 3-colourable and in each 3-colouring of $L^k(\orH)$, the
+%   $k$-paths with prefix $X$ use two different colours.
+
+  We now finish the reduction in a similar way as for shift graphs. Let $G$ be a
+  graph, with an arbitrary order on its vertices. We define an oriented graph $\orGp$ as follows. For each vertex $u$ of $v$,
+  take a copy $\orHu$ of $\orH$ and a new pendant vertex $y_u$, and attach an arc $x_uy_u$ to
+  the last vertex $x_u$ of the marked $(k-1)$-path $X_u$ of $\orHu$. For each edge
+  $uv$ of $G$ with $u<v$, we add a pending arc $x_uz_{uv}$ to $x_u$ and identify
   the marked $(k-1)$-path $X_v$ with the $(k-1)$-path formed by concatenating
-  the $(k-2)$-suffix of $X_u$ with $z_{uv}$. As a result, the $k$-paths
-  $X_ux_v$ and $X_vy_v$ are consecutive.  The oriented graph $G'$ constructed is
-  acyclic because each the copies $H_u$ are acyclic and ordered following the
-  order of the vertices of $G$. We consider the subgraph $L$ of $L^k(G')$
+  the $(k-2)$-suffix of $X_u$ with $x_uz_{uv}$. \ugo{I'm afraid that $\orGp$ is not always well-defined... Unless I missed smg.} As a result, we have an arc $X_ux_v\to X_vy_v$
+  in $L^k(\orGp)$.
+%   the $k$-paths
+%   $X_ux_v$ and $X_vy_v$ are consecutive.  
+  The oriented graph $\orGp$ constructed is
+  acyclic because each copy $\orHu$ is acyclic, and the vertex set of $\orGp$ can be ordered following the
+  order of the vertices of $G$. In such an order for every vertices $u<v$ of $G$, every arc of $\orGp$ between disjoint subgraphs $\orHu$ and $\orHv$ has its tail in $\orHu$ and its head in $\orHv$. It follows that $\orGp$ is indeed acyclic.
+  We consider the subgraph $L$ of $L^k(G')$
   induced by the $k$-paths that contain at most one arc between different
   vertices labelled $x_u$ for some $u$.
 
-  We claim that $L$ is 3-colourable if and only if $G$ is 3-colourable. Let
-  $\alpha$ be a 3-colouring of $G$. Let $\beta$ be the 3-colouring of $L$
+  We will show that $L$ is 3-colourable if and only if $G$ is 3-colourable. 
+  
+  \paragraph{Equivalence of the instances for $k$-iterated shift graphs.}
+  We first assume that $G$ is 3-colourable and let
+  $\alpha$ be a proper 3-colouring of $G$. Let $\beta$ be the 3-colouring of $L$
   defined as follows. First, for each $u \in V(G)$, colour each $k$-path of $G'$
   with penultimate vertex equal to $x_u$ with the colour $\alpha(u)$. Each
   remaining $k$-path of $L$ is fully contained in some $H_u$ for some $u$
