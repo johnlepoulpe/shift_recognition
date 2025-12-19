@@ -142,7 +142,13 @@
 \newcommand*{\orGnk}{\overrightarrow{G_{n,k}}}
 \newcommand*{\orT}{\overrightarrow{T}}
 \newcommand*{\orTn}{\overrightarrow{T_n}}
+\newcommand*{\orS}{\overrightarrow{S}}
+\newcommand*{\orSn}{\overrightarrow{S_n}}
 \newcommand*{\Comb}{\mathrm{Comb}}
+\newcommand*{\Col}
+{\textsc{3-Col} }
+\newcommand*{\MIS}
+{\textsc{MIS} }
 \DeclareMathOperator{\sq}{\square}
 
 \DeclarePairedDelimiter{\set}{\{}{\}}
@@ -238,7 +244,7 @@ the sequence $(G_k)_{k\in \mathbb N}$. Thus, by abuse of vocabulary, when we say
 
 
 In view of the explicit constructions of each of the aforementioned classes, a natural question is to determine for each of them, whether there exists an efficient (i.e.\ polynomial) algorithm solving the associated membership problem, i.e.\ deciding whether a given graph belongs or not to them. This question has been recently investigated for some of these classes, as well as the complexity of two other natural problems, when restricted to these classes: Maximum Independent
-Set (or \textsc{MIS} for short) and 3-Colouring (see \cref{tab:complexity} for references). The goal of the present paper is to complement these works, and to prove that all three
+Set (or \MIS for short) and 3-Colouring (see \cref{tab:complexity} for references). The goal of the present paper is to complement these works, and to prove that all three
 problems are NP-complete for shift graphs.
 
 % Three problems particularly attracted attention: Recognition, Maximum
@@ -312,9 +318,9 @@ arbitrarily large girth.
 % chromatic number. 
 
 We give in \cref{sec:Prelis} all basic definitions concerning shift graphs, as well as some known characterisations. 
-We prove in \cref{sec:MIS} that Maximum independent set (\textsc{MIS}) is
+We prove in \cref{sec:MIS} that Maximum independent set (\MIS) is
 NP-complete in shift graphs. \cref{sec:3COL} contains a proof that 3-Colouring
-(\textsc{3-Col}) is NP-complete when restricted to shift graphs and \cref{sec:recognition} shows
+(\Col) is NP-complete when restricted to shift graphs and \cref{sec:recognition} shows
 that recognising shift graphs is also NP-complete.
 
 \section{Preliminaries}
@@ -339,7 +345,7 @@ For each $n\in \mathbb N$, the \emph{transitive tournament of order $n$} is the 
 In this paper, the \emph{comb} of length $k$ is the graph $\Comb_k$ obtained from a path on $k$ edges (the \emph{spine} of $\Comb_k$) to which we attach to each vertex an additional pendant edge (such edges are the \emph{teeth} of $\Comb_k$). The comb of length 0 is a single tooth.
  
 For a graph $G$, we let $\alpha(G)$ denote the maximum possible size of an independent set of $G$, and
-we let $\mathrm g(G)$ and $\og(G)$ denote respectively its \emph{girth} (infimum over the sizes of its cycles) and its \emph{off girth} (infimum over the sizes of its odd cycles).
+we let $\mathrm g(G)$ and $\og(G)$ denote respectively its \emph{girth} (infimum over the sizes of its cycles) and its \emph{off girth} (infimum over the sizes of its odd cycles). If $D$ is a digraph, we will write $\chi(D)$ to denote the chromatic number of its support graph.
 
 \subsection{Line digraphs}
 For a digraph $D$, the \emph{line digraph} $L(D)$ of $D$ is the digraph whose vertices are the arcs
@@ -512,8 +518,9 @@ From this definition, it is straightforward to check that
 $G_{n,k}$ is the support of the $k$-iterated line digraph $L^k(T_n)$ of the transitive
 tournament $\orTn$. Note that for each $n\in \mathbb N$, $G_{n,2}$ corresponds exactly to the shift graph $G_n$ defined earlier, and that as before, $G_{n,k}$ admits a natural acyclic orientation, which we call its \emph{shift orientation}, and denote by $\orGnk$. Note also that for each $k\geq 2$, the graph $G_{n,k}$ is a shift graph, we respect to the definition we gave above, i.e.\ it is an induced subgraph of one of the graphs $G_n$. A simple way to see this is to observe that when $k\geq 3$, $G_{n,k}$ is the line digraph of the acyclic oriented graph $L^{k-1}(\orTn)$.
  
-It is not hard to show (see for example \cite[Lemma 2.22]{GraphsandHomomorphisms}) that $G_{n,k}$ has odd-girth 
-at least $2k+3$, and that by \cref{lem: line-graph}, $(G_{n,k})_{n \in \mathbb{N}}$ chromatic number at least $\log^{(k)}(n)$, where $\log^{(k)}$ denotes the $k$-iterated logarithm function. The class of the
+The main interest of considering the graphs $G_{n,k}$ is that they give a families of graphs with unbounded chromatic number and arbitrarily large odd girth. More precisely, it is not hard to preve that for every $k\geq 2$ and $n\in \mathbb N$,
+$G_{n,k}$ has odd-girth 
+at least $2k+3$ (see for example \cite[Lemma 2.22]{GraphsandHomomorphisms}), and that by \cref{lem: line-graph}, $(G_{n,k})_{n \in \mathbb{N}}$ chromatic number at least $\log^{(k)}(n)$, where $\log^{(k)}$ denotes the $k$-iterated logarithm function. The class of the
 \emph{$k$-iterated shift graphs} is the hereditary closure of
 $(G_{n,k})_{n \in \mathbb{N}}$, or equivalently, the class of all induced subgraphs of
 $k$-line digraphs of acyclic digraphs.
@@ -621,11 +628,11 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
 \end{lemma} 
 
 \begin{proposition}
-  For any $k$ and $\ell$, \textsc{MIS} is NP-complete when restricted to the class of $k$-iterated shift
+  For any $k$ and $\ell$, \MIS is NP-complete when restricted to the class of $k$-iterated shift
   graphs of girth at least $\ell$.
 \end{proposition}
 \begin{proof}
-  We fix $k,\ell\in \mathbb N$ and show that \textsc{MIS} on general graphs admits a polynomial time reduction to \textsc{MIS} when restricted to the class of $k$-iterated shift graphs. Let $G$ be a connected graph and assume that $[n]=V(G)$. We claim that $G^{*\ell}$ is a $k$-iterated shift graph of girth
+  We fix $k,\ell\in \mathbb N$ and show that \MIS on general graphs admits a polynomial time reduction to \MIS when restricted to the class of $k$-iterated shift graphs. Let $G$ be a connected graph and assume that $[n]=V(G)$. We claim that $G^{*\ell}$ is a $k$-iterated shift graph of girth
   at least $\ell$. By \cref{lem:subdivision_MIS}, this will imply directly the result. \ugo{Don't you need some condition on $k$? If $\ell=0$, the result does clearly not hold, did I miss something? And shouldn't $\ell$ be even?}
   To prove our claim, consider the following
   acyclic digraphs. Given $i \in \{0, \dots k\}$, let $H_{i,\ell}$ be the
@@ -643,19 +650,19 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
 
 \section{3-Colouring shift graphs}\label{sec:3COL}
 \begin{theorem}\label{thm:3col}
-  For any $k\geq 2$, \textsc{3-Col} is NP-complete when restricted on the class of $k$-iterated shift graphs (and
+  For any $k\geq 2$, \Col is NP-complete when restricted on the class of $k$-iterated shift graphs (and
   \emph{a fortiori} in shift graphs of odd-girth at least $k$).
 \end{theorem}
 \begin{proof}
-  We reduce \textsc{3-Col} on general graphs to \textsc{3-Col} on $k$-iterated
+  We design a polynomial time reduction from \Col on general graphs to \Col on $k$-iterated
   shift graphs. For simplicity, we first describe our reduction for shift graphs
-  before adapting it to $k$-iterated shift graphs. We will often view colourings
-  of $L(G)$ as arc-colourings of $G$, that is an assignement of colors to $A(G)$
+  before adapting it to $k$-iterated shift graphs, as the latter case is more technical, but the ideas are essentially identical. We will equivalently view proper colourings
+  of $L(\orG)$ as arc-colourings of $\orG$, that is an assignement of colors to $A(G)$
   such that $u\to v$ and $v\to w$ have distinct colors for all $u,v,w \in V(G)$.
 
-  \paragraph{The gadget $H$}
-  We construct an acyclic oriented graph $H$ such that $\chi(L(H))=3$, with a
-  marked vertex $x$ with the following property: in any 3-arc-colouring of $H$
+\paragraph{The gadget H}
+  We construct an acyclic oriented graph $\orH$ such that $\chi(L(\orH))=3$, having a
+  marked vertex $x$ with the following property: in any 3-arc-colouring of $\orH$
   the set of arcs entering $x$ uses exactly two colours. 
 
 
@@ -666,9 +673,9 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   essential. Very little has to be changed in the proof.}
 
   
-  Consider the minimum transitive $n$-vertex tournament $T_n$ such that
-  $\chi(L(T_n))=4$. Let $v_{n-1}$ and $v_n$ be the vertices of $T_n$ of indegree
-  $n-2$ and $n-1$ respectively. % Let $S_n$ be the subgraph of $T_n$
+  Consider the minimum value of $n\in \mathbb N$ such that the transitive $n$-vertex tournament $\orTn$ satisfies
+  $\chi(L(\orTn))=4$. Let $v_{n-1}$ and $v_n$ respectively denote the vertices of $\orTn$ with respective in-degrees
+  $n-2$ and $n-1$. % Let $S_n$ be the subgraph of $T_n$
   % obtained by removing all the arcs $uv_n$ with $u \in V(G) \setminus
   % \{v_{n-1},v_n\}$. Given an arc-colouring $\alpha$ of $S_n$,
   % let $\beta$ be the arc-colouring of $T_n$ such that $\beta(xy) = \alpha(xy)$
@@ -677,12 +684,12 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   % proper because $uv_n$ and $uv_{n-1}$ are twins in $L(T_n)$. Since $\alpha$ and
   % $\beta$ use the same amount of colours and $S_n$ is a subgraph of $T_n$, we
   % have $\chi(L(S_n)) = \chi(L(T_n)) = 4$.
-  Let $H$ be the graph obtained from $T_n$ by removing arcs entering $v_{n-1}$
+  Let $\orH$ be the graph obtained from $\orTn$ by iteratively removing all the arcs entering $v_{n-1}$
   until the chromatic number of its line digraph drops to three. Note that
-  $S_n = T_n-\{uv_{n-1} : u \in V(T_{n})\setminus\{v_{n-1},v_{n}\}\}$ is the
-  transitive tournament on the vertices $V(G)\setminus \{v_{n-1}\}$, with an
+  $\overrightarrow{S_n} := \orTn-\{uv_{n-1} : u \in V(T_{n})\setminus\{v_{n-1},v_{n}\}\}$ is the
+  transitive tournament on the vertices $V(T_n)\setminus \{v_{n-1}\}$, with an
   additional vertex $v_{n-1}$ whose only incident arc ends in the sink $v_n$. Thus
-  $S_n$ is 3-arc-colourable, and $H$ is well defined.
+  $\orSn$ is 3-arc-colourable, and $\orH$ is well defined.
 
 
   % \nicolas{Typos in the paragraph below: line 5, it should be $\{1,
@@ -690,20 +697,31 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   %   and $c$.}
 
   
-  Let $uv_{n-1}$ be the last arc removed in the construction of $H$, we have
-  $\chi(L(H + uv_{n-1})) = 4$ and $\chi(L(H)) = 3$. Let $\alpha$ be a
-  3-colouring of $L(H)$, where $v_{n-1}v_n$ is without loss of generality
+  Let $uv_{n-1}$ be the last arc removed in the construction of $\orH$. We thus have
+  $\chi(L(\orH + uv_{n-1})) = 4$ and $\chi(L(\orH)) = 3$. Let $\phi$ be a proper
+  3-colouring of $L(\orH)$, where $v_{n-1}v_n$ is without loss of generality
   coloured 1. The arcs entering $v_{n-1}$ cannot use the colour 1, so they use
   at most two colours. Suppose that they are all using the same colour, say
-  2. Let $c = \alpha(uv_n)$. Let $\beta$ be the 3-colouring of $L(H+uv_{n-1})$
-  such that $\beta(uv_{n-1})= c$,
-  $\beta(v_{n-1}v_n) \in \{1,3\} \setminus \{c\}$ and $\beta(xy) = \alpha(xy)$
-  for all other arcs. The arc-colouring $\beta$ uses three colours like $\alpha$ and
-  is proper because $\alpha$ is proper and $v_{n-1}v_n$, the only arc starting
-  in $v_{n-1}$, uses a colour different from 2 and $c$. This contradicts 
-  $\chi(L(H+uv_n)=4$. So the arcs entering $v_{n-1}$ in $H$ use the colours 2 and 3.
-  To sum up, $H$ is 3-colourable and in each 3-arc-colouring of $H$, the arcs
+  2 (see Figure \ref{fig: GadgetH}). Let $c := \phi(uv_n)$ (note that $c$ is well defined as $u\to v_n$ is an arc of $\orH$) and $\beta$ be the 3-colouring of $L(\orH+uv_{n-1})$
+  such that $\beta(uv_{n-1}):= c$,
+  $\beta(v_{n-1}v_n) \in \{1,3\} \setminus \{c\}$ and $\beta(xy) = \phi(xy)$
+  for all other arcs. The arc-colouring $\beta$ uses three colours like $\phi$ and we claim that it
+  is a proper colouring of $L(\orH+uv_n)$. 
+  As $\phi$ is proper, it suffices to check 
+  that the colourings of the arcs $uv_{n-1}$ and $v_{n-1}v_n$ do not create a monochromatic edge. As $v_n$ is a sink, and as $uv_n$ was colored with $c$ by $\phi$, note that the arc $uv_{n-1}$ cannot have a neighbour of colour $c$ in $L(\orH+uv_n)$.
+  Moreover, $v_{n-1}v_n$ is the only arc of $L(\orH+uv_n)$ starting in $v_{n-1}$, and uses a colour different from 2 and $c$, showing that $\beta$ is a proper $3$-colouring. This contradicts 
+  $\chi(L(\orH+uv_n))=4$. We thus deduce that the set of arcs entering $v_{n-1}$ in $H$ use both the colours 2 and 3.
+  To sum up, $\orH$ is 3-colourable and in each 3-arc-colouring of $\orH$, the arcs
   entering the marked vertex $x:=v_{n-1}$ use two different colours.
+  
+\begin{figure}[htb]
+  \centering  
+  \includegraphics[scale=1]{GadgetH}
+  \caption{In red, the coloration $\phi$ depicted in  the first part of the proof of \cref{thm:3col}.}  
+  \label{fig: GadgetH}
+\end{figure}
+
+  
   
   % We construct an acyclic oriented graph $H$ with two marked arcs $e$ and $f$ with a
   % common marked head $x$ such that any 3-arc-colouring of $H$ colours $e$ and
