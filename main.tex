@@ -838,25 +838,24 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   \end{figure}
 
   \paragraph{Equivalence of the instances}
-  Assume that there exists a 3-colouring $\alpha$ of $G$. Colour each arc
-  starting in $x_u$ with the colour of $u$ in $\alpha$. At this stage it remains
-  only to colour the copies of $H$. Let $\beta$ be a 3-arc-colouring of $H$. For
-  each copy $H_u$, permute the colours of $\beta$ such that the arcs entering
-  $x_u$ use the two colours different from $\alpha(u)$. The resulting colouring
-  is a 3-arc-colouring of $G'$. Indeed, at each $x_v$, all the arcs starting in
+  Assume that there exists proper 3-colouring $\alpha$ of $G$. Colour each arc of $\orGp$
+  starting in $x_u$ with the colour $\alpha(u)$ of $u$. At this stage it remains
+  only to colour the copies of $\orH$. Let $\beta$ be a 3-arc-colouring of $\orH$. For
+  each copy $\orHu$, permute the colours of $\beta$ such that the arcs entering
+  $x_u$ use the two colours in $[3]$ different from $\alpha(u)$. We claim that the resulting colouring
+  is a 3-arc-colouring of $\orGp$. Indeed, at each $x_v$, all the arcs starting in
   $x_v$ have an identical colour $\alpha(v)$, and the arcs entering $x_v$ are
-  either coming from the copy $H_v$ or of the form $x_u \to x_v$ for some
+  either coming from the copy $\orHv$ or of the form $x_u \to x_v$ for some
   $u < v$, in both case they use colours different from $\alpha(v)$. Thus
-  $L(G')$ is 3-colourable.
+  $L(\orGp)$ is 3-colourable.
 
-  Conversely, in a proper 3-arc-colouring of $G'$, by design of $H$, all the
-  arcs starting in $x_u$ are coloured identically. Colour $u$ with this
-  colour. Given any edge $uv$ in $E(G)$ with $u<v$, the colour of $u \in V(G)$
-  is the colour of $x_u\to x_v$ which differs from the colour of $x_v \to y_v$,
-  that is the colour of $v \in V(G)$. Thus $G$ is 3-colourable.
+  Conversely, in a proper 3-arc-colouring $\beta$ of $\orGp$, observe that by the aforementioned property of $\orH$, for each $u\in V(G)$, the set of arcs entering the marked vertex $x_u$ uses exactly $2$ colors, hence all the
+  arcs starting in $x_u$ in $\orGp$ are coloured identically. Colour $u$ with this
+  colour for each $u\in V(G)$. We claim that this gives a proper 3-colouring that we denote with $\alpha$. Indeed, given any edge $uv$ in $E(G)$ with $u<v$, the colour of $u \in V(G)$ with respect to $\alpha$
+  is the colour of $x_u\to x_v$ with respect to $\beta$, which must differ from the colour of $x_v \to y_v$ with respect to $\beta$. In particular, note that the colour of $x_v\to y_v$ with respect to $\beta$ is the colour of $v \in V(G)$ with respect to $\alpha$. Thus $G$ is 3-colourable.
 
   \paragraph{$k$-iterated shift graphs}
-  To adpat our reduction to $k$-iterated shift graph, we will first need to
+  To adapt our reduction to $k$-iterated shift graph, we will first need to
   change our gadget. Given a $k$-iterated line digraph $G_2$ of an oriented
   graph $G_1$, we will for convenience see the $k$-colourings of $G_2$ as
   $k$-colourings of the $k$-paths of $G_1$ such that the $k$-paths
