@@ -994,30 +994,27 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   $\alpha(u) = \beta(X_ux_v) \neq \beta(X_vy_v) = \beta(v)$.
 \end{proof}
 
+In the next proof, an \emph{in-forest} (resp.\ out-forest) is an oriented forest in which each vertex has in-degree (resp.\ out-degree) at most $1$. Observe that in particular, every component of an in-forest (resp.\ out-forest) has exactly one vertex with in-degree (resp. out-degree) equal to 0, which we call the \emph{root} of its component.
+
 We now prove that if one restricts to shift graphs of large girth (and not large
 odd-girth as in \cref{thm:3col}), 3-colouring becomes a trivial problem.
 \begin{proposition}
   All shift graphs of girth at least five are 3-colourable.
 \end{proposition}
 \begin{proof}
-  Let $G$ be a shift graph of girth at least five and let $H$ be a root oriented graph
-  of $G$. The vertices of $H$ have either in or out-degree at most one, because
-  a vertex with in and out degree at least two produces a four-cycle in the line
-  digraph. We partition the vertices of $H$ in two subsets: $X$ contains the
-  vertices of indegree at most one, and $Y$ the remaining vertices, which have
-  outdegree at moste one. We partition the arcs of $H$ in two subsets: $A$
-  contains the arcs entering $X$ or starting in $Y$, and $B$ contains the other
-  arcs, which start in $X$ and end in $Y$. The arcs of $B$ are independent so
-  they can be coloured with one colour, say 1. We claim that the arcs of $A$
-  form a forest, so they can be coloured with two additional colours, which
-  results in a 3-arc-colouring of $H$. Let $A_1$, $A_2$ and $A_3$ the subgraphs
-  formed by the arcs of $A$ that respectively connect two vertices of $X$,
-  connect to vertices of $Y$, start in a vertex of $Y$ and end in a vertex of
-  $X$. Because $H[X]$ has indegree at most one, the subgraph $A_1$ forms a
-  forest of trees directed towards their root. Likewise, $A_2$ forms a forest of
-  trees directed away their root. Because $X$ and $Y$ have respectively in and
-  outdegree at most one, $A_3$ forms a matching between the roots of these two
-  forests. Hence $A$ form a forest, which concludes the proof.
+  Let $G$ be a shift graph of girth at least five and let $\orH$ be an oriented acyclic graph which is a root digraph
+  of $G$. We will identify $V(G)$ with $A(\orH)$.
+  Observe that each vertex of $\orH$ has either its in-degree or its out-degree at most one, as
+  a vertex with both in and out degree at least two would produce a four-cycle in its line
+  digraph. We partition the vertices of $\orH$ in two subsets: let $X$ be the set of 
+  vertices of $\orH$ with in-degree at most one, and $Y:=V(H)\setminus X$ be the remaining vertices, which all have
+  out-degree at moste one. We now partition the arcs of $\orH$ in four subsets. We let $A_X$ and $A_Y$ respectively denote the sets of arcs having both extremities in $X$ and $Y$ respectively. We let $A_{X\to Y}$ (resp.\ $A_{Y\to X}$) denote the set of arcs of $\orH$ having their head in $X$ (resp.\ $Y$) and their tail in $Y$ (resp.\ $X$). 
+  Note that $A_{X\to Y}$ and $A_{X\to Y}$ both form independent sets in $G$. We color all vertices of $A_{X\to Y}$ with one colour, say 1. 
+  
+  We now show that the arcs of $A_X\cup A_Y \cup A_{Y\to X}$
+  form a forest in $G$, and therefore can be coloured with two additional colours, which
+  results in a proper 3-arc-colouring of $\orH$. 
+  First, observe that as $X$ does not contain vertices with in-degree $2$, $\orH[X]$ must be an out-forest. Symmetrically, $Y$ is an in-forest. Eventually, observe that the arcs of $A_{Y\to X}$ must form a matching, and can only connect a root of some component of $\orH[Y]$ to a root of some component of $\orH[X]$. It follows that the induced subgraph $G[A_X\cup A_Y\cup A_{Y\to X}]$ must be a forest. 
 \end{proof}
 \section{Recognising shift graphs}\label{sec:recognition}
 
