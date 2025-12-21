@@ -155,6 +155,7 @@
 \newcommand*{\MIS}
 {\textsc{MIS} }
 \DeclareMathOperator{\sq}{\square}
+\newcommand*{\MNAE}{\textsc{MNAE-3SAT} }
 
 \DeclarePairedDelimiter{\set}{\{}{\}}
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
@@ -1018,31 +1019,32 @@ odd-girth as in \cref{thm:3col}), 3-colouring becomes a trivial problem.
 \end{proof}
 \section{Recognising shift graphs}\label{sec:recognition}
 
-By Schaefer's dichotomy theorem~\cite{schaefer1978Complexity}, the following
-problem is NP-complete.
+% By Schaefer's dichotomy theorem~\cite{schaefer1978Complexity}, the following
+% problem is NP-complete.
+Lov\'asz \cite{lovasz1973Covering} proved that the following problem is NP-complete.
 
-\begin{csproblem}{Monotone Not all equal (MNAE3SAT)}
+\begin{csproblem}{Monotone Not all equal 3-SAT (MNAE-3SAT)}
   Given a monotone 3-CNF formula $\phi$ (in conjonctive normal form with three
-  non-negated variables per clause), recognise if there exists a valuation to
+  non-negated variables per clause), recognise if there exists a valuation of
   the variables such that each clause of $\phi$ contains true and false variables.
 \end{csproblem}
 
-
+Note that \MNAE is equivalent to the problem of deciding whether a given $3$-regular hypergraph is $2$-colourable. In particular, this hypergraph formulation was the one used in \cite{lovasz1973Covering}.
 
 \begin{theorem}
-  Let $k \ge 1$. Recognising a $k$-iterated shift graph (or equivalently, the
+  For each $k \ge 1$, the problem of recognising whether a graph is a $k$-iterated shift graph (or equivalently, the
   support of the $k$-iterated line digraph of
-  an acyclic oriented graph) is an NP-complete problem.
+  an acyclic oriented graph) is NP-complete.
 \end{theorem}
 \begin{proof}
   % Here again, we first explain the reduction to shift graphs before adapting it
   % to iterated shift graphs.
-  Let $k \in \mathbb{N}$. We reduce \textsc{MNAE3SAT} to the $k$-iterated shift
+  Let $k \in \mathbb{N}$. We reduce \MNAE to the $k$-iterated shift
   graph recognition problem.  Let $\phi$ be a monotone 3-CNF formula with $m$
   clauses. We build a graph $G_\phi$ that is a $k$-iterated shift graph if
-  $\phi$ is a valid instance of \textsc{MNAE3SAT}, but is not a shift graph (and
+  $\phi$ is a valid instance of \MNAE, but is not a shift graph (and
   \emph{a fortiori} not a $k$-iterated shift graph) if $\phi$ is not a valid
-  instance of \textsc{MNAE3SAT}.
+  instance of \MNAE.
 
   \paragraph{Gadgets}
   We first describe the gadget used for the variables. Let $H$ be the 4-sun,
