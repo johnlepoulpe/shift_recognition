@@ -90,7 +90,7 @@
 }
 \makeatother
 
-\newenvironment{poc}{\begin{proof}[Proof of
+\newenvironment{poc}{\begin{proof}[Proof of the
     Claim]\renewcommand*{\qedsymbol}{$\blacksquare$}}{\end{proof}}
 
 \newenvironment{csproblem}[1]{\textsc{#1}:\\}{}
@@ -246,7 +246,7 @@ constructions of triangle-free graphs of arbitratily large chromatic number.
 These constructions are often presented by generating a sequence of triangle-free graphs
 $(G_k)_{k\in \mathbb{N}}$ such that $\chi(G_k) = k$ for all $k$. We turn this
 into a hereditary class by considering all induced subgraphs of the graphs in
-the sequence $(G_k)_{k\in \mathbb N}$. Thus, by abuse of vocabulary, when we say a ``shift/Burling/etc.\ graph'', we mean in particular an induced subgraph of one of the graphs from the sequence $(G_k)_{k\in \mathbb N}$ of shift/Burling/etc.\ graphs (see Section \ref{sec:Prelis} for precise definitions).   
+the sequence $(G_k)_{k\in \mathbb N}$. Thus, by abuse of vocabulary, when we say a ``shift/Burling/etc.\ graph'', we mean in particular an induced subgraph of one of the graphs from the sequence $(G_k)_{k\in \mathbb N}$ of shift/Burling/etc.\ graphs (see  \cref{sec:Prelis} for precise definitions).   
 
 
 In view of the explicit constructions of each of the aforementioned classes, a natural question is to determine for each of them, whether there exists an efficient (i.e.\ polynomial) algorithm solving the associated membership problem, i.e.\ deciding whether a given graph belongs or not to them. This question has been recently investigated for some of these classes, as well as the complexity of two other natural problems, when restricted to these classes: Maximum Independent
@@ -365,7 +365,7 @@ $(v_i,v_{i+1}) \in A(D)$ for all $0\leq i\leq k$. Observe that if $D$ is acyclic
 The following result of Beineke characterises line digraphs of oriented graphs.
 \begin{lemma}[Beineke~\cite{beineke1968Derived}]\label{lem:forbidden_config}
   A digraph $D$ is the line digraph of an oriented graph $\orG$ if and only if the two 
-  following conditions are satisfied (see Figure \ref{fig: Beineke}):
+  following conditions are satisfied (see \cref{fig: Beineke}):
   \begin{enumerate}
   \item If $D$ contains three arcs $a$, $b$ and $c$ such that $a$ and $b$ have
     the same tail, and $b$ and $c$ have the same head, then $D$ also contains an
@@ -379,7 +379,7 @@ The following result of Beineke characterises line digraphs of oriented graphs.
 \begin{figure}[htb]
   \centering  
   \includegraphics[scale=1]{Line_digraph}
-  \caption{The two configurations depicted in Lemma \ref{lem:forbidden_config}.}  
+  \caption{The two configurations depicted in \cref{lem:forbidden_config}.}  
   \label{fig: Beineke}
 \end{figure}
 
@@ -509,7 +509,7 @@ have unbounded chromatic number:
   with $2^n$ colours, a contradiction.
 \end{proof}
 
-\paragraph{Iterated shift graphs}
+\paragraph{Iterated shift graphs.}
 For $k\geq 1$, the \emph{$k$-iterated shift graph} $G_{n,k}$ (sometimes referred to as generalised
 shift graph, or shift graph) is the graph whose vertices are ordered $(k+1)$-tuples
 $(a_0, \ldots, a_k)$ of $[n]$ such that $1 \le a_0 < a_1 < \ldots < a_k \le n$,
@@ -539,7 +539,7 @@ We say that $\phi$ is \emph{convex} if for every
 $u,v,w \in V(H)$ such that $v$ is on a (non-directed) path from $u$ to $w$, then
 $V(\phi(u))\cap V(\phi(w)) \subseteq V(\phi(v))$.
 
-\paragraph{Shift trees} We now prove two technical lemmas that we
+\paragraph{Shift trees.} We now prove two technical lemmas that we
 will use to construct the root graph of some $k$-iterated shift graphs. The first states that for trees, $k$-iterated shift graphs and shift graphs are the same. 
 
 \begin{lemma}\label{lem:shift_tree}
@@ -571,12 +571,12 @@ will use to construct the root graph of some $k$-iterated shift graphs. The firs
   Thus the
   second part of the lemma holds as well and we can now assume that there exists
   $c \in V(T') \setminus\{b\}$ such that $\phi(c)$ has $Q_b$ as $(k-1)$-prefix
-  and ends at $z \in N^+_{G'}(x)$ (see Figure \ref{fig: shiftTree}).
+  and ends at $z \in N^+_{G'}(x)$ (see \cref{fig: shiftTree}).
  
  \begin{figure}[htb]
   \centering  
   \includegraphics[scale=1]{shiftTree}
-  \caption{Configuration in the proof of Lemma \ref{lem:shift_tree}.}  
+  \caption{Configuration in the proof of \cref{lem:shift_tree}.}  
   \label{fig: shiftTree}
  \end{figure}
 
@@ -662,7 +662,7 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   of $L(\orG)$ as arc-colourings of $\orG$, that is an assignement of colors to $A(G)$
   such that $u\to v$ and $v\to w$ have distinct colors for all $u,v,w \in V(G)$.
 
-\paragraph{The gadget H}
+\paragraph{The gadget H.}
   We construct an acyclic oriented graph $\orH$ such that $\chi(L(\orH))=3$, having a
   marked vertex $x$ with the following property: in any 3-arc-colouring of $\orH$
   the set of arcs entering $x$ uses exactly two colours. 
@@ -704,7 +704,7 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   3-colouring of $L(\orH)$, where $v_{n-1}v_n$ is without loss of generality
   coloured 1. The arcs entering $v_{n-1}$ cannot use the colour 1, so they use
   at most two colours. Suppose that they are all using the same colour, say
-  2 (see Figure \ref{fig: GadgetH}). Let $c := \alpha(uv_n)$ (note that $c$ is well defined as $u\to v_n$ is an arc of $\orH$) and $\beta$ be the 3-colouring of $L(\orH+uv_{n-1})$
+  2 (see \cref{fig: GadgetH}). Let $c := \alpha(uv_n)$ (note that $c$ is well defined as $u\to v_n$ is an arc of $\orH$) and $\beta$ be the 3-colouring of $L(\orH+uv_{n-1})$
   such that $\beta(uv_{n-1}):= c$,
   $\beta(v_{n-1}v_n) \in \{1,3\} \setminus \{c\}$ and $\beta(xy) = \alpha(xy)$
   for all other arcs. The arc-colouring $\beta$ uses three colours like $\alpha$ and we claim that it
@@ -769,7 +769,7 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   %   \label{fig:gadget_3col}
   % \end{figure}
 
-  \paragraph{Constructing the shift graph}
+  \paragraph{Constructing the shift graph.}
   Let $G$ be a graph. We contruct an acyclic oriented graph $\orGp$ such that
   $\chi(G) \le 3$ if and only if $\chi(L(\orGp)) \le 3$ as follows. Fix an arbitrary total order $<$ on the
   vertex set of $G$ and for each vertex $u$ of $G$, take a copy $\orHu$
@@ -836,7 +836,7 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
     \label{fig:NP-col}
   \end{figure}
 
-  \paragraph{Equivalence of the instances}
+  \paragraph{Equivalence of the instances.}
   Assume that there exists proper 3-colouring $\alpha$ of $G$. Colour each arc of $\orGp$
   starting in $x_u$ with the colour $\alpha(u)$ of $u$. At this stage it remains
   only to colour the copies of $\orH$. Let $\beta$ be a 3-arc-colouring of $\orH$. For
@@ -853,7 +853,7 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   colour for each $u\in V(G)$. We claim that this gives a proper 3-colouring that we denote with $\alpha$. Indeed, given any edge $uv$ in $E(G)$ with $u<v$, the colour of $u \in V(G)$ with respect to $\alpha$
   is the colour of $x_u\to x_v$ with respect to $\beta$, which must differ from the colour of $x_v \to y_v$ with respect to $\beta$. In particular, note that the colour of $x_v\to y_v$ with respect to $\beta$ is the colour of $v \in V(G)$ with respect to $\alpha$. Thus $G$ is 3-colourable.
 
-  \paragraph{$k$-iterated shift graphs}
+  \paragraph{$k$-iterated shift graphs.}
   We fix $k\geq 1$.
   To adapt our reduction to $k$-iterated shift graph, we will first need to
   change our gadget. Given a $k$-iterated line digraph $\orGd$ of an oriented
@@ -937,7 +937,7 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   \end{enumerate}
   We show that $\beta$ is a 3-colouring of $L^k(\orH+uv_{n-k})$. First, observe that by our previous remark, for every two paths $P,P'$ distinct of $P_0$ from $\orH+uv_{n-k}$, as 
   $f(P)$ and $f(P')$ are adjacent in $L^k(\orH)$, we have $\beta(P)=\alpha(f(P))\neq\alpha(f(P'))=\beta(P')$.  
-  This implies that the only arcs of $L^k(\orH+uv_{n-k})$ for which it remains to check that $\beta$ does not colour them monochromaticaly are the ones incident to $P_0$. In particular, note that every such arc is of the form $P\to P_0$, for some path $P$ of type \ref{item: k-gadget-2}. If $P$ has type \ref{item: k-gadget-2a}, then we have $\beta(P)=2$, while $\beta(P_0)\neq 2$ by construction. If $P$ has type \ref{item: k-gadget-2b}, then $\beta(P)=c$ and again by construction $c\neq \beta(P_0)$. It thus implies that $\beta$ is indeed a proper 3-colouring of $L^k(\orH+uv_{n-k})$. However, this contradicts our previous observation that $\chi(L^k(\orH+uv_{n-k}))=4$. We thus conclude that every 3-colouring of $L^k(\orH)$ gives to the set of $k$-paths having  $X$ as a suffix exactly two colors.
+  This implies that the only arcs of $L^k(\orH+uv_{n-k})$ for which it remains to check that $\beta$ does not colour them monochromaticaly are the ones incident to $P_0$. In particular, note that every such arc is of the form $P\to P_0$, for some path $P$ of type \cref{item: k-gadget-2}. If $P$ has type \cref{item: k-gadget-2a}, then we have $\beta(P)=2$, while $\beta(P_0)\neq 2$ by construction. If $P$ has type \cref{item: k-gadget-2b}, then $\beta(P)=c$ and again by construction $c\neq \beta(P_0)$. It thus implies that $\beta$ is indeed a proper 3-colouring of $L^k(\orH+uv_{n-k})$. However, this contradicts our previous observation that $\chi(L^k(\orH+uv_{n-k}))=4$. We thus conclude that every 3-colouring of $L^k(\orH)$ gives to the set of $k$-paths having  $X$ as a suffix exactly two colors.
   
 %   Any $k$-path $P$ with suffix $X$ in
 %   $\orH+uv_{n-k}$ is either a $k$-path of $H$, in which case $\alpha(P)=2$ and we
@@ -995,7 +995,7 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   $\alpha(u) = \beta(X_ux_v) \neq \beta(X_vy_v) = \beta(v)$.
 \end{proof}
 
-In the next proof, an \emph{in-forest} (resp.\ out-forest) is an oriented forest in which each vertex has in-degree (resp.\ out-degree) at most $1$. Observe that in particular, every component of an in-forest (resp.\ out-forest) has exactly one vertex with in-degree (resp. out-degree) equal to 0, which we call the \emph{root} of its component.
+In the next proof, an \emph{in-forest} (resp.\ \emph{out-forest}) is an oriented forest in which each vertex has in-degree (resp.\ out-degree) at most $1$. Observe that in particular, every component of an in-forest (resp.\ out-forest) has exactly one vertex with in-degree (resp. out-degree) equal to 0, which we call the \emph{root} of its component.
 
 We now prove that if one restricts to shift graphs of large girth (and not large
 odd-girth as in \cref{thm:3col}), 3-colouring becomes a trivial problem.
@@ -1006,60 +1006,62 @@ odd-girth as in \cref{thm:3col}), 3-colouring becomes a trivial problem.
   Let $G$ be a shift graph of girth at least five and let $\orH$ be an oriented acyclic graph which is a root digraph
   of $G$. We will identify $V(G)$ with $A(\orH)$.
   Observe that each vertex of $\orH$ has either its in-degree or its out-degree at most one, as
-  a vertex with both in and out degree at least two would produce a four-cycle in its line
+  a vertex with both in- and out-degree at least two would produce a four-cycle in its line
   digraph. We partition the vertices of $\orH$ in two subsets: let $X$ be the set of 
   vertices of $\orH$ with in-degree at most one, and $Y:=V(H)\setminus X$ be the remaining vertices, which all have
-  out-degree at moste one. We now partition the arcs of $\orH$ in four subsets. We let $A_X$ and $A_Y$ respectively denote the sets of arcs having both extremities in $X$ and $Y$ respectively. We let $A_{X\to Y}$ (resp.\ $A_{Y\to X}$) denote the set of arcs of $\orH$ having their head in $X$ (resp.\ $Y$) and their tail in $Y$ (resp.\ $X$). 
+  out-degree at most one. We now partition the arcs of $\orH$ in four subsets. We let $A_X$ and $A_Y$ respectively denote the sets of arcs having both extremities in $X$ and $Y$ respectively. We let $A_{X\to Y}$ (resp.\ $A_{Y\to X}$) denote the set of arcs of $\orH$ having their tail in $X$ (resp.\ $Y$) and their head in $Y$ (resp.\ $X$). 
   Note that $A_{X\to Y}$ and $A_{X\to Y}$ both form independent sets in $G$. We color all vertices of $A_{X\to Y}$ with one colour, say 1. 
   
   We now show that the arcs of $A_X\cup A_Y \cup A_{Y\to X}$
   form a forest in $G$, and therefore can be coloured with two additional colours, which
   results in a proper 3-arc-colouring of $\orH$. 
-  First, observe that as $X$ does not contain vertices with in-degree $2$, $\orH[X]$ must be an out-forest. Symmetrically, $Y$ is an in-forest. Eventually, observe that the arcs of $A_{Y\to X}$ must form a matching, and can only connect a root of some component of $\orH[Y]$ to a root of some component of $\orH[X]$. It follows that the induced subgraph $G[A_X\cup A_Y\cup A_{Y\to X}]$ must be a forest. 
+  First, observe that as $X$ does not contain vertices with in-degree $2$, $\orH[X]=(X,A_X)$ must be an out-forest. Symmetrically, $\orH[Y]=(Y,A_Y)$ is an in-forest. Eventually, observe that the arcs of $A_{Y\to X}$ must form a matching, and can only connect a root of some component of $\orH[Y]$ to a root of some component of $\orH[X]$. It follows that the induced subgraph $G[A_X\cup A_Y\cup A_{Y\to X}]$ must be a forest. More precisely, one can observe this graph is isomorphic to the graph obtained when contracting each edge of the matching $A_{Y\to X}$, and when removing all roots of those components of $\orH[X]$ and $\orH[Y]$ which are not incident to some arc in $A_{Y\to X}$. 
 \end{proof}
 \section{Recognising shift graphs}\label{sec:recognition}
 
 % By Schaefer's dichotomy theorem~\cite{schaefer1978Complexity}, the following
 % problem is NP-complete.
+Recall that a $3$-CNF formula is a boolean formula $\varphi$ in conjonctive normal form (CNF), in which each clause contains 3 litterals. Such a formula $\varphi$ is called \emph{monotone} if all variables always appear positively, i.e.\ no litteral has the form $\neg x$ for some variable $x$.  
 Lov\'asz \cite{lovasz1973Covering} proved that the following problem is NP-complete.
 
 \begin{csproblem}{Monotone Not all equal 3-SAT (MNAE-3SAT)}
-  Given a monotone 3-CNF formula $\phi$ (in conjonctive normal form with three
-  non-negated variables per clause), recognise if there exists a valuation of
-  the variables such that each clause of $\phi$ contains true and false variables.
+  Given as input a monotone 3-CNF formula $\phi$, decide if there exists a valuation of
+  the variables such that each clause of $\phi$ contains both variables set ot true and false.
 \end{csproblem}
 
-Note that \MNAE is equivalent to the problem of deciding whether a given $3$-regular hypergraph is $2$-colourable. In particular, this hypergraph formulation was the one used in \cite{lovasz1973Covering}.
+Note that \MNAE is equivalent to the problem of deciding whether a given $3$-regular hypergraph is $2$-colourable. In particular, this hypergraph formulation was the one used in \cite{lovasz1973Covering}. In order to prove the next result, we will design a polynomial time reduction to $\MNAE$, inspired by the one from \cite{chvatal1990Note}.
 
 \begin{theorem}
   For each $k \ge 1$, the problem of recognising whether a graph is a $k$-iterated shift graph (or equivalently, the
   support of the $k$-iterated line digraph of
   an acyclic oriented graph) is NP-complete.
 \end{theorem}
+
+
 \begin{proof}
   % Here again, we first explain the reduction to shift graphs before adapting it
   % to iterated shift graphs.
-  Let $k \in \mathbb{N}$. We reduce \MNAE to the $k$-iterated shift
-  graph recognition problem.  Let $\phi$ be a monotone 3-CNF formula with $m$
-  clauses. We build a graph $G_\phi$ that is a $k$-iterated shift graph if
-  $\phi$ is a valid instance of \MNAE, but is not a shift graph (and
+  Let $k \in \mathbb{N}$. We reduce \MNAE to the problem of recognising a $k$-iterated shift
+  graph. Let $\phi$ be a monotone 3-CNF formula with $m$
+  clauses and $n$ variables. We construct a graph $G_\phi$ of size $(m+n+k)^{O(1)}$ which is a $k$-iterated shift graph if
+  $\phi$ is a valid instance of \textsc{MNAE-3SAT}, but is not a shift graph (and
   \emph{a fortiori} not a $k$-iterated shift graph) if $\phi$ is not a valid
-  instance of \MNAE.
+  instance of \textsc{MNAE-3SAT}. 
 
-  \paragraph{Gadgets}
-  We first describe the gadget used for the variables. Let $H$ be the 4-sun,
-  that is the graph on eight vertices composed of a 4-cycle with one pending
-  edge attached to each of the vertices of the cycle. For each variable $x$,
+  \paragraph{Gadgets.}
+  We first describe a gadget that will be used later for encoding the variables. Let $H$ be the 4-sun,
+  that is the graph on eight vertices composed of a 4-cycle with one pendant
+  edge attached to each of the vertices on the cycle. For each variable $x$,
   consider the gadget composed of a path on $8m+1$ vertices
   $u_x^{-1}, \dots, u_x^{8m-1}$ in which for each $i \in \{0, \ldots, 4m-1\}$ we
-  connect $u_x^{2i}$ to the extremity first vertex of the spine of a comb
+  connect $u_x^{2i}$ to the  first vertex of the spine of a comb
   of length $k+1$. Denote $v_x^{2i}$ the last vertex of the spine of this
-  comb and $w_x^{2i}$ the vertex adjacent to $v_x^{2i}$ via the last tooth.
+  comb and $w_x^{2i}$ the vertex adjacent to $v_x^{2i}$ via the last tooth. \ugo{Why not simply call them $v_x^i$ and $w_x^i$?}
   Connect each $u_x^{2i}$ to a distinct copy of $H$ via one of its vertices of
   degree three that we will call $t_x^{2i}$ (see
-  \cref{fig:variable_gadget}). For each variable $x$, denote $L_x$ the copy of
-  this gadget and $M_x$ the subgraph of $L_x$ obtained by removing
-  the 4-suns. In particular, $M_x$ is connected and contains
+  \cref{fig:variable_gadget}). For each variable $x$, let $L_x$ denote a disjoint copy of
+  this graph, and let $M_x$ be the subgraph of $L_x$ obtained by removing
+  all vertices of the copies of $H$, excepth the $t_x^{2i}$'s. In particular, $M_x$ is connected and contains
   $\bigcup_{i=0}^{4m-1} \{t_x^{2i}, u_x^{2i}, u_x^{2i+1}, v_x^{2i},
   w_x^{2i}\}$.
 
@@ -1140,24 +1142,26 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
     \label{fig:variable_gadget}    
   \end{figure}
   
-  For each $i \in \{0, \ldots, m-1\}$, we attach the gadgets $L_x$, $L_y$ and
-  $L_z$ of the variables appearing in the $i$\textsuperscript{th} clause
-  $(x \vee y \vee z)$ as follows. Add three edges to form a path $a_ib_ic_id_i$,
+  For each $i \in \{0, \ldots, m-1\}$, if $x,y,z$ denote the three variables appearing in the $i$\textsuperscript{th} clause of $\phi$, 
+  we attach the gadgets $L_x$, $L_y$ and
+  $L_z$ as follows. Add three edges to form a path $a_ib_ic_id_i$,
   where $a_i=w_x^{8i}$, $b_i=w_y^{8i+2}$, $c_i=w_y^{8i+6}$ and $d_i=w_z^{8i}$,
   so that the vertex set
   $\{w_x^{8i}, w_y^{8i+2}, w_y^{8i+6}, w_z^{8i}, v_x^{8i}, v_y^{8i+2},
-  v_y^{8i+6}, v_z^{8i}\}$ forms a comb $C_i$ of length three. Denote
+  v_y^{8i+6}, v_z^{8i}\}$ forms a comb $C_i$ of length three, with spine $w^{8i}_xw_y^{8i+2}w_y^{8i+6}w_z^{8i}$. Denote
   $G_\phi$ the constructed graph.
 
-  \paragraph{Valid orientations of $G_\phi$}
-  We will say that an orientation of a graph is \emph{valid} if it forms a line
-  digraph of an acyclic oriented graph. Before proving that there is a valuation such that
+  \paragraph{Valid orientations of $G_\phi$.}
+  We will say that an orientation of a graph is \emph{valid} if 
+  gives a line
+  digraph of an acyclic oriented graph. In other words, valid orientations are exactly the acyclic orientations satisfying the two conditions of \cref{lem: line-graph}.
+  Before proving that there is a valuation such that
   $\phi$ has true and false variables in each clause if and only if $G_\phi$
   admits a valid orientation, we prove several lemmas describing valid
   orientations of $G_\phi$ and some of its subgraphs.
 
   \begin{claim}\label{cl:sun_orientation}
-    There are only two valid orientations of the 4-sun, which are opposite (see
+    Up to isomorphism, there are only two valid orientations of the 4-sun, which are opposite from each other (see
     ~\cref{fig:sun_orientation}). In these orientations, the 4-cycle is
     alternating and all vertices of degree three are transitive.
   \end{claim}
@@ -1192,15 +1196,15 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
     \label{fig:sun_orientation}
   \end{figure}
   \begin{poc}
-    Consider $H'$ a valid orientation of $H$. By~\cref{lem:valid}, the 4-cycle
-    $C$ of $H'$ is alternating at each vertex. Let $v$ a vertex of degree
-    three. Without loss of generality, assume that $v$ has two out-neighbours in
-    $C$. Let $u$ be the remaining neighbour of $v$, and $w$ and $x$ be two
-    vertices of $C$ such that $w$ is adjacent to $v$, while $x$ is not. So $H'$
-    contains the arcs $v \to w$ and $x \to w$. Since $H'$ is the line digraph of
-    a graph, by the first condition of~\cref{lem:forbidden_config}, the edge
-    between $u$ and $v$ is oriented towards $v$, hence $v$ is transitive and
-    $H'$ is of the form depicted on~\cref{fig:sun_orientation}.
+    Consider $\orH$ a valid orientation of $H$.     By~\cref{lem:valid}, the 4-cycle
+    $C$ of $H'$ is alternating at each vertex. \ugo{I do not think that it is enough... I suggest the next arguments (in red).
+    
+    As $\orH$ is acyclic, the 4-cycle $C$ of $H$ contains at least one sink and one source (with respect to the induced orientation on the cycle). Moreover, note that every such orientation $\overrightarrow{C}$ of $C$ containing one transitive vertex contradicts either of the two conditions from \cref{lem:valid}. It implies that the orientation of $C$ induced by $\orH$ is the alternating orientation depicted in \cref{fig:sun_orientation}.} 
+    
+    Now let $v$ be a vertex of degree
+    three in $H$. Without loss of generality, assume that $v$ has no in-neighbour in
+    $C$, i.e.\ that it is a source of $C$. Let $u$ be the unique neighbour of $v$ which is not on $C$, and $w$ and $x$ be two
+    vertices of $C$ such that $w$ is adjacent to $v$, while $x$ is not. As the orientation of $C$ in $\orH$ alternates, we must have $v\to w$ and $w\to x$ in $\orH$. In particular, the first condition of~\cref{lem:forbidden_config}, then implies that we have $u\to v$ in $\orH$, hence $v$ is transitive. As this reasoning is independent of the choice of $v$ on $C$, we deduce that $\orH$ has the desired form.
   \end{poc}
 
 
@@ -1290,11 +1294,11 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
     \end{figure}
   \end{poc}
 
-  \paragraph{Equivalence of the instances}
+  \paragraph{Equivalence of the instances.}
   We are now ready to prove that $\phi$ admits a valuation such that each
   clause contains true and false variables with different values if and only if
   $G_\phi$ is a $k$-iterated shift graph. More precisely, we prove that if
-  $\phi$ admits so such valuation, then $G_\phi$ is not even a shift graph.
+  $\phi$ admits no such valuation, then $G_\phi$ is not even a shift graph.
 
   We first prove the reverse implication. Consider a valid orientation of
   $G_\phi$. For each variable $x$, assign $x$ to true if $w^{0}_x \to v^0_x$ and
