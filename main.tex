@@ -137,14 +137,21 @@
 \newcommand*{\cA}{\mathcal{A}}
 \newcommand*{\cU}{\mathcal{U}}
 \newcommand*{\orCi}{\overrightarrow{C_i}}
+\newcommand*{\orCip}{\overrightarrow{C'_i}}
 \newcommand*{\orG}{\overrightarrow{G}}
 \newcommand*{\orGp}{\overrightarrow{G'}}
+\newcommand*{\orGphi}{\overrightarrow{G_{\phi}}}
+\newcommand*{\orGphip}{\overrightarrow{G'_{\phi}}}
 \newcommand*{\orH}{\overrightarrow{H}}
 \newcommand*{\orHu}{\overrightarrow{H_u}}
 \newcommand*{\orHv}{\overrightarrow{H_v}}
 \newcommand*{\orHxi}{\overrightarrow{H_x^i}}
 \newcommand*{\orLx}{\overrightarrow{L_x}}
 \newcommand*{\orLy}{\overrightarrow{L_y}}
+\newcommand*{\orMx}{\overrightarrow{M_x}}
+\newcommand*{\orMxp}{\overrightarrow{M'_x}}
+\newcommand*{\orMy}{\overrightarrow{M_y}}
+\newcommand*{\orMz}{\overrightarrow{M_z}}
 \newcommand*{\orGn}{\overrightarrow{G_n}}
 \newcommand*{\orGu}{\overrightarrow{G_1}}
 \newcommand*{\orGd}{\overrightarrow{G_d}}
@@ -533,10 +540,10 @@ $(G_{n,k})_{n \in \mathbb{N}}$, or equivalently, the class of all induced subgra
 $k$-line digraphs of acyclic digraphs.
 
 
-Given an acyclic digraph $D$ and an induced subgraph $H$ of $L^k(D)$, we
+Given an acyclic digraph $D$ and an induced subdigraph $H$ of $L^k(D)$, we
 call \emph{$k$-shift embedding} of $H$ in $D$ any map $\phi$ from the vertices
-of $H$ to the $k$-paths of $D$ such that for all $u,v\in V(H)$, $u\to v$ if and
-only if the $(k-1)$-prefix of $\phi(v)$ is the $(k-1)$-suffix of $\phi(u)$. %   We
+of $H$ to the $k$-paths of $D$ such that for all $u,v\in V(H)$, $u\to v$ in $H$ if and
+only if the $(k-1)$-prefix of $\phi(v)$ is the $(k-1)$-suffix of $\phi(u)$. \ugo{Do you also want $\phi$ to be injective?} %   We
 % say that $\phi(u)$ is \emph{private} if for all $v \in V(H) \setminus \{u\}$,
 % the $(k-1)$-prefixes of $\phi(u)$ and $\phi(v)$ are different and likewise for
 % their $(k-1)$-suffixes.
@@ -548,7 +555,7 @@ $V(\phi(u))\cap V(\phi(w)) \subseteq V(\phi(v))$.
 will use to construct the root graph of some $k$-iterated shift graphs. The first states that for trees, $k$-iterated shift graphs and shift graphs are the same. 
 
 \begin{lemma}\label{lem:shift_tree}
-  Let $T$ be a shift graph with shift orientation $\orT$. Then, for all $k\geq 1$, $T$ is also a $k$-iterated shift graph.\\
+  Let $T$ be a shift graph which is a tree, with shift orientation $\orT$. Then, for all $k\geq 1$, $T$ is also a $k$-iterated shift graph.\\
   More precisely, there exists an acyclic oriented graph $\orG$ and a convex $k$-shift embedding
   $\phi$ of $\orT$ in
   $\orG$. %such that for each leaf $a$ of $T$, $\phi(a)$ is private.
@@ -664,7 +671,7 @@ times each edge of $G$. In particular, we have $G^{\ast 0}=G$.
   We design a polynomial time reduction from \Col on general graphs to \Col on $k$-iterated
   shift graphs. For simplicity, we first describe our reduction for shift graphs
   before adapting it to $k$-iterated shift graphs, as the latter case is more technical, but the ideas are essentially identical. We will equivalently view proper colourings
-  of $L(\orG)$ as arc-colourings of $\orG$, that is an assignement of colors to $A(G)$
+  of $L(\orG)$ as arc-colourings of $\orG$, that is an assignment of colors to $A(G)$
   such that $u\to v$ and $v\to w$ have distinct colors for all $u,v,w \in V(G)$.
 
 \paragraph{The gadget H.}
@@ -1048,7 +1055,7 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   % to iterated shift graphs.
   Let $k \in \mathbb{N}$. We reduce \MNAE to the problem of recognising a $k$-iterated shift
   graph. Let $\phi$ be a monotone 3-CNF formula with $m$
-  clauses and $n$ variables. We construct a graph $G_\phi$ of size $(m+n+k)^{O(1)}$ which is a $k$-iterated shift graph if
+  clauses and $n$ variables. We construct a graph $G_\phi$ of size $O(mnk)$ which is a $k$-iterated shift graph if
   $\phi$ is a valid instance of \textsc{MNAE-3SAT}, but is not a shift graph (and
   \emph{a fortiori} not a $k$-iterated shift graph) if $\phi$ is not a valid
   instance of \textsc{MNAE-3SAT}. 
@@ -1333,30 +1340,46 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   We are now ready to prove that $\phi$ admits a valuation such that each
   clause contains both variables set to
   true and false if and only if
-  $G_\phi$ is a $k$-iterated shift graph. More precisely, we prove that if
-  $\phi$ admits no such valuation, then $G_\phi$ is not even a shift graph.
+  $G_\phi$ is a $k$-iterated shift graph. In fact for the reverse direction, we will show the stronger property that if
+  $\phi$ is not a positive instance of $\MNAE$, then then $G_\phi$ is not even a shift graph.
 
-  We first prove the reverse implication. Consider a valid orientation of
-  $G_\phi$. For each variable $x$, assign $x$ to true if $w^{0}_x \to v^0_x$ and
-  to false otherwise. By construction and by \cref{cl:gadget_orientation}, each
-  of the edges $e_1, \ldots, e_4$ attached to the internal vertices of $N_i$ is
-  positive if and only if the corresponding variable is true. By
-  \cref{cl:clause_orientation}, the edges $e_1, \ldots, e_4$ cannot be all
-  positive or all negative because the orientation is valid. Hence
-  $i$\textsuperscript{th} clause contains a true and a false variable, which
-  concludes the proof.
+  We start proving the reverse implication and consider a valid orientation $\orGphi$ of
+  $G_\phi$. We now consider the following variable assignment: for each variable $x$, set $x$ to true if $w^{0}_x \to v^0_x$ in $\orGphi$ and
+  to false otherwise. We show that with this variable assignment, each clause of $\phi$ contains both variables set to true and false.
+  Let $i\in \{0,\ldots,m-1\}$ and assume that the $i$\textsuperscript{th} clause of $\phi$ is $x\lor y\lor z$. 
+  Recall that the corresponding comb $C_i$ of length $3$ in $G_{\varphi}$ has jaw $a_ib_ic_id_i:=w_x^{8i}w_y^{8i+2}w_y^{8i+6}w_z^{8i}$, and let $e_1,e_2,e_3,e_4$ denote the teeth of $C_i$, such that $e_1$ is incident to $a_i$, $e_2$ to $b_i$, $e_3$ to $c_i$ and $e_4$ to $d_i$. 
+%   As $8i+2=2(4i+1)$ and $8i+6=2(4i+3)$, \cref{cl:gadget_orientation} implies that $e_2$ is positive in $\orGphi$ if and only if $e_3$ is.
+Note that \cref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are respectively positive in $\orGphi$ if and only if $x,y,z$ are respectively set to true. In particular, \cref{cl:clause_orientation} then implies that at least one teeth of $C_i$ is positive, and one is negative in $\orGphi$. It then implies that the variable assignment we defined satisfies the desired properties.
+  
+%   By construction and by \cref{cl:gadget_orientation}, each
+%   of the edges $e_1, \ldots, e_4$ attached to the internal vertices of $C_i$ is
+%   positive if and only if the corresponding variable is true. By
+%   \cref{cl:clause_orientation}, the edges $e_1, \ldots, e_4$ cannot be all
+%   positive or all negative because the orientation is valid. Hence
+%   $i$\textsuperscript{th} clause contains a true and a false variable, which
+%   concludes the proof.
 
 
-  We now prove the direct implication. Consider such a valuation. With a slight
-  abuse of notation, we will name the directed graph arising from the
-  progressive orientations of our gadgets with the same naming conventions. For
-  each variable $x$, choose the orientation of $M_x$ such that
-  $w^{0}_x \to v^{0}_x$ if $x$ is true (by \cref{cl:gadget_orientation} there
-  exists only one such orientation). Then orient each copy of the four-sun such
-  that each $t^{2i}_x$ has in and outdegree equal to two (by
-  \cref{cl:sun_orientation}, there exists a unique such orientation for each
-  $(x,i)$). The orientation of each variable gadget $L_x$ is drawn on
-  \cref{fig:oriented_variable}.
+  We now prove the direct implication and consider a variable assignment for which each clause of $\phi$ contains both variables set to true and false.
+  For
+  each variable $x$, let $\orMx$ denote the (unique) valid orientation of $M_x$ given by \cref{cl:gadget_orientation} such that
+  $w^{0}_x \to v^{0}_x$ in $\orMx$ if $x$ is set to true, and such that $v^0_x\to w^0_x$ in $\orMx$ if $x$ is set to false.
+  Then, for each $i\in \{0,\ldots,4m-1\}$, we consider for each copy $H^i_x$ of the four-sun the (unique) valid orientation $\orHxi$ given by \cref{cl:sun_orientation}, such that in  $\orMx\cup\orHxi$, the vertex $t^{2i}_x$ has both in- and out-degrees equal to two. We let $\orLx$ denote the orientation obtained after orienting this way $M_x$ and all subgraphs $H_x^i$ of $L_x$. See   \cref{fig:oriented_variable}.
+
+  
+  
+  
+%   With a slight
+%   abuse of notation, we will name the directed graph arising from the
+%   progressive orientations of our gadgets with the same naming conventions.
+%   For
+%   each variable $x$, choose the unique valid orientation of $M_x$ such that
+%   $w^{0}_x \to v^{0}_x$ if $x$ is true (by \cref{cl:gadget_orientation} there
+%   exists only one such orientation). Then orient each copy of the four-sun such
+%   that each $t^{2i}_x$ has in and outdegree equal to two (by
+%   \cref{cl:sun_orientation}, there exists a unique such orientation for each
+%   $(x,i)$). The orientation of each variable gadget $L_x$ is drawn on
+%   \cref{fig:oriented_variable}.
 
     \begin{figure}[h!]
     \centering
@@ -1455,15 +1478,20 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
     \label{fig:oriented_variable}    
   \end{figure}
   
-  The only edges that remain to be oriented are the edges forming the jaw of
-  each clause gadget. Consider the comb $C_i$ corresponding to the
-  $i$\textsuperscript{th} clause of $\phi$, with $e_1,\ldots, e_4$ the edges attached to the
-  jaw of $C_i$. By construction and
+  In order to obtain an orientation of $G_{\phi}$, 
+  the only edges that remain to be oriented are the edges forming the jaw of
+  each clause gadget. For each $i\in \{0,\ldots,m-1\}$, consider the comb $C_i$ corresponding to the
+  $i$\textsuperscript{th} clause $x\lor y\lor z$ of $\phi$, and denote with $e_1,\ldots, e_4$ its teeth, again with respect to the order in which they attach to the jaw. 
+  As $\orMy$ is a valid orientation of $M_y$, and as $8i+2= 2(4i+1)$ and $8i+6=2(4i+3)$,
+  by
   \cref{cl:gadget_orientation}, $e_2$ and $e_3$ are either both negative or both
-  positive. Since each clause contains true and false variables, we can apply
-  \cref{cl:clause_orientation} to orient the jaw of $C_i$. The
-  orientation we constructed is valid when restricted to each $C_i$ and to each
-  $L_x$. To check that is forms a valid orientation of $G_\phi$, we only need to
+  positive. Moreover, observe that by definition of the orientations $\orMx, \orMy, \orMz$, \cref{cl:gadget_orientation} implies that $e_1,e_2,e_4$ are respectively positive if and only if $x,y,z$ are respectively set to true.
+  Since the clause $x\lor y\lor z$ contains both variables set to true and false, we can apply
+  \cref{cl:clause_orientation} to extend our orientation to a valid orientation $\orCi$ of $C_i$, in which the jaw is a directed path. Fixing such an orientation of each $C_i$, we now obtain an orientation $\orGphi$ of $G_{\phi}$, whose restriction to each subgraph of the form $L_x$ or $C_i$ is valid.
+  
+  \ugo{Do you want to keep the next paragraph? I do not think that it is useful.}
+  In order to prove that $\orGphi$ is a valid orientation,
+  we only need to
   check the first condition of \cref{lem:forbidden_config} at the junctions
   between the clause and the variable gadgets, and the orientation of the cycles
   using these junctions. Note that any such cycle must pass by some $u^{2i}_x$,
@@ -1473,13 +1501,34 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   digraph. In other words, $G_\phi$ is a shift graph. This concludes the proof
   for shift graphs, but not for iterated shift graphs.
 
-  To prove that $G_\phi$ is a $k$-iterated shift graph, we construct an oriented
-  acyclic graph $G_\phi'$ such that $G_\phi$ is an induced subgraph of
-  $L^k(G_\phi')$. For each variable $x$, by \cref{lem:shift_tree}, there exists
-  a graph $M'_x$ with a convex $k$-shift embedding $\psi_x$ of $M_x$ in $M'_x$.
-  By \cref{lem:shift_tree}, for each clause comb $C_i$, there exists a
-  graph $C'_i$ with a convex $k$-shift embedding $\psi_i$ of $C_i$ in
-  $C'_i$. Denote $\psi$ the union of these $k$-shift embedding.
+  
+  
+  To prove that $G_\phi$ is a $k$-iterated shift graph, we now construct an oriented
+  acyclic graph $\orGphip$ such that $\orGphi$ is an induced subdigraph of
+  $L^k(\orGphip)$. For each variable $x$, by \cref{lem:shift_tree}, there exists
+  an acyclic oriented graph $\orMxp$ with a convex $k$-shift embedding $\psi_x$ of $\orMx$ in $\orMxp$.
+  Similarly, for each clause comb $C_i$, there exists an acyclic oriented graph
+  graph $\orCip$ with a convex $k$-shift embedding $\psi_i$ of $\orCi$ in
+  $\orCip$. Denote $\psi$ the union of all these $k$-shift embedding. \ugo{What do you mean by union? I think that you need to define the image of $\psi$ properly, I do not understand.}
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+%   For each variable $x$, by \cref{lem:shift_tree}, there exists
+%   a graph $M'_x$ with a convex $k$-shift embedding $\psi_x$ of $M_x$ in $M'_x$.
+%   By \cref{lem:shift_tree}, for each clause comb $C_i$, there exists a
+%   graph $C'_i$ with a convex $k$-shift embedding $\psi_i$ of $C_i$ in
+%   $C'_i$. Denote $\psi$ the union of these $k$-shift embedding.
 
   First, we note that $(\psi(N(v^{2i}_x)))_{i,x}$ forms a collection of pairwise
   disjoint $k+2$-paths because any distinct $v^{2i}_x$ and $v^{2j}_y$ are
