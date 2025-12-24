@@ -136,6 +136,7 @@
 \newcommand*{\cQ}{\mathcal{Q}}
 \newcommand*{\cA}{\mathcal{A}}
 \newcommand*{\cU}{\mathcal{U}}
+\newcommand*{\orCi}{\overrightarrow{C_i}}
 \newcommand*{\orG}{\overrightarrow{G}}
 \newcommand*{\orGp}{\overrightarrow{G'}}
 \newcommand*{\orH}{\overrightarrow{H}}
@@ -340,11 +341,11 @@ For every integer $n\in \mathbb N$, we use the notation $[n]$ to denote the set 
 \subsection{Notations and basic definitions} A digraph $D$ consists of a set $V(D)$ of vertices and a set $A(D)$ of directed edges denoted $(u,v)$, $uv$ or $u \to v$ and called \emph{arcs}. Given an arc $a=u \to v$, the \emph{head} of $a$ is $v$ and its \emph{tail} is $u$. We denote with $N^-(u) = \{v \colon v \to u\}$ and $N^+(u) = \{v \colon v \to u\}$ the in-neighbourhood and out-neighbourhood of $u$. If $N^-(u)=\emptyset$ then $u$ is a \emph{source}, while if $N^+(u)=\emptyset$ then $u$ is a \emph{sink}.
 An \emph{oriented graph} is a digraph such that for each pair $u,v$ of distinct vertices, $A(D)$ contains at most one of the two arcs $u\to v$ and $v\to u$. The \emph{support} of a digraph $D$ is the undirected graph $G$ obtained when removing the orientations of the arcs of $D$, that is $V(G) = V(D)$ and $E(G) = \{\{x,y\} \colon (x,y) \in A(D)\}$. For the sake of notation, we will often use the notation $\orG$ to denote an oriented graph whose support is the unoriented graph $G$.  We say that a vertex $u$ of a digraph $D$ is \emph{transitive} if it is neither a source nor a sink. For $k\in \mathbb N$, a \emph{$k$-walk} (resp.\ \emph{$k$-path}) is a sequence $(v_0,\ldots, v_k)$ of $k+1$ (distinct) vertices such that $v_i\to v_{i+1}$ for each $0\leq i\leq k-1$. Then \emph{length} of a path is defined as its number of edges.  The \emph{$k$-prefix} (resp.\ \emph{$k$-suffix}) of a path $P$ is the subpath obtained when keeping only its $k+1$ first (resp.\ last) vertices.
 
-Given a digraph $D$ and two $k$-paths $P = (u_0,\ldots, u_k)$ and $Q = (v_0,\ldots, v_k)$, we denote $D / \{P,Q\}$ the digraph obtained by identifying $P$ and $Q$, that is by replacing for each $i$, $u_i$ and $v_i$ by a new vertex $w_i$ whose inneighbourhood is $N^-(u_i) \cup N^-(v_i)$ and outneighbourhood is $N^+(u_i) \cup N^+(v_i)$. Formally, the vertex set of $D/\{P,Q\}$ is $(V(D) \setminus \{u_0,\ldots,u_k,v_0,\ldots,v_k\}) \sqcup \{w_0, \ldots, w_k\}$
+Given a digraph $D$ and two $k$-paths $P = (u_0,\ldots, u_k)$ and $Q = (v_0,\ldots, v_k)$, we denote $D / \{P,Q\}$ the digraph obtained by identifying $P$ and $Q$, that is by replacing for each $i$, $u_i$ and $v_i$ by a new vertex $w_i$ whose in-neighbourhood is $N^-(u_i) \cup N^-(v_i)$ and out-neighbourhood is $N^+(u_i) \cup N^+(v_i)$. Formally, the vertex set of $D/\{P,Q\}$ is $(V(D) \setminus \{u_0,\ldots,u_k,v_0,\ldots,v_k\}) \sqcup \{w_0, \ldots, w_k\}$
 and for all $xy \in A(D)$, we have $p(x)p(y) \in A(D/\{P,Q\})$, where $p(x)=x$ if $x \in V(D) \setminus \{u_0,\ldots,u_k,v_0,\ldots,v_k\}$ and $p(x) = w_i$ if $x$ is equal to $u_i$ or $v_i$.
 For each $n\in \mathbb N$, the \emph{transitive tournament of order $n$} is the oriented graph $\orTn$ with vertex set $[n]$, where there is an arc $i\to j$ for each $1\leq i<j\leq n$.
 
-In this paper, the \emph{comb} of length $k$ is the graph $\Comb_k$ obtained from a path on $k$ edges (the \emph{spine} of $\Comb_k$) to which we attach to each vertex an additional pendant edge (such edges are the \emph{teeth} of $\Comb_k$). The comb of length 0 is a single tooth.
+In this paper, the \emph{comb} of length $k$ is the graph $\Comb_k$ obtained from a path on $k$ edges (the \emph{jaw} of $\Comb_k$) to which we attach to each vertex an additional pendant edge (such edges are the \emph{teeth} of $\Comb_k$). The comb of length 0 is a single tooth. The at most two teeth attaching to the extremities of the jaw are called the \emph{molars}, while the other teeth are called the \emph{incisors}.  
  
 For a graph $G$, we let $\alpha(G)$ denote the maximum possible size of an
 independent set of $G$, and we let $\mathrm g(G)$ and $\og(G)$ denote
@@ -1058,8 +1059,8 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   edge attached to each of the vertices on the cycle. For each variable $x$,
   consider the gadget composed of a path on $8m+1$ vertices
   $u_x^{-1}, \dots, u_x^{8m-1}$ in which for each $i \in \{0, \ldots, 4m-1\}$ we
-  connect $u_x^{2i}$ to the  first vertex of the spine of a comb $Q_i$
-  of length $k+1$. Denote $v_x^{2i}$ the last vertex of the spine of this
+  connect $u_x^{2i}$ to the  first vertex of the jaw of a comb $Q_i$
+  of length $k+1$. Denote $v_x^{2i}$ the last vertex of the jaw of this
   comb and $w_x^{2i}$ the vertex adjacent to $v_x^{2i}$ via the last tooth. \ugo{Why not simply call them $v_x^i$ and $w_x^i$?}
   Connect each $u_x^{2i}$ to a distinct copy $H_x^i$ of $H$ via one of its vertices of
   degree three that we will call $t_x^{2i}$ (see
@@ -1152,7 +1153,7 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   where $a_i=w_x^{8i}$, $b_i=w_y^{8i+2}$, $c_i=w_y^{8i+6}$ and $d_i=w_z^{8i}$,
   so that the vertex set
   $\{w_x^{8i}, w_y^{8i+2}, w_y^{8i+6}, w_z^{8i}, v_x^{8i}, v_y^{8i+2},
-  v_y^{8i+6}, v_z^{8i}\}$ forms a comb $C_i$ of length three, with spine $w^{8i}_xw_y^{8i+2}w_y^{8i+6}w_z^{8i}$. Denote
+  v_y^{8i+6}, v_z^{8i}\}$ forms a comb $C_i$ of length three, with jaw $w^{8i}_xw_y^{8i+2}w_y^{8i+6}w_z^{8i}$. Denote
   $G_\phi$ the constructed graph.
 
   \paragraph{Valid orientations of $G_\phi$.}
@@ -1236,55 +1237,70 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
      \item\label{item:sink} if $t^{2i}_x \to u^{2i}_x$ in $\orLx$, then $u^{2i}_x$ is a sink in $\orLx-t_x^{2i}$,
      \item\label{item:source} if $u^{2i}_x \to t^{2i}_x$ in $\orLx$, then $t^{2i}_x$ is a source in $\orLx-t_x^{2i}$.
     \end{enumerate}
-    We only show \ref{item:sink}, as \ref{item:source} is symmetric. For this we let $i \in \{0,\ldots,4m-1\}$ and assume that $t^{2i}_x \to u^{2i}_x$ in $\orLx$. By \cref{cl:sun_orientation}, $t^{2i}_x$ is transitive in $\orHxi$, and thus has an outneighbour in $\orLx$ distinct from $u_x^{2i}$. In particular, note that the first condition of \cref{lem:forbidden_config} then implies that $u^{2i}_x$ cannot have an in-neighbour in $\orLx-t^{2i}_x$, showing \ref{item:sink}.
+    We only show \ref{item:sink}, as \ref{item:source} is symmetric. For this we let $i \in \{0,\ldots,4m-1\}$ and assume that $t^{2i}_x \to u^{2i}_x$ in $\orLx$. By \cref{cl:sun_orientation}, $t^{2i}_x$ is transitive in $\orHxi$, and thus has an out-neighbour in $\orLx$ distinct from $u_x^{2i}$. In particular, note that the first condition of \cref{lem:forbidden_config} then implies that $u^{2i}_x$ cannot have an in-neighbour in $\orLx-t^{2i}_x$, showing \ref{item:sink}.
     
     Using once again the first condition of \cref{lem:forbidden_config}, observe that moreover, the vertices $u^{2i}$ satisfying \ref{item:sink} and \ref{item:source} must alternate on the path $u_x^0,\ldots,u^{8m-2}_x$.    
     In particular, as we assumed $w_x^0\to v_x^0$, this implies that for each $i\in \{0,\ldots, 4m-1\}$, if $i$ is even, then $u_x^{2i}$ satisfies \ref{item:sink}, while if $i$ is odd, then $u_x^{2i}$ satisfies \ref{item:source}. 
-    In order to conclude the proof of the claim, observe that for each even (resp.\ odd) $i\in \{0,\ldots,4m-1\}$, applying iteratively the first condition of \cref{lem:forbidden_config} implies that in the comb $Q_i$ that contains $u^{2i}_x$, each edge between a teeth $t$ and a vertex $s$ of the spine is oriented $t\to s$ (resp.\ $s\to t$) in $\orLx$. In particular, the edge $v^{2i}_xw^{2i}_x$ is of this form, and thus oriented as desired for each $i$.     
+    In order to conclude the proof of the claim, observe that for each even (resp.\ odd) $i\in \{0,\ldots,4m-1\}$, applying iteratively the first condition of \cref{lem:forbidden_config} implies that in the comb $Q_i$ that contains $u^{2i}_x$, each edge between a teeth $t$ and a vertex $s$ of the jaw is oriented $t\to s$ (resp.\ $s\to t$) in $\orLx$. In particular, the edge $v^{2i}_xw^{2i}_x$ is of this form, and thus oriented as desired for each $i$.     
 %     (if $u^{2i}_x \to t^{2i}_x$ reverse all the orientations in the following
 %     reasoning). By \cref{cl:sun_orientation}, $t^{2i}_x$ is transitive in the
-%     copy of the 4-sun it belongs to, so $t^{2i}_x$ has an outneighbour.
-%     Therefore, $u^{2i+1}_x$, $u^{2i-1}_x$ and $v^{2i}_x$ are all outneighbours
+%     copy of the 4-sun it belongs to, so $t^{2i}_x$ has an out-neighbour.
+%     Therefore, $u^{2i+1}_x$, $u^{2i-1}_x$ and $v^{2i}_x$ are all out-neighbours
 %     of $u^{2i}_x$, which proves that $u^{2i}_x$ is transitive.  
 %     By propagating
-%     the same reasoning along the vertices of the spine of the comb
-%     attached to $u^{2i}_x$, the spine of the comb is oriented away from
-%     $u^{2i}x$ and its teeth away from the spine. In particular, we have
+%     the same reasoning along the vertices of the jaw of the comb
+%     attached to $u^{2i}_x$, the jaw of the comb is oriented away from
+%     $u^{2i}x$ and its teeth away from the jaw. In particular, we have
 %     $v^{2i}_x \to w^{2i}_x$. We obtain $u^{2i+1}_x \to u^{2i+2}_x$ likewise. The
 %     result follows from a straightforward induction on $i$.
   \end{poc}
-
-
-  Given a valid orientation of the comb $C_i$, we say that $e_1$ and
-  $e_4$ (respectively $e_2$ and $e_3$) are \emph{positive} if they are oriented
-  away (resp. towards) the path, and that they are \emph{negative} otherwise.
+  
+  For each $i\in \{0,\ldots,4m-1\}$, and every orientation $\orCi$ of the comb $C_i$, we say that a teeth $e$ of is 
+  \begin{itemize}
+   \item \emph{positive} if $e$ is a molar and is oriented away the jaw, or if $e$ is an incisor and is oriented towards the jaw.
+   \item \emph{negative} if $e$ is a molar and is oriented towards the jaw, or if $e$ is an incisor and is oriented away the jaw.
+  \end{itemize}
+  
+%   Given a valid orientation of the comb $C_i$, we say that $e_1$ and
+%   $e_4$ (respectively $e_2$ and $e_3$) are \emph{positive} if they are oriented
+%   away (resp. towards) the jaw, and that they are \emph{negative} otherwise.
   
   \begin{claim}\label{cl:clause_orientation}
-    In any valid orientation of $C_i$, the edges $e_j$ cannot be all positive, or
-    all negative. Conversely, any orientation of the edges $e_j$ such that $e_2$
-    and $e_3$ are both positive (or both negative), and the edges $e_j$ are not
-    all positive (or respectively all negative) can be extended onto $C_i$ into a
-    valid orientation such that the spine of $C_i$ is a directed path.
+    For each $i\in \{0,\ldots,4m-1\}$, in any valid orientation of $C_i$, the teeth of $C_i$ cannot be all positive, or
+    all negative. 
+    Conversely, any orientation of the teeth of $C_i$ in which the incisors are both positive (resp.\ both negative), and in which at least one molar is
+    negative (resp.\ positive) can be extended to a 
+    valid orientation of $C_i$ in which the jaw of $C_i$ is a directed path.
   \end{claim}
   \begin{poc}
-    Assume towards contradiction that there exists a valid orientation of $C_i$
-    with all edges $e_j$ positive. That is $e_1$ and $e_4$ are oriented away
+    We let $e_1,e_2,e_3,e_4$ denote the four teeth of $C_i$, with respect to the order of the jaw (i.e.\ $e_1,e_4$ are the molars and $e_2,e_3$ are the incisors). 
+    Assume towards a contradiction that there exists a valid orientation $\orCi$ of $C_i$
+    making all teeth positive. That is, $e_1$ and $e_4$ are oriented away
     from $a$ and $d$, while $e_2$ and $e_3$ are oriented towards $b$ and $c$, where
-    $a,b,c,d$ are the internal vertices of $C_i$. Without loss of generality, assume
+    $a,b,c,d$ denote the internal vertices of $C_i$. Without loss of generality, assume
     that $b \to c$. By \cref{lem:forbidden_config}, as $c$ has both an
-    inneighbour and an outneighbour, the edge $ab$ is oriented $a \to b$. Hence
-    $b$ has also an inneighbour and an outneighbour and $e_1$ is oriented
-    towards $a$, that is $e_1$ is negative. By the symmetry, if we had
-    $c \to b$, $e_4$ would be negative. So $e_1$ or $e_4$ is negative, a
-    contradiction. Likewise, there exists no valid orientation of $N$ with all
-    edges $e_j$ negative.
+    in-neighbour and an out-neighbour, the edge $ab$ must be oriented $a \to b$ (see \cref{fig: proof_3comb}). We then obtain a contradiction as the orientation of the induced path $e_1abe_2$ contradicts the first condition of \cref{lem:forbidden_config}. 
+%     
+%     Hence
+%     $b$ has also an in-neighbour and an out-neighbour and $e_1$ is oriented
+%     towards $a$, that is $e_1$ is negative. By the symmetry, if we had
+%     $c \to b$, $e_4$ would be negative. So $e_1$ or $e_4$ is negative, a
+%     contradiction. We claim that symmetric arguments apply to show that there exists no valid orientation of $N$ with all
+%     edges $e_j$ negative.
 
+   \begin{figure}[htb]
+   \centering  
+   \includegraphics[scale=1]{3comb}
+   \caption{The orientation depicted in the first part of the proof of \cref{cl:clause_orientation}.}  
+   \label{fig: proof_3comb}
+   \end{figure}
+    
     Conversely, consider an orientation of $e_1, \ldots, e_4$, such that $e_2$
     and $e_3$ are say positive, but not all four edges are positive. Say without
-    loss of generality $e_1$ is negative. Then orienting the spine of $C_i$ as a
-    directed path from $a$ to $d$ (as on picture \cref{fig:variable_gadget})
-    forms a line digraph by \cref{lem:forbidden_config}.
-
+    loss of generality $e_1$ is negative. Then, no matter which orientation $e_4$ has, orienting the jaw of $C_i$ as a
+    directed path from $a$ to $d$ (as depicted on \cref{fig:variable_gadget})
+    gives an orientation of $C_i$ avoiding the forbidden configurations of
+    \cref{lem:forbidden_config}, and thus which is valid.
     \begin{figure}[h!]
       \centering
       \begin{tikzpicture}[decoration={
@@ -1308,14 +1324,15 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
           
       \end{tikzpicture}
       \caption{A valid orientation of $C_i$. The edge $e_1$ is negative, $e_2$ and
-        $e_3$ are negative, and $e_4$ can eihter be positive or negative.}
+        $e_3$ are negative, and $e_4$ can either be positive or negative.}
       \label{fig:variable_gadget}
     \end{figure}
   \end{poc}
 
   \paragraph{Equivalence of the instances.}
   We are now ready to prove that $\phi$ admits a valuation such that each
-  clause contains true and false variables with different values if and only if
+  clause contains both variables set to
+  true and false if and only if
   $G_\phi$ is a $k$-iterated shift graph. More precisely, we prove that if
   $\phi$ admits no such valuation, then $G_\phi$ is not even a shift graph.
 
@@ -1438,13 +1455,13 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
     \label{fig:oriented_variable}    
   \end{figure}
   
-  The only edges that remain to be oriented are the edges forming the spine of
+  The only edges that remain to be oriented are the edges forming the jaw of
   each clause gadget. Consider the comb $C_i$ corresponding to the
   $i$\textsuperscript{th} clause of $\phi$, with $e_1,\ldots, e_4$ the edges attached to the
-  spine of $C_i$. By construction and
+  jaw of $C_i$. By construction and
   \cref{cl:gadget_orientation}, $e_2$ and $e_3$ are either both negative or both
   positive. Since each clause contains true and false variables, we can apply
-  \cref{cl:clause_orientation} to orient the spine of $C_i$. The
+  \cref{cl:clause_orientation} to orient the jaw of $C_i$. The
   orientation we constructed is valid when restricted to each $C_i$ and to each
   $L_x$. To check that is forms a valid orientation of $G_\phi$, we only need to
   check the first condition of \cref{lem:forbidden_config} at the junctions
