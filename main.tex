@@ -70,6 +70,7 @@
 \usepackage{tikz}
 \usetikzlibrary{decorations.markings}
 \usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{calc}
 \tikzstyle{classic}=[draw=black,fill = black,inner sep = 1.5pt,circle]
 
 \newtheorem{theorem}{Theorem}
@@ -271,7 +272,7 @@ problems are NP-complete for shift graphs.
     Shift & NPC [*] & NPC [*] & NPC [*] \\
     \hline
   \end{tabular}  
-  \caption{Complexity of Recognition, Minimum independent set and 3-Colouring of
+  \caption{Complexity of Recognition, Maximum independent set and 3-Colouring of
     the main constructions of triangle-free graph of large chromatic number}
   \label{tab:complexity}
 \end{table}
@@ -337,7 +338,7 @@ For every integer $n\in \mathbb N$, we use the notation $[n]$ to denote the set 
 $V(D)$ of vertices and a set $A(D)$ of directed edges denoted $(u,v)$, $uv$ or
 $u \to v$ and called \emph{arcs}. Given an arc $a=u \to v$, the \emph{head} of
 $a$ is $v$ and its \emph{tail} is $u$. We denote $N^-(u) = \{v \colon v \to u\}$
-and $N^+(u) = \{v \colon v \to u\}$ the inneighbourhood and outneighbourhood of
+and $N^+(u) = \{v \colon u \to v\}$ the inneighbourhood and outneighbourhood of
 $u$.  An \emph{oriented graph} is a digraph such that for each pair $u,v$ of
 distinct vertices, $A(D)$ contains at most one of the two arcs $u\to v$ and
 $v\to u$. The \emph{support} of a digraph $D$ is the undirected graph $G$
@@ -633,7 +634,7 @@ out-neighbourhood $(N^+_D(u)\cup N^+_D(v))\setminus \{u,v\}$. Note that if $D=\o
 \ugo{I do not  understand at all the next lemma... Could you define what it does mean to identify $\phi(u)$ with $\phi(v)$? Is $G$ oriented?}
 
 \begin{lemma}\label{lem:gluing}
-  Let $\phi$ be a $k$-shift embedding of $H$ in $G$ and let $u,v$ be two
+  Let $H$ and $G$ be two digraphs and $\phi$ be a $k$-shift embedding of $H$ in $G$. Let $u,v$ be two
   vertices of $H$ with $\phi(N(u))$ and $\phi(N(v))$ vertex disjoint, such that
   there is no directed path from $u$ to $v$ or vice-versa. Then $\phi$ is a
   $k$-shift embedding of the graph obtained from $H$ by identifying $u$ with $v$
@@ -649,33 +650,113 @@ out-neighbourhood $(N^+_D(u)\cup N^+_D(v))\setminus \{u,v\}$. Note that if $D=\o
 
 \section{Maximum independent set problem}\label{sec:MIS}
 
-Given a graph $G$ and an integer $\ell\in \mathbb N$, denote $G^{\ast\ell}$ the graph obtained by subdividing $\ell$
-times each edge of $G$. In particular, we have $G^{\ast 0}=G$. 
+Given a graph $G$ and an integer $s \in \mathbb N$, denote $G^{\ast s}$ the
+graph obtained by subdividing $s$ times each edge of $G$. In particular, we
+have $G^{\ast 0}=G$.
 
 \begin{lemma}[\cite{poljak1974Note}]\label{lem:subdivision_MIS}
-  For every graph $G$ and every even integer $\ell\geq 0$, we have
-  $\alpha(G^{\ast\ell}) = \alpha(G) + \frac{\ell}2|E(G)|$.
-\end{lemma} 
+  For every graph $G$ and every even integer $s \geq 0$, we have
+  $\alpha(G^{\ast s}) = \alpha(G) + \frac{s}2|E(G)|$.
+\end{lemma}
 
 \begin{proposition}
-  For any $k$ and $\ell$, \MIS is NP-complete when restricted to the class of $k$-iterated shift
-  graphs of girth at least $\ell$.
+  For any integers $k$ and $\ell$, \MIS is NP-complete when restricted to the class of
+  $k$-iterated shift graphs of girth at least $\ell$.
 \end{proposition}
 \begin{proof}
-  We fix $k,\ell\in \mathbb N$ and show that \MIS on general graphs admits a polynomial time reduction to \MIS when restricted to the class of $k$-iterated shift graphs. Let $G$ be a connected graph and assume that $[n]=V(G)$. We claim that $G^{*\ell}$ is a $k$-iterated shift graph of girth
-  at least $\ell$. By \cref{lem:subdivision_MIS}, this will imply directly the result. \ugo{Don't you need some condition on $k$? If $\ell=0$, the result does clearly not hold, did I miss something? And shouldn't $\ell$ be even?}
-  To prove our claim, consider the following
-  acyclic digraphs. Given $i \in \{0, \dots k\}$, let $H_{i,\ell}$ be the
-  digraph constructed as follows. For each edge $e=uv$ of $G$ with $u<v$,
-  let $P_e$ be a directed $(i+\ell+1)$-path. For each $v$, identify the
-  $i$-prefixes of all the paths $P_{vw}$ with $v<w$ and the $i$-suffixes of all
-  the paths $P_{uv}$ with $u<v$. In particular, we have
-  $H_{0,\ell} = G^{*\ell}$.  We also have $L(H_{i, \ell}) =
-  H_{i-1,\ell}$. \ugo{Maybe that I did not understand smg, but I disagree with this equality.} Indeed, the line digraph operation maps each $(i+\ell+1)$-path
-  $P_{uv}$ of $H_{i,\ell}$ to an $(i+\ell)$-path and the identified sections of
-  length $i$ in $H_{i,\ell}$ to the identified sections of length $i-1$ of
-  $L(H_{i, \ell})$. So $L^k(H_{k, \ell}) = H_{0,\ell}= G^{*\ell}$, which proves
-  that $G^{*\ell}$ is a $k$-iterated shift graph and concludes this proof.
+  \ugo{Don't you need some condition on $k$? If $\ell=0$, the result does
+    clearly not hold, did I miss something? And shouldn't $\ell$ be even?}
+  \clement{the lemma holds for any $\ell$ even $\ell = 0$, but the graphs
+    produced by the reduction may have girth $3(s+1) > \ell$, which is not a
+    problem.}
+
+  We show that \MIS on general graphs admits a polynomial time reduction to \MIS
+  when restricted to the class of $k$-iterated shift graphs of girth at least
+  $\ell$. Let $s$ be an even integer such that $3(s+1) \ge \ell$ and
+  $s \ge k+1$.  Let $G$ be a connected graph and assume that $[n]=V(G)$. We
+  claim that $G^{\ast s}$ is a $k$-iterated shift graph of girth at least
+  $3(s+1) \ge \ell$. By \cref{lem:subdivision_MIS}, this will imply directly the
+  result.
+
+  To prove our claim, consider the acyclic graph $H$ constructed as follows. Let
+  $(P_u)_{u \in V(G)}$ be a collection of disjoint directed paths of length
+  $k$. For each $u$, we denote $u^-$ and $u^+$ the first and last vertex of
+  $P_u$. For each edge $uv \in E(G)$ with $u < v$, connect $u^+$ with $v^-$ by a
+  directed path $P_{uv}$ of length $s+1 -k > 0$ and let $H$ be the graph
+  obtained. We now prove that the graph $L^k(H)$ is isomorphic to $G^{\ast
+    s}$. Each vertex $u$ of $G$ is mapped to the $k$-path $P_u$. In $L^k(H)$,
+  for each $uv \in E(G)$ with $u < v$, the vertices $P_u$ and $P_v$ are
+  connected by a path $(P_u, Q_1, \dots Q_k, R_1, \dots R_{s-k}, P_v)$, where
+  each $Q_i$ is the $k$-path starting at the $(i+1)$\textsuperscript{th} vertex
+  of $P_u$ and ending in $V(P_{uv}) \cup V(P_v)$, and each $R_i$ is the $k$-path
+  starting at the $(i+1)$\textsuperscript{th} vertex of $P_{uv}$ and ending in
+  $V(P_{uv}) \cup V(P_v)$. Thus $G^{\ast s}$ is a subgraph of $L^k(H)$ and this
+  subgraph is spanning because all $k$-paths of $H$ are of the form described above. All
+  vertices in $V(H) \setminus \{u^+ \colon u\in V(G)\}$ have outdegree equal to
+  one and all vertices in $V(H) \setminus \{u^- \colon u\in V(G)\}$ have
+  indegree equal to one. So all the $k$-paths of $H$ that are not some $P_u$
+  have degree exactly two in $L^k(H)$. Combining this with the fact that the
+  $k$-paths $P_u$ have degree $\deg_H^+(u^+) + \deg_H^-(u^-) = \deg_G(u)$, this
+  proves that $G^{\ast s}$ is an induced subgraph of $L^k(H)$, so $L^k(H) =
+  G^{\ast s}$.
+  
+  \begin{figure}[h!]
+    \centering
+    \begin{subfigure}[t]{.3\textwidth}
+      \centering
+      \begin{tikzpicture}[decoration={
+          markings,
+          mark=at position 0.5 with {\arrow[scale=1.5]{>}}}, scale =.8
+        ]
+        \foreach \i in {1,2,3,4,5}{
+          \node[classic] (a\i) at (\i,0) {};
+          \node[below] at (a\i) {\small $\i$};
+        }
+        \draw (a1) -- (a2) -- (a3) (a4) -- (a5);
+        \draw (a2) edge[bend left] (a4);
+        \draw (a2) edge[bend left=40] (a5);
+        \draw (a1) edge[bend left=40] (a4);
+      \end{tikzpicture}
+      \caption{The graph $G$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{.65\textwidth}\centering
+      \begin{tikzpicture}[decoration={
+          markings,
+          mark=at position 0.5 with {\arrow[scale=1.5]{>}}}, scale = .8
+        ]
+
+        \foreach \i/\x/\y in {1/0/0,2/2/-1.5,3/4/-3,4/6/0,5/8/-1.5}{
+          \foreach \j in {0,...,3}{
+            \node[classic] (a\i\j) at ($(\x,\y)+(\j,0)$) {};
+          }
+          \draw (a\i0) edge[postaction=decorate] (a\i1);
+          \draw (a\i1) edge[postaction=decorate] (a\i2);
+          \draw (a\i2) edge[postaction=decorate] (a\i3);
+          \draw [decorate,decoration={brace,amplitude=5pt,raise=1ex}] (a\i0)
+          -- (a\i3) node[midway,yshift=3ex]{\footnotesize $P_\i$};
+        }
+
+
+        \foreach \x/\y in {1/2,2/3,4/5,2/4,1/4,2/5}{          
+          \node[classic, fill=blue] (b\x\y) at ($.5*(a\x3) + .5*(a\y0)$) {};
+          \draw[blue] (a\x3) edge[postaction=decorate] (b\x\y);
+          \draw[blue] (b\x\y) edge[postaction=decorate] (a\y0);
+        }          
+      \end{tikzpicture}
+      \caption{The graph $H$ for $k = 3$ and $s = 4$. The black directed paths
+        are the paths $(P_u)_{u \in V(G)}$ and the blue paths are the
+        connections $P_{uv}$ of length $s - k +1$ between them.}
+    \end{subfigure}
+    \caption{An example of our reduction}
+  \end{figure}
+
+  Let $C$ be a cycle of $H$ and $u$ the smallest vertex of $G$ such that $C$
+  passes by $u^+$ (such vertex exists because $H - \bigcup_{u \in V(G)} u^+$ is
+  a forest of subdivided stars with central vertices $(v^-)_{v \in V(G)}$). The
+  cycle $C$ alternates at $u^+$ so $H$ is acyclic. Finally, $L^k(H) = G^{\ast
+    s}$ has girth $g(s+1) \ge 3(s+1) \ge \ell$, where $g$ is the girth of $G$. 
+  
 \end{proof}
 
 \section{3-Colouring shift graphs}\label{sec:3COL}
