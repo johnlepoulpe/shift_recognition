@@ -231,6 +231,9 @@ under grant 2022/47/B/ST6/02837 within the OPUS 24 program}
   \todo[inline]{TODO, nicolas test git}
 \end{abstract}
 
+\todo[inline]{TODO:\\
+  - decide UK/US conventions\\
+  - Fix the proof of Thm 9 for iterated line graphs}
 \section{Introduction}
 \label{sec: intro}
 A class of graphs is \emph{hereditary} if it closed under taking induced
@@ -356,7 +359,7 @@ For every integer $n\in \mathbb N$, we use the notation $[n]$ to denote the set 
 $V(D)$ of vertices and a set $A(D)$ of directed edges denoted $(u,v)$, $uv$ or
 $u \to v$ and called \emph{arcs}. Given an arc $a=u \to v$, the \emph{head} of
 $a$ is $v$ and its \emph{tail} is $u$. We denote with $N^-(u) = \{v \colon v \to
-u\}$ and $N^+(u) = \{v \colon v \to u\}$ the in-neighbourhood and
+u\}$ and $N^+(u) = \{v \colon u \to v\}$ the in-neighbourhood and
 out-neighbourhood of $u$. If $N^-(u)=\emptyset$ then $u$ is a \emph{source},
 while if $N^+(u)=\emptyset$ then $u$ is a \emph{sink}.  An \emph{oriented graph}
 is a digraph such that for each pair $u,v$ of distinct vertices, $A(D)$ contains
@@ -376,19 +379,22 @@ vertices.
 Given a digraph $D$ and two $k$-paths $P = (u_0,\ldots, u_k)$ and
 $Q = (v_0,\ldots, v_k)$, we denote $D / \{P,Q\}$ the digraph obtained by
 identifying $P$ and $Q$, that is by replacing for each $i$, $u_i$ and $v_i$ by a
-new vertex $w_i$ whose inneighbourhood is $N^-(u_i) \cup N^-(v_i)$ and
-outneighbourhood is $N^+(u_i) \cup N^+(v_i)$. Formally, the vertex set of
+new vertex $w_i$ whose in-neighbourhood is $N^-(u_i) \cup N^-(v_i)$ and
+out-neighbourhood is $N^+(u_i) \cup N^+(v_i)$. Formally, the vertex set of
 $D/\{P,Q\}$ is
 $(V(D) \setminus \{u_0,\ldots,u_k,v_0,\ldots,v_k\}) \sqcup \{w_0, \ldots, w_k\}$
 and for all $xy \in A(D)$, we have $p(x)p(y) \in A(D/\{P,Q\})$, where $p(x)=x$
 if $x \in V(D) \setminus \{u_0,\ldots,u_k,v_0,\ldots,v_k\}$ and $p(x) = w_i$ if
 $x$ is equal to $u_i$ or $v_i$.
 
-Given a digraph $D$ and two $k$-paths $P = (u_0,\ldots, u_k)$ and $Q = (v_0,\ldots, v_k)$, we denote $D / \{P,Q\}$ the digraph obtained by identifying $P$ and $Q$, that is by replacing for each $i$, $u_i$ and $v_i$ by a new vertex $w_i$ whose in-neighbourhood is $N^-(u_i) \cup N^-(v_i)$ and out-neighbourhood is $N^+(u_i) \cup N^+(v_i)$. Formally, the vertex set of $D/\{P,Q\}$ is $(V(D) \setminus \{u_0,\ldots,u_k,v_0,\ldots,v_k\}) \sqcup \{w_0, \ldots, w_k\}$
-and for all $xy \in A(D)$, we have $p(x)p(y) \in A(D/\{P,Q\})$, where $p(x)=x$ if $x \in V(D) \setminus \{u_0,\ldots,u_k,v_0,\ldots,v_k\}$ and $p(x) = w_i$ if $x$ is equal to $u_i$ or $v_i$.
-For each $n\in \mathbb N$, the \emph{transitive tournament of order $n$} is the oriented graph $\orTn$ with vertex set $[n]$, where there is an arc $i\to j$ for each $1\leq i<j\leq n$.
-
-In this paper, the \emph{comb} of length $k$ is the graph $\Comb_k$ obtained from a path on $k$ edges (the \emph{jaw} of $\Comb_k$) to which we attach to each vertex an additional pendant edge (such edges are the \emph{teeth} of $\Comb_k$). The comb of length 0 is a single tooth. The at most two teeth attaching to the extremities of the jaw are called the \emph{molars}, while the other teeth are called the \emph{incisors}.  
+For each $n\in \mathbb N$, the \emph{transitive tournament of order $n$} is the
+oriented graph $\orTn$ with vertex set $[n]$, where there is an arc $i\to j$ for
+each $1\leq i<j\leq n$. In this article, the \emph{comb} of length $k$ is the
+graph $\Comb_k$ obtained from a path on $k$ edges (the \emph{jaw} of $\Comb_k$)
+to which we attach to each vertex an additional pendant edge (such edges are the
+\emph{teeth} of $\Comb_k$). The comb of length 0 is a single tooth. The teeth
+attached to each extremity of the jaw are called the \emph{molars},
+while the other teeth are called the \emph{incisors}.
  
 For a graph $G$, we let $\alpha(G)$ denote the maximum possible size of an
 independent set of $G$, and we let $\mathrm g(G)$ and $\og(G)$ denote
@@ -398,17 +404,19 @@ digraph, we will write $\chi(D)$ to denote the chromatic number of its support
 graph.
 
 \subsection{Line digraphs}
-For a digraph $D$, the \emph{line digraph} $L(D)$ of $D$ is the digraph whose vertices are the arcs
-of $D$ and in which there is an arc from $a$ to $b$ if the head of $a$ is the
-tail of $b$ in $D$, in other words when $a$ and $b$ are consecutive.
-We refer to
-$D$ as a \emph{root} digraph of $L(D)$. For $k\in \mathbb N$, the \emph{$k$-iterated line digraph}
-$L^k(D)$ of $D$ is then defined recursively by setting $L^k(D) = L(L^{k-1}(D))$ when $k\geq 1$, and
-$L^0(D) = D$. Equivalently, when $k\geq 1$, the vertices of $L^k(D)$ are the directed $k$-walks
-in $D$ and $L^k(D)$ contains an arc from $a$ to $b$ if the corresponding
-directed walks overlap on the $(k-1)$-suffix of $a$ and the $(k-1)$-prefix of
-$b$, namely $a = (v_0, \ldots, v_k)$ and $b=(v_1, \ldots, v_{k+1})$ with
-$(v_i,v_{i+1}) \in A(D)$ for all $0\leq i\leq k$. Observe that if $D$ is acyclic, then for each $k\geq 1$, the vertex set of $L^k(D)$ also corresponds to the set of $k$-paths of $D$.
+Given a digraph $D$, the \emph{line digraph} $L(D)$ of $D$ is the digraph whose
+vertices are the arcs of $D$ and in which there is an arc from $a$ to $b$ if the
+head of $a$ is the tail of $b$ in $D$, in other words when $a$ and $b$ are
+consecutive.  We refer to $D$ as a \emph{root} digraph of $L(D)$. For
+$k\in \mathbb N$, the \emph{$k$-iterated line digraph} $L^k(D)$ of $D$ is then
+defined recursively by setting $L^k(D) = L(L^{k-1}(D))$ when $k\geq 1$, and
+$L^0(D) = D$. Equivalently, when $k\geq 1$, the vertices of $L^k(D)$ are the
+directed $k$-walks in $D$ and $L^k(D)$ contains an arc from $a$ to $b$ if the
+corresponding directed walks overlap on the $(k-1)$-suffix of $a$ and the
+$(k-1)$-prefix of $b$, namely $a = (v_0, \ldots, v_k)$ and
+$b=(v_1, \ldots, v_{k+1})$ with $(v_i,v_{i+1}) \in A(D)$ for all
+$0\leq i\leq k$. Observe that if $D$ is acyclic, then for each $k\geq 1$, the
+vertex set of $L^k(D)$ also corresponds to the set of $k$-paths of $D$.
 
 The following result of Beineke characterises line digraphs of oriented graphs.
 \begin{lemma}[Beineke~\cite{beineke1968Derived}]\label{lem:forbidden_config}
@@ -427,6 +435,8 @@ The following result of Beineke characterises line digraphs of oriented graphs.
 \begin{figure}[htb]
   \centering  
   \includegraphics[scale=1]{Line_digraph}
+  \todo[inline]{Is it possible to slightly move the arrows of the crossing arcs
+    so that they do not overlap ?}
   \caption{The two configurations depicted in \cref{lem:forbidden_config}.}  
   \label{fig: Beineke}
 \end{figure}
@@ -468,15 +478,17 @@ The following result of Beineke characterises line digraphs of oriented graphs.
 %   \caption{Characterisation of orientations of line digraphs.}
 %   \label{fig:config_line_digraph}
 % \end{figure}
-Note that the second condition forbids parallel arcs in $D'$, while the first
-one ensures that all the arcs of $D'$ entering a fixed vertex have identical
+Note that the second condition forbids parallel arcs in $\orG$, while the first
+one ensures that all the arcs of $\orG$ entering a fixed vertex have identical
 out-neighbourhood in $D$. Moreover, note that these two conditions ensure that
 the only allowed orientation of a triangle is the cyclic one and the only
 allowed orientations of the 4-cycles of $D$ are the cyclic ones and the ones
 alternating at each vertex.
 
-Beineke's characterisation gives in particular a easy polynomial time algorithm to recognise line digraphs. On the other hand, Chv\'atal and Ebenegger proved that
-deciding if an unoriented graph is the support of a line digraph is NP-complete~\cite{chvatal1990Note}.
+Beineke's characterisation gives in particular a simple polynomial time
+algorithm to recognise line digraphs. On the other hand, Chv\'atal and Ebenegger
+proved that deciding if an unoriented graph is the support of a line digraph is
+NP-complete~\cite{chvatal1990Note}.
 
 \subsection{Shift graphs}
 % The class of $k$-shift graphs (or simply shift graphs for $k=2$) is the
@@ -485,27 +497,27 @@ deciding if an unoriented graph is the support of a line digraph is NP-complete~
 % that $k$-shift graphs are the supports of the $(k-1)$-iterated line digraphs of
 % all directed acyclic graphs.
 
-The \emph{shift graph sequence} is the sequence of graphs $(G_n)_{n\in \mathbb{N}}$, where $G_n$ is the graph whose vertices are all the ordered pairs $(a_1,a_2)$ of
-$[n]$ such that $1 \le a_1 < a_2 \le n$, in which two vertices $a = (a_1, a_2)$
-and $b = (b_1, b_2)$ are adjacent if $b_1 = a_2$ (or $a_1 = b_2$). Note that the vertex set of $G_n$ corresponds equivalently to the set of all closed intervals between two distinct integers in $[n]$.
-From this
-definition, it is straightforward to check that $G_n$ is the support of the line
-digraph of the transitive tournament $\orTn$.
+The \emph{shift graph sequence} is the sequence of graphs
+$(G_n)_{n\in \mathbb{N}}$, where $G_n$ is the graph whose vertices are all the
+ordered pairs $(a_1,a_2)$ of $[n]$ such that $1 \le a_1 < a_2 \le n$, in which
+two vertices $a = (a_1, a_2)$ and $b = (b_1, b_2)$ are adjacent if $b_1 = a_2$
+(or $a_1 = b_2$). Note that the vertex set of $G_n$ corresponds equivalently to
+the set of all closed intervals between two distinct integers in $[n]$, with
+edges between consecutive intervals. From
+this definition, it is straightforward to check that $G_n$ is the support of the
+line digraph of the transitive tournament $\orTn$.
 
 The class of \emph{shift graphs} is the hereditary closure of the graphs
-$(G_{n})_{n\in \mathbb{N}}$, that is, all induced subgraph of some
-$G_{n}$. Note that in the litterature, shift graphs might refer to what we will call later \emph{iterated shift graphs} in this paper.
-Observe that every shift graph admits a natural acyclic orientation, obtained when considering the arc $(a,b)\to(b,c)$ for each $1\leq a<b<c\leq n$. We call this orientation the \emph{shift orientation} and denote it with $\orGn$.
-% Note that this definition is equivalent to saying that
-% shift graphs are the supports of the line digraphs of all acyclic
-% digraphs. \ugo{Isn't it what is proved in next lemma?} 
-% Equivalently, shift graphs are often defined by the natural acyclic orientation that arises from their interval
-% representation: the
-% vertices of a shift graph are indexed by intervals $[a,b]$ with
-% $1 \le a < b \le n$, and contains an arc from $[a,b]$ to $[c,d]$ if $b =
-% c$. 
-Since for every oriented graph $\orG$, its line graph $L(\orG)$ is acyclic if and only if $\orG$ is acyclic, Beineke's
-characterisation immediately implies the following equivalence:
+$(G_{n})_{n\in \mathbb{N}}$, that is, all induced subgraph of some $G_{n}$. Note
+that in the litterature, shift graphs might refer to what we will call later
+\emph{iterated shift graphs} in this paper \clement{What I understand is rather
+  that ``generalized shift graphs'' correspond to our iterated shift graphs, but
+  our definitions of shift graphs match}. Observe that every shift graph admits
+a natural acyclic orientation, obtained when considering the arc $(a,b)\to(b,c)$
+for each $1\leq a<b<c\leq n$. We call this orientation the \emph{shift
+  orientation} and denote it with $\orGn$. Since for every oriented graph
+$\orG$, its line graph $L(\orG)$ is acyclic if and only if $\orG$ is acyclic,
+Beineke's characterisation immediately implies the following equivalence:
 \begin{lemma}\label{lem:valid}
   A graph is a shift graph if and only if it admits an acyclic
   orientation which is the line digraph of an oriented \ugo{acyclic?} graph.
@@ -513,51 +525,67 @@ characterisation immediately implies the following equivalence:
 \clement{it does not matter: $L(\orG)$ is acyclic if and only if $\orG$ is
   acyclic.
 }
-The next lemma is a folklore result. We include its proof as it is simple.
-
-\nicolas{I propose the following lemma, that is more general and
-  simplifies stuff later. Note that I use notation og for odd girth, defined with a
-  Declaremathoperator. 
-  \begin{lemma}\label{lem: line-graph}
-For any directed graph $G$, $\chi(L(G)) \geq \log \chi(G)$ and $\og(L(G))
-> \og(G)$. 
-    \end{lemma}
-\begin{proof}
-\ugo{The first inequality is proved in 
-\cite[Lemma 2.21]{GraphsandHomomorphisms}. I commented the proof}
-%   To prove the first inequality, consider a proper colouring $c$ of $L(G)$ using 
-%   $k$ colours. Then assign to every vertex $v$ of $G$ the set $S_v$ of
-%   all colours with of arcs entering $v$ (with respect to $c$). If
-%   $(u,v)$ is an arc of $G$, then as $c$ is a proper colouring,
-%   $c(u,v)\notin S_u$, so  $S_u\neq S_v$.  It follows that the mapping
-%   $u\mapsto S_u$ defines a proper colouring of $G$ using at most $2^k$ colours, showing $\chi(G) \leq 2^{\chi(L(G))}$ as desired.
-
-  The second inequality is well known and a self contained proof is
-  annoying to write. I suggest relying on the equivalence with paths,
-  and possibly moving the lemma after the explanations about iterated
-  shift graphs. 
-\end{proof}
-}
 
 As a result all 4-cycles in the natural orientation of a shift graph are
-alternating at each vertex and shift graphs are triangle-free. Shift graphs also
-have unbounded chromatic number:
-\begin{lemma}
-  For all $n$, $\chi(G_{2^n+1}) > n$.
+alternating at each vertex and shift graphs are triangle-free. The next lemma is
+a folklore result that shows that shift graphs also
+have unbounded chromatic number. We include its proof as it is simple.
+
+\begin{lemma}[Folklore]\label{lem:line-graph}
+  For any oriented acyclic graph $\orG$, $\chi(L(G)) \geq \log \chi(G)$ and $\og(L(G))
+  > \og(G)$. 
 \end{lemma}
-\ugo{Shall we add a citation?}
 \begin{proof}
-  Let $K:=\overrightarrow{T_{2^n+1}}$ be the transitive tournament of order $2^n+1$. Note that we then have
-  $L(K) = G_{2^n+1}$. Assume for a contradiction that there exists a proper $n$-colouring $\alpha$ of $G_{2^n+1}$. Let
-  $\beta: V(K)\to 2^{[n]}$ be the colouring of $K$ such that for each $v\in V(K)$, $\beta(v)$ is the set of colours
-  used by $\alpha$ to colour the arcs entering $v$. Then $\beta$ is a
-  proper colouring of the support of $K$. To see this, let $u$ and $v$ be two vertices of $K$
-  such that $u \to v$ in $K$. As $\alpha$ is a proper colouring of $L(K)$, and as the arcs entering $u$ use the colours in
-  $\beta(u)$, the arc $uv$ must be coloured in $\alpha$ by some colour in
-  $[n] \setminus \beta(u)$, hence $\beta(v) \neq \beta (u)$. However, the
-  support of $K$ is a clique on $2^{n}+1$ vertices, hence it cannot be coloured
-  with $2^n$ colours, a contradiction.
+  \ugo{The first inequality is proved in \cite[Lemma
+    2.21]{GraphsandHomomorphisms}. I commented the proof} \clement{I think the
+    proof is originally due to \cite[Theorem 4]{harner1972Arc} for transitive
+    tournaments, this adaptation to line digraphs of oriented graphs is nearly
+    identical. I would prefer to keep this proof, it is folklore but gives a
+    good understanding of the shift graph construction.}
+  
+  % To prove the first inequality, consider a proper colouring $c$ of $L(\orG)$
+  % using $k$ colours. Then assign to every vertex $v$ of $\orG$ the set $S_v$ of
+  % all colours with of arcs entering $v$ (with respect to $c$). If $(u,v)$ is
+  % an arc of $\orG$, then as $c$ is a proper colouring, $c(u,v)\notin S_u$, so
+  % $S_u\neq S_v$. It follows that the mapping $u\mapsto S_u$ defines a proper
+  % colouring of $\orG$ using at most $2^k$ colours, showing
+  % $\chi(G) \leq 2^{\chi(L(G))}$ as desired.
+
+  For the second inequality, let $C$ be a shortest odd cycle of $L(G)$. Let
+  $Q_1, \dots, Q_{2m}$ be directed paths such that for each $i$, the head of
+  $Q_{2i-1}$ and $Q_{2i}$ are equal, we denote it $u_{2i}$, the tail of $Q_{2i}$
+  and $Q_{2i+1 \mod 2m}$ are equal, we denote it $u_{2i+1}$, and such that $C$
+  is the concatenation of the paths $P_i$. As $\orG$ is acyclic, so it $L(\orG)$
+  and $Q_1, \dots, Q_{2m}$ are well defined. For each $i$, let $\ell_i$ be the
+  length of $Q_i$. We have $\ell_i \ge 2$ for each $i$, because otherwise $C$
+  would contain an alternating path of lentgh three, which by
+  \cref{lem:forbidden_config} implies that there exists a shorter odd cycle in
+  $L(G)$. Note that this argument fails if $C$ is a cycle of length four, which
+  is why the assumption that $C$ has odd length is needed. By definition of the
+  line digraph, $C$ each of the path $Q_i$ corresponds to a directed path $P_i$
+  of length $\ell_i +1$, whose first and last arcs are $u_{\lfloor i/2 \rfloor}$
+  and $u_{\lceil i/2 \rceil}$. So $\orG\left[\bigcup_i V(P_i)\right]$ contains a
+  cycle $B$ of length $\sum_i (\ell_i -1)$. So the length of $B$ is odd and
+  shorter that the length of $C$, which proves the second inequality.
 \end{proof}
+
+
+% \begin{lemma}
+%   For all $n$, $\chi(G_{2^n+1}) > n$.
+% \end{lemma}
+% \ugo{Shall we add a citation?}
+% \begin{proof}
+%   Let $K:=\overrightarrow{T_{2^n+1}}$ be the transitive tournament of order $2^n+1$. Note that we then have
+%   $L(K) = G_{2^n+1}$. Assume for a contradiction that there exists a proper $n$-colouring $\alpha$ of $G_{2^n+1}$. Let
+%   $\beta: V(K)\to 2^{[n]}$ be the colouring of $K$ such that for each $v\in V(K)$, $\beta(v)$ is the set of colours
+%   used by $\alpha$ to colour the arcs entering $v$. Then $\beta$ is a
+%   proper colouring of the support of $K$. To see this, let $u$ and $v$ be two vertices of $K$
+%   such that $u \to v$ in $K$. As $\alpha$ is a proper colouring of $L(K)$, and as the arcs entering $u$ use the colours in
+%   $\beta(u)$, the arc $uv$ must be coloured in $\alpha$ by some colour in
+%   $[n] \setminus \beta(u)$, hence $\beta(v) \neq \beta (u)$. However, the
+%   support of $K$ is a clique on $2^{n}+1$ vertices, hence it cannot be coloured
+%   with $2^n$ colours, a contradiction.
+% \end{proof}
 
 \paragraph{Iterated shift graphs.}
 For $k\geq 1$, the \emph{$k$-iterated shift graph} $G_{n,k}$ (sometimes referred to as generalised
@@ -713,9 +741,9 @@ have $G^{\ast 0}=G$.
   starting at the $(i+1)$\textsuperscript{th} vertex of $P_{uv}$ and ending in
   $V(P_{uv}) \cup V(P_v)$. Thus $G^{\ast s}$ is a subgraph of $L^k(H)$ and this
   subgraph is spanning because all $k$-paths of $H$ are of the form described above. All
-  vertices in $V(H) \setminus \{u^+ \colon u\in V(G)\}$ have outdegree equal to
+  vertices in $V(H) \setminus \{u^+ \colon u\in V(G)\}$ have out-degree equal to
   one and all vertices in $V(H) \setminus \{u^- \colon u\in V(G)\}$ have
-  indegree equal to one. So all the $k$-paths of $H$ that are not some $P_u$
+  in-degree equal to one. So all the $k$-paths of $H$ that are not some $P_u$
   have degree exactly two in $L^k(H)$. Combining this with the fact that the
   $k$-paths $P_u$ have degree $\deg_H^+(u^+) + \deg_H^-(u^-) = \deg_G(u)$, this
   proves that $G^{\ast s}$ is an induced subgraph of $L^k(H)$, so $L^k(H) =
@@ -996,7 +1024,7 @@ have $G^{\ast 0}=G$.
   exactly two colours.
 
   Consider the minimum value of $n\in \mathbb N$ such that the vertex transitive tournament $\orTn$ verifies
-  $\chi(L^k(\orTn))=4$. For each $i \in [n]$, let $v_i$ be the (unique) vertex of indegree
+  $\chi(L^k(\orTn))=4$. For each $i \in [n]$, let $v_i$ be the (unique) vertex of in-degree
   $i-1$ in $\orTn$. % Let $S_n$ be the subgraph of $T_n$ obtained by removing all
   % the arcs $v_jv_{n-i}$  for all $i \in \{0, \dots, k-1\}$ and 
   % $j<n-i-1$. The oriented graph $S_n$ consists of a transitive tournament on the
@@ -1495,7 +1523,7 @@ Note that \cref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are respecti
 %   each variable $x$, choose the unique valid orientation of $M_x$ such that
 %   $w^{0}_x \to v^{0}_x$ if $x$ is true (by \cref{cl:gadget_orientation} there
 %   exists only one such orientation). Then orient each copy of the four-sun such
-%   that each $t^{2i}_x$ has in and outdegree equal to two (by
+%   that each $t^{2i}_x$ has in and out-degree equal to two (by
 %   \cref{cl:sun_orientation}, there exists a unique such orientation for each
 %   $(x,i)$). The orientation of each variable gadget $L_x$ is drawn on
 %   \cref{fig:oriented_variable}.
