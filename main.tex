@@ -224,6 +224,10 @@ under grant 2022/47/B/ST6/02837 within the OPUS 24 program}
 
 
 \begin{abstract}
+  Shift graphs are one of the classical constructions of triangle-free graphs
+  with arbitrarily large chromatic number. We investigate the computational
+  complexity of the recognition, Maximum independent set and 3-Colouring
+  problems on shift graphs and prove that all three problems are NP-complete. 
   \todo[inline]{TODO, nicolas test git}
 \end{abstract}
 
@@ -292,13 +296,15 @@ problems are NP-complete for shift graphs.
 Surprisingly, one can observe
 from \cref{tab:complexity} that 3-Colouring is NP-complete in all known
 constructions of triangle-free graphs of high chromatic number, which motivates
-the following conjecture: \nicolas{we could be more general, by saying
+the following quesiton: \nicolas{we could be more general, by saying
 ``all non-$\chi$-bounded classes (in particular in all triangle-free hereditary graph classes of unbounded
   chromatic number).''}
-\begin{conjecture}
-  3-Colouring is NP-complete in all triangle-free hereditary graph classes of unbounded
-  chromatic number.
-\end{conjecture}
+\begin{question}\label{qu:3col}
+  Is 3-Colouring NP-complete on all non-$\chi$-bounded class?
+\end{question}
+The most natural candidates for possible counterexamples to \cref{qu:3col} are
+the classes of Kneser and
+Schrijver graphs.   
 \ugo{We should check first whether Kneser/Schrijver constructions do not give a counterexample... Also, do you really want to state it as a Conjecture, and not as a Question?}
 
 For most of the constructions from \cref{tab:complexity} of triangle-free graphs
@@ -504,7 +510,9 @@ characterisation immediately implies the following equivalence:
   A graph is a shift graph if and only if it admits an acyclic
   orientation which is the line digraph of an oriented \ugo{acyclic?} graph.
 \end{lemma}
-
+\clement{it does not matter: $L(\orG)$ is acyclic if and only if $\orG$ is
+  acyclic.
+}
 The next lemma is a folklore result. We include its proof as it is simple.
 
 \nicolas{I propose the following lemma, that is more general and
