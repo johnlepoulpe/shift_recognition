@@ -1229,10 +1229,18 @@ odd-girth as in \cref{thm:3col}), 3-colouring becomes a trivial problem.
   $X$).  Note that $A_{X\to Y}$ and $A_{X\to Y}$ both form independent sets in
   $G$. We color all vertices of $A_{X\to Y}$ with one colour, say 1.
   
-  We now show that the arcs of $A_X\cup A_Y \cup A_{Y\to X}$
-  form a forest in $G$, and therefore can be coloured with two additional colours, which
-  results in a proper 3-arc-colouring of $\orH$. 
-  First, observe that as $X$ does not contain vertices with in-degree $2$, $\orH[X]=(X,A_X)$ must be an out-forest. Symmetrically, $\orH[Y]=(Y,A_Y)$ is an in-forest. Eventually, observe that the arcs of $A_{Y\to X}$ must form a matching, and can only connect a root of some component of $\orH[Y]$ to a root of some component of $\orH[X]$. It follows that the induced subgraph $G[A_X\cup A_Y\cup A_{Y\to X}]$ must be a forest. More precisely, one can observe this graph is isomorphic to the graph obtained when contracting each edge of the matching $A_{Y\to X}$, and when removing all roots of those components of $\orH[X]$ and $\orH[Y]$ which are not incident to some arc in $A_{Y\to X}$. 
+  We now show that the arcs of $A_X\cup A_Y \cup A_{Y\to X}$ form a forest in
+  $G$, and therefore can be coloured with two additional colours, which results
+  in a proper 3-arc-colouring of $\orH$.  First, observe that as $X$ does not
+  contain vertices with in-degree $2$, $\orH[X]=(X,A_X)$ must be an
+  out-forest. Symmetrically, $\orH[Y]=(Y,A_Y)$ is an in-forest. Observe also
+  that the arcs of $A_{Y\to X}$ must form a matching, and can only connect a
+  root of some component of $\orH[Y]$ to a root of some component of
+  $\orH[X]$. It follows that the induced subgraph
+  $G[A_X\cup A_Y\cup A_{Y\to X}]$ is a forest. More precisely, one can observe
+  this graph is isomorphic to the graph obtained when contracting each edge of
+  the matching $A_{Y\to X}$, and when removing all roots of those components of
+  $\orH[X]$ and $\orH[Y]$ which are not incident to some arc in $A_{Y\to X}$.
 \end{proof}
 \section{Recognising shift graphs}\label{sec:recognition}
 
