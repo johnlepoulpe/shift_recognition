@@ -1278,8 +1278,8 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   variables. Let $H$ be the 4-sun, that is the graph on eight vertices composed
   of a 4-cycle with one pendant edge attached to each of the vertices on the
   cycle. For each variable $x$, consider the gadget composed of a path $U_x$ on
-  $8m+1$ vertices. Denote $u_x^1, \dots u_x^{4m}$ every other vertex of $U_x$,
-  starting from the second vertex of $U_x$. For each $i \in \{0, \ldots, 4m-1\}$
+  $8m+1$ vertices. Denote $u_x^0, \dots u_x^{4m-1}$ every other vertex of $U_x$,
+  starting from the second vertex of $U_x$. For each $i \in \{0, \dots, 4m-1\}$
   we connect $u_x^{i}$ to the first vertex of the jaw of a comb $Q_i$ of length
   $k+1$. Denote $v_x^{i}$ the last vertex of the jaw of this comb and
   $w_x^{i}$ the vertex adjacent to $v_x^{i}$ via the last tooth.%  \ugo{Why not
@@ -1289,8 +1289,8 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   will call $t_x^{i}$ (see \cref{fig:variable_gadget}). For each variable $x$,
   let $L_x$ denote a disjoint copy of this graph, and let $M_x$ be the subgraph
   of $L_x$ obtained by removing all vertices of the graphs $H_x^i$, except the
-  $t_x^{i}$'s. In particular, $M_x$ is connected and contains
-  $\bigcup_{i=1}^{4m} \{t_x^{i}, u_x^{i}, v_x^{i}, w_x^{i}\}$.
+  vertices $(t_x^{i})_{0 \le i \le 4m-1}$. In particular, $M_x$ is connected and contains
+  $\bigcup_{i=0}^{4m-1} \{t_x^{i}, v_x^{i}, w_x^{i}\} \cup V(U_x)$.
 
 
   \begin{figure}[h!]
@@ -1347,19 +1347,19 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
       }
       
       
-      \node[below right=-.15cm] at (H011) {\footnotesize $t_x^1$};
-      \node[below right=-.15cm] at (a0) {\footnotesize $u_x^1$};
-      \node[below left=-.1cm] at (e03) {\footnotesize $v_x^1$};
-      \node[below left=-.1cm] at (d03) {\footnotesize $w_x^1$};
+      \node[below right=-.15cm] at (H011) {\footnotesize $t_x^0$};
+      \node[below right=-.15cm] at (a0) {\footnotesize $u_x^0$};
+      \node[below left=-.1cm] at (e03) {\footnotesize $v_x^0$};
+      \node[below left=-.1cm] at (d03) {\footnotesize $w_x^0$};
       \node[below right=-.15cm] at (H111) {\footnotesize $t_x^1$};
       \node[below right=-.15cm] at (a1) {\footnotesize $u_x^1$};
       % \node[below right=-.15cm] at (b0) {\footnotesize $u_x^1$};
       \node[below left=-.1cm] at (e13) {\footnotesize $v_x^1$};
       \node[below left=-.1cm] at (d13) {\footnotesize $w_x^1$};
-      \node[below right=-.15cm] at (H311) {\footnotesize $t_x^{4m}$};
-      \node[below right=-.15cm] at (a3) {\footnotesize $u_x^{4m}$};
-      \node[below left=-.1cm] at (e33) {\footnotesize $v_x^{4m}$};
-      \node[below left=-.1cm] at (d33) {\footnotesize $w_x^{4M}$};
+      \node[below right=-.15cm] at (H311) {\footnotesize $t_x^{4m-1}$};
+      \node[below right=-.15cm] at (a3) {\footnotesize $u_x^{4m-1}$};
+      \node[below left=-.1cm] at (e33) {\footnotesize $v_x^{4m-1}$};
+      \node[below left=-.1cm] at (d33) {\footnotesize $w_x^{4m-1}$};
 
       \draw [decorate,decoration={brace,amplitude=5pt,mirror,raise=1ex}] (e33)
       -- (e31) node[midway,xshift=4ex]{\footnotesize $k+1$};
@@ -1369,19 +1369,19 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
     \label{fig:variable_gadget}    
   \end{figure}
   
-  For each $i \in \{0, \ldots, m-1\}$, if $x,y,z$ denote the three variables appearing in the $i$\textsuperscript{th} clause of $\phi$, 
-  we attach the gadgets $L_x$, $L_y$ and
-  $L_z$ as follows. Add three edges to form a path $a_ib_ic_id_i$,
-  where $a_i=w_x^{8i}$, $b_i=w_y^{8i+2}$, $c_i=w_y^{8i+6}$ and $d_i=w_z^{8i}$,
-  so that the vertex set
-  $\{w_x^{8i}, w_y^{8i+2}, w_y^{8i+6}, w_z^{8i}, v_x^{8i}, v_y^{8i+2},
-  v_y^{8i+6}, v_z^{8i}\}$ forms a comb $C_i$ of length three, with jaw $w^{8i}_xw_y^{8i+2}w_y^{8i+6}w_z^{8i}$. Denote
-  $G_\phi$ the constructed graph.
+  For each $i \in \{0,\dots, m-1\}$, if $x,y,z$ denote the three variables
+  appearing in the $i$\textsuperscript{th} clause of $\phi$, we attach the
+  gadgets $L_x$, $L_y$ and $L_z$ as follows. Add three edges to form a path
+  $a_ib_ic_id_i$, where $a_i=w_x^{4i}$, $b_i=w_y^{4i+1}$, $c_i=w_y^{4i+3}$ and
+  $d_i=w_z^{4i}$, so that the vertex set
+  $\{w_x^{4i}, w_y^{4i+1}, w_y^{4i+3}, w_z^{4i}, v_x^{4i}, v_y^{4i+1},
+  v_y^{4i+3}, v_z^{4i}\}$ forms a comb $C_i$ of length three, with jaw
+  $w^{4i}_xw_y^{4i+1}w_y^{4i+3}w_z^{4i}$. Denote $G_\phi$ the constructed graph.
 
   \paragraph{Valid orientations of $G_\phi$.}
   We call an orientation of a graph \emph{valid} if 
   it is a line
-  digraph of an acyclic oriented graph. In other words, valid orientations are exactly the acyclic orientations satisfying the two conditions of \cref{lem: line-graph}.
+  digraph of an acyclic oriented graph. In other words, valid orientations are exactly the acyclic orientations satisfying the two conditions of \cref{lem:line-graph}.
   Before proving that there is a valuation such that
   $\phi$ is a positive instance of $\MNAE$
 %   has both variables set to true and false in each clause 
@@ -1425,11 +1425,14 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
     \label{fig:sun_orientation}
   \end{figure}
   \begin{poc}
-    Consider $\orH$ a valid orientation of $H$.     By~\cref{lem:valid}, the 4-cycle
-    $C$ of $H'$ is alternating at each vertex. \ugo{I do not think that it is enough... I suggest the next arguments (in red).
+    Consider $\orH$ a valid orientation of $H$. Recall that by~\cref{lem:valid},
+    the 4-cycles are alternating at each vertex in a shift orientation of shift graph. \ugo{I do not think that it is enough... I suggest the next arguments (in red).
     
     As $\orH$ is acyclic, the 4-cycle $C$ of $H$ contains at least one sink and one source (with respect to the induced orientation on the cycle). Moreover, note that every such orientation $\overrightarrow{C}$ of $C$ containing one transitive vertex contradicts either of the two conditions from \cref{lem:valid}. It implies that the orientation of $C$ induced by $\orH$ is the alternating orientation depicted in \cref{fig:sun_orientation}.} 
-    
+
+  \clement{We wrote below \cref{lem:valid} that it implies that 4 cycles are
+    alternating in shift graphs}
+  
     Now let $v$ be a vertex of degree
     three in $H$. Without loss of generality, assume that $v$ has no in-neighbour in
     $C$, i.e.\ that it is a source of $C$. Let $u$ be the unique neighbour of $v$ which is not on $C$, and $w$ and $x$ be two
@@ -1441,10 +1444,10 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
     Consider a valid orientation of $L_x$ for some fixed variable $x$. Then there are only two possible
     orientations for its restriction to $M_x$, which are opposite from each other, and such that
     \begin{itemize}
-     \item if $w_x^0 \to v_x^0$ then for all $i$, we have $w_x^{2i} \to v_x^{2i}$ if $i$
-    is even and $v_x^{2i} \to w_x^{2i}$ if $i$ is odd,
-    \item if $v_x^0 \to w_x^0$ then for all $i$, we have $v_x^{2i} \to w_x^{2i}$ if $i$
-    is even and $w_x^{2i} \to v_x^{2i}$ if $i$ is odd.
+     \item if $w_x^0 \to v_x^0$ then for all $i$, we have $w_x^{i} \to v_x^{i}$ if $i$
+    is even and $v_x^{i} \to w_x^{i}$ if $i$ is odd,
+    \item if $v_x^0 \to w_x^0$ then for all $i$, we have $v_x^{i} \to w_x^{i}$ if $i$
+    is even and $w_x^{i} \to v_x^{i}$ if $i$ is odd.
     \end{itemize}
   \end{claim}
   \begin{poc}
@@ -1456,10 +1459,18 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
 
     We first show that for each $i\in \{0,\ldots,4m-1\}$, we have the following
     \begin{enumerate}
-     \item\label{item:sink} if $t^{2i}_x \to u^{2i}_x$ in $\orLx$, then $u^{2i}_x$ is a sink in $\orLx-t_x^{2i}$,
-     \item\label{item:source} if $u^{2i}_x \to t^{2i}_x$ in $\orLx$, then $t^{2i}_x$ is a source in $\orLx-t_x^{2i}$.
+    \item\label{item:source} if $t^{i}_x \to u^{i}_x$ in $\orLx$, then $u^{i}_x$
+      is a source in $\orLx-t_x^{i}$,
+    \item\label{item:sink} if $u^{i}_x \to t^{i}_x$ in $\orLx$, then $t^{i}_x$
+      is a sink in $\orLx-t_x^{i}$.
     \end{enumerate}
-    We only show \ref{item:sink}, as \ref{item:source} is symmetric. For this we let $i \in \{0,\ldots,4m-1\}$ and assume that $t^{2i}_x \to u^{2i}_x$ in $\orLx$. By \cref{cl:sun_orientation}, $t^{2i}_x$ is transitive in $\orHxi$, and thus has an out-neighbour in $\orLx$ distinct from $u_x^{2i}$. In particular, note that the first condition of \cref{lem:forbidden_config} then implies that $u^{2i}_x$ cannot have an in-neighbour in $\orLx-t^{2i}_x$, showing \ref{item:sink}.
+    We only show \ref{item:source}, as \ref{item:sink} is symmetric. Let
+    $i \in \{0,\ldots,4m-1\}$ and assume that $t^{i}_x \to u^{i}_x$ in
+    $\orLx$. By \cref{cl:sun_orientation}, $t^{i}_x$ is transitive in $\orHxi$,
+    and thus has an out-neighbour in $\orLx$ distinct from $u_x^{2i}$. In
+    particular, note that the first condition of \cref{lem:forbidden_config}
+    then implies that $u^{2i}_x$ cannot have an in-neighbour in
+    $\orLx-t^{2i}_x$, showing \ref{item:source}.
     
     Using once again the first condition of \cref{lem:forbidden_config}, observe that moreover, the vertices $u^{2i}$ satisfying \ref{item:sink} and \ref{item:source} must alternate on the path $u_x^0,\ldots,u^{8m-2}_x$.    
     In particular, as we assumed $w_x^0\to v_x^0$, this implies that for each $i\in \{0,\ldots, 4m-1\}$, if $i$ is even, then $u_x^{2i}$ satisfies \ref{item:sink}, while if $i$ is odd, then $u_x^{2i}$ satisfies \ref{item:source}. 
