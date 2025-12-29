@@ -1274,21 +1274,23 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   instance of \textsc{MNAE-3SAT}. 
 
   \paragraph{Gadgets.}
-  We first describe a gadget that will be used later for encoding the variables. Let $H$ be the 4-sun,
-  that is the graph on eight vertices composed of a 4-cycle with one pendant
-  edge attached to each of the vertices on the cycle. For each variable $x$,
-  consider the gadget composed of a path on $8m+1$ vertices
-  $u_x^{-1}, \dots, u_x^{8m-1}$ in which for each $i \in \{0, \ldots, 4m-1\}$ we
-  connect $u_x^{2i}$ to the  first vertex of the jaw of a comb $Q_i$
-  of length $k+1$. Denote $v_x^{2i}$ the last vertex of the jaw of this
-  comb and $w_x^{2i}$ the vertex adjacent to $v_x^{2i}$ via the last tooth. \ugo{Why not simply call them $v_x^i$ and $w_x^i$?}
-  Connect each $u_x^{2i}$ to a distinct copy $H_x^i$ of $H$ via one of its vertices of
-  degree three that we will call $t_x^{2i}$ (see
-  \cref{fig:variable_gadget}). For each variable $x$, let $L_x$ denote a disjoint copy of
-  this graph, and let $M_x$ be the subgraph of $L_x$ obtained by removing
-  all vertices of the graphs $H_x^i$, except the $t_x^{2i}$'s. In particular, $M_x$ is connected and contains
-  $\bigcup_{i=0}^{4m-1} \{t_x^{2i}, u_x^{2i}, u_x^{2i+1}, v_x^{2i},
-  w_x^{2i}\}$.
+  We first describe a gadget that will be used later for encoding the
+  variables. Let $H$ be the 4-sun, that is the graph on eight vertices composed
+  of a 4-cycle with one pendant edge attached to each of the vertices on the
+  cycle. For each variable $x$, consider the gadget composed of a path $U_x$ on
+  $8m+1$ vertices. Denote $u_x^1, \dots u_x^{4m}$ every other vertex of $U_x$,
+  starting from the second vertex of $U_x$. For each $i \in \{0, \ldots, 4m-1\}$
+  we connect $u_x^{i}$ to the first vertex of the jaw of a comb $Q_i$ of length
+  $k+1$. Denote $v_x^{i}$ the last vertex of the jaw of this comb and
+  $w_x^{i}$ the vertex adjacent to $v_x^{i}$ via the last tooth.%  \ugo{Why not
+    % simply call them $v_x^i$ and $w_x^i$?}
+  Connect each $u_x^{i}$ to a
+  distinct copy $H_x^i$ of $H$ via one of its vertices of degree three that we
+  will call $t_x^{i}$ (see \cref{fig:variable_gadget}). For each variable $x$,
+  let $L_x$ denote a disjoint copy of this graph, and let $M_x$ be the subgraph
+  of $L_x$ obtained by removing all vertices of the graphs $H_x^i$, except the
+  $t_x^{i}$'s. In particular, $M_x$ is connected and contains
+  $\bigcup_{i=1}^{4m} \{t_x^{i}, u_x^{i}, v_x^{i}, w_x^{i}\}$.
 
 
   \begin{figure}[h!]
@@ -1345,19 +1347,19 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
       }
       
       
-      \node[below right=-.15cm] at (H011) {\footnotesize $t_x^0$};
-      \node[below right=-.15cm] at (a0) {\footnotesize $u_x^0$};
-      \node[below left=-.1cm] at (e03) {\footnotesize $v_x^0$};
-      \node[below left=-.1cm] at (d03) {\footnotesize $w_x^0$};
-      \node[below right=-.15cm] at (H111) {\footnotesize $t_x^2$};
-      \node[below right=-.15cm] at (a1) {\footnotesize $u_x^2$};
-      \node[below right=-.15cm] at (b0) {\footnotesize $u_x^1$};
-      \node[below left=-.1cm] at (e13) {\footnotesize $v_x^2$};
-      \node[below left=-.1cm] at (d13) {\footnotesize $w_x^2$};
-      \node[below right=-.15cm] at (H311) {\footnotesize $t_x^{8m-2}$};
-      \node[below right=-.15cm] at (a3) {\footnotesize $u_x^{8m-2}$};
-      \node[below left=-.1cm] at (e33) {\footnotesize $v_x^{8m-2}$};
-      \node[below left=-.1cm] at (d33) {\footnotesize $w_x^{8m-2}$};
+      \node[below right=-.15cm] at (H011) {\footnotesize $t_x^1$};
+      \node[below right=-.15cm] at (a0) {\footnotesize $u_x^1$};
+      \node[below left=-.1cm] at (e03) {\footnotesize $v_x^1$};
+      \node[below left=-.1cm] at (d03) {\footnotesize $w_x^1$};
+      \node[below right=-.15cm] at (H111) {\footnotesize $t_x^1$};
+      \node[below right=-.15cm] at (a1) {\footnotesize $u_x^1$};
+      % \node[below right=-.15cm] at (b0) {\footnotesize $u_x^1$};
+      \node[below left=-.1cm] at (e13) {\footnotesize $v_x^1$};
+      \node[below left=-.1cm] at (d13) {\footnotesize $w_x^1$};
+      \node[below right=-.15cm] at (H311) {\footnotesize $t_x^{4m}$};
+      \node[below right=-.15cm] at (a3) {\footnotesize $u_x^{4m}$};
+      \node[below left=-.1cm] at (e33) {\footnotesize $v_x^{4m}$};
+      \node[below left=-.1cm] at (d33) {\footnotesize $w_x^{4M}$};
 
       \draw [decorate,decoration={brace,amplitude=5pt,mirror,raise=1ex}] (e33)
       -- (e31) node[midway,xshift=4ex]{\footnotesize $k+1$};
