@@ -3,7 +3,7 @@
 
 \usepackage[utf8]{inputenc}
 %\usepackage{polski}
-\usepackage[lf,enc=t1]{berenis}
+ \usepackage[lf,enc=t1]{berenis}
 %\usepackage[main=english,polish]{babel}
 
 \renewcommand{\baselinestretch}{1}
@@ -13,7 +13,7 @@
 %%%%% Fonts, symbols, colours, microtypography
 \usepackage{amsfonts,amsmath,amssymb,amsthm,mathtools,microtype} % Symbols &microtypography
 \usepackage[dvipsnames]{xcolor} % Colours with names -- see https://www.overleaf.com/learn/latex/Using_colours_in_LaTeX for list
-\usepackage[noBBpl]{mathpazo} % Palatino, but not for mathbb
+ \usepackage[noBBpl]{mathpazo} % Palatino, but not for mathbb
 
 %%%%% Figures, tables, lists
 \usepackage[labelsep=period,labelfont=bf,justification=centering]{caption}
@@ -372,20 +372,24 @@ a vertex $u$ of a digraph $D$ is \emph{transitive} if it is neither a source nor
 a sink. For $k\in \mathbb N$, a \emph{$k$-walk} (resp.\ \emph{$k$-path}) is a
 sequence $(v_0,\ldots, v_k)$ of $k+1$ (distinct) vertices such that $v_i\to
 v_{i+1}$ for each $0\leq i\leq k-1$. Then \emph{length} of a path is defined as
-its number of edges.  The \emph{$k$-prefix} (resp.\ \emph{$k$-suffix}) of a path
+its number of edges. The \emph{$k$-prefix} (resp.\ \emph{$k$-suffix}) of a path
 $P$ is the subpath obtained when keeping only its $k+1$ first (resp.\ last)
 vertices.
 
-Given a digraph $D$ and two $k$-paths $P = (u_0,\ldots, u_k)$ and
-$Q = (v_0,\ldots, v_k)$, we denote $D / \{P,Q\}$ the digraph obtained by
-identifying $P$ and $Q$, that is by replacing for each $i$, $u_i$ and $v_i$ by a
-new vertex $w_i$ whose in-neighbourhood is $N^-(u_i) \cup N^-(v_i)$ and
-out-neighbourhood is $N^+(u_i) \cup N^+(v_i)$. Formally, the vertex set of
-$D/\{P,Q\}$ is
+Let $D$ be a digraph and let $P$ and $Q$ be two $k$-paths
+$P = (u_0,\ldots, u_k)$ and $Q = (v_0,\ldots, v_k)$ such that $P$ and $Q$ are
+vertex disjoint and there are no arcs between $V(P)$ and $V(Q)$. We
+then denote $D / \{P,Q\}$ the digraph obtained by identifying $P$ and $Q$, that
+is by replacing for each $i$, $u_i$ and $v_i$ by a new vertex $w_i$ whose
+in-neighbourhood is $N^-(u_i) \cup N^-(v_i)$ and out-neighbourhood is
+$N^+(u_i) \cup N^+(v_i)$. Formally, the vertex set of $D/\{P,Q\}$ is
 $(V(D) \setminus \{u_0,\ldots,u_k,v_0,\ldots,v_k\}) \sqcup \{w_0, \ldots, w_k\}$
 and for all $xy \in A(D)$, we have $p(x)p(y) \in A(D/\{P,Q\})$, where $p(x)=x$
 if $x \in V(D) \setminus \{u_0,\ldots,u_k,v_0,\ldots,v_k\}$ and $p(x) = w_i$ if
-$x$ is equal to $u_i$ or $v_i$.
+$x$ is equal to $u_i$ or $v_i$. This operation is well-defined: each vertex
+$u_i$ or $v_i$ corresponds to a unique $w_i$ because $V(P)$ and $V(Q)$ are
+disjoint, and $D/ \{P,Q\}$ contains no loop because there are no arcs between
+$V(P)$ and $V(Q)$.
 
 For each $n\in \mathbb N$, the \emph{transitive tournament of order $n$} is the
 oriented graph $\orTn$ with vertex set $[n]$, where there is an arc $i\to j$ for
@@ -562,11 +566,12 @@ have unbounded chromatic number. We include its proof as it is simple.
   \cref{lem:forbidden_config} implies that there exists a shorter odd cycle in
   $L(G)$. Note that this argument fails if $C$ is a cycle of length four, which
   is why the assumption that $C$ has odd length is needed. By definition of the
-  line digraph, $C$ each of the path $Q_i$ corresponds to a directed path $P_i$
-  of length $\ell_i +1$, whose first and last arcs are $u_{\lfloor i/2 \rfloor}$
-  and $u_{\lceil i/2 \rceil}$. So $\orG\left[\bigcup_i V(P_i)\right]$ contains a
-  cycle $B$ of length $\sum_i (\ell_i -1)$. So the length of $B$ is odd and
-  shorter that the length of $C$, which proves the second inequality.
+  line digraph, each of the path $Q_i$ corresponds to a directed path $P_i$ of
+  $\orG$ of length $\ell_i +1$, whose first and last arcs are $u_{i}$ and
+  $u_{i+1}$ (or $u_i$ and $u_{i+1}$ depending on the parity of $i$). So
+  $\orG\left[\bigcup_i V(P_i)\right]$ contains a cycle $B$ of length
+  $\sum_i (\ell_i -1) = |C| - 2m$, which is odd and shorter that the length of $C$. This
+  proves the second inequality.
 \end{proof}
 
 
@@ -588,62 +593,115 @@ have unbounded chromatic number. We include its proof as it is simple.
 % \end{proof}
 
 \paragraph{Iterated shift graphs.}
-For $k\geq 1$, the \emph{$k$-iterated shift graph} $G_{n,k}$ (sometimes referred to as generalised
-shift graph, or shift graph) is the graph whose vertices are ordered $(k+1)$-tuples
-$(a_0, \ldots, a_k)$ of $[n]$ such that $1 \le a_0 < a_1 < \ldots < a_k \le n$,
-in which two vertices $a = (a_0, \ldots, a_k)$ and $b = (b_0, \ldots, b_k)$ are
-adjacent if $b_i = a_{i+1}$ for all $i \in [k-1]$ (or $a_i = b_{i+1}$ for all
-$i \in [k-1]$). 
-From this definition, it is straightforward to check that
-$G_{n,k}$ is the support of the $k$-iterated line digraph $L^k(T_n)$ of the transitive
-tournament $\orTn$. Note that for each $n\in \mathbb N$, $G_{n,2}$ corresponds exactly to the shift graph $G_n$ defined earlier, and that as before, $G_{n,k}$ admits a natural acyclic orientation, which we call its \emph{shift orientation}, and denote by $\orGnk$. Note also that for each $k\geq 1$, the graph $G_{n,k}$ is a shift graph, we respect to the definition we gave above, i.e.\ it is an induced subgraph of one of the graphs $G_n$. A simple way to see this is to observe that when $k\geq 2$, $G_{n,k}$ is the line digraph of the acyclic oriented graph $L^{k-1}(\orTn)$.
+For $k\geq 1$, the \emph{$k$-iterated shift graph} $G_{n,k}$ (sometimes referred
+to as generalised shift graph, or shift graph) is the graph whose vertices are
+ordered $(k+1)$-tuples $(a_0, \ldots, a_k)$ of $[n]$ such that
+$1 \le a_0 < a_1 < \ldots < a_k \le n$, in which two vertices
+$a = (a_0, \ldots, a_k)$ and $b = (b_0, \ldots, b_k)$ are adjacent if
+$b_i = a_{i+1}$ for all $i \in [k-1]$ (or $a_i = b_{i+1}$ for all
+$i \in [k-1]$).  From this definition, it is straightforward to check that
+$G_{n,k}$ is the support of the $k$-iterated line digraph $L^k(\orTn)$, where
+$\orTn$ is the transitive tournament on $n$ vertices. Note that for each
+$n\in \mathbb N$, $G_{n,2}$ corresponds exactly to the shift graph $G_n$ defined
+earlier, and that as before, $G_{n,k}$ admits a natural acyclic orientation,
+which we call its \emph{shift orientation}, and denote by $\orGnk$. Note also
+that for each $k\geq 1$, the graph $G_{n,k}$ is a shift graph with respect to
+the definition we gave above, i.e.\ it is an induced subgraph of one of the
+graphs $(G_{n})_{n\in \mathbb{N}}$ because $\orGnk$ is the line digraph of the acyclic oriented
+graph $L^{k-1}(\orTn)$.
  
-The main interest of considering the graphs $G_{n,k}$ is that they give a families of graphs with unbounded chromatic number and arbitrarily large odd girth. More precisely, it is not hard to preve that for every $k\geq 1$ and $n\in \mathbb N$,
-$G_{n,k}$ has odd-girth 
-at least $2k+3$ (see for example \cite[Lemma 2.22]{GraphsandHomomorphisms}), and that by \cref{lem: line-graph}, $(G_{n,k})_{n \in \mathbb{N}}$ chromatic number at least $\log^{(k)}(n)$, where $\log^{(k)}$ denotes the $k$-iterated logarithm function. The class of the
-\emph{$k$-iterated shift graphs} is the hereditary closu`re of
-$(G_{n,k})_{n \in \mathbb{N}}$, or equivalently, the class of all induced subgraphs of
-$k$-line digraphs of acyclic digraphs.
+The main interest of considering the graphs $G_{n,k}$ is that they form a family
+of graphs with unbounded chromatic number and arbitrarily large odd girth. More
+precisely, by \cref{lem:line-graph}, for every $k\geq 1$ and $n\in \mathbb N$,
+$G_{n,k}$ has odd-girth at least $2k+3$ % (see for example
+% \cite[Lemma 2.22]{GraphsandHomomorphisms}),
+and chromatic number at least $\log^{(k)}(n)$, where $\log^{(k)}$ denotes the
+$k$-iterated logarithm function. The class of \emph{$k$-iterated shift graphs}
+is the hereditary closure of $(G_{n,k})_{n \in \mathbb{N}}$, or equivalently,
+the class of all induced subgraphs of $k$-line digraphs of acyclic digraphs.
+
+Given an acyclic digraph $\orG$ and an induced subdigraph $\orH$ of $L^k(\orG)$,
+we call \emph{$k$-shift embedding} of $\orH$ in $\orG$ any injective map $\phi$
+from the vertices of $\orH$ to the $k$-paths of $\orG$ such that for all
+$u,v\in V(\orH)$, $u\to v$ in $\orH$ if and only if the $(k-1)$-prefix of
+$\phi(v)$ is the $(k-1)$-suffix of $\phi(u)$. We say that $\phi$ is
+\emph{convex} if for every $u,v,w \in V(\orH)$ such that $v$ is on a
+(non-directed) path from $u$ to $w$, then
+$V(\phi(u))\cap V(\phi(w)) \subseteq V(\phi(v))$. The next lemma shows that
+$k$-shift embeddings commute with identification:
+
+\ugo{I do not  understand at all the next lemma... Could you define what it does mean to identify $\phi(u)$ with $\phi(v)$? Is $G$ oriented?}
+\begin{lemma}\label{lem:gluing}
+  Let $\orH$ and $\orG$ be two oriented graphs and $\phi$ be a $k$-shift embedding of
+  $\orH$ in $\orG$. Let $u,v$ be two vertices of $\orH$, such that $\phi(u)$ and
+  $\phi(v)$ are vertex disjoint, and there are no arcs $\phi(u)$ between $\phi(v)$,
+  and no directed path from $u$ to $v$ or vice-versa. Then there exists a $k$-shift
+  embedding of $\orH / \{u,v\}$ in $\orG / \{\phi(u),\phi(v)\}$, which are both
+  oriented graphs.
+\end{lemma}
+
+\begin{proof}
+  First, note that the identification is well-defined because $\phi(u)$ and
+  $\phi(v)$ are vertex-disjoint and have no arc between them. Moreover, these
+  identifications create no directed cycles because there are no directed paths
+  between $V(\phi(u))$ and $V(\phi(v))$ in $\orG$, and in particular between $u$
+  and $v$ in $\orH$. Hence $\orH/\{u,v\}$ and $\orG/\{\phi(u),\phi(v)\}$ are
+  oriented graphs.
 
 
-Given an acyclic digraph $D$ and an induced subdigraph $H$ of $L^k(D)$, we
-call \emph{$k$-shift embedding} of $H$ in $D$ any map $\phi$ from the vertices
-of $H$ to the $k$-paths of $D$ such that for all $u,v\in V(H)$, $u\to v$ in $H$ if and
-only if the $(k-1)$-prefix of $\phi(v)$ is the $(k-1)$-suffix of $\phi(u)$. \ugo{Do you also want $\phi$ to be injective?} %   We
-% say that $\phi(u)$ is \emph{private} if for all $v \in V(H) \setminus \{u\}$,
-% the $(k-1)$-prefixes of $\phi(u)$ and $\phi(v)$ are different and likewise for
-% their $(k-1)$-suffixes.
-We say that $\phi$ is \emph{convex} if for every
-$u,v,w \in V(H)$ such that $v$ is on a (non-directed) path from $u$ to $w$, then
-$V(\phi(u))\cap V(\phi(w)) \subseteq V(\phi(v))$.
+  Denote $\phi(u) = (u_1, \dots, u_k)$, $\phi(v) = (v_1, \dots, v_k)$ and
+  $(w_1, \dots w_k)$ be the vertex resulting from the identification of
+  $\phi(u)$ with $\phi(v)$ in $\orG$. Let
+  $p: V(\orG) \to V(\orG/\{\phi(u),\phi(v)\})$ such that $p(x) =x$ for all
+  $x \notin V(\phi(u)) \cup V(\phi(v))$ and $\phi(y) = w_i$ if
+  $y \in \{u_i,v_i\}$ for some $i$. As $\phi(u)$ and $\phi(v)$ are
+  vertex-disjoint, there are no arcs between $u$ and $v$, so $p$ is a morphism.
+  Let $\psi$ be the map from $\orH/\{u,v\}$ to the $k$-paths of
+  $\orG/\{\phi(u),\phi(v)\}$ such that for all $x \in V(G)$, we let
+  $\psi(p(x)) = (p(x_1), \dots, p(x_k))$ where $(x_1, \dots, x_k) =
+  \phi(x)$. First, note that $\psi(x)$ is a $k$-path for each
+  $x \in V(\orH/\{u,v\})$ because $p$ is a morphism. Moreover, for each arc $xy$
+  in $\orH/\{u,v\}$, the $(k-1)$-suffix of $\psi(x) = \phi(p^{-1}(x))$ and the
+  $(k-1)$-prefix of $\psi(y) = \phi(p^{-1}(y))$ are equal, so $\psi$ is a
+  $k$-shift embedding of $\orH/\{u,v\}$ in $\orG/\{\phi(u),\phi(v)\}$.
+\end{proof}
 
-\paragraph{Shift trees.} We now prove two technical lemmas that we
-will use to construct the root graph of some $k$-iterated shift graphs. The first states that for trees, $k$-iterated shift graphs and shift graphs are the same. 
+
+\paragraph{Shift trees.} We now prove a technical lemma that we will use to
+construct the root graph of some $k$-iterated shift graphs. Informally, it
+states that for trees, $k$-iterated shift graphs and shift graphs are the same.
 
 \begin{lemma}\label{lem:shift_tree}
   Let $T$ be a shift graph which is a tree, with shift orientation $\orT$. Then, for all $k\geq 1$, $T$ is also a $k$-iterated shift graph.\\
-  More precisely, there exists an acyclic oriented graph $\orG$ and a convex $k$-shift embedding
-  $\phi$ of $\orT$ in
+  More precisely, there exists an acyclic oriented graph $\orG$ and a convex
+  $k$-shift embedding $\phi$ of $\orT$ in
   $\orG$. %such that for each leaf $a$ of $T$, $\phi(a)$ is private.
 \end{lemma}
 \begin{proof}
-  We proceed by induction on
-  $|V(T)|$. Clearly, if $|V(T)|\leq 1$, then the result is immediate, as if $V(T)$ is empty, then $\orG$ can be chosen as the empty digraph, and if $T$ has a single vertex, then $\orG$ can be chosen as the oriented path of length $k$. We now assume that $|V(T)|\geq 2$.
+  We proceed by induction on $|V(T)|$. Clearly, if $|V(T)|\leq 1$, then the
+  result is immediate, as if $V(T)$ is empty, then $\orG$ can be chosen as the
+  empty digraph, and if $T$ has a single vertex, then $\orG$ can be chosen as
+  the oriented path of length $k$. We now assume that $|V(T)|\geq 2$.
   
-  Let $a$ be a leaf of $T$, and assume without loss of generality that for some $b \in V(T)$ we have
-  $a \to b$ in $D$, the case $b\to a$ being symmetric. Let $T':=T-a$, and $\overrightarrow{T'}:=\orT-a$. By induction hypothesis,
-  there exists an acyclic oriented graph $\overrightarrow{G'}$ and a convex $k$-shift embedding $\phi'$ of
-  $\overrightarrow{T'}$ in $\overrightarrow{G'}$. Let $v$, $w$, $x$, $y$ be the first, second, penultimate and
-  last vertex of $\phi(b)$ respectively (with $w=x$ if $k = 2$). Let $Q_b$ be
-  the $(k-1)$-prefix of $\phi'(b)$.
+  Let $a$ be a leaf of $T$, and assume without loss of generality that for some
+  $b \in V(T)$ we have $a \to b$ in $D$, the case $b\to a$ being symmetric. Let
+  $T':=T-a$, and $\overrightarrow{T'}:=\orT-a$. By induction hypothesis, there
+  exists an acyclic oriented graph $\overrightarrow{G'}$ and a convex $k$-shift
+  embedding $\phi'$ of $\overrightarrow{T'}$ in $\overrightarrow{G'}$. Let $v$,
+  $w$, $x$, $y$ be the first, second, penultimate and last vertex of $\phi(b)$
+  respectively (with $w=x$ if $k = 2$). Let $Q_b$ be the $(k-1)$-prefix of
+  $\phi'(b)$.
 
   If $b$ is the only vertex of $T'$ with $Q_b$ as the $(k-1)$-prefix of its
-  image by $\phi'$, then let $\orG$ be the oriented graph obtained from $\overrightarrow{G'}$ by adding a new
-  vertex $u$ with $u \to v$. This creates a $k$-path $P_a$ whose $(k-1)$-suffix
-  is the $(k-1)$-prefix of $\phi'(b)$ but of no other $k$-path in
-  $\phi'(V(\orT))$. Hence, by defining $\phi(a) := P_a$ and $\phi(c) := \phi'(c)$ for
-  all other vertices, $\phi$ is a $k$-shift embedding of $T$ in $G$. The convexity
-  of $\phi$ comes from the fact that $\phi'$ was also convex, and that for each $u\in V(T')$, $\phi(u)\cap \phi(a)\subseteq V(Q_b)$. % Moreover, $a$ is the only vertex of $T$ whose image by
+  image by $\phi'$, then let $\orG$ be the oriented graph obtained from
+  $\overrightarrow{G'}$ by adding a new vertex $u$ with $u \to v$. This creates
+  a $k$-path $P_a$ whose $(k-1)$-suffix is the $(k-1)$-prefix of $\phi'(b)$ but
+  of no other $k$-path in $\phi'(V(\orT'))$. Hence, by defining $\phi(a) := P_a$
+  and $\phi(c) := \phi'(c)$ for all other vertices, $\phi$ is a $k$-shift
+  embedding of $\orT$ in $\orG$. The convexity of $\phi$ comes from the fact that
+  $\phi'$ was also convex, and that for each $u\in V(T')$,
+  $\phi(u)\cap \phi(a)\subseteq
+  V(Q_b)$. % Moreover, $a$ is the only vertex of $T$ whose image by
   % $\phi$ starts by $a$ and by assumption, $a$ is the only of $T$ whose image by
   % $\phi$ has $(k-1)$-suffix equal to $Q_b$, so $\phi(a)$ is private.
   Thus the
@@ -658,44 +716,37 @@ will use to construct the root graph of some $k$-iterated shift graphs. The firs
   \label{fig: shiftTree}
  \end{figure}
 
-  First, observe that for each $t\in V(G')$ such that $t\to v$ in $\overrightarrow{G'}$,
-  we have $tQ_b \notin \phi(V(T'))$, and thus also in particular $b$ is a source in
-  $\overrightarrow{G'}$. Indeed, note that otherwise there would exist some node $d \in V(T')$ such that we both have
-  $d \to c$ and $d \to b$ in $\overrightarrow{T'}$ (and thus also in $\orT$). In particular, \cref{lem:forbidden_config} would then imply that $a \to b$ in $\orT$, contradicting that $a$ is a leaf of $T$. We now let $\overrightarrow{G''}$ be the oriented graph obtained after duplicating
-  the vertex $v$ by creating a vertex $v'$ that is a false twin of $v$ in $\overrightarrow{G'}$, i.e.\ $v'$ has exactly the same out- and in-neighbourhoods as $v$ in $\overrightarrow{G''}$ (note that such operation preserves acyclicity). We define $\psi$ as the map from $V(T')$ to the set of $k$-walks of $G''$ by setting
-  $\psi_{|V(T')\setminus \{b\}} := \phi_{|V(T')\setminus \{b\}}$ and define $\psi(b)$ as
-  the $k$-path $\phi(b)$ where $v$ was replaced by $v'$. 
-  We claim that for any two vertices
-  $i,j$ of $V(T')$ we have $i \to j$ in $\overrightarrow{T'}$ if and only if the $(k-1)$-suffix of
-  $\psi(i)$ equals to the $(k-1)$-prefix of $\psi(j)$. This is immediate if $i$ and $j$
-  are different from $b$, or if $i=b$ because $\psi(i)$ and $\phi(b)$ have the
-  same $(k-1)$-suffix. Since $b$ is source in $\overrightarrow{G'}$, the case $b=j$ also
-  trivially follows, and as $\phi$ is convex, note that $\psi$ is also convex. We thus just proved that $\psi$ is a convex $k$-shift
-  embedding of $\overrightarrow{T'}$ in $\overrightarrow{G''}$ such that $b$ is the only vertex of $\overrightarrow{T'}$ whose
-  corresponding $k$-path $\psi(b)$ starts in $v'$. In particular, we are then back in the case of
-  the previous paragraph, and can thus conclude the proof.
+ First, observe that for each $t\in V(G')$ such that $t\to v$ in
+ $\overrightarrow{G'}$, we have $tQ_b \notin \phi(V(T'))$, thus $b$ is a source
+ in $\overrightarrow{G'}$. Indeed, note that otherwise there would exist some
+ node $d \in V(T')$ such that we both have $d \to c$ and $d \to b$ in
+ $\overrightarrow{T'}$ (and thus also in $\orT$). \cref{lem:forbidden_config}
+ would then imply that $a \to b$ in $\orT$, contradicting that $a$ is a leaf of
+ $T$. We now let $\overrightarrow{G''}$ be the oriented graph obtained after
+ duplicating the vertex $v$ by creating a vertex $v'$ that is a false twin of
+ $v$ in $\overrightarrow{G'}$, i.e.\ $v'$ has exactly the same out- and
+ in-neighbourhoods as $v$ in $\overrightarrow{G''}$ (note that such operation
+ preserves acyclicity). We define $\psi$ as the map from $V(T')$ to the set of
+ $k$-walks of $G''$ by setting
+ $\psi_{|V(T')\setminus \{b\}} := \phi_{|V(T')\setminus \{b\}}$ and define
+ $\psi(b)$ as the $k$-path $\phi(b)$ where $v$ was replaced by $v'$.  We claim
+ that for any two vertices $i,j$ of $V(T')$ we have $i \to j$ in
+ $\overrightarrow{T'}$ if and only if the $(k-1)$-suffix of $\psi(i)$ equals to
+ the $(k-1)$-prefix of $\psi(j)$. This is immediate if $i$ and $j$ are different
+ from $b$, or if $i=b$ because $\psi(i)$ and $\phi(b)$ have the same
+ $(k-1)$-suffix. Since $b$ is source in $\overrightarrow{G'}$, the case $b=j$
+ also trivially follows, and as $\phi$ is convex, note that $\psi$ is also
+ convex. Thus, we just proved that $\psi$ is a convex $k$-shift embedding of
+ $\overrightarrow{T'}$ in $\overrightarrow{G''}$ such that $b$ is the only
+ vertex of $\overrightarrow{T'}$ whose corresponding $k$-path $\psi(b)$ starts
+ in $v'$. In particular, we are back in the case of the previous paragraph,
+ and can thus conclude the proof.
 \end{proof}
 
-\ugo{I hope that I interpretated correctly in the next definition what you meant by ``identifying'' (it was not clear at all for me in a first time).}
-In a directed graph $D$, if $u,v$ are two distinct vertices, we let $D/\{u,v\}$ denote the digraph obtained after \emph{identifying} $u$ with $v$, i.e.\  $D/\{u,v\}$ is obtained from $D$ after removing $u,v$ and adding a new vertex $z$, with in-neighbourhood $(N^-_D(u)\cup N^-_D(v))\setminus \{u,v\}$ and
-out-neighbourhood $(N^+_D(u)\cup N^+_D(v))\setminus \{u,v\}$. Note that if $D=\orH$ is an oriented graph, in which $N_H(u)$ and $N_H(v)$ are disjoint, then $D/\{u,v\}$ is also an oriented graph. The next lemma shows that in this case, $k$-shift embeddings are also preserved.
+% \ugo{I hope that I interpretated correctly in the next definition what you meant by ``identifying'' (it was not clear at all for me in a first time).}
+% In a directed graph $D$, if $u,v$ are two distinct vertices, we let $D/\{u,v\}$ denote the digraph obtained after \emph{identifying} $u$ with $v$, i.e.\  $D/\{u,v\}$ is obtained from $D$ after removing $u,v$ and adding a new vertex $z$, with in-neighbourhood $(N^-_D(u)\cup N^-_D(v))\setminus \{u,v\}$ and
+% out-neighbourhood $(N^+_D(u)\cup N^+_D(v))\setminus \{u,v\}$. Note that if $D=\orH$ is an oriented graph, in which $N_H(u)$ and $N_H(v)$ are disjoint, then $D/\{u,v\}$ is also an oriented graph. The next lemma shows that in this case, $k$-shift embeddings are also preserved.
 
-\ugo{I do not  understand at all the next lemma... Could you define what it does mean to identify $\phi(u)$ with $\phi(v)$? Is $G$ oriented?}
-
-\begin{lemma}\label{lem:gluing}
-  Let $H$ and $G$ be two digraphs and $\phi$ be a $k$-shift embedding of $H$ in $G$. Let $u,v$ be two
-  vertices of $H$ with $\phi(N(u))$ and $\phi(N(v))$ vertex disjoint, such that
-  there is no directed path from $u$ to $v$ or vice-versa. Then $\phi$ is a
-  $k$-shift embedding of the graph obtained from $H$ by identifying $u$ with $v$
-  into the graph obtained from $G$ by identifying $\phi(u)$ with $\phi(v)$.
-\end{lemma}
-
-\begin{proof}
-  First, note that this identification is well-defined because $\phi(N(u))$ and
-  $\phi(N(v))$ are vertex-disjoint, in particular, the neighbours of $u$ and $v$
-  are preserved. This identification creates no directed cycle because there are
-  no directed paths between $u$ and $v$ in $H$.
-\end{proof}
 
 \section{Maximum independent set problem}\label{sec:MIS}
 
