@@ -358,23 +358,24 @@ For every integer $n\in \mathbb N$, we use the notation $[n]$ to denote the set 
 \subsection{Notations and basic definitions} A digraph $D$ consists of a set
 $V(D)$ of vertices and a set $A(D)$ of directed edges denoted $(u,v)$, $uv$ or
 $u \to v$ and called \emph{arcs}. Given an arc $a=u \to v$, the \emph{head} of
-$a$ is $v$ and its \emph{tail} is $u$. We denote with $N^-(u) = \{v \colon v \to
-u\}$ and $N^+(u) = \{v \colon u \to v\}$ the in-neighbourhood and
-out-neighbourhood of $u$. If $N^-(u)=\emptyset$ then $u$ is a \emph{source},
-while if $N^+(u)=\emptyset$ then $u$ is a \emph{sink}.  An \emph{oriented graph}
-is a digraph such that for each pair $u,v$ of distinct vertices, $A(D)$ contains
-at most one of the two arcs $u\to v$ and $v\to u$. The \emph{support} of a
-digraph $D$ is the undirected graph $G$ obtained when removing the orientations
-of the arcs of $D$, that is $V(G) = V(D)$ and $E(G) = \{\{x,y\} \colon (x,y) \in
-A(D)\}$. For the sake of notation, we will often use the notation $\orG$ to
-denote an oriented graph whose support is the unoriented graph $G$.  We say that
-a vertex $u$ of a digraph $D$ is \emph{transitive} if it is neither a source nor
-a sink. For $k\in \mathbb N$, a \emph{$k$-walk} (resp.\ \emph{$k$-path}) is a
-sequence $(v_0,\ldots, v_k)$ of $k+1$ (distinct) vertices such that $v_i\to
-v_{i+1}$ for each $0\leq i\leq k-1$. Then \emph{length} of a path is defined as
-its number of edges. The \emph{$k$-prefix} (resp.\ \emph{$k$-suffix}) of a path
-$P$ is the subpath obtained when keeping only its $k+1$ first (resp.\ last)
-vertices.
+$a$ is $v$ and its \emph{tail} is $u$. We denote with
+$N^-(u) = \{v \colon v \to u\}$ and $N^+(u) = \{v \colon u \to v\}$ the
+in-neighbourhood and out-neighbourhood of $u$. If $N^-(u)=\emptyset$ then $u$ is
+a \emph{source}, while if $N^+(u)=\emptyset$ then $u$ is a \emph{sink}.  An
+\emph{oriented graph} is a digraph such that for each pair $u,v$ of distinct
+vertices, $A(D)$ contains at most one of the two arcs $u\to v$ and $v\to u$. The
+\emph{support} of a digraph $D$ is the undirected graph $G$ obtained when
+removing the orientations of the arcs of $D$, that is $V(G) = V(D)$ and
+$E(G) = \{\{x,y\} \colon (x,y) \in A(D)\}$. For the sake of notation, we will
+often use the notation $\orG$ to denote an oriented graph whose support is the
+unoriented graph $G$.  We say that a vertex $u$ of a digraph $D$ is
+\emph{transitive} if it is neither a source nor a sink. For $k\in \mathbb N$, a
+\emph{$k$-walk} (resp.\ \emph{$k$-path}) is a sequence $(v_0,\ldots, v_k)$ of
+$k+1$ (distinct) vertices such that $v_i\to v_{i+1}$ for each $0\leq i\leq
+k-1$. Then \emph{length} of a path is defined as its number of edges. Again, we
+call $v_k$ the head of the $k$-path $(v_0,\ldots, v_k)$ and $v_0$ its tail. The
+\emph{$k$-prefix} (resp.\ \emph{$k$-suffix}) of a path $P$ is the subpath
+obtained when keeping only its $k+1$ first (resp.\ last) vertices.
 
 Let $D$ be a digraph and let $P$ and $Q$ be two $k$-paths
 $P = (u_0,\ldots, u_k)$ and $Q = (v_0,\ldots, v_k)$ such that $P$ and $Q$ are
@@ -632,12 +633,12 @@ $k$-shift embeddings commute with identification:
 
 \ugo{I do not  understand at all the next lemma... Could you define what it does mean to identify $\phi(u)$ with $\phi(v)$? Is $G$ oriented?}
 \begin{lemma}\label{lem:gluing}
-  Let $\orH$ and $\orG$ be two oriented graphs and $\phi$ be a $k$-shift embedding of
-  $\orH$ in $\orG$. Let $u,v$ be two vertices of $\orH$, such that $\phi(u)$ and
-  $\phi(v)$ are vertex disjoint, and there are no arcs $\phi(u)$ between $\phi(v)$,
-  and no directed path from $u$ to $v$ or vice-versa. Then there exists a $k$-shift
-  embedding of $\orH / \{u,v\}$ in $\orG / \{\phi(u),\phi(v)\}$, which are both
-  oriented graphs.
+  Let $\orH$ and $\orG$ be two oriented acyclic graphs and $\phi$ be a $k$-shift
+  embedding of $\orH$ in $\orG$. Let $u,v$ be two vertices of $\orH$, such that
+  $\phi(u)$ and $\phi(v)$ are vertex disjoint, and there are no arcs $\phi(u)$
+  between $\phi(v)$, and no directed path from $u$ to $v$ or vice-versa. Then
+  there exists a $k$-shift embedding of $\orH / \{u,v\}$ in
+  $\orG / \{\phi(u),\phi(v)\}$, which are both oriented acyclic graphs.
 \end{lemma}
 
 \begin{proof}
@@ -646,7 +647,7 @@ $k$-shift embeddings commute with identification:
   identifications create no directed cycles because there are no directed paths
   between $V(\phi(u))$ and $V(\phi(v))$ in $\orG$, and in particular between $u$
   and $v$ in $\orH$. Hence $\orH/\{u,v\}$ and $\orG/\{\phi(u),\phi(v)\}$ are
-  oriented graphs.
+  oriented acyclic graphs.
 
 
   Denote $\phi(u) = (u_1, \dots, u_k)$, $\phi(v) = (v_1, \dots, v_k)$ and
@@ -1062,6 +1063,7 @@ have $G^{\ast 0}=G$.
   colour for each $u\in V(G)$. We claim that this gives a proper 3-colouring that we denote with $\alpha$. Indeed, given any edge $uv$ in $E(G)$ with $u<v$, the colour of $u \in V(G)$ with respect to $\alpha$
   is the colour of $x_u\to x_v$ with respect to $\beta$, which must differ from the colour of $x_v \to y_v$ with respect to $\beta$. In particular, note that the colour of $x_v\to y_v$ with respect to $\beta$ is the colour of $v \in V(G)$ with respect to $\alpha$. Thus $G$ is 3-colourable.
 
+  \todo[inline]{the proof is broken for $k$-iterated shift graph.}
   \paragraph{$k$-iterated shift graphs.}
   We fix $k\geq 1$.
   To adapt our reduction to $k$-iterated shift graph, we will first need to
@@ -1212,14 +1214,20 @@ odd-girth as in \cref{thm:3col}), 3-colouring becomes a trivial problem.
   All shift graphs of girth at least five are 3-colourable.
 \end{proposition}
 \begin{proof}
-  Let $G$ be a shift graph of girth at least five and let $\orH$ be an oriented acyclic graph which is a root digraph
-  of $G$. We will identify $V(G)$ with $A(\orH)$.
-  Observe that each vertex of $\orH$ has either its in-degree or its out-degree at most one, as
-  a vertex with both in- and out-degree at least two would produce a four-cycle in its line
-  digraph. We partition the vertices of $\orH$ in two subsets: let $X$ be the set of 
-  vertices of $\orH$ with in-degree at most one, and $Y:=V(H)\setminus X$ be the remaining vertices, which all have
-  out-degree at most one. We now partition the arcs of $\orH$ in four subsets. We let $A_X$ and $A_Y$ respectively denote the sets of arcs having both extremities in $X$ and $Y$ respectively. We let $A_{X\to Y}$ (resp.\ $A_{Y\to X}$) denote the set of arcs of $\orH$ having their tail in $X$ (resp.\ $Y$) and their head in $Y$ (resp.\ $X$). 
-  Note that $A_{X\to Y}$ and $A_{X\to Y}$ both form independent sets in $G$. We color all vertices of $A_{X\to Y}$ with one colour, say 1. 
+  Let $G$ be a shift graph of girth at least five and denote $\orG$ its shift
+  orientation. Let $\orH$ be an oriented acyclic graph which is a root digraph
+  of $\orG$. We will identify $V(G)$ with $A(\orH)$. Observe that each vertex of
+  $\orH$ has either in-degree or out-degree at most one, as a vertex with both
+  in- and out-degree at least two would produce a four-cycle in the line
+  digraph. We partition the vertices of $\orH$ in two subsets: let $X$ be the
+  set of vertices of $\orH$ with in-degree at most one, and $Y:=V(H)\setminus X$
+  be the remaining vertices, which all have out-degree at most one. We now
+  partition the arcs of $\orH$ in four subsets. We let $A_X$ and $A_Y$
+  respectively denote the sets of arcs having both extremities in $X$ and $Y$
+  respectively. We let $A_{X\to Y}$ (resp.\ $A_{Y\to X}$) denote the set of arcs
+  of $\orH$ having their tail in $X$ (resp.\ $Y$) and their head in $Y$ (resp.\
+  $X$).  Note that $A_{X\to Y}$ and $A_{X\to Y}$ both form independent sets in
+  $G$. We color all vertices of $A_{X\to Y}$ with one colour, say 1.
   
   We now show that the arcs of $A_X\cup A_Y \cup A_{Y\to X}$
   form a forest in $G$, and therefore can be coloured with two additional colours, which
