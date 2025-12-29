@@ -1459,33 +1459,52 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
 
     We first show that for each $i\in \{0,\ldots,4m-1\}$, we have the following
     \begin{enumerate}
+    \item\label{item:sink} if $u^{i}_x \to t^{i}_x$ in $\orLx$, then $u^{i}_x$
+      is a sink in $\orLx-t_x^{i}$.
     \item\label{item:source} if $t^{i}_x \to u^{i}_x$ in $\orLx$, then $u^{i}_x$
       is a source in $\orLx-t_x^{i}$,
-    \item\label{item:sink} if $u^{i}_x \to t^{i}_x$ in $\orLx$, then $t^{i}_x$
-      is a sink in $\orLx-t_x^{i}$.
     \end{enumerate}
-    We only show \ref{item:source}, as \ref{item:sink} is symmetric. Let
-    $i \in \{0,\ldots,4m-1\}$ and assume that $t^{i}_x \to u^{i}_x$ in
+    We only show \ref{item:sink}, as \ref{item:source} is symmetric. Let
+    $i \in \{0,\ldots,4m-1\}$ and assume that $u^{i}_x \to t^{i}_x$ in
     $\orLx$. By \cref{cl:sun_orientation}, $t^{i}_x$ is transitive in $\orHxi$,
-    and thus has an out-neighbour in $\orLx$ distinct from $u_x^{2i}$. In
+    and thus has an in-neighbour in $\orLx$ distinct from $u_x^{2i}$. In
     particular, note that the first condition of \cref{lem:forbidden_config}
-    then implies that $u^{2i}_x$ cannot have an in-neighbour in
+    then implies that $u^{2i}_x$ cannot have an out-neighbour in
     $\orLx-t^{2i}_x$, showing \ref{item:source}.
     
-    Using once again the first condition of \cref{lem:forbidden_config}, observe that moreover, the vertices $u^{2i}$ satisfying \ref{item:sink} and \ref{item:source} must alternate on the path $u_x^0,\ldots,u^{8m-2}_x$.    
-    In particular, as we assumed $w_x^0\to v_x^0$, this implies that for each $i\in \{0,\ldots, 4m-1\}$, if $i$ is even, then $u_x^{2i}$ satisfies \ref{item:sink}, while if $i$ is odd, then $u_x^{2i}$ satisfies \ref{item:source}. 
-    In order to conclude the proof of the claim, observe that for each even (resp.\ odd) $i\in \{0,\ldots,4m-1\}$, applying iteratively the first condition of \cref{lem:forbidden_config} implies that in the comb $Q_i$ that contains $u^{2i}_x$, each edge between a teeth $t$ and a vertex $s$ of the jaw is oriented $t\to s$ (resp.\ $s\to t$) in $\orLx$. In particular, the edge $v^{2i}_xw^{2i}_x$ is of this form, and thus oriented as desired for each $i$.     
-%     (if $u^{2i}_x \to t^{2i}_x$ reverse all the orientations in the following
-%     reasoning). By \cref{cl:sun_orientation}, $t^{2i}_x$ is transitive in the
-%     copy of the 4-sun it belongs to, so $t^{2i}_x$ has an out-neighbour.
-%     Therefore, $u^{2i+1}_x$, $u^{2i-1}_x$ and $v^{2i}_x$ are all out-neighbours
-%     of $u^{2i}_x$, which proves that $u^{2i}_x$ is transitive.  
-%     By propagating
-%     the same reasoning along the vertices of the jaw of the comb
-%     attached to $u^{2i}_x$, the jaw of the comb is oriented away from
-%     $u^{2i}x$ and its teeth away from the jaw. In particular, we have
-%     $v^{2i}_x \to w^{2i}_x$. We obtain $u^{2i+1}_x \to u^{2i+2}_x$ likewise. The
-%     result follows from a straightforward induction on $i$.
+    Using once again the first condition of \cref{lem:forbidden_config}, observe
+    that the vertices of degree two in $U_x \setminus \{u_0, \dots, u_{4m-1}\}$
+    are transitive and that the vertices $u^{i}$ are alternatively sources or
+    sinks in $\orLx - \bigcup_it^i_x$. In order to conclude the proof of the
+    claim, observe that for $i$ such that $u^i_x$ is a sink (resp. a source) in
+    $\orLx - t^i_x$, applying iteratively the first condition of
+    \cref{lem:forbidden_config} implies that the jaw of the comb $Q_i$ is
+    oriented towards $u^i_x$ and each edge between a teeth $t$ and a vertex
+    $s$ of the jaw is oriented $t \to s$ in $\orLx$ (resp. away from $u^i_x$ and
+    $s \to t$). In particular, because the
+    edge $w^0_xv^0_x$ is oriented $w^0_x \to v^0_x$ and the vertices $u^i_x$ are
+    alternatively sources and sinks in $\orLx - \bigcup_it^i_x$, this proves
+    that we have $w^i_x \to v^i_x$ for all even $i$ and $v^i_x \to w^i_x$ for all odd $i$.
+
+
+
+    \clement{The end of the previous proof was false, I changed it.}
+    % In particular, as we
+    % assumed $w_x^0\to v_x^0$, this implies that for each
+    % $i\in \{0,\ldots, 4m-1\}$, if $i$ is even, then $u_x^{2i}$ satisfies
+    % \ref{item:sink}, while if $i$ is odd, then $u_x^{2i}$ satisfies
+    % \ref{item:source}.
+    
+    % (if $u^{2i}_x \to t^{2i}_x$ reverse all the orientations in the following
+    % reasoning). By \cref{cl:sun_orientation}, $t^{2i}_x$ is transitive in the
+    % copy of the 4-sun it belongs to, so $t^{2i}_x$ has an out-neighbour.
+    % Therefore, $u^{2i+1}_x$, $u^{2i-1}_x$ and $v^{2i}_x$ are all
+    % out-neighbours of $u^{2i}_x$, which proves that $u^{2i}_x$ is transitive.
+    % By propagating the same reasoning along the vertices of the jaw of the comb
+    % attached to $u^{i}_x$, the jaw of the comb is oriented away from $u^{2i}x$
+    % and its teeth away from the jaw. In particular, we have
+    % $v^{i}_x \to w^{2i}_x$. We obtain $u^{2i+1}_x \to u^{2i+2}_x$ likewise. The
+    % result follows from a straightforward induction on $i$.
   \end{poc}
   
   For each $i\in \{0,\ldots,4m-1\}$, and every orientation $\orCi$ of the comb $C_i$, we say that a teeth $e$ of is 
