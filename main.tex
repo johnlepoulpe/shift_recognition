@@ -1866,7 +1866,26 @@ case (that is for bipartite graphs).
    such that $G = L(R)$.  Assume furthermore that every sink and every
    source and every sink of $R$ has degree~1 (by some lemma ??).
 
-   We claim that $R$ is bipartite.  
+   We claim that $R$ is bipartite.  Otherwise, consider a smallest odd
+   cycle $C$ in $R$.  Let $v_1$, \dots, $v_k$ be the vertices of
+   $C$. By its minimality, $C$ has no chord, that is $v_iv_j \in E(G)$
+   if and only if  $i=j+1$ or $j=i+1$ modulo $k$.  
+
+   Since $R$ is a acyclic, there exists an interger $\ell\geq 1$ such
+   $C$ is arcwise partitioned into $2\ell$ paths with alternating
+   orientations.  More formally, there exists integers
+   $1\leq i_1 \dots i_{2\ell} \leq k$ such that
+   $v_{i_j} \dots v_{i_{j+1}}$ is oriented forward if $j$ is odd and
+   backward if $j$ is even (subscript is mod $k$ and subsubscript is
+   mod $2\ell$).  Since $v_{i_1}$ is not a source of $R$ (because
+   every source of $R$ has degree~1), there exists an arc $w_1v_{i_1}$
+   in $R$.  Since $C$ has no chord, $w_1$ is not a vertex of $C$.
+   Similarly, for every odd integer $j\in [2\ell]$, there exists a
+   vertex $w_j$ such that $e_j = w_jv_{i_j} \in A(G)$, and for for every
+   even integer $j\in [2\ell]$, there exists a vertex $w_j$ such that
+   $e_j= v_{i_j}w_j \in A(G)$.  The arcs of $C$ together with the arcs
+   $e_1$, dots, $e_{2\ell}$ form an odd cycle in $G$, a
+   contradiction. So, $R$ is bipartite as claimed.  
 \end{proof}
 
 
