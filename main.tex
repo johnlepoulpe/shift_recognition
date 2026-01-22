@@ -1863,7 +1863,7 @@ case (that is for bipartite graphs).
 
 \begin{proof}
    Since $G$ is an acyclic shift graph, consider an acyclic graph $R$
-   such that $G = L(R)$.  Assume furthermore that every sink and every
+   such that $G = L(R)$.  Assume furthermore that every every
    source and every sink of $R$ has degree~1 (by some lemma ??).
 
    We claim that $R$ is bipartite.  Otherwise, consider a smallest odd
@@ -1885,7 +1885,18 @@ case (that is for bipartite graphs).
    even integer $j\in [2\ell]$, there exists a vertex $w_j$ such that
    $e_j= v_{i_j}w_j \in A(G)$.  The arcs of $C$ together with the arcs
    $e_1$, dots, $e_{2\ell}$ form an odd cycle in $G$, a
-   contradiction. So, $R$ is bipartite as claimed.  
+   contradiction.
+
+
+   So, $R$ is bipartite as claimed, and we now take advantage that
+   both $G$ and $R$ are bipartite.  Since $G$ is bipartite, the arcs
+   of $R$ can be colored red and green, and no tail of a red (resp.\
+   green) arc is the head of a red (resp.\ green) arc.  Let $A_1$ be
+   the sets of tails of red arcs, and $B_1$ be the set of heads of red
+   arcs.    Let $A_2$ be
+   the sets of tails of green arcs, and $B_2$ be the set of heads of green
+   arcs.   So, $A_1$ is disjoint of $B_1$ and $A_2$ is disjoint of
+   $B_2$, but otherwise these sets may intersect. 
 \end{proof}
 
 
