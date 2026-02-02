@@ -13,7 +13,7 @@
 %%%%% Fonts, symbols, colours, microtypography
 \usepackage{amsfonts,amsmath,amssymb,amsthm,mathtools,microtype} % Symbols &microtypography
 \usepackage[dvipsnames]{xcolor} % Colours with names -- see https://www.overleaf.com/learn/latex/Using_colours_in_LaTeX for list
- \usepackage[noBBpl]{mathpazo} % Palatino, but not for mathbb
+\usepackage[noBBpl]{mathpazo} % Palatino, but not for mathbb
 
 %%%%% Figures, tables, lists
 \usepackage[labelsep=period,labelfont=bf,justification=centering]{caption}
@@ -86,8 +86,8 @@
 
 \makeatletter
 \def\namedlabel#1#2{\begingroup
-   \def\@currentlabel{#2}%
-   \label{#1}\endgroup
+  \def\@currentlabel{#2}%
+  \label{#1}\endgroup
 }
 \makeatother
 
@@ -204,10 +204,10 @@
 \date{}
 
 \author{
-Bartosz Walczak\footnotemark[1] \and 
-Cl\'ement Legrand-Duchesne\footnotemark[1]\and
-Ugo Giocanti\footnotemark[1] \and
-Nicolas Trotignon\footnotemark[2]
+  Bartosz Walczak\footnotemark[1] \and 
+  Cl\'ement Legrand-Duchesne\footnotemark[1]\and
+  Ugo Giocanti\footnotemark[1] \and
+  Nicolas Trotignon\footnotemark[2]
 }
 
 \begin{document}
@@ -216,7 +216,7 @@ Nicolas Trotignon\footnotemark[2]
 \renewcommand{\thefootnote}{\fnsymbol{footnote}} % Make affiliation marks symbols
 
 \footnotetext[1]{Theoretical Computer Science Department, Faculty of Mathematics and Computer Science, Jagiellonian University, Kraków, Poland. U.G. is supported by the National Science Center of Poland
-under grant 2022/47/B/ST6/02837 within the OPUS 24 program}
+  under grant 2022/47/B/ST6/02837 within the OPUS 24 program}
 \footnotetext[2]{Univ Lyon, EnsL, UCBL, CNRS, LIP, F-69342, LYON Cedex 07, France}
 
 \renewcommand{\thefootnote}{\arabic{footnote}} % Return to normal footnote symbols
@@ -1254,7 +1254,7 @@ Lov\'asz \cite{lovasz1973Covering} proved that the following problem is NP-compl
   the variables such that each clause of $\phi$ contains both variables set ot true and false.
 \end{csproblem}
 
-Note that \MNAE is equivalent to the problem of deciding whether a given $3$-regular hypergraph is $2$-colourable. In particular, this hypergraph formulation was the one used in \cite{lovasz1973Covering}. In order to prove the next result, we will design a polynomial time reduction to $\MNAE$, inspired by the one from \cite{chvatal1990Note}.
+Note that \MNAE is equivalent to the problem of deciding whether a given $3$-regular hypergraph is $2$-colourable. In particulra, this hypergraph formulation was the one used in \cite{lovasz1973Covering}. In order to prove the next result, we will design a polynomial time reduction to $\MNAE$, inspired by the one from \cite{chvatal1990Note}.
 
 \begin{theorem}
   For each $k \ge 1$, the problem of recognising whether a graph is a $k$-iterated shift graph (or equivalently, the
@@ -1521,89 +1521,91 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
 %   away (resp. towards) the jaw, and that they are \emph{negative} otherwise.
   
   \begin{claim}\label{cl:clause_orientation}
-    For each $i\in \{0,\ldots,4m-1\}$, in any valid orientation of $C_i$, the teeth of $C_i$ cannot be all positive, or
-    all negative. 
-    Conversely, any orientation of the teeth of $C_i$ in which the incisors are both positive (resp.\ both negative), and in which at least one molar is
-    negative (resp.\ positive) can be extended to a 
-    valid orientation of $C_i$ in which the jaw of $C_i$ is a directed path.
+    For each $i\in \{0,\ldots,4m-1\}$, in any valid orientation of $C_i$, the
+    teeth of $C_i$ cannot be all positive, or all negative.  Conversely, any
+    orientation of the teeth of $C_i$ in which the incisors are both positive
+    (respectively both negative), and in which at least one molar is negative (respectively
+    positive) can be extended to a valid orientation of $C_i$ in which the jaw
+    of $C_i$ is a directed path.
   \end{claim}
   \begin{poc}
-    We let $a=a_1a_2, \dots,d=d_1d_2$ denote the four teeth of $C_i$ with jaw
-    $(a_1,b_1,c_1,d_1)$. Assume towards a contradiction that there exists a
-    valid orientation $\orCi$ of $C_i$ making all teeth positive. That is, the
-    molars $a$ and $d$ are oriented away from $a_1$ and $d_1$, while
-    the incisors $b$ and $c$ are oriented towards $b_1$ and
-    $c_1$. Without loss of generality, assume that $b_1 \to c_1$. By
-    \cref{lem:forbidden_config}, as $c_1$ has both an in-neighbour and an
-    out-neighbour, the edge $a_1b_1$ must be oriented $a_1 \to b_1$ (see \cref{fig:
-      proof_3comb}). We then obtain a contradiction as the orientation of the
-    induced path $a_2a_1b_1b_2$ contradicts the first condition of
-    \cref{lem:forbidden_config}.
-%     
-%     Hence
-%     $b$ has also an in-neighbour and an out-neighbour and $e_1$ is oriented
-%     towards $a$, that is $e_1$ is negative. By the symmetry, if we had
-%     $c \to b$, $e_4$ would be negative. So $e_1$ or $e_4$ is negative, a
-%     contradiction. We claim that symmetric arguments apply to show that there exists no valid orientation of $N$ with all
-%     edges $e_j$ negative.
+    We let $aa', \dots, dd'$ denote the four teeth of $C_i$ with jaw
+    $abcd$. Assume towards a contradiction that there exists a valid
+    orientation $\orCi$ of $C_i$ making all teeth positive. That is, the molars
+    $aa'$ and $dd'$ are oriented away from $a$ and $d$, while the incisors
+    $bb'$ and $cc'$ are oriented towards $b$ and $c$. Without loss of
+    generality, assume that $b \to c$. By \cref{lem:forbidden_config}, as $c$
+    has both an in-neighbour and an out-neighbour, the edge $ab$ must be
+    oriented $a \to b$ (see \cref{fig:variable_gadget}). We then obtain a
+    contradiction as the orientation of the induced path $a'abb'$ contradicts
+    the first condition of \cref{lem:forbidden_config}.
 
-   \begin{figure}[htb]
-   \centering  
-   % \includegraphics[scale=1]{3comb}
-   \todo[inline]{Ugo's figure was not commited}
-   \caption{The orientation depicted in the first part of the proof of \cref{cl:clause_orientation}.}  
-   \label{fig: proof_3comb}
-   \end{figure}
+    \begin{figure}[h!]
+      \centering  
+      %   \includegraphics[scale=1]{3comb}
+      \todo[inline]{Ugo's figure was not commited. The way the proof is written,
+      both parts of the proof use the same figure, \cref{fig:variable_gadget}}
+      \caption{The orientation depicted in the first part of the proof of
+      \cref{cl:clause_orientation}.}
+      \label{fig:proof_3comb}
+    \end{figure}
     
-    Conversely, consider an orientation of the teeth $a, \ldots, d$, such that $b$
-    and $c$ are say positive, but not all four edges are positive. Say without
-    loss of generality $a$ is negative. Then, no matter which orientation $d$ has, orienting the jaw of $C_i$ as a
-    directed path from $a_1$ to $d_1$ (as depicted on \cref{fig:variable_gadget})
-    gives an orientation of $C_i$ avoiding the forbidden configurations of
+    Conversely, consider an orientation of the teeth $aa', \ldots, dd'$, such
+    that $bb'$ and $cc'$ are say positive, but not all four edges are
+    positive. Say without loss of generality $aa'$ is negative. Then, no matter
+    which orientation $dd'$ has, orienting the jaw of $C_i$ as a directed path
+    from $a$ to $d$ (as depicted on \cref{fig:variable_gadget}) gives an
+    orientation of $C_i$ avoiding the forbidden configurations of
     \cref{lem:forbidden_config}, and thus which is valid.
     \begin{figure}[h!]
       \centering
       \begin{tikzpicture}[decoration={
-        markings,
-        mark=at position 0.5 with {\arrow[scale=1.5]{>}}}
-      ]
-      \foreach \x/\j in {a/0,b/1,c/2,d/3}{
-        \foreach \i in {1,2}{
-          \node[classic] (\x\i) at (\j,\i) {};
+          markings,
+          mark=at position 0.5 with {\arrow[scale=1.5]{>}}}
+        ]
+
+        \foreach \x/\j in {a/0,b/1,c/2,d/3}{
+          \node[classic] (\x1) at (\j,0) {};
+          \node[classic] (\x2) at (\j,1) {};
+          \node[below] at (\x1) {\small $\x$};
+          \node[above] at (\x2) {\small $\x'$};
         }
-        \node[below] at (\x1) {\small $\x_{1}$};
-        \node[above] at (\x2) {\small $\x_{2}$};
-      }
-      
-      \draw[postaction={decorate}] (a2) -- (a1);
-      \draw[postaction={decorate}] (b2) -- (b1);
-      \draw[postaction={decorate}] (c2) -- (c1);
-      \draw (d1) -- (d2);
-      
-      \draw[postaction={decorate}] (a1) -- (b1);
-      \draw[postaction={decorate}] (b1) -- (c1);
-      \draw[postaction={decorate}] (c1) -- (d1);          
-    \end{tikzpicture}
-    \caption{A valid orientation of $C_i$. The edge $a_1a_2$ is negative, $b_1b_2$ and
+        
+        \draw[postaction={decorate}] (a2) -- (a1);
+        \draw[postaction={decorate}] (b2) -- (b1);
+        \draw[postaction={decorate}] (c2) -- (c1);
+        \draw (d1) -- (d2);
+        
+        \draw[postaction={decorate}] (a1) -- (b1);
+        \draw[postaction={decorate}] (b1) -- (c1);
+        \draw[postaction={decorate}] (c1) -- (d1);          
+      \end{tikzpicture}
+      \caption{A valid orientation of $C_i$. The edge $a_1a_2$ is negative, $b_1b_2$ and
         $c_1c_2$ are negative, and $d_1d_2$ can either be positive or negative.}
       \label{fig:variable_gadget}
     \end{figure}
-  \end{poc}
+ \end{poc}
 
   \paragraph{Equivalence of the instances.}
-  We are now ready to prove that $\phi$ admits a valuation such that each
-  clause contains both variables set to
-  true and false if and only if
-  $G_\phi$ is a $k$-iterated shift graph. In fact for the reverse direction, we will show the stronger property that if
-  $\phi$ is not a positive instance of $\MNAE$, then then $G_\phi$ is not even a shift graph.
+  We are now ready to prove that $\phi$ admits a valuation such that each clause
+  contains both variables set to true and false if and only if $G_\phi$ is a
+  $k$-iterated shift graph. In fact for the reverse direction, we will show the
+  stronger property that if $\phi$ is not a positive instance of $\MNAE$, then
+  $G_\phi$ is not even a shift graph.
 
   We start proving the reverse implication and consider a valid orientation $\orGphi$ of
   $G_\phi$. We now consider the following variable assignment: for each variable $x$, set $x$ to true if $w^{0}_x \to v^0_x$ in $\orGphi$ and
   to false otherwise. We show that with this variable assignment, each clause of $\phi$ contains both variables set to true and false.
-  Let $i\in \{0,\ldots,m-1\}$ and assume that the $i$\textsuperscript{th} clause of $\phi$ is $x\lor y\lor z$. 
-  Recall that the corresponding comb $C_i$ of length $3$ in $G_{\varphi}$ has jaw $a_ib_ic_id_i:=w_x^{8i}w_y^{8i+2}w_y^{8i+6}w_z^{8i}$, and let $e_1,e_2,e_3,e_4$ denote the teeth of $C_i$, such that $e_1$ is incident to $a_i$, $e_2$ to $b_i$, $e_3$ to $c_i$ and $e_4$ to $d_i$. 
+  Let $i\in \{0,\ldots,m-1\}$ and $x\lor y\lor z$ be the $i$\textsuperscript{th} clause of $\phi$. 
+  Recall that the corresponding comb $C_i$ of length $3$ in $G_{\varphi}$ has
+  jaw $a_ib_ic_id_i:=w_x^{4i}w_y^{4i+1}w_y^{4i+3}w_z^{4i}$, and denote $e_1 = w_x^{4i}v_x^{4i}$, $e_2=w_y^{4i+1}v_y^{4i+1}$,
+  $e_3=w_y^{4i+3}v_y^{4i+3}$ and $e_4=w_z^{4i}v_z^{4i}$ the teeth of $C_i$.
 %   As $8i+2=2(4i+1)$ and $8i+6=2(4i+3)$, \cref{cl:gadget_orientation} implies that $e_2$ is positive in $\orGphi$ if and only if $e_3$ is.
-Note that \cref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are respectively positive in $\orGphi$ if and only if $x,y,z$ are respectively set to true. In particular, \cref{cl:clause_orientation} then implies that at least one teeth of $C_i$ is positive, and one is negative in $\orGphi$. It then implies that the variable assignment we defined satisfies the desired properties.
+Note that \cref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are
+respectively positive in $\orGphi$ if and only if $x,y,z$ are respectively set
+to true, and that $e_3$ is positive if and only if $e_2$ is
+positive. \cref{cl:clause_orientation} then implies that at least one teeth of
+$C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment we defined satisfies the desired properties.
   
 %   By construction and by \cref{cl:gadget_orientation}, each
 %   of the edges $e_1, \ldots, e_4$ attached to the internal vertices of $C_i$ is
@@ -1618,7 +1620,7 @@ Note that \cref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are respecti
   For
   each variable $x$, let $\orMx$ denote the (unique) valid orientation of $M_x$ given by \cref{cl:gadget_orientation} such that
   $w^{0}_x \to v^{0}_x$ in $\orMx$ if $x$ is set to true, and such that $v^0_x\to w^0_x$ in $\orMx$ if $x$ is set to false.
-  Then, for each $i\in \{0,\ldots,4m-1\}$, we consider for each copy $H^i_x$ of the four-sun the (unique) valid orientation $\orHxi$ given by \cref{cl:sun_orientation}, such that in  $\orMx\cup\orHxi$, the vertex $t^{2i}_x$ has both in- and out-degrees equal to two. We let $\orLx$ denote the orientation obtained after orienting this way $M_x$ and all subgraphs $H_x^i$ of $L_x$. See   \cref{fig:oriented_variable}.
+  Then, for each $i\in \{0,\ldots,4m-1\}$, we consider for each copy $H^i_x$ of the four-sun the (unique) valid orientation $\orHxi$ given by \cref{cl:sun_orientation}, such that in  $\orMx\cup\orHxi$, the vertex $t^{i}_x$ has both in- and out-degrees equal to two. We let $\orLx$ denote the orientation obtained after orienting this way $M_x$ and all subgraphs $H_x^i$ of $L_x$. See   \cref{fig:oriented_variable}.
 
   
   
@@ -1644,9 +1646,18 @@ Note that \cref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are respecti
       \foreach \i in {0,2}{
         \begin{scope}[shift={(2*\i,0)}]
           \node[classic] (a\i) at (0,0) {};
-          
-          \node[classic] (e\i1) at (0,-.75) {};
-          \node[classic] (e\i2) at (0,-1.5) {};
+
+          \foreach \j in {1,...,3}{
+            \node[classic] (e\i\j) at (0,-.75*\j) {};
+            \node[classic] (d\i\j) at (-1.,-.75*\j) {};
+            \draw[postaction = decorate] (d\i\j) -- (e\i\j);
+          }
+
+          \foreach \j in {1,2}{
+            \pgfmathsetmacro{\jj}{int(\j+1)}
+            \draw[postaction = decorate] (e\i\jj) -- (e\i\j);
+          }
+
 
           \node[classic] (H\i11) at (0,.5) {};
           \node[classic] (H\i12) at (-.25,.25) {};
@@ -1662,7 +1673,6 @@ Note that \cref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are respecti
           \draw[postaction={decorate}] (H\i31) to (H\i41);
           \draw[postaction={decorate}] (e\i1) to (a\i);
           \draw[postaction={decorate}] (a\i) to (H\i11);
-          \draw[postaction={decorate}] (e\i2) to (e\i1);
           \foreach \j in {1,3}{
             \draw[postaction={decorate}] (H\i\j2) to (H\i\j1);
           }
@@ -1676,9 +1686,17 @@ Note that \cref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are respecti
         \begin{scope}[shift={(2*\i,0)}]
           \node[classic] (a\i) at (0,0) {};
           
-          \node[classic] (e\i1) at (0,-.75) {};
-          \node[classic] (e\i2) at (0,-1.5) {};
+          \foreach \j in {1,...,3}{
+            \node[classic] (e\i\j) at (0,-.75*\j) {};
+            \node[classic] (d\i\j) at (-1.,-.75*\j) {};
+            \draw[postaction = decorate] (e\i\j) -- (d\i\j);
+          }
 
+          \foreach \j in {1,2}{
+            \pgfmathsetmacro{\jj}{int(\j+1)}
+            \draw[postaction = decorate] (e\i\j) -- (e\i\jj);
+          }
+          
           \node[classic] (H\i11) at (0,.5) {};
           \node[classic] (H\i12) at (-.25,.25) {};
           \node[classic] (H\i21) at (.25,.75) {};
@@ -1693,7 +1711,6 @@ Note that \cref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are respecti
           \draw[postaction={decorate}] (H\i41) to (H\i31);
           \draw[postaction={decorate}] (H\i11) to (a\i);
           \draw[postaction={decorate}] (a\i) to (e\i1);
-          \draw[postaction={decorate}] (e\i1) to (e\i2);
           \foreach \j in {2,4}{
             \draw[postaction={decorate}] (H\i\j2) to (H\i\j1);
           }
@@ -1736,34 +1753,50 @@ Note that \cref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are respecti
   the only edges that remain to be oriented are the edges forming the jaw of
   each clause gadget. For each $i\in \{0,\ldots,m-1\}$, consider the comb $C_i$ corresponding to the
   $i$\textsuperscript{th} clause $x\lor y\lor z$ of $\phi$, and denote with $e_1,\ldots, e_4$ its teeth, again with respect to the order in which they attach to the jaw. 
-  As $\orMy$ is a valid orientation of $M_y$, and as $8i+2= 2(4i+1)$ and $8i+6=2(4i+3)$,
+  As $\orMy$ is a valid orientation of $M_y$, and as $4i+1$ and $4i+3$ are odd,
   by
   \cref{cl:gadget_orientation}, $e_2$ and $e_3$ are either both negative or both
   positive. Moreover, observe that by definition of the orientations $\orMx, \orMy, \orMz$, \cref{cl:gadget_orientation} implies that $e_1,e_2,e_4$ are respectively positive if and only if $x,y,z$ are respectively set to true.
   Since the clause $x\lor y\lor z$ contains both variables set to true and false, we can apply
   \cref{cl:clause_orientation} to extend our orientation to a valid orientation $\orCi$ of $C_i$, in which the jaw is a directed path. Fixing such an orientation of each $C_i$, we now obtain an orientation $\orGphi$ of $G_{\phi}$, whose restriction to each subgraph of the form $L_x$ or $C_i$ is valid.
   
-  \ugo{Do you want to keep the next paragraph? I do not think that it is useful.}
-  In order to prove that $\orGphi$ is a valid orientation,
-  we only need to
-  check the first condition of \cref{lem:forbidden_config} at the junctions
-  between the clause and the variable gadgets, and the orientation of the cycles
-  using these junctions. Note that any such cycle must pass by some $u^{2i}_x$,
-  at which it alternates. Finally, as each $u^{2i}_xv^{2i}_xw^{2i}_x$ forms a
-  non-alternating path, the first condition of \cref{lem:forbidden_config} is
-  satisfied and the orientation of $G_\phi$ is that of an acyclic line
-  digraph. In other words, $G_\phi$ is a shift graph. This concludes the proof
-  for shift graphs, but not for iterated shift graphs.
+  \ugo{Do you want to keep the next paragraph? I do not think that it is
+    useful.}\clement{It is, So far, we proved that the restriction of our
+    orientation to a clause or a variable gadget is valid, but we haven't proved
+    that the entire oritentation is valid. Namely, we haven't proved that we did
+    not create any directed cycles and that the junctions between the clause and
+    the variable gadgets are not alternating paths of lenght three} In order to
+  prove that $\orGphi$ is a valid orientation, we only need to check the first
+  condition of \cref{lem:forbidden_config} at the junctions between the clause
+  and the variable gadgets, and the orientation of the cycles using these
+  junctions. Note that any such cycle must pass by some $u^{i}_x$, at which it
+  alternates. Finally, as each $v^{i}_x$ is a transitive vertex, the first
+  condition of \cref{lem:forbidden_config} is satisfied and the orientation of
+  $G_\phi$ is that of an acyclic line digraph. In other words, $G_\phi$ is a
+  shift graph. This concludes the proof for shift graphs, but not for iterated
+  shift graphs.
 
   
   
-  To prove that $G_\phi$ is a $k$-iterated shift graph, we now construct an oriented
-  acyclic graph $\orGphip$ such that $\orGphi$ is an induced subdigraph of
-  $L^k(\orGphip)$. For each variable $x$, by \cref{lem:shift_tree}, there exists
-  an acyclic oriented graph $\orMxp$ with a convex $k$-shift embedding $\psi_x$ of $\orMx$ in $\orMxp$.
-  Similarly, for each clause comb $C_i$, there exists an acyclic oriented graph
-  graph $\orCip$ with a convex $k$-shift embedding $\psi_i$ of $\orCi$ in
-  $\orCip$. Denote $\psi$ the union of all these $k$-shift embedding. \ugo{What do you mean by union? I think that you need to define the image of $\psi$ properly, I do not understand.}
+  To prove that $G_\phi$ is a $k$-iterated shift graph, we now construct an
+  oriented acyclic graph $\orGphip$ such that $\orGphi$ is an induced subdigraph
+  of $L^k(\orGphip)$. For each variable $x$, by \cref{lem:shift_tree}, there
+  exists an acyclic oriented graph $\orMxp$ with a convex $k$-shift embedding
+  $\psi_x$ of $\orMx- \bigcup_{j} w_x^j$ in $\orMxp$. Similarly, for each clause
+  comb $C_i$, there exists an acyclic oriented graph graph $\orCip$ with a
+  convex $k$-shift embedding $\psi_i$ of $\orCi$ in $\orCip$. Note that by
+  identifying the leaves of the clause combs $C_i$ with the approriate vertices
+  $v_x^j$ of  the subgraphs $\orMx - \bigcup_{j} w_x^j$, one obtains the graph $\orGphi$.
+
+
+  Denote $\psi$ the convex $k$-shift embedding of
+  $\bigsqcup_x (\orMx - \bigcup_j w_x^j) \sqcup \bigsqcup_{i} \orCi$ in
+  $\bigsqcup_x \orMxp \sqcup \bigsqcup_{i} \orCip$ obtained by taking the union
+  of all these $k$-shift embeddings. More precisely, for each vertex $u$ in some
+  $C_i$, we let $\psi(u) = \psi_i(u)$ and for each vertex $u$ in some
+  $(\orMx - \bigcup_j w_x^j)$, $\psi(u) = \psi_x(u)$. \ugo{What do you mean by
+    union? I think that you need to define the image of $\psi$ properly, I do
+    not understand.}
  
   
   
@@ -1784,18 +1817,31 @@ Note that \cref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are respecti
 %   graph $C'_i$ with a convex $k$-shift embedding $\psi_i$ of $C_i$ in
 %   $C'_i$. Denote $\psi$ the union of these $k$-shift embedding.
 
-  First, we note that $(\psi(N(v^{2i}_x)))_{i,x}$ forms a collection of pairwise
-  disjoint $k+2$-paths because any distinct $v^{2i}_x$ and $v^{2j}_y$ are
-  either in different component of the support of $L_x$, or connected by a
-  unique path $P$ containing a directed subpath of length $k+2$ between
-  $v^{2i}_x$ and $u^{2i}_x$. As result, $\psi(N(v^{2i}_x))$ and $\psi(u^{2i}_x)$
-  are vertex disjoint and since $\psi$ is convex, so are the extremities of $P$:
-  $\psi(N(v^{2i}_x))$ and $\psi(N(v^{2j}_y))$. By iteratively applying
-  \cref{lem:gluing} to identify the leaves of the gadgets $N_i$ to the gadget
-  variables along the concerned vertices $v^{4i+2c}_x$ for some $c$, the images
-  of the vertices to be indentified remain disjoint. At the end of
-  this identification process, we have a $k$-shift embedding of $G_\phi$ minus
-  the 4-suns.
+  
+  In order to obtain a $k$-shift embedding of $\orGphi$, we apply iteratively
+  \cref{lem:gluing} on $\psi$ by identifying each leaf of the comb clauses to
+  the appropriate vertex $v_x^j$ of one of the subgraphs
+  $\orMx - \bigcup_{j} w_x^j$. To do so, we need to justify that during this
+  process, the images by the $k$-shift embedding of the vertices to be identified
+  are vertex disjoint and have no arcs between them. At first, the leaves of the
+  combs $C_i$ and the vertices $(v_x^j)_{j,x}$ lie in different components of
+  $\bigsqcup_x (\orMx - \bigcup_j w_x^j) \sqcup \bigsqcup_{i} \orCi$, so this
+  hypothesis is verified. Moreover, $(\psi(v^{i}_x))_{i,x}$ forms a collection of pairwise
+  disjoint $k$-paths that have no arcs between them because any distinct
+  $v^{i_1}_{x_2}$ and $v^{i_2}_{x_2}$ are either in different component of
+  $(\orMx - \bigcup_j w_x^j)$, or connected by a unique path $P$ containing a
+  directed subpath of length $k+2$ between $v^{i_1}_{x_1}$ and
+  $u^{i_1}_{x_1}$. As result, $N(\psi(v^{i_1}_{x_1})))$ and
+  $\psi(u^{i_1}_{x_1})$ are vertex-disjoint and since $\psi$ is convex, so are
+  $N(\psi(v^{i_1}_{x_1})))$ and $\psi(v^{i_2}_{x_2})$. So there are also no arcs
+  between $\psi(v^{i_1}_{x_1})$ and $\psi(v^{i_2}_{x_2})$. 
+
+, one obtains the graph $\orGphi$. During this
+  identification process,
+
+  images of the vertices to be indentified remain disjoint. At the end of this
+  identification process, we have a $k$-shift embedding of $G_\phi$ minus the
+  4-suns.
 
   Finally, we identify each $\psi(t^{4i}_x)$ with the path of length $k$
   starting in the vertex $t$ of the graph $F$ drawn on \cref{fig:sun_root}. It
