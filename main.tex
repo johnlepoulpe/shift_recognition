@@ -440,8 +440,6 @@ The following result of Beineke characterises line digraphs of oriented graphs.
 \begin{figure}[htb]
   \centering  
   \includegraphics[scale=1]{Line_digraph}
-  \todo[inline]{Is it possible to slightly move the arrows of the crossing arcs
-    so that they do not overlap ?}
   \caption{The two configurations depicted in \cref{lem:forbidden_config}.}  
   \label{fig: Beineke}
 \end{figure}
@@ -525,36 +523,33 @@ $\orG$, its line graph $L(\orG)$ is acyclic if and only if $\orG$ is acyclic,
 Beineke's characterisation immediately implies the following equivalence:
 \begin{lemma}\label{lem:valid}
   A graph is a shift graph if and only if it admits an acyclic
-  orientation which is the line digraph of an oriented \ugo{acyclic?} graph.
+  orientation which is the line digraph of an oriented (acyclic) graph.
 \end{lemma}
-\clement{it does not matter: $L(\orG)$ is acyclic if and only if $\orG$ is
-  acyclic.
-}
 
 As a result all 4-cycles in the natural orientation of a shift graph are
 alternating at each vertex and shift graphs are triangle-free. The next lemma is
 a folklore result that shows that shift graphs also
-have unbounded chromatic number. We include its proof as it is simple.
+have unbounded chromatic number (see for example \cite[Theorem 4]{harner1972Arc} or \cite[Lemma
+    2.21]{GraphsandHomomorphisms} for the first part). We include its proof as it is simple.
 
 \begin{lemma}[Folklore]\label{lem:line-graph}
   For any oriented acyclic graph $\orG$, $\chi(L(G)) \geq \log \chi(G)$ and $\og(L(G))
   > \og(G)$. 
 \end{lemma}
 \begin{proof}
-  \ugo{The first inequality is proved in \cite[Lemma
-    2.21]{GraphsandHomomorphisms}. I commented the proof} \clement{I think the
-    proof is originally due to \cite[Theorem 4]{harner1972Arc} for transitive
-    tournaments, this adaptation to line digraphs of oriented graphs is nearly
-    identical. I would prefer to keep this proof, it is folklore but gives a
-    good understanding of the shift graph construction.}
-  
-  % To prove the first inequality, consider a proper colouring $c$ of $L(\orG)$
-  % using $k$ colours. Then assign to every vertex $v$ of $\orG$ the set $S_v$ of
-  % all colours with of arcs entering $v$ (with respect to $c$). If $(u,v)$ is
-  % an arc of $\orG$, then as $c$ is a proper colouring, $c(u,v)\notin S_u$, so
-  % $S_u\neq S_v$. It follows that the mapping $u\mapsto S_u$ defines a proper
-  % colouring of $\orG$ using at most $2^k$ colours, showing
-  % $\chi(G) \leq 2^{\chi(L(G))}$ as desired.
+%   \ugo{The first inequality is proved in \cite[Lemma
+%     2.21]{GraphsandHomomorphisms}. I commented the proof} \clement{I think the
+%     proof is originally due to \cite[Theorem 4]{harner1972Arc} for transitive
+%     tournaments, this adaptation to line digraphs of oriented graphs is nearly
+%     identical. I would prefer to keep this proof, it is folklore but gives a
+%     good understanding of the shift graph construction.}
+  To prove the first inequality, consider a proper colouring $c$ of $L(\orG)$
+  using $k$ colours. Then assign to every vertex $v$ of $\orG$ the set $S_v$ of
+  all colours with of arcs entering $v$ (with respect to $c$). If $(u,v)$ is
+  an arc of $\orG$, then as $c$ is a proper colouring, $c(u,v)\notin S_u$, so
+  $S_u\neq S_v$. It follows that the mapping $u\mapsto S_u$ defines a proper
+  colouring of $\orG$ using at most $2^k$ colours, showing
+  $\chi(G) \leq 2^{\chi(L(G))}$ as desired.
 
   For the second inequality, let $C$ be a shortest odd cycle of $L(G)$. Let
   $Q_1, \dots, Q_{2m}$ be directed paths such that for each $i$, the head of
@@ -1540,11 +1535,9 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
     contradiction as the orientation of the induced path $a'abb'$ contradicts
     the first condition of \cref{lem:forbidden_config}.
 
-    \begin{figure}[h!]
+    \begin{figure}[htb]
       \centering  
-      %   \includegraphics[scale=1]{3comb}
-      \todo[inline]{Ugo's figure was not commited. The way the proof is written,
-      both parts of the proof use the same figure, \cref{fig:variable_gadget}}
+         \includegraphics[scale=1]{3comb}
       \caption{The orientation depicted in the first part of the proof of
       \cref{cl:clause_orientation}.}
       \label{fig:proof_3comb}
@@ -1897,6 +1890,59 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
     \caption{A graph $F$ whose $k$-line digraph is the $4$-sun.}
     \label{fig:sun_root}    
   \end{figure}
+\end{proof}
+
+
+
+\section{Attempt for iterated shift}
+
+ALL THIS SECTION FAILS BADLY. IGNORE IT, SEE EMAIL FROM JAN 22 2026.
+
+It would be great if ``iterated shift'' would be equivalent to ``shift
+of high odd girth''.  Here is an attempt in the infinite odd girth
+case (that is for bipartite graphs).
+
+\begin{theorem}
+  If $G$ is a bipartite acyclic shift graph, then there exits a bipartite
+  acyclic shift graph $H$ such that $G$ is an induced subgraph of $L(H)$.
+\end{theorem}
+
+\begin{proof}
+   Since $G$ is an acyclic shift graph, consider an acyclic graph $R$
+   such that $G = L(R)$.  Assume furthermore that every every
+   source and every sink of $R$ has degree~1 (by some lemma ??).
+
+   We claim that $R$ is bipartite.  Otherwise, consider a smallest odd
+   cycle $C$ in $R$.  Let $v_1$, \dots, $v_k$ be the vertices of
+   $C$. By its minimality, $C$ has no chord, that is $v_iv_j \in E(G)$
+   if and only if  $i=j+1$ or $j=i+1$ modulo $k$.  
+
+   Since $R$ is a acyclic, there exists an interger $\ell\geq 1$ such
+   $C$ is arcwise partitioned into $2\ell$ paths with alternating
+   orientations.  More formally, there exists integers
+   $1\leq i_1 \dots i_{2\ell} \leq k$ such that
+   $v_{i_j} \dots v_{i_{j+1}}$ is oriented forward if $j$ is odd and
+   backward if $j$ is even (subscript is mod $k$ and subsubscript is
+   mod $2\ell$).  Since $v_{i_1}$ is not a source of $R$ (because
+   every source of $R$ has degree~1), there exists an arc $w_1v_{i_1}$
+   in $R$.  Since $C$ has no chord, $w_1$ is not a vertex of $C$.
+   Similarly, for every odd integer $j\in [2\ell]$, there exists a
+   vertex $w_j$ such that $e_j = w_jv_{i_j} \in A(G)$, and for for every
+   even integer $j\in [2\ell]$, there exists a vertex $w_j$ such that
+   $e_j= v_{i_j}w_j \in A(G)$.  The arcs of $C$ together with the arcs
+   $e_1$, dots, $e_{2\ell}$ form an odd cycle in $G$, a
+   contradiction.
+
+
+   So, $R$ is bipartite as claimed, and we now take advantage that
+   both $G$ and $R$ are bipartite.  Since $G$ is bipartite, the arcs
+   of $R$ can be colored red and green, and no tail of a red (resp.\
+   green) arc is the head of a red (resp.\ green) arc.  Let $A_1$ be
+   the sets of tails of red arcs, and $B_1$ be the set of heads of red
+   arcs.    Let $A_2$ be
+   the sets of tails of green arcs, and $B_2$ be the set of heads of green
+   arcs.   So, $A_1$ is disjoint of $B_1$ and $A_2$ is disjoint of
+   $B_2$, but otherwise these sets may intersect. 
 \end{proof}
 
 
