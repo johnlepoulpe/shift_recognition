@@ -237,15 +237,13 @@
 \section{Introduction}
 \label{sec: intro}
 A class of graphs is \emph{hereditary} if it closed under taking induced
-subgraphs.  A hereditary class $\mathcal C$ of graph is \emph{$\chi$-bounded} if there
+subgraphs.  A hereditary class $\mathcal C$ of graphs is \emph{$\chi$-bounded} if there
 exists a function $f:\mathbb N\to \mathbb N$ such that for each graph $G\in \mathcal C$,
 $\chi(G) \le f(\omega(G))$.  A well-known fact is that not all hereditary classes of graphs are
 $\chi$-bounded. Even more, there exist triangle-free graphs with arbitrarily large
 chromatic number. The first such constructions are due to Zykov \cite{Zyk49} and Blanche Descartes \cite{Descartes}, and among other constructions with such properties, one can also mention Mycielski graphs \cite{Mycielski1955}, shift graphs \cite{EH68}, Burling graphs \cite{Burling},
-or some subfamilies of Kneser and Schrijver graphs \cite{lovasz1973Covering, Schrijver}. A common feature of all these graphs is that they all admit explicit constructions, allowing to derive a many interesting structural properties. 
-For example, a construction due to Burling turned out
-to be a counter-example to several conjectures about algorithms in non-$\chi$
-bounded classes~\cite{scott2014Disprove,rzazewski2024Polynomial}. 
+or some subfamilies of Kneser and Schrijver graphs \cite{lovasz1973Covering, Schrijver}. A common feature of all these graphs is that they all admit explicit constructions, allowing to derive many non trivial structural properties. 
+For example, Burling graphs have been used to show that the class of intersection graphs of segments in  the plane is not $\chi$-bounded \cite{scott2014Disprove}, disproving an original conjecture of Erd\H{o}s, or more recently on the algorithmic side, to show the existence of classes which are not $\chi$-bounded, but in which \textsc{Maximum Independent Set} is polynomial \cite{rzazewski2024Polynomial}.
 
 % In \cref{tab:complexity}, we review the simplest and most well-known
 % constructions of triangle-free graphs of arbitratily large chromatic number.
@@ -260,16 +258,16 @@ bounded classes~\cite{scott2014Disprove,rzazewski2024Polynomial}.
 
 
 
-In \cref{tab:complexity}, we review the simplest and most well-known
-constructions of triangle-free graphs of arbitratily large chromatic number.
+In \cref{tab:complexity}, we review some well-known
+constructions of triangle-free graphs with arbitratily large chromatic number.
 These constructions are often presented by generating a sequence of triangle-free graphs
 $(G_k)_{k\in \mathbb{N}}$ such that $\chi(G_k) = k$ for all $k$. We turn this
 into a hereditary class by considering all induced subgraphs of the graphs in
 the sequence $(G_k)_{k\in \mathbb N}$. Thus, by abuse of vocabulary, when we say a ``shift/Burling/etc.\ graph'', we mean in particular an induced subgraph of one of the graphs from the sequence $(G_k)_{k\in \mathbb N}$ of shift/Burling/etc.\ graphs (see  \cref{sec:Prelis} for precise definitions).   
 
 
-In view of the explicit constructions of each of the aforementioned classes, a natural question is to determine for each of them, whether there exists an efficient (i.e.\ polynomial) algorithm solving the associated membership problem, i.e.\ deciding whether a given graph belongs or not to them. This question has been recently investigated for some of these classes, as well as the complexity of two other natural problems, when restricted to these classes: Maximum Independent
-Set (or \MIS for short) and 3-Colouring (see \cref{tab:complexity} for references). The goal of the present paper is to complement these works, and to prove that all three
+In view of the explicit constructions of each of the aforementioned classes, a natural question is to determine for each of them, whether there exists an efficient (polynomial time) algorithm solving the associated recognition problem, i.e.\ deciding whether a given graph belongs or not to them. This question has been recently investigated for some of these classes, as well as the complexity of two other natural problems, when restricted to these classes: \textsc{Maximum Independent
+Set} (or \MIS for short) and \textsc{3-Colouring} (see \cref{tab:complexity} for references). The goal of the present paper is to complement these works, and to prove that all three
 problems are NP-complete for shift graphs.
 
 % Three problems particularly attracted attention: Recognition, Maximum
@@ -281,7 +279,7 @@ problems are NP-complete for shift graphs.
   \centering
   \begin{tabular}{|l|c|c|c|}
     \hline
-    Graph class & Recognition & Maximum Independent set & 3-Colouring \\
+    Graph class & \textsc{Recognition} & \textsc{Maximum Independent Set} & \textsc{3-Colouring} \\
     \hline
     Mycielski & P & NPC \cite{poljak1974Note} & NPC \cite{lovasz1973Covering,maffray1996NPcompleteness} \\
     Zykov & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} & NPC \cite{marin2024Structural} \\
@@ -291,8 +289,9 @@ problems are NP-complete for shift graphs.
     Shift & NPC [*] & NPC [*] & NPC [*] \\
     \hline
   \end{tabular}  
-  \caption{Complexity of Recognition, Maximum independent set and 3-Colouring of
-    the main constructions of triangle-free graph of large chromatic number}
+  \captionsetup{justification=raggedright}
+  \caption{Known complexities of \textsc{Recognition}, \textsc{Maximum independent set} and \textsc{3-Colouring} when restricted to the hereditary closure of
+  the main known constructions of triangle-free graph of large chromatic number. Here, P holds for ``Polynomial'', and NPC for ``NP-Complete''. Entries with * correspond to results proved in this paper.}
   \label{tab:complexity}
 \end{table}
 
@@ -303,7 +302,7 @@ the following quesiton: \nicolas{we could be more general, by saying
 ``all non-$\chi$-bounded classes (in particular in all triangle-free hereditary graph classes of unbounded
   chromatic number).''}
 \begin{question}\label{qu:3col}
-  Is 3-Colouring NP-complete on all non-$\chi$-bounded class?
+  Is \textsc{3-Colouring} NP-complete on all non $\chi$-bounded \ugo{hereditary?} classes?
 \end{question}
 The most natural candidates for possible counterexamples to \cref{qu:3col} are
 the classes of Kneser and
@@ -313,7 +312,7 @@ Schrijver graphs.
 For most of the constructions from \cref{tab:complexity} of triangle-free graphs
 with high chromatic number, there exist variants producing graphs with
 arbitrarily large girth or odd-girth, and unbounded chromatic number. More
-precisely, there exist shift graphs, Twincut and Mycielski graphs of arbitrarily
+precisely, there exist shift, twincut and Mycielski graphs of arbitrarily
 large odd-girth and chromatic number, and Zykov and Blanche Descartes graphs
 with arbitrarily large girth and chromatic number. The complexity results of
 \cref{tab:complexity} might also hold with this additional condition in these
@@ -345,9 +344,9 @@ arbitrarily large girth.
 % chromatic number. 
 
 We give in \cref{sec:Prelis} all basic definitions concerning shift graphs, as well as some known characterisations. 
-We prove in \cref{sec:MIS} that Maximum independent set (\MIS) is
-NP-complete in shift graphs. \cref{sec:3COL} contains a proof that 3-Colouring
-(\Col) is NP-complete when restricted to shift graphs and \cref{sec:recognition} shows
+We prove in \cref{sec:MIS} that \textsc{Maximum independent set} is
+NP-complete in shift graphs. \cref{sec:3COL} contains a proof that \textsc{3-Colouring}
+is NP-complete when restricted to shift graphs and \cref{sec:recognition} shows
 that recognising shift graphs is also NP-complete.
 
 \section{Preliminaries}
@@ -357,22 +356,21 @@ For every integer $n\in \mathbb N$, we use the notation $[n]$ to denote the set 
 
 \subsection{Notations and basic definitions} A digraph $D$ consists of a set
 $V(D)$ of vertices and a set $A(D)$ of directed edges denoted $(u,v)$, $uv$ or
-$u \to v$ and called \emph{arcs}. Given an arc $a=u \to v$, the \emph{head} of
-$a$ is $v$ and its \emph{tail} is $u$. We denote with
+$u \to v$ and called \emph{arcs} \ugo{We should only use one notation. A suggestion: we denote directed edges by $(u,v)$ and write $u\to_D v$ (or simply $u\to v$ when the context is clear) to mean that ``$(u,v)$ is an arc of $D$''.}. Given an arc $a=(u,v)$, we call $v$ its \emph{head} of
+$a$ and $u$ its \emph{tail}. We respectively denote with
 $N^-(u) = \{v \colon v \to u\}$ and $N^+(u) = \{v \colon u \to v\}$ the
-in-neighbourhood and out-neighbourhood of $u$. If $N^-(u)=\emptyset$ then $u$ is
-a \emph{source}, while if $N^+(u)=\emptyset$ then $u$ is a \emph{sink}.  An
+in-neighbourhood and out-neighbourhood of $u$. We call $u$ a \emph{source} of $D$ when $N^-(u)=\emptyset$, and we call it a \emph{sink} of $D$ when $N^+(u)=\emptyset$.  An
 \emph{oriented graph} is a digraph such that for each pair $u,v$ of distinct
 vertices, $A(D)$ contains at most one of the two arcs $u\to v$ and $v\to u$. The
 \emph{support} of a digraph $D$ is the undirected graph $G$ obtained when
 removing the orientations of the arcs of $D$, that is $V(G) = V(D)$ and
-$E(G) = \{\{x,y\} \colon (x,y) \in A(D)\}$. For the sake of notation, we will
+$E(G) = \{\{x,y\} \colon (x,y) \in A(D)\}$. We will
 often use the notation $\orG$ to denote an oriented graph whose support is the
 unoriented graph $G$.  We say that a vertex $u$ of a digraph $D$ is
 \emph{transitive} if it is neither a source nor a sink. For $k\in \mathbb N$, a
 \emph{$k$-walk} (resp.\ \emph{$k$-path}) is a sequence $(v_0,\ldots, v_k)$ of
 $k+1$ (distinct) vertices such that $v_i\to v_{i+1}$ for each $0\leq i\leq
-k-1$. Then \emph{length} of a path is defined as its number of edges. Again, we
+k-1$. The \emph{length} of a path is defined as its number of edges. Again, we
 call $v_k$ the head of the $k$-path $(v_0,\ldots, v_k)$ and $v_0$ its tail. The
 \emph{$k$-prefix} (resp.\ \emph{$k$-suffix}) of a path $P$ is the subpath
 obtained when keeping only its $k+1$ first (resp.\ last) vertices.
