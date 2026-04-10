@@ -70,6 +70,7 @@
 \usepackage{tikz}
 \usetikzlibrary{decorations.markings}
 \usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{arrows.meta}
 \usetikzlibrary{calc}
 \tikzstyle{classic}=[draw=black,fill = black,inner sep = 1.5pt,circle]
 
@@ -1260,6 +1261,51 @@ odd-girth as in \cref{thm:3col}), 3-colouring becomes a trivial problem.
   All shift graphs of girth at least five are 3-colourable.
 \end{proposition}
 \begin{proof}
+  \begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[decoration={
+        markings,
+        mark=at position 0.5 with {\arrow[scale=1.5]{>}}}
+      ]
+      \draw[rounded corners] (0,0) rectangle (2,4);
+      \draw[rounded corners] (4,0) rectangle (6,4);
+
+      \foreach \x/\y/\i in {1.5/1/1, 1.5/3/2}{
+        \begin{scope}[shift={(\x,\y)}]
+          \draw (0,0) -- (-1,.75) -- (-1,-.75) -- (0,0);
+          \draw[-{Stealth}] (-.2,0) -- (-.8,0);
+          \node[classic] (x\i) at (0,0) {};
+        \end{scope}
+      }
+      
+      \node[classic] (x3) at (1.5,2) {};
+      
+      \foreach \x/\y/\i in {4.5/1/1, 4.5/3/2}{
+        \begin{scope}[shift={(\x,\y)}]
+          \draw (0,0) -- (1,.75) -- (1,-.75) -- (0,0);
+          \draw[-{Stealth}] (.8,0) -- (.2,0);
+          \node[classic] (y\i) at (0,0) {};
+        \end{scope}
+      }
+
+      \draw[postaction=decorate,color3] (y1) -- (x1);
+      \draw[postaction=decorate,color3] (y2) -- (x3);
+
+      \draw[postaction=decorate,color1] (.8,1.3) to[out=10, in=210] (y2);
+      \draw[postaction=decorate,color1] (.8,1.3) to[out=10, in=170] (5.2,1.3);
+      \draw[postaction=decorate,color1] (.8,3.3) to[out=10, in=160] (y2);
+      \draw[postaction=decorate,color1] (.8,3.3) to[out=10, in=170] (5.2,3.3);
+      \draw[postaction=decorate,color1] (.8,3.3) to[out=10, in=150] (5.2,1.3);
+
+      \node at (1,-.5) {$X$};
+      \node at (5,-.5) {$Y$};
+    \end{tikzpicture}
+    
+    \caption{The root graph $\orH$ of a shift graph of girth at least five. The
+      black vertices represent the roots of the out-forest $\orH[X]$ and of the
+      in-forest $\orH[Y]$. The arcs in $A_{X \to Y}$ are draw in red and the
+      arcs in $A_{Y\to X}$ in blue.}\label{fig:shiftgirth5}
+  \end{figure}
   Let $G$ be a shift graph of girth at least five and denote $\orG$ its shift
   orientation. Let $\orH$ be an oriented acyclic graph which is a root digraph
   of $\orG$. We will identify $V(G)$ with $A(\orH)$. Observe that each vertex of
@@ -1272,8 +1318,9 @@ odd-girth as in \cref{thm:3col}), 3-colouring becomes a trivial problem.
   respectively denote the sets of arcs having both extremities in $X$ and $Y$
   respectively. We let $A_{X\to Y}$ (resp.\ $A_{Y\to X}$) denote the set of arcs
   of $\orH$ having their tail in $X$ (resp.\ $Y$) and their head in $Y$ (resp.\
-  $X$).  Note that $A_{X\to Y}$ and $A_{X\to Y}$ both form independent sets in
-  $G$. We color all vertices of $A_{X\to Y}$ with one colour, say 1.
+  $X$), see Figure~\ref{fig:shiftgirth5} for a schematic representation of $\orH$.  Note that
+  $A_{X\to Y}$ and $A_{Y\to X}$ both form independent sets in $G$. We color all
+  vertices of $A_{X\to Y}$ with one colour, say 1.
   
   We now show that the arcs of $A_X\cup A_Y \cup A_{Y\to X}$ form a forest in
   $G$, and therefore can be coloured with two additional colours, which results
