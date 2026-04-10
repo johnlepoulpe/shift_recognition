@@ -237,7 +237,9 @@
 
 \todo[inline]{TODO:\\
   - decide UK/US conventions\\
-  - Fix the proof of Thm 9 for iterated line graphs}
+  - Fix the proof of Thm 9 for iterated line graphs\\
+  -the cleverref package is becoming depreciated. We should avoid using it.
+}
 \section{Introduction}
 \label{sec: intro}
 A class of graphs is \defin{hereditary} if it closed under taking induced
@@ -488,7 +490,7 @@ one ensures that all the arcs of $\orG$ entering a fixed vertex have identical
 out-neighbourhood in $D$. Moreover, note that these two conditions ensure that
 the only allowed orientation of a triangle is the cyclic one and the only
 allowed orientations of the 4-cycles of $D$ are the cyclic ones and the ones
-alternating at each vertex.
+alternating at each vertex. 
 
 Beineke's characterisation gives in particular a simple polynomial time
 algorithm to recognise line digraphs. On the other hand, Chv\'atal and Ebenegger
@@ -503,7 +505,7 @@ NP-complete~\cite{chvatal1990Note}.
 % all directed acyclic graphs.
 
 The \defin{shift graph sequence} is the sequence of graphs
-$(G_n)_{n\in \mathbb{N}}$, where $G_n$ is the graph whose vertices are all the
+$(G_n)_{n \in \mathbb{N}}$, where $G_n$ is the graph whose vertices are all the
 ordered pairs $(a_1,a_2)$ of $[n]$ such that $1 \le a_1 < a_2 \le n$, in which
 two vertices $a = (a_1, a_2)$ and $b = (b_1, b_2)$ are adjacent if $b_1 = a_2$
 (or $a_1 = b_2$). Note that the vertex set of $G_n$ corresponds equivalently to
@@ -514,25 +516,34 @@ line digraph of the transitive tournament $\orTn$.
 
 The class of \defin{shift graphs} is the hereditary closure of the graphs
 $(G_{n})_{n\in \mathbb{N}}$, that is, all induced subgraph of some $G_{n}$. Note
-that in the litterature, shift graphs might sometimes refer to what we will call later
-\emph{iterated shift graphs} in this paper, and corresponds to a subset of the class of graphs defined here \clement{What I understand is rather
-  that ``generalized shift graphs'' correspond to our iterated shift graphs, but
-  our definitions of shift graphs match}\ugo{In \cite{GraphsandHomomorphisms}, they call ``shift'' our iterated shift graphs.}. Observe that every shift graph admits
-a natural acyclic orientation, obtained when considering the arc $(a,b)\to(b,c)$
-for every $1\leq a<b<c\leq n$. We call this orientation the \defin{shift
-  orientation} and denote it with $\orGn$. Since for every oriented graph
-$\orG$, its line graph $L(\orG)$ is acyclic if and only if $\orG$ is acyclic,
-Beineke's characterisation immediately implies the following equivalence:
+that in the litterature, shift graphs might sometimes refer to what we will
+later call
+\emph{iterated} shift graphs, and corresponds to a subset of
+the class of shift graphs defined here \clement{What I understand is rather that
+  ``generalized shift graphs'' correspond to our iterated shift graphs, but our
+  definitions of shift graphs match}\ugo{In \cite{GraphsandHomomorphisms}, they
+  call ``shift'' our iterated shift graphs.}.
+
+Since for every oriented graph $\orG$, the line digraph $L(\orG)$ is acyclic if
+and only if $\orG$ is acyclic, Beineke's characterisation immediately implies
+the following equivalence:
 \begin{lemma}\label{lem:valid}
   A graph is a shift graph if and only if it admits an acyclic
   orientation which is the line digraph of an oriented (acyclic) graph.
 \end{lemma}
+Given a shift graph $G$, we call \defin{shift orientation} any orientation of
+its edges that verifies the conditions of Lemma~\ref{lem:valid}. A shift graph
+may have several shift orientations. However, the graphs $G_n$ of the shift
+graph sequence have a natural shift orientation, which we will denote $\orGn$,
+obtained when considering the arc $(a,b)\to(b,c)$
+for every $1\leq a<b<c\leq n$.
 
-As a result all 4-cycles in the natural orientation of a shift graph are
-alternating at each vertex and shift graphs are triangle-free. The next lemma is
-a folklore result that shows that shift graphs also
-have unbounded chromatic number (see for example \cite[Theorem 4]{harner1972Arc} or \cite[Lemma
-    2.21]{GraphsandHomomorphisms} for the first part). We include its proof as it is simple.
+As a result of Lemma~\ref{lem:valid}, all 4-cycles in a shift orientation of a
+shift graph are alternating at each vertex and shift graphs are
+triangle-free. The next lemma is a folklore result that shows that shift graphs
+also have unbounded chromatic number (see for example \cite[Theorem
+4]{harner1972Arc} or \cite[Lemma 2.21]{GraphsandHomomorphisms} for the first
+part). We include its proof as it is simple.
 
 \begin{lemma}[Folklore]\label{lem:line-graph}
   For any oriented graph $\orG$, $\chi(L(\orG)) \geq \log \chi(G)$. Moreover, if $\orG$ is acyclic, then $\og(L(\orG))
@@ -592,13 +603,13 @@ have unbounded chromatic number (see for example \cite[Theorem 4]{harner1972Arc}
 % \end{proof}
 
 \paragraph{Iterated shift graphs.}
-For $k\geq 1$, the \defin{$k$-iterated shift graph} $G_{n,k}$ (sometimes referred
-to as generalised shift graph altough they form a subclass of shift graphs) is the graph whose vertices are
+For every $k\geq 1$, the \defin{$k$-iterated shift graph sequence}
+is the sequence of graphs $(G_{n,k})_{n\in \mathbb{N}}$, where $G_{n,k}$ is the graph whose vertices are
 ordered $(k+1)$-tuples $(a_0, \ldots, a_k)$ of $[n]$ such that
 $1 \le a_0 < a_1 < \ldots < a_k \le n$, in which two vertices
 $a = (a_0, \ldots, a_k)$ and $b = (b_0, \ldots, b_k)$ are adjacent if
 $b_i = a_{i+1}$ for all $i \in [k-1]$ (or $a_i = b_{i+1}$ for all
-$i \in [k-1]$).  From this definition, it is straightforward to check that
+$i \in [k-1]$). From this definition, it is straightforward to check that
 $G_{n,k}$ is the support of the $k$-iterated line digraph $L^k(\orTn)$, where
 $\orTn$ is the transitive tournament on $n$ vertices. Note that for each
 $n\in \mathbb N$, $G_{n,2}$ corresponds exactly to the shift graph $G_n$ defined
@@ -617,7 +628,9 @@ $G_{n,k}$ has odd-girth at least $2k+3$ % (see for example
 and chromatic number at least $\log^{(k)}(n)$, where $\log^{(k)}$ denotes the
 $k$-iterated logarithm function. The class of \defin{$k$-iterated shift graphs}
 is the hereditary closure of $(G_{n,k})_{n \in \mathbb{N}}$, or equivalently,
-the class of all induced subgraphs of $k$-line digraphs of acyclic digraphs.
+the class of all induced subgraphs of $k$-line digraphs of acyclic
+digraphs. Note that in the literature, $k$-iterated shift graphs are sometimes referred
+to as generalised shift graph although they form a subclass of shift graphs.
 
 Given an acyclic digraph $\orG$ and an induced subdigraph $\orH$ of $L^k(\orG)$,
 we call \defin{$k$-shift embedding} of $\orH$ in $\orG$ any injective map $\phi$
@@ -666,18 +679,21 @@ $k$-shift embeddings commute with identification:
 \end{proof}
 
 
-\paragraph{Shift trees.} We now prove a technical lemma that we will use to
-construct the root graph of some $k$-iterated shift graphs. 
+\paragraph{Shift trees.} Trees are shift graphs as one can construct a shift
+orientation of any tree $T$
+by rooting it in an arbitrary vertex and orient all edges away from it. One can
+easily check that the resulting orientation verifies the conditions of
+Lemma~\ref{lem:forbidden_config}, thereby showing that $T$ is a shift graph.
 
-Informally, it
-states that for trees, $k$-iterated shift graphs and shift graphs are the
-same. We will see in section\todo{ref} that this 
+In fact, the following lemma shows that for every $k$, every shift orientation
+of a tree is also the $k$-iterated line digraph of an acyclic digraph. We will
+use this to construct the root graph of some $k$-iterated shift graphs.
 
 \begin{lemma}\label{lem:shift_tree}
-  Let $T$ be a shift graph which is a tree, with shift orientation $\orT$. Then, for all $k\geq 1$, $T$ is also a $k$-iterated shift graph.\\
-  More precisely, there exists an acyclic oriented graph $\orG$ and a convex
-  $k$-shift embedding $\phi$ of $\orT$ in
-  $\orG$. %such that for each leaf $a$ of $T$, $\phi(a)$ is private.
+  Let $T$ be tree with a shift orientation $\orT$. Then, for every $k\geq 1$,
+  there exists an acyclic directed graph $\orG$ and a convex $k$-shift
+  embedding $\phi$ of $\orT$ in $\orG$. In particular, $T$ is a $k$-iterated
+  shift graph for every $k$.
 \end{lemma}
 \begin{proof}
   We proceed by induction on $|V(T)|$. Clearly, if $|V(T)|\leq 1$, then the
@@ -686,7 +702,7 @@ same. We will see in section\todo{ref} that this
   the oriented path of length $k$. We now assume that $|V(T)|\geq 2$.
   
   Let $a$ be a leaf of $T$, and assume without loss of generality that for some
-  $b \in V(T)$ we have $a \to b$ in $D$, the case $b\to a$ being symmetric. Let
+  $b \in V(T)$ we have $a \to b$ in $\orT$, the case $b\to a$ being symmetric. Let
   $T':=T-a$, and $\overrightarrow{T'}:=\orT-a$. By induction hypothesis, there
   exists an acyclic oriented graph $\overrightarrow{G'}$ and a convex $k$-shift
   embedding $\phi'$ of $\overrightarrow{T'}$ in $\overrightarrow{G'}$. Let $v$,
@@ -694,7 +710,7 @@ same. We will see in section\todo{ref} that this
   respectively (with $w=x$ if $k = 2$). Let $Q_b$ be the $(k-1)$-prefix of
   $\phi'(b)$.
 
-  If $b$ is the only vertex of $T'$ with $Q_b$ as the $(k-1)$-prefix of its
+  If $b$ is the only vertex of $\orT'$ with $Q_b$ as the $(k-1)$-prefix of its
   image by $\phi'$, then let $\orG$ be the oriented graph obtained from
   $\overrightarrow{G'}$ by adding a new vertex $u$ with $u \to v$. This creates
   a $k$-path $P_a$ whose $(k-1)$-suffix is the $(k-1)$-prefix of $\phi'(b)$ but
@@ -706,38 +722,40 @@ same. We will see in section\todo{ref} that this
   V(Q_b)$. % Moreover, $a$ is the only vertex of $T$ whose image by
   % $\phi$ starts by $a$ and by assumption, $a$ is the only of $T$ whose image by
   % $\phi$ has $(k-1)$-suffix equal to $Q_b$, so $\phi(a)$ is private.
-  Thus the
-  second part of the lemma holds as well and we can now assume that there exists
-  $c \in V(T') \setminus\{b\}$ such that $\phi(c)$ has $Q_b$ as $(k-1)$-prefix
-  and ends at $z \in N^+_{G'}(x)$ (see \cref{fig: shiftTree}).
- 
+
+  We can now assume that there exists $c \in V(T') \setminus\{b\}$ such that the
+  prefix of $\phi(c)$ is $Q_b$ and the head of $\phi(c)$ is a vertex
+  $z \in N^+_{G'}(x)$ (see Figure~\ref{fig: shiftTree}).
  \begin{figure}[htb]
   \centering  
   \includegraphics[scale=1]{shiftTree}
-  \caption{Configuration in the proof of \cref{lem:shift_tree}.}  
+  \caption{Configuration in the proof of Lemma~\ref{lem:shift_tree}.}  
   \label{fig: shiftTree}
- \end{figure}
+\end{figure}
+\todo[inline]{update picture with $\psi(b)$}
 
- First, observe that for each $t\in V(G')$ such that $t\to v$ in
- $\overrightarrow{G'}$, we have $tQ_b \notin \phi(V(T'))$, thus $b$ is a source
- in $\overrightarrow{G'}$. Indeed, note that otherwise there would exist some
+ First, observe that for every $t\in V(G')$ such that $t\to v$ in
+ $\overrightarrow{G'}$, we have $tQ_b \notin \phi(V(T'))$. %thus $b$ is a source
+                                % in $\overrightarrow{G'}$.
+ Otherwise there would exist some
  node $d \in V(T')$ such that we both have $d \to c$ and $d \to b$ in
- $\overrightarrow{T'}$ (and thus also in $\orT$). \cref{lem:forbidden_config}
- would then imply that $a \to b$ in $\orT$, contradicting that $a$ is a leaf of
- $T$. We now let $\overrightarrow{G''}$ be the oriented graph obtained after
+ $\overrightarrow{T'}$ (and thus also in $\orT$). As $a \to b$, \cref{lem:forbidden_config}
+ would then imply that $a \to c$ in $\orT$, so $\{a,b,c,d\}$ forms a cycle
+ in $T$, contradicting the fact that $T$ is a forest. Thus, $b$ is a source in
+ $\orT'$. We now let $\overrightarrow{G''}$ be the oriented graph obtained after
  duplicating the vertex $v$ by creating a vertex $v'$ that is a false twin of
  $v$ in $\overrightarrow{G'}$, i.e.\ $v'$ has exactly the same out- and
- in-neighbourhoods as $v$ in $\overrightarrow{G''}$ (note that such operation
- preserves acyclicity). We define $\psi$ as the map from $V(T')$ to the set of
- $k$-walks of $G''$ by setting
- $\psi_{|V(T')\setminus \{b\}} := \phi_{|V(T')\setminus \{b\}}$ and define
- $\psi(b)$ as the $k$-path $\phi(b)$ where $v$ was replaced by $v'$.  We claim
- that for any two vertices $i,j$ of $V(T')$ we have $i \to j$ in
+ in-neighbourhoods as $v$ in $\overrightarrow{G}$ (note that such operation
+ preserves acyclicity). Let $\psi$ be the map from $V(T')$ to the set of
+ $k$-walks of $\overrightarrow{G''}$ such that $\psi_{|V(T')\setminus \{b\}} :=
+ \phi_{|V(T')\setminus \{b\}}$ and $\psi(b)$ is the $k$-path obatined by
+ replacing $v$ by $v'$ in $\phi(b)$.  We claim
+ that for every two vertices $i$ and $j$ of $V(T')$ we have $i \to j$ in
  $\overrightarrow{T'}$ if and only if the $(k-1)$-suffix of $\psi(i)$ equals to
  the $(k-1)$-prefix of $\psi(j)$. This is immediate if $i$ and $j$ are different
  from $b$, or if $i=b$ because $\psi(i)$ and $\phi(b)$ have the same
  $(k-1)$-suffix. Since $b$ is source in $\overrightarrow{G'}$, the case $b=j$
- also trivially follows, and as $\phi$ is convex, note that $\psi$ is also
+ does not occur, and as $\phi$ is convex, note that $\psi$ is also
  convex. Thus, we just proved that $\psi$ is a convex $k$-shift embedding of
  $\overrightarrow{T'}$ in $\overrightarrow{G''}$ such that $b$ is the only
  vertex of $\overrightarrow{T'}$ whose corresponding $k$-path $\psi(b)$ starts
@@ -775,31 +793,32 @@ have $G^{\ast 0}=G$.
   We show that \MIS on general graphs admits a polynomial time reduction to \MIS
   when restricted to the class of $k$-iterated shift graphs of girth at least
   $\ell$. Let $s$ be an even integer such that $3(s+1) \ge \ell$ and
-  $s \ge k+1$.  Let $G$ be a connected graph and assume that $[n]=V(G)$. We
+  $s \ge k+1$.  Let $G$ be a connected graph and assume that $[n]=V(G)$ so that
+  the vertices of $G$ are totally ordered. We
   claim that $G^{\ast s}$ is a $k$-iterated shift graph of girth at least
   $3(s+1) \ge \ell$. By \cref{lem:subdivision_MIS}, this will imply directly the
   result.
 
-  To prove our claim, consider the acyclic graph $H$ constructed as follows. Let
+  To prove our claim, consider the acyclic directed graph $\orH$ constructed as follows. Let
   $(P_u)_{u \in V(G)}$ be a collection of disjoint directed paths of length
-  $k$. For each $u$, we denote $u^-$ and $u^+$ the first and last vertex of
+  $k$. For every $u$, we denote $u^-$ and $u^+$ the tail and head of
   $P_u$. For each edge $uv \in E(G)$ with $u < v$, connect $u^+$ with $v^-$ by a
-  directed path $P_{uv}$ of length $s+1 -k > 0$ and let $H$ be the graph
-  obtained. We now prove that the graph $L^k(H)$ is isomorphic to $G^{\ast
-    s}$. Each vertex $u$ of $G$ is mapped to the $k$-path $P_u$. In $L^k(H)$,
+  directed path $P_{uv}$ of length $s+1 -k > 0$ and let $\orH$ be the graph
+  obtained. We now prove that the support of $L^k(\orH)$ is isomorphic to $G^{\ast
+    s}$. Each vertex $u$ of $G$ is mapped to the $k$-path $P_u$. In $L^k(\orH)$,
   for each $uv \in E(G)$ with $u < v$, the vertices $P_u$ and $P_v$ are
   connected by a path $(P_u, Q_1, \dots Q_k, R_1, \dots R_{s-k}, P_v)$, where
   each $Q_i$ is the $k$-path starting at the $(i+1)$\textsuperscript{th} vertex
   of $P_u$ and ending in $V(P_{uv}) \cup V(P_v)$, and each $R_i$ is the $k$-path
   starting at the $(i+1)$\textsuperscript{th} vertex of $P_{uv}$ and ending in
-  $V(P_{uv}) \cup V(P_v)$. Thus $G^{\ast s}$ is a subgraph of $L^k(H)$ and this
-  subgraph is spanning because all $k$-paths of $H$ are of the form described above. All
-  vertices in $V(H) \setminus \{u^+ \colon u\in V(G)\}$ have out-degree equal to
-  one and all vertices in $V(H) \setminus \{u^- \colon u\in V(G)\}$ have
+  $V(P_{uv}) \cup V(P_v)$. Thus $G^{\ast s}$ is a subgraph of the support of $L^k(\orH)$ and this
+  subgraph is spanning because all $k$-paths of $\orH$ are of the form described above. All
+  vertices in $V(\orH) \setminus \{u^+ \colon u\in V(G)\}$ have out-degree equal to
+  one and all vertices in $V(\orH) \setminus \{u^- \colon u\in V(G)\}$ have
   in-degree equal to one. So all the $k$-paths of $H$ that are not some $P_u$
-  have degree exactly two in $L^k(H)$. Combining this with the fact that the
-  $k$-paths $P_u$ have degree $\deg_H^+(u^+) + \deg_H^-(u^-) = \deg_G(u)$, this
-  proves that $G^{\ast s}$ is an induced subgraph of $L^k(H)$, so $L^k(H) =
+  have in-degree and out-degree exactly one in $L^k(\orH)$. Combining this with the fact that the
+  $k$-paths $P_u$ have degree $\deg_{\orH}^+(u^+) + \deg_{\orH}^-(u^-) = \deg_G(u)$, this
+  proves that $G^{\ast s}$ is an induced subgraph of $L^k(\orH)$, so $L^k(\orH) =
   G^{\ast s}$.
   
   \begin{figure}[h!]
@@ -846,17 +865,17 @@ have $G^{\ast 0}=G$.
           \draw[blue] (b\x\y) edge[postaction=decorate] (a\y0);
         }          
       \end{tikzpicture}
-      \caption{The graph $H$ for $k = 3$ and $s = 4$. The black directed paths
+      \caption{The directed graph $\orH$ for $k = 3$ and $s = 4$. The black directed paths
         are the paths $(P_u)_{u \in V(G)}$ and the blue paths are the
         connections $P_{uv}$ of length $s - k +1$ between them.}
     \end{subfigure}
     \caption{An example of our reduction}
   \end{figure}
 
-  Let $C$ be a cycle of $H$ and $u$ the smallest vertex of $G$ such that $C$
-  passes by $u^+$ (such vertex exists because $H - \bigcup_{u \in V(G)} u^+$ is
-  a forest of subdivided stars with central vertices $(v^-)_{v \in V(G)}$). The
-  cycle $C$ alternates at $u^+$ so $H$ is acyclic. Finally, $L^k(H) = G^{\ast
+  Let $C$ be a cycle of $\orH$ and $u$ the smallest vertex of $G$ such that $C$
+  passes by $u^+$ (such vertex exists because $\orH - \{u^+ \colon u \in V(G)\}$ is
+  a forest of subdivided stars with central vertices $\{v^- \colon v \in V(G)\}$). The
+  cycle $C$ alternates at $u^+$ so $\orH$ is acyclic. Finally, $L^k(\orH) = G^{\ast
     s}$ has girth $g(s+1) \ge 3(s+1) \ge \ell$, where $g$ is the girth of $G$. 
   
 \end{proof}
