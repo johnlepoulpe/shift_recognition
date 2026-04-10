@@ -174,6 +174,9 @@
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 
+\newcommand{\defin}[1]{\emph{\textcolor{ForestGreen}{#1}}}
+
+
 % Colors
 \newcommand{\colora}{Goldenrod}
 \newcommand{\colorb}{SkyBlue}
@@ -198,6 +201,7 @@
 \newcommand{\clement}[1]{{\color{orange} CL: #1}}
 \newcommand{\nicolas}[1]{{\color{purple} NT: #1}}
 \newcommand{\ugo}[1]{{\color{red} UG: #1}}
+
 
 \title{Shift graph recognition is NP-complete}
 
@@ -226,9 +230,8 @@
 \begin{abstract}
   Shift graphs are one of the classical constructions of triangle-free graphs
   with arbitrarily large chromatic number. We investigate the computational
-  complexity of the recognition, Maximum independent set and 3-Colouring
+  complexity of the Recognition, Maximum independent set and 3-Colouring
   problems on shift graphs and prove that all three problems are NP-complete. 
-  \todo[inline]{TODO, nicolas test git}
 \end{abstract}
 
 \todo[inline]{TODO:\\
@@ -236,9 +239,9 @@
   - Fix the proof of Thm 9 for iterated line graphs}
 \section{Introduction}
 \label{sec: intro}
-A class of graphs is \emph{hereditary} if it closed under taking induced
-subgraphs.  A hereditary class $\mathcal C$ of graphs is \emph{$\chi$-bounded} if there
-exists a function $f:\mathbb N\to \mathbb N$ such that for each graph $G\in \mathcal C$,
+A class of graphs is \defin{hereditary} if it closed under taking induced
+subgraphs.  A hereditary class $\mathcal C$ of graphs is \defin{$\chi$-bounded} if there
+exists a function $f:\mathbb N\to \mathbb N$ such that for every graph $G\in \mathcal C$,
 $\chi(G) \le f(\omega(G))$.  A well-known fact is that not all hereditary classes of graphs are
 $\chi$-bounded. Even more, there exist triangle-free graphs with arbitrarily large
 chromatic number. The first such constructions are due to Zykov \cite{Zyk49} and Blanche Descartes \cite{Descartes}, and among other constructions with such properties, one can also mention Mycielski graphs \cite{Mycielski1955}, shift graphs \cite{EH68}, Burling graphs \cite{Burling},
@@ -340,7 +343,7 @@ arbitrarily large girth.
 % hence Zykov graphs cannot form a minimal hereditary class of unbounded chromatic
 % number.
 
-% A class is \emph{abyssal} if it contains no minimal subclass of unbounded
+% A class is \defin{abyssal} if it contains no minimal subclass of unbounded
 % chromatic number. 
 
 We give in \cref{sec:Prelis} all basic definitions concerning shift graphs, as well as some known characterisations. 
@@ -356,30 +359,30 @@ For every integer $n\in \mathbb N$, we use the notation $[n]$ to denote the set 
 
 \subsection{Notations and basic definitions} A digraph $D$ consists of a set
 $V(D)$ of vertices and a set $A(D)$ of directed edges denoted $(u,v)$, $uv$ or
-$u \to v$ and called \emph{arcs} \ugo{We should only use one notation. A suggestion: we denote directed edges by $(u,v)$ and write $u\to_D v$ (or simply $u\to v$ when the context is clear) to mean that ``$(u,v)$ is an arc of $D$''.}. Given an arc $a=(u,v)$, we call $v$ its \emph{head} of
-$a$ and $u$ its \emph{tail}. We respectively denote with
+$u \to v$ and called \defin{arcs} \ugo{We should only use one notation. A suggestion: we denote directed edges by $(u,v)$ and write $u\to_D v$ (or simply $u\to v$ when the context is clear) to mean that ``$(u,v)$ is an arc of $D$''.}. Given an arc $a=(u,v)$, we call $v$ its \defin{head} of
+$a$ and $u$ its \defin{tail}. We respectively denote with
 $N^-(u) = \{v \colon v \to u\}$ and $N^+(u) = \{v \colon u \to v\}$ the
-in-neighbourhood and out-neighbourhood of $u$. We call $u$ a \emph{source} of $D$ when $N^-(u)=\emptyset$, and we call it a \emph{sink} of $D$ when $N^+(u)=\emptyset$.  An
-\emph{oriented graph} is a digraph such that for each pair $u,v$ of distinct
+in-neighbourhood and out-neighbourhood of $u$. We call $u$ a \defin{source} of $D$ when $N^-(u)=\emptyset$, and we call it a \defin{sink} of $D$ when $N^+(u)=\emptyset$.  An
+\defin{oriented graph} is a digraph such that for every pair $u,v$ of distinct
 vertices, $A(D)$ contains at most one of the two arcs $u\to v$ and $v\to u$. The
-\emph{support} of a digraph $D$ is the undirected graph $G$ obtained when
+\defin{support} of a digraph $D$ is the undirected graph $G$ obtained when
 removing the orientations of the arcs of $D$, that is $V(G) = V(D)$ and
 $E(G) = \{\{x,y\} \colon (x,y) \in A(D)\}$. We will
 often use the notation $\orG$ to denote an oriented graph whose support is the
 unoriented graph $G$.  We say that a vertex $u$ of a digraph $D$ is
-\emph{transitive} if it is neither a source nor a sink. For $k\in \mathbb N$, a
-\emph{$k$-walk} (resp.\ \emph{$k$-path}) is a sequence $(v_0,\ldots, v_k)$ of
-$k+1$ (distinct) vertices such that $v_i\to v_{i+1}$ for each $0\leq i\leq
-k-1$. The \emph{length} of a path is defined as its number of edges. Again, we
+\defin{transitive} if it is neither a source nor a sink. For $k\in \mathbb N$, a
+\defin{$k$-walk} (resp.\ \defin{$k$-path}) is a sequence $(v_0,\ldots, v_k)$ of
+$k+1$ (distinct) vertices such that $v_i\to v_{i+1}$ for every $0\leq i\leq
+k-1$. The \defin{length} of a path is defined as its number of edges. Again, we
 call $v_k$ the head of the $k$-path $(v_0,\ldots, v_k)$ and $v_0$ its tail. The
-\emph{$k$-prefix} (resp.\ \emph{$k$-suffix}) of a path $P$ is the subpath
+\defin{$k$-prefix} (resp.\ \defin{$k$-suffix}) of a path $P$ is the subpath
 obtained when keeping only its $k+1$ first (resp.\ last) vertices.
 
 Let $D$ be a digraph and let $P$ and $Q$ be two $k$-paths
 $P = (u_0,\ldots, u_k)$ and $Q = (v_0,\ldots, v_k)$ such that $P$ and $Q$ are
 vertex disjoint and there are no arcs between $V(P)$ and $V(Q)$. We
 then denote $D / \{P,Q\}$ the digraph obtained by identifying $P$ and $Q$, that
-is by replacing for each $i$, $u_i$ and $v_i$ by a new vertex $w_i$ whose
+is by replacing for every $i$, $u_i$ and $v_i$ by a new vertex $w_i$ whose
 in-neighbourhood is $N^-(u_i) \cup N^-(v_i)$ and out-neighbourhood is
 $N^+(u_i) \cup N^+(v_i)$. Formally, the vertex set of $D/\{P,Q\}$ is
 $(V(D) \setminus \{u_0,\ldots,u_k,v_0,\ldots,v_k\}) \sqcup \{w_0, \ldots, w_k\}$
@@ -390,28 +393,28 @@ $u_i$ or $v_i$ corresponds to a unique $w_i$ because $V(P)$ and $V(Q)$ are
 disjoint, and $D/ \{P,Q\}$ contains no loop because there are no arcs between
 $V(P)$ and $V(Q)$.
 
-For each $n\in \mathbb N$, the \emph{transitive tournament of order $n$} is the
+For each $n\in \mathbb N$, the \defin{transitive tournament of order $n$} is the
 oriented graph $\orTn$ with vertex set $[n]$, where there is an arc $i\to j$ for
-each $1\leq i<j\leq n$. In this article, the \emph{comb} of length $k$ is the
-graph $\Comb_k$ obtained from a path on $k$ edges (the \emph{jaw} of $\Comb_k$)
+each $1\leq i<j\leq n$. In this article, the \defin{comb} of length $k$ is the
+graph $\Comb_k$ obtained from a path on $k$ edges (the \defin{jaw} of $\Comb_k$)
 to which we attach to each vertex an additional pendant edge (such edges are the
-\emph{teeth} of $\Comb_k$). The comb of length 0 is a single tooth. The teeth
-attached to each extremity of the jaw are called the \emph{molars},
-while the other teeth are called the \emph{incisors}.
+\defin{teeth} of $\Comb_k$). The comb of length 0 is a single tooth. The teeth
+attached to each extremity of the jaw are called the \defin{molars},
+while the other teeth are called the \defin{incisors}.
  
 For a graph $G$, we let $\alpha(G)$ denote the maximum possible size of an
 independent set of $G$, and we let $\mathrm g(G)$ and $\og(G)$ denote
-respectively its \emph{girth} (minimim over the sizes of its cycles) and its
-\emph{odd girth} (minimum over the sizes of its odd cycles). If $D$ is a
+respectively its \defin{girth} (minimim over the sizes of its cycles) and its
+\defin{odd girth} (minimum over the sizes of its odd cycles). If $D$ is a
 digraph, we will write $\chi(D)$ to denote the chromatic number of its support
 graph.
 
 \subsection{Line digraphs}
-Given a digraph $D$, the \emph{line digraph} $L(D)$ of $D$ is the digraph whose
+Given a digraph $D$, the \defin{line digraph} $L(D)$ of $D$ is the digraph whose
 vertices are the arcs of $D$ and in which there is an arc from $a$ to $b$ if the
 head of $a$ is the tail of $b$ in $D$, in other words when $a$ and $b$ are
-consecutive.  We refer to $D$ as a \emph{root} digraph of $L(D)$. For
-$k\in \mathbb N$, the \emph{$k$-iterated line digraph} $L^k(D)$ of $D$ is then
+consecutive.  We refer to $D$ as a \defin{root} digraph of $L(D)$. For
+$k\in \mathbb N$, the \defin{$k$-iterated line digraph} $L^k(D)$ of $D$ is then
 defined recursively by setting $L^k(D) = L(L^{k-1}(D))$ when $k\geq 1$, and
 $L^0(D) = D$. Equivalently, when $k\geq 1$, the vertices of $L^k(D)$ are the
 directed $k$-walks in $D$ and $L^k(D)$ contains an arc from $a$ to $b$ if the
@@ -498,7 +501,7 @@ NP-complete~\cite{chvatal1990Note}.
 % that $k$-shift graphs are the supports of the $(k-1)$-iterated line digraphs of
 % all directed acyclic graphs.
 
-The \emph{shift graph sequence} is the sequence of graphs
+The \defin{shift graph sequence} is the sequence of graphs
 $(G_n)_{n\in \mathbb{N}}$, where $G_n$ is the graph whose vertices are all the
 ordered pairs $(a_1,a_2)$ of $[n]$ such that $1 \le a_1 < a_2 \le n$, in which
 two vertices $a = (a_1, a_2)$ and $b = (b_1, b_2)$ are adjacent if $b_1 = a_2$
@@ -508,14 +511,14 @@ edges between consecutive intervals. From
 this definition, it is straightforward to check that $G_n$ is the support of the
 line digraph of the transitive tournament $\orTn$.
 
-The class of \emph{shift graphs} is the hereditary closure of the graphs
+The class of \defin{shift graphs} is the hereditary closure of the graphs
 $(G_{n})_{n\in \mathbb{N}}$, that is, all induced subgraph of some $G_{n}$. Note
 that in the litterature, shift graphs might refer to what we will call later
-\emph{iterated shift graphs} in this paper \clement{What I understand is rather
+\defin{iterated shift graphs} in this paper \clement{What I understand is rather
   that ``generalized shift graphs'' correspond to our iterated shift graphs, but
   our definitions of shift graphs match}. Observe that every shift graph admits
 a natural acyclic orientation, obtained when considering the arc $(a,b)\to(b,c)$
-for each $1\leq a<b<c\leq n$. We call this orientation the \emph{shift
+for every $1\leq a<b<c\leq n$. We call this orientation the \defin{shift
   orientation} and denote it with $\orGn$. Since for every oriented graph
 $\orG$, its line graph $L(\orG)$ is acyclic if and only if $\orG$ is acyclic,
 Beineke's characterisation immediately implies the following equivalence:
@@ -587,8 +590,8 @@ have unbounded chromatic number (see for example \cite[Theorem 4]{harner1972Arc}
 % \end{proof}
 
 \paragraph{Iterated shift graphs.}
-For $k\geq 1$, the \emph{$k$-iterated shift graph} $G_{n,k}$ (sometimes referred
-to as generalised shift graph, or shift graph) is the graph whose vertices are
+For $k\geq 1$, the \defin{$k$-iterated shift graph} $G_{n,k}$ (sometimes referred
+to as generalised shift graph altough they form a subclass of shift graphs) is the graph whose vertices are
 ordered $(k+1)$-tuples $(a_0, \ldots, a_k)$ of $[n]$ such that
 $1 \le a_0 < a_1 < \ldots < a_k \le n$, in which two vertices
 $a = (a_0, \ldots, a_k)$ and $b = (b_0, \ldots, b_k)$ are adjacent if
@@ -598,28 +601,28 @@ $G_{n,k}$ is the support of the $k$-iterated line digraph $L^k(\orTn)$, where
 $\orTn$ is the transitive tournament on $n$ vertices. Note that for each
 $n\in \mathbb N$, $G_{n,2}$ corresponds exactly to the shift graph $G_n$ defined
 earlier, and that as before, $G_{n,k}$ admits a natural acyclic orientation,
-which we call its \emph{shift orientation}, and denote by $\orGnk$. Note also
+which we call its \defin{shift orientation}, and denote by $\orGnk$. Note also
 that for each $k\geq 1$, the graph $G_{n,k}$ is a shift graph with respect to
 the definition we gave above, i.e.\ it is an induced subgraph of one of the
 graphs $(G_{n})_{n\in \mathbb{N}}$ because $\orGnk$ is the line digraph of the acyclic oriented
 graph $L^{k-1}(\orTn)$.
  
-The main interest of considering the graphs $G_{n,k}$ is that they form a family
+The main interest of the graphs $G_{n,k}$ is that they form a family
 of graphs with unbounded chromatic number and arbitrarily large odd girth. More
 precisely, by \cref{lem:line-graph}, for every $k\geq 1$ and $n\in \mathbb N$,
 $G_{n,k}$ has odd-girth at least $2k+3$ % (see for example
 % \cite[Lemma 2.22]{GraphsandHomomorphisms}),
 and chromatic number at least $\log^{(k)}(n)$, where $\log^{(k)}$ denotes the
-$k$-iterated logarithm function. The class of \emph{$k$-iterated shift graphs}
+$k$-iterated logarithm function. The class of \defin{$k$-iterated shift graphs}
 is the hereditary closure of $(G_{n,k})_{n \in \mathbb{N}}$, or equivalently,
 the class of all induced subgraphs of $k$-line digraphs of acyclic digraphs.
 
 Given an acyclic digraph $\orG$ and an induced subdigraph $\orH$ of $L^k(\orG)$,
-we call \emph{$k$-shift embedding} of $\orH$ in $\orG$ any injective map $\phi$
+we call \defin{$k$-shift embedding} of $\orH$ in $\orG$ any injective map $\phi$
 from the vertices of $\orH$ to the $k$-paths of $\orG$ such that for all
 $u,v\in V(\orH)$, $u\to v$ in $\orH$ if and only if the $(k-1)$-prefix of
 $\phi(v)$ is the $(k-1)$-suffix of $\phi(u)$. We say that $\phi$ is
-\emph{convex} if for every $u,v,w \in V(\orH)$ such that $v$ is on a
+\defin{convex} if for every $u,v,w \in V(\orH)$ such that $v$ is on a
 (non-directed) path from $u$ to $w$, then
 $V(\phi(u))\cap V(\phi(w)) \subseteq V(\phi(v))$. The next lemma shows that
 $k$-shift embeddings commute with identification:
@@ -644,17 +647,17 @@ $k$-shift embeddings commute with identification:
 
 
   Denote $\phi(u) = (u_1, \dots, u_k)$, $\phi(v) = (v_1, \dots, v_k)$ and
-  $(w_1, \dots w_k)$ be the vertex resulting from the identification of
+  $(w_1, \dots w_k)$ be the $k$ vertices resulting from the identification of
   $\phi(u)$ with $\phi(v)$ in $\orG$. Let
   $p: V(\orG) \to V(\orG/\{\phi(u),\phi(v)\})$ such that $p(x) =x$ for all
   $x \notin V(\phi(u)) \cup V(\phi(v))$ and $\phi(y) = w_i$ if
-  $y \in \{u_i,v_i\}$ for some $i$. As $\phi(u)$ and $\phi(v)$ are
-  vertex-disjoint, there are no arcs between $u$ and $v$, so $p$ is a morphism.
+  $y \in \{u_i,v_i\}$ for some $i$. As there are no arcs between $u$ and $v$, $p$ is a morphism.
   Let $\psi$ be the map from $\orH/\{u,v\}$ to the $k$-paths of
   $\orG/\{\phi(u),\phi(v)\}$ such that for all $x \in V(G)$, we let
   $\psi(p(x)) = (p(x_1), \dots, p(x_k))$ where $(x_1, \dots, x_k) =
-  \phi(x)$. First, note that $\psi(x)$ is a $k$-path for each
-  $x \in V(\orH/\{u,v\})$ because $p$ is a morphism. Moreover, for each arc $xy$
+  \phi(x)$. First, note that $\psi(x)$ is a $k$-path for every
+  $x \in V(\orH/\{u,v\})$ because $p$ is a morphism. Moreover, for every arc $x
+  \to y$
   in $\orH/\{u,v\}$, the $(k-1)$-suffix of $\psi(x) = \phi(p^{-1}(x))$ and the
   $(k-1)$-prefix of $\psi(y) = \phi(p^{-1}(y))$ are equal, so $\psi$ is a
   $k$-shift embedding of $\orH/\{u,v\}$ in $\orG/\{\phi(u),\phi(v)\}$.
@@ -662,8 +665,11 @@ $k$-shift embeddings commute with identification:
 
 
 \paragraph{Shift trees.} We now prove a technical lemma that we will use to
-construct the root graph of some $k$-iterated shift graphs. Informally, it
-states that for trees, $k$-iterated shift graphs and shift graphs are the same.
+construct the root graph of some $k$-iterated shift graphs. 
+
+Informally, it
+states that for trees, $k$-iterated shift graphs and shift graphs are the
+same. We will see in section\todo{ref} that this 
 
 \begin{lemma}\label{lem:shift_tree}
   Let $T$ be a shift graph which is a tree, with shift orientation $\orT$. Then, for all $k\geq 1$, $T$ is also a $k$-iterated shift graph.\\
@@ -738,7 +744,7 @@ states that for trees, $k$-iterated shift graphs and shift graphs are the same.
 \end{proof}
 
 % \ugo{I hope that I interpretated correctly in the next definition what you meant by ``identifying'' (it was not clear at all for me in a first time).}
-% In a directed graph $D$, if $u,v$ are two distinct vertices, we let $D/\{u,v\}$ denote the digraph obtained after \emph{identifying} $u$ with $v$, i.e.\  $D/\{u,v\}$ is obtained from $D$ after removing $u,v$ and adding a new vertex $z$, with in-neighbourhood $(N^-_D(u)\cup N^-_D(v))\setminus \{u,v\}$ and
+% In a directed graph $D$, if $u,v$ are two distinct vertices, we let $D/\{u,v\}$ denote the digraph obtained after \defin{identifying} $u$ with $v$, i.e.\  $D/\{u,v\}$ is obtained from $D$ after removing $u,v$ and adding a new vertex $z$, with in-neighbourhood $(N^-_D(u)\cup N^-_D(v))\setminus \{u,v\}$ and
 % out-neighbourhood $(N^+_D(u)\cup N^+_D(v))\setminus \{u,v\}$. Note that if $D=\orH$ is an oriented graph, in which $N_H(u)$ and $N_H(v)$ are disjoint, then $D/\{u,v\}$ is also an oriented graph. The next lemma shows that in this case, $k$-shift embeddings are also preserved.
 
 
@@ -856,7 +862,7 @@ have $G^{\ast 0}=G$.
 \section{3-Colouring shift graphs}\label{sec:3COL}
 \begin{theorem}\label{thm:3col}
   For any $k\geq 1$, \Col is NP-complete when restricted on the class of $k$-iterated shift graphs (and
-  \emph{a fortiori} in shift graphs of odd-girth at least $k$).
+  a fortiori in shift graphs of odd-girth at least $k$).
 \end{theorem}
 \begin{proof}
   We design a polynomial time reduction from \Col on general graphs to \Col on $k$-iterated
@@ -1199,7 +1205,7 @@ have $G^{\ast 0}=G$.
   $\alpha(u) = \beta(X_ux_v) \neq \beta(X_vy_v) = \beta(v)$.
 \end{proof}
 
-In the next proof, an \emph{in-forest} (resp.\ \emph{out-forest}) is an oriented forest in which each vertex has in-degree (resp.\ out-degree) at most $1$. Observe that in particular, every component of an in-forest (resp.\ out-forest) has exactly one vertex with in-degree (resp. out-degree) equal to 0, which we call the \emph{root} of its component.
+In the next proof, an \defin{in-forest} (resp.\ \defin{out-forest}) is an oriented forest in which each vertex has in-degree (resp.\ out-degree) at most $1$. Observe that in particular, every component of an in-forest (resp.\ out-forest) has exactly one vertex with in-degree (resp. out-degree) equal to 0, which we call the \defin{root} of its component.
 
 We now prove that if one restricts to shift graphs of large girth (and not large
 odd-girth as in \cref{thm:3col}), 3-colouring becomes a trivial problem.
@@ -1239,7 +1245,7 @@ odd-girth as in \cref{thm:3col}), 3-colouring becomes a trivial problem.
 
 % By Schaefer's dichotomy theorem~\cite{schaefer1978Complexity}, the following
 % problem is NP-complete.
-Recall that a $3$-CNF formula is a boolean formula $\varphi$ in conjonctive normal form (CNF), in which each clause contains 3 litterals. Such a formula $\varphi$ is called \emph{monotone} if all variables always appear positively, i.e.\ no litteral has the form $\neg x$ for some variable $x$.  
+Recall that a $3$-CNF formula is a boolean formula $\varphi$ in conjonctive normal form (CNF), in which each clause contains 3 litterals. Such a formula $\varphi$ is called \defin{monotone} if all variables always appear positively, i.e.\ no litteral has the form $\neg x$ for some variable $x$.  
 Lov\'asz \cite{lovasz1973Covering} proved that the following problem is NP-complete.
 
 \begin{csproblem}{Monotone Not all equal 3-SAT (MNAE-3SAT)}
@@ -1263,7 +1269,7 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   graph. Let $\phi$ be a monotone 3-CNF formula with $m$
   clauses and $n$ variables. We construct a graph $G_\phi$ of size $O(mnk)$ which is a $k$-iterated shift graph if
   $\phi$ is a valid instance of \textsc{MNAE-3SAT}, but is not a shift graph (and
-  \emph{a fortiori} not a $k$-iterated shift graph) if $\phi$ is not a valid
+  a fortiori not a $k$-iterated shift graph) if $\phi$ is not a valid
   instance of \textsc{MNAE-3SAT}. 
 
   \paragraph{Gadgets.}
@@ -1372,7 +1378,7 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   $w^{4i}_xw_y^{4i+1}w_y^{4i+3}w_z^{4i}$. Denote $G_\phi$ the constructed graph.
 
   \paragraph{Valid orientations of $G_\phi$.}
-  We call an orientation of a graph \emph{valid} if 
+  We call an orientation of a graph \defin{valid} if 
   it is a line
   digraph of an acyclic oriented graph. In other words, valid orientations are exactly the acyclic orientations satisfying the two conditions of \cref{lem:line-graph}.
   Before proving that there is a valuation such that
@@ -1503,9 +1509,9 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   
   For each $i\in \{0,\ldots,4m-1\}$, and every orientation $\orCi$ of the comb $C_i$, we say that a teeth $e$ of is 
   \begin{itemize}
-  \item \emph{positive} if $e$ is a molar and is oriented away from the jaw, or
+  \item \defin{positive} if $e$ is a molar and is oriented away from the jaw, or
     if $e$ is an incisor and is oriented towards the jaw.
-   \item \emph{negative} if $e$ is a molar and is oriented towards the jaw, or
+   \item \defin{negative} if $e$ is a molar and is oriented towards the jaw, or
      if $e$ is an incisor and is oriented away from the jaw.
   \end{itemize}
   
