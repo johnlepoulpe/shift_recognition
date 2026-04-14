@@ -1616,32 +1616,53 @@ formulation, sometimes also called property B,  was the one used in \cite{lovasz
 %   away (resp. towards) the jaw, and that they are \emph{negative} otherwise.
   
   \begin{claim}\label{cl:clause_orientation}
-    For every $i\in \{0,\ldots,4m-1\}$, in any shift orientation of $C_i$, the
-    teeth of $C_i$ cannot be all positive, or all negative.  Conversely, any
+    For every $i\in \{0,\ldots,4m-1\}$, in every shift orientation of $C_i$, the
+    teeth of $C_i$ cannot be all positive, or all negative (see Figure~\ref{fig:variable_gadget1}).  Conversely, any
     orientation of the teeth of $C_i$ in which the incisors are both positive
     (respectively both negative), and in which at least one molar is negative (respectively
     positive) can be extended to a shift orientation of $C_i$ in which the jaw
-    of $C_i$ is a directed path.
+    of $C_i$ is a directed path (see Figure~\ref{fig:variable_gadget}).
   \end{claim}
   \begin{poc}
     We let $aa', \dots, dd'$ denote the four teeth of $C_i$ with jaw
     $abcd$. Assume towards a contradiction that there exists a shift
     orientation $\orCi$ of $C_i$ making all teeth positive. That is, the molars
     $aa'$ and $dd'$ are oriented away from $a$ and $d$, while the incisors
-    $bb'$ and $cc'$ are oriented towards $b$ and $c$. Without loss of
+    $bb'$ and $cc'$ are oriented towards $b$ and $c$ (see Figure~\ref{fig:variable_gadget1}). Without loss of
     generality, assume that $b \to c$. By Lemma~\ref{lem:forbidden_config}, as $c$
     has both an in-neighbour and an out-neighbour, the edge $ab$ must be
-    oriented $a \to b$ (see Figure~\ref{fig:variable_gadget}). We then obtain a
+    oriented $a \to b$. We then obtain a
     contradiction as the orientation of the induced path $a'abb'$ contradicts
     the first condition of Lemma~\ref{lem:forbidden_config}.
+        \begin{figure}[h!]
+      \centering
+      \begin{tikzpicture}[decoration={
+          markings,
+          mark=at position 0.5 with {\arrow[scale=1.5]{>}}}
+        ]
 
-    \begin{figure}[htb]
-      \centering  
-         \includegraphics[scale=1]{3comb}
-      \caption{The orientation depicted in the first part of the proof of
-      Claim~\ref{cl:clause_orientation}.}
-      \label{fig:proof_3comb}
+        \foreach \x/\j in {a/0,b/1,c/2,d/3}{
+          \node[classic] (\x1) at (\j,0) {};
+          \node[classic] (\x2) at (\j,1) {};
+          \node[below] at (\x1) {\small $\x$};
+          \node[above] at (\x2) {\small $\x'$};
+        }
+        
+        \draw[postaction={decorate}] (a1) -- (a2);
+        \draw[postaction={decorate}] (b2) -- (b1);
+        \draw[postaction={decorate}] (c2) -- (c1);
+        \draw[postaction={decorate}] (d1) -- (d2);
+        
+        \draw (a1) -- (b1);
+        \draw (b1) -- (c1);
+        \draw (c1) -- (d1);          
+      \end{tikzpicture}
+      \caption{A (partial) orientation of $C_i$, in which all teeth are
+        positive. Such orientation cannot be extended into a shift orientation
+        of $C_i$.}
+      \label{fig:variable_gadget1}
     \end{figure}
+
     
     Conversely, consider an orientation of the teeth $aa', \ldots, dd'$, such
     that $bb'$ and $cc'$ are say positive, but not all four edges are
