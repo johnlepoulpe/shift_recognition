@@ -265,16 +265,16 @@ For example, Burling graphs have been used to show that the class of intersectio
 
 
 
-In \cref{tab:complexity}, we review some well-known
+In Table~\ref{tab:complexity}, we review some well-known
 constructions of triangle-free graphs with arbitratily large chromatic number.
 These constructions are often presented by generating a sequence of triangle-free graphs
 $(G_k)_{k\in \mathbb{N}}$ such that $\chi(G_k) = k$ for all $k$. We turn this
 into a hereditary class by considering all induced subgraphs of the graphs in
-the sequence $(G_k)_{k\in \mathbb N}$. Thus, by abuse of vocabulary, when we say a ``shift/Burling/etc.\ graph'', we mean in particular an induced subgraph of one of the graphs from the sequence $(G_k)_{k\in \mathbb N}$ of shift/Burling/etc.\ graphs (see  \cref{sec:Prelis} for precise definitions).   
+the sequence $(G_k)_{k\in \mathbb N}$. Thus, by abuse of vocabulary, when we say a ``shift/Burling/etc.\ graph'', we mean in particular an induced subgraph of one of the graphs from the sequence $(G_k)_{k\in \mathbb N}$ of shift/Burling/etc.\ graphs (see Section~ \ref{sec:Prelis} for precise definitions).   
 
 
 In view of the explicit constructions of each of the aforementioned classes, a natural question is to determine for each of them, whether there exists an efficient (polynomial time) algorithm solving the associated recognition problem, i.e.\ deciding whether a given graph belongs or not to them. This question has been recently investigated for some of these classes, as well as the complexity of two other natural problems, when restricted to these classes: \textsc{Maximum Independent
-Set} (or \MIS for short) and \textsc{3-Colouring} (see \cref{tab:complexity} for references). The goal of the present paper is to complement these works, and to prove that all three
+Set} (or \MIS for short) and \textsc{3-Colouring} (see Table~\ref{tab:complexity} for references). The goal of the present paper is to complement these works, and to prove that all three
 problems are NP-complete for shift graphs.
 
 % Three problems particularly attracted attention: Recognition, Maximum
@@ -303,7 +303,7 @@ problems are NP-complete for shift graphs.
 \end{table}
 
 Surprisingly, one can observe
-from \cref{tab:complexity} that 3-Colouring is NP-complete in all known
+from Table~\ref{tab:complexity} that 3-Colouring is NP-complete in all known
 constructions of triangle-free graphs of high chromatic number, which motivates
 the following quesiton: \nicolas{we could be more general, by saying
 ``all non-$\chi$-bounded classes (in particular in all triangle-free hereditary graph classes of unbounded
@@ -311,18 +311,18 @@ the following quesiton: \nicolas{we could be more general, by saying
 \begin{question}\label{qu:3col}
   Is \textsc{3-Colouring} NP-complete on all non $\chi$-bounded \ugo{hereditary?} classes?
 \end{question}
-The most natural candidates for possible counterexamples to \cref{qu:3col} are
+The most natural candidates for possible counterexamples to Question~\ref{qu:3col} are
 the classes of Kneser and
 Schrijver graphs.   
 \ugo{We should check first whether Kneser/Schrijver constructions do not give a counterexample... Also, do you really want to state it as a Conjecture, and not as a Question?}
 
-For most of the constructions from \cref{tab:complexity} of triangle-free graphs
+For most of the constructions from Table~\ref{tab:complexity} of triangle-free graphs
 with high chromatic number, there exist variants producing graphs with
 arbitrarily large girth or odd-girth, and unbounded chromatic number. More
 precisely, there exist shift, twincut and Mycielski graphs of arbitrarily
 large odd-girth and chromatic number, and Zykov and Blanche Descartes graphs
 with arbitrarily large girth and chromatic number. The complexity results of
-\cref{tab:complexity} might also hold with this additional condition in these
+Table~\ref{tab:complexity} might also hold with this additional condition in these
 classes. In the particular case of shift graphs, $k$-iterated shift graphs have
 odd-girth at least $2k+3$ but may contain four-cycles. Each of our
 NP-completeness results extends to the class of $k$-iterated shift graphs.
@@ -350,10 +350,10 @@ arbitrarily large girth.
 % A class is \defin{abyssal} if it contains no minimal subclass of unbounded
 % chromatic number. 
 
-We give in \cref{sec:Prelis} all basic definitions concerning shift graphs, as well as some known characterisations. 
-We prove in \cref{sec:MIS} that \textsc{Maximum independent set} is
-NP-complete in shift graphs. \cref{sec:3COL} contains a proof that \textsc{3-Colouring}
-is NP-complete when restricted to shift graphs and \cref{sec:recognition} shows
+We give in Section~\ref{sec:Prelis} all basic definitions concerning shift graphs, as well as some known characterisations. 
+We prove in Section~\ref{sec:MIS} that \textsc{Maximum independent set} is
+NP-complete in shift graphs. Section~\ref{sec:3COL} contains a proof that \textsc{3-Colouring}
+is NP-complete when restricted to shift graphs and Section~\ref{sec:recognition} shows
 that recognising shift graphs is also NP-complete.
 
 \section{Preliminaries}
@@ -431,7 +431,7 @@ vertex set of $L^k(D)$ also corresponds to the set of $k$-paths of $D$.
 The following result of Beineke characterises line digraphs of oriented graphs.
 \begin{lemma}[Beineke~\cite{beineke1968Derived}]\label{lem:forbidden_config}
   A digraph $D$ is the line digraph of an oriented graph $\orG$ if and only if the two 
-  following conditions are satisfied (see \cref{fig: Beineke}):
+  following conditions are satisfied (see Figure~\ref{fig: Beineke}):
   \begin{enumerate}
   \item If $D$ contains three arcs $a$, $b$ and $c$ such that $a$ and $b$ have
     the same tail, and $b$ and $c$ have the same head, then $D$ also contains an
@@ -445,7 +445,7 @@ The following result of Beineke characterises line digraphs of oriented graphs.
 \begin{figure}[htb]
   \centering  
   \includegraphics[scale=1]{Line_digraph}
-  \caption{The two configurations depicted in \cref{lem:forbidden_config}.}  
+  \caption{The two configurations depicted in Lemma~\ref{lem:forbidden_config}.}  
   \label{fig: Beineke}
 \end{figure}
 
@@ -574,7 +574,7 @@ part). We include its proof as it is simple.
   For each $i$, let $\ell_i$ be the
   length of $Q_i$. We have $\ell_i \ge 2$ for each $i$, because otherwise $C$
   would contain an alternating path of lentgh three, which by
-  \cref{lem:forbidden_config} implies that there exists a shorter odd cycle in
+  Lemma~\ref{lem:forbidden_config} implies that there exists a shorter odd cycle in
   $L(G)$. Note that this argument fails if $C$ is a cycle of length four, which
   is why the assumption that $C$ has odd length is needed. By definition of the
   line digraph, each of the path $Q_i$ corresponds to a directed path $P_i$ of
@@ -623,7 +623,7 @@ graph $L^{k-1}(\orTn)$.
  
 The main interest of the graphs $G_{n,k}$ is that they form a family
 of graphs with unbounded chromatic number and arbitrarily large odd girth. More
-precisely, by \cref{lem:line-graph}, for every $k\geq 1$ and $n\in \mathbb N$,
+precisely, by Lemma~\ref{lem:line-graph}, for every $k\geq 1$ and $n\in \mathbb N$,
 $G_{n,k}$ has odd-girth at least $2k+3$ % (see for example
 % \cite[Lemma 2.22]{GraphsandHomomorphisms}),
 and chromatic number at least $\log^{(k)}(n)$, where $\log^{(k)}$ denotes the
@@ -740,7 +740,7 @@ use this to construct the root graph of some $k$-iterated shift graphs.
                                 % in $\overrightarrow{G'}$.
  Otherwise there would exist some
  node $d \in V(T')$ such that we both have $d \to c$ and $d \to b$ in
- $\overrightarrow{T'}$ (and thus also in $\orT$). As $a \to b$, \cref{lem:forbidden_config}
+ $\overrightarrow{T'}$ (and thus also in $\orT$). As $a \to b$, Lemma~\ref{lem:forbidden_config}
  would then imply that $a \to c$ in $\orT$, so $\{a,b,c,d\}$ forms a cycle
  in $T$, contradicting the fact that $T$ is a forest. Thus, $b$ is a source in
  $\orT'$. We now let $\overrightarrow{G''}$ be the oriented graph obtained after
@@ -797,7 +797,7 @@ have $G^{\ast 0}=G$.
   $s \ge k+1$.  Let $G$ be a connected graph and assume that $[n]=V(G)$ so that
   the vertices of $G$ are totally ordered. We
   claim that $G^{\ast s}$ is a $k$-iterated shift graph of girth at least
-  $3(s+1) \ge \ell$. By \cref{lem:subdivision_MIS}, this will imply directly the
+  $3(s+1) \ge \ell$. By Lemma~\ref{lem:subdivision_MIS}, this will imply directly the
   result.
 
   To prove our claim, consider the acyclic directed graph $\orH$ constructed as follows. Let
@@ -947,7 +947,7 @@ have $G^{\ast 0}=G$.
   a proper 3-colouring of $L(\orH)$, where $v_{n-1}v_n$ is without loss of
   generality coloured 1. The arcs entering $v_{n-1}$ cannot use the colour 1, so
   they use at most two colours. Suppose that they are all using the same colour,
-  say 2 (see \cref{fig: GadgetH}). Let $c := \alpha(uv_n)$ (note that $c$ is
+  say 2 (see Figure~\ref{fig: GadgetH}). Let $c := \alpha(uv_n)$ (note that $c$ is
   well defined as $u\to v_n$ is an arc of $\orH$) and $\beta$ be the 3-colouring
   of $L(\orH+uv_{n-1})$ such that $\beta(uv_{n-1}):= c$,
   $\beta(v_{n-1}v_n) \in \{1,3\} \setminus \{c\}$ and $\beta(xy) = \alpha(xy)$
@@ -1256,7 +1256,7 @@ have $G^{\ast 0}=G$.
 In the next proof, an \defin{in-forest} (resp.\ \defin{out-forest}) is an oriented forest in which each vertex has in-degree (resp.\ out-degree) at most $1$. Observe that in particular, every component of an in-forest (resp.\ out-forest) has exactly one vertex with in-degree (resp. out-degree) equal to 0, which we call the \defin{root} of its component.
 
 We now prove that if one restricts to shift graphs of large girth (and not large
-odd-girth as in \cref{thm:3col}), 3-colouring becomes a trivial problem.
+odd-girth as in Theorem~\ref{thm:3col}), 3-colouring becomes a trivial problem.
 \begin{proposition}
   All shift graphs of girth at least five are 3-colourable.
 \end{proposition}
@@ -1325,7 +1325,7 @@ odd-girth as in \cref{thm:3col}), 3-colouring becomes a trivial problem.
   We now show that the arcs of $A_X\cup A_Y \cup A_{Y\to X}$ form a forest in
   $G$, and therefore can be coloured with two additional colours, which results
   in a proper 3-arc-colouring of $\orH$.  First, observe that as $X$ does not
-  contain vertices with in-degree $2$, $\orH[X]=(X,A_X)$ must be an
+  contain vertices with in-degree $2$, so $\orH[X]=(X,A_X)$ must be an
   out-forest. Symmetrically, $\orH[Y]=(Y,A_Y)$ is an in-forest. Observe also
   that the arcs of $A_{Y\to X}$ must form a matching, and can only connect a
   root of some component of $\orH[Y]$ to a root of some component of
@@ -1347,10 +1347,12 @@ Lov\'asz \cite{lovasz1973Covering} proved that the following problem is NP-compl
   the variables such that each clause of $\phi$ contains both variables set ot true and false.
 \end{csproblem}
 
-Note that \MNAE is equivalent to the problem of deciding whether a given $3$-regular hypergraph is $2$-colourable. In particulra, this hypergraph formulation was the one used in \cite{lovasz1973Covering}. In order to prove the next result, we will design a polynomial time reduction to $\MNAE$, inspired by the one from \cite{chvatal1990Note}.
+Note that \MNAE is equivalent to the problem of deciding whether a given
+$3$-regular hypergraph is $2$-colourable. In particular, this hypergraph
+formulation, sometimes also called property B,  was the one used in \cite{lovasz1973Covering}. In order to prove the next result, we will design a polynomial time reduction to $\MNAE$, inspired by the one from \cite{chvatal1990Note}.
 
 \begin{theorem}
-  For each $k \ge 1$, the problem of recognising whether a graph is a $k$-iterated shift graph (or equivalently, the
+  For every $k \ge 1$, the problem of recognising whether a graph is a $k$-iterated shift graph (or equivalently, the
   support of the $k$-iterated line digraph of
   an acyclic oriented graph) is NP-complete.
 \end{theorem}
@@ -1370,16 +1372,15 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   We first describe a gadget that will be used later for encoding the
   variables. Let $H$ be the 4-sun, that is the graph on eight vertices composed
   of a 4-cycle with one pendant edge attached to each of the vertices on the
-  cycle. For each variable $x$, consider the gadget composed of a path $U_x$ on
+  cycle. For every variable $x$, consider the gadget composed of a path $U_x$ on
   $8m+1$ vertices. Denote $u_x^0, \dots u_x^{4m-1}$ every other vertex of $U_x$,
-  starting from the second vertex of $U_x$. For each $i \in \{0, \dots, 4m-1\}$
+  starting from the second vertex of $U_x$. For every $i \in \{0, \dots, 4m-1\}$
   we connect $u_x^{i}$ to the first vertex of the jaw of a comb $Q_i$ of length
   $k+1$. Denote $v_x^{i}$ the last vertex of the jaw of this comb and
-  $w_x^{i}$ the vertex adjacent to $v_x^{i}$ via the last tooth.%  \ugo{Why not
-    % simply call them $v_x^i$ and $w_x^i$?}
+  $w_x^{i}$ the vertex adjacent to $v_x^{i}$ via the last tooth.
   Connect each $u_x^{i}$ to a
   distinct copy $H_x^i$ of $H$ via one of its vertices of degree three that we
-  will call $t_x^{i}$ (see \cref{fig:variable_gadget}). For each variable $x$,
+  will call $t_x^{i}$ (see Figure~\ref{fig:variable_gadget}). For every variable $x$,
   let $L_x$ denote a disjoint copy of this graph, and let $M_x$ be the subgraph
   of $L_x$ obtained by removing all vertices of the graphs $H_x^i$, except the
   vertices $(t_x^{i})_{0 \le i \le 4m-1}$. In particular, $M_x$ is connected and contains
@@ -1462,7 +1463,7 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
     \label{fig:variable_gadget}    
   \end{figure}
   
-  For each $i \in \{0,\dots, m-1\}$, if $x,y,z$ denote the three variables
+  For every $i \in \{0,\dots, m-1\}$, if $x,y,z$ denote the three variables
   appearing in the $i$\textsuperscript{th} clause of $\phi$, we attach the
   gadgets $L_x$, $L_y$ and $L_z$ as follows. Add three edges to form a path
   $a_ib_ic_id_i$, where $a_i=w_x^{4i}$, $b_i=w_y^{4i+1}$, $c_i=w_y^{4i+3}$ and
@@ -1471,20 +1472,20 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   v_y^{4i+3}, v_z^{4i}\}$ forms a comb $C_i$ of length three, with jaw
   $w^{4i}_xw_y^{4i+1}w_y^{4i+3}w_z^{4i}$. Denote $G_\phi$ the constructed graph.
 
-  \paragraph{Valid orientations of $G_\phi$.}
-  We call an orientation of a graph \defin{valid} if 
-  it is a line
-  digraph of an acyclic oriented graph. In other words, valid orientations are exactly the acyclic orientations satisfying the two conditions of \cref{lem:line-graph}.
+  \paragraph{Shift orientations of $G_\phi$.}
+  Recall that an orientation of a graph is a \defin{shift orientation} if 
+  it corresponds to a line
+  digraph of an acyclic oriented graph. In other words, shift orientations are exactly the acyclic orientations satisfying the two conditions of Lemma~\ref{lem:line-graph}.
   Before proving that there is a valuation such that
   $\phi$ is a positive instance of $\MNAE$
 %   has both variables set to true and false in each clause 
   if and only if $G_\phi$
-  admits a valid orientation, we prove several lemmas describing valid
+  admits a shift orientation, we prove several lemmas describing shift
   orientations of $G_\phi$ and some of its subgraphs.
 
   \begin{claim}\label{cl:sun_orientation}
-    Up to isomorphism, there are only two valid orientations of the 4-sun, which are opposite from each other (see
-    ~\cref{fig:sun_orientation}). In these orientations, the 4-cycle is
+    Up to isomorphism, there are only two shift orientations of the 4-sun, which are opposite from each other (see
+    Figure~\ref{fig:sun_orientation}). In these orientations, the 4-cycle is
     alternating and all vertices of degree three are transitive.
   \end{claim}
   \begin{figure}[ht]
@@ -1514,28 +1515,29 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
       \draw[postaction={decorate}] (d) -- (d');
 
     \end{tikzpicture}
-    \caption{The only valid orientation of the 4-sun (and its opposite).}
+    \caption{The only shift orientation of the 4-sun (and its opposite).}
     \label{fig:sun_orientation}
   \end{figure}
   \begin{poc}
-    Consider $\orH$ a valid orientation of $H$. Recall that by~\cref{lem:valid},
+    Consider $\orH$ a shift orientation of $H$. Recall that by Lemma~\ref{lem:valid},
     the 4-cycles are alternating at each vertex in a shift orientation of shift graph. \ugo{I do not think that it is enough... I suggest the next arguments (in red).
     
-    As $\orH$ is acyclic, the 4-cycle $C$ of $H$ contains at least one sink and one source (with respect to the induced orientation on the cycle). Moreover, note that every such orientation $\overrightarrow{C}$ of $C$ containing one transitive vertex contradicts either of the two conditions from \cref{lem:valid}. It implies that the orientation of $C$ induced by $\orH$ is the alternating orientation depicted in \cref{fig:sun_orientation}.} 
+    As $\orH$ is acyclic, the 4-cycle $C$ of $H$ contains at least one sink and one source (with respect to the induced orientation on the cycle). Moreover, note that every such orientation $\overrightarrow{C}$ of $C$ containing one transitive vertex contradicts either of the two conditions from Lemma~\ref{lem:valid}. It implies that the orientation of $C$ induced by $\orH$ is the alternating orientation depicted in \cref{fig:sun_orientation}.} 
 
-  \clement{We wrote below \cref{lem:valid} that it implies that 4 cycles are
+  \clement{We wrote below Lemma~\ref{lem:valid} that it implies that 4 cycles are
     alternating in shift graphs}
   
     Now let $v$ be a vertex of degree
     three in $H$. Without loss of generality, assume that $v$ has no in-neighbour in
     $C$, i.e.\ that it is a source of $C$. Let $u$ be the unique neighbour of $v$ which is not on $C$, and $w$ and $x$ be two
-    vertices of $C$ such that $w$ is adjacent to $v$, while $x$ is not. As the orientation of $C$ in $\orH$ alternates, we must have $v\to w$ and $w\to x$ in $\orH$. In particular, the first condition of~\cref{lem:forbidden_config}, then implies that we have $u\to v$ in $\orH$, hence $v$ is transitive. As this reasoning is independent of the choice of $v$ on $C$, we deduce that $\orH$ has the desired form.
+    vertices of $C$ such that $w$ is adjacent to $v$, while $x$ is not. As the orientation of $C$ in $\orH$ alternates, we must have $v\to w$ and $x\to w$ in $\orH$. In particular, the first condition of~Lemma~\ref{lem:forbidden_config} then implies that we have $u\to v$ in $\orH$, hence $v$ is transitive. As this reasoning is independent of the choice of $v$ on $C$, we deduce that $\orH$ has the desired form.
   \end{poc}
 
 
   \begin{claim}\label{cl:gadget_orientation}
-    Consider a valid orientation of $L_x$ for some fixed variable $x$. Then there are only two possible
-    orientations for its restriction to $M_x$, which are opposite from each other, and such that
+    Consider a shift orientation of $L_x$ for some fixed variable $x$. Then there are only two possible
+    orientations for its restriction to $M_x$, which are opposite from each
+    other and satisfy either of the following properties:
     \begin{itemize}
      \item if $w_x^0 \to v_x^0$ then for all $i$, we have $w_x^{i} \to v_x^{i}$ if $i$
     is even and $v_x^{i} \to w_x^{i}$ if $i$ is odd,
@@ -1544,37 +1546,37 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
     \end{itemize}
   \end{claim}
   \begin{poc}
-    Fix a valid orientation $\orLx$ of $L_x$ and without loss of generality, assume that $w_x^0 \to v_x^0$ in $\orLx$, the other case being symmetric.
-    For each $i\in \{0,\ldots,4m-1\}$, we let $\orHxi$ denotes the orientation of the subgraph $H_x^i$ induced by $\orLx$.
-    By~\cref{cl:sun_orientation}, in each $\orHxi$ all the vertices of degree three are transitive (however,
+    Let $\orLx$ be a shift orientation of $L_x$ and without loss of generality, assume that $w_x^0 \to v_x^0$ in $\orLx$, the other case being symmetric.
+    For every $i\in \{0,\ldots,4m-1\}$, we let $\orHxi$ denotes the orientation of the subgraph $H_x^i$ induced by $\orLx$.
+    By~Claim~\ref{cl:sun_orientation}, in every $\orHxi$ all the vertices of degree three are transitive (however,
     each subgraph $H_x^i$ may be oriented in any of its two opposite
     orientations independently of any other copy).
 
-    We first show that for each $i\in \{0,\ldots,4m-1\}$, we have the following
+    We first show that for every $i\in \{0,\ldots,4m-1\}$, we have the following
     \begin{enumerate}
     \item\label{item:sink} if $u^{i}_x \to t^{i}_x$ in $\orLx$, then $u^{i}_x$
       is a sink in $\orLx-t_x^{i}$.
     \item\label{item:source} if $t^{i}_x \to u^{i}_x$ in $\orLx$, then $u^{i}_x$
       is a source in $\orLx-t_x^{i}$,
     \end{enumerate}
-    We only show \ref{item:sink}, as \ref{item:source} is symmetric. Let
+    We only show the first item, as the second is symmetric. Let
     $i \in \{0,\ldots,4m-1\}$ and assume that $u^{i}_x \to t^{i}_x$ in
-    $\orLx$. By \cref{cl:sun_orientation}, $t^{i}_x$ is transitive in $\orHxi$,
-    and thus has an in-neighbour in $\orLx$ distinct from $u_x^{2i}$. In
-    particular, note that the first condition of \cref{lem:forbidden_config}
-    then implies that $u^{2i}_x$ cannot have an out-neighbour in
-    $\orLx-t^{2i}_x$, showing \ref{item:source}.
+    $\orLx$. By Claim~\ref{cl:sun_orientation}, $t^{i}_x$ is transitive in $\orHxi$,
+    and thus has an in-neighbour in $\orLx$ distinct from $u_x^{i}$. In
+    particular, note that the first condition of Lemma~\ref{lem:forbidden_config}
+    then implies that $u^{i}_x$ cannot have an out-neighbour in
+    $\orLx-t^{i}_x$, which proves the first item.
     
-    Using once again the first condition of \cref{lem:forbidden_config}, observe
+    Using once again the first condition of Lemma~\ref{lem:forbidden_config}, observe
     that the vertices of degree two in $U_x \setminus \{u_0, \dots, u_{4m-1}\}$
     are transitive and that the vertices $u^{i}$ are alternatively sources or
     sinks in $\orLx - \bigcup_it^i_x$. In order to conclude the proof of the
-    claim, observe that for $i$ such that $u^i_x$ is a sink in $\orLx - t^i_x$
+    claim, observe that for every $i$ such that $u^i_x$ is a sink in $\orLx - t^i_x$
     (respectively a source), applying iteratively the first condition of
-    \cref{lem:forbidden_config} implies that the jaw of the comb $Q_i$ is
-    oriented towards $u^i_x$ and each teeth $st$ where $s$ belongs to the jaw is
+    Lemma~\ref{lem:forbidden_config} implies that the jaw of the comb $Q_i$ is
+    oriented towards $u^i_x$ and every teeth $st$ where $s$ belongs to the jaw is
     oriented $t \to s$ in $\orLx$ (resp. away from $u^i_x$ and $s \to t$). So
-    for each $i$, $u^i_x$ is a sink if and only if $w^i_x \to v^i_x$.  In
+    for every $i$, $u^i_x$ is a sink if and only if $w^i_x \to v^i_x$.  In
     particular, because the edge $w^0_xv^0_x$ is oriented $w^0_x \to v^0_x$ and
     the vertices $u^i_x$ are alternatively sources and sinks in
     $\orLx - \bigcup_it^i_x$, this proves that we have $w^i_x \to v^i_x$ for all
@@ -1584,13 +1586,13 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
 
     \clement{The end of the previous proof was false, I changed it.}
     % In particular, as we
-    % assumed $w_x^0\to v_x^0$, this implies that for each
+    % assumed $w_x^0\to v_x^0$, this implies that for every
     % $i\in \{0,\ldots, 4m-1\}$, if $i$ is even, then $u_x^{2i}$ satisfies
     % \ref{item:sink}, while if $i$ is odd, then $u_x^{2i}$ satisfies
     % \ref{item:source}.
     
     % (if $u^{2i}_x \to t^{2i}_x$ reverse all the orientations in the following
-    % reasoning). By \cref{cl:sun_orientation}, $t^{2i}_x$ is transitive in the
+    % reasoning). By Claim~\ref{cl:sun_orientation}, $t^{2i}_x$ is transitive in the
     % copy of the 4-sun it belongs to, so $t^{2i}_x$ has an out-neighbour.
     % Therefore, $u^{2i+1}_x$, $u^{2i-1}_x$ and $v^{2i}_x$ are all
     % out-neighbours of $u^{2i}_x$, which proves that $u^{2i}_x$ is transitive.
@@ -1601,7 +1603,7 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
     % result follows from a straightforward induction on $i$.
   \end{poc}
   
-  For each $i\in \{0,\ldots,4m-1\}$, and every orientation $\orCi$ of the comb $C_i$, we say that a teeth $e$ of is 
+  For every $i\in \{0,\ldots,4m-1\}$, and every orientation $\orCi$ of the comb $C_i$, we say that a teeth $e$ of is 
   \begin{itemize}
   \item \defin{positive} if $e$ is a molar and is oriented away from the jaw, or
     if $e$ is an incisor and is oriented towards the jaw.
@@ -1609,35 +1611,35 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
      if $e$ is an incisor and is oriented away from the jaw.
   \end{itemize}
   
-%   Given a valid orientation of the comb $C_i$, we say that $e_1$ and
+%   Given a shift orientation of the comb $C_i$, we say that $e_1$ and
 %   $e_4$ (respectively $e_2$ and $e_3$) are \emph{positive} if they are oriented
 %   away (resp. towards) the jaw, and that they are \emph{negative} otherwise.
   
   \begin{claim}\label{cl:clause_orientation}
-    For each $i\in \{0,\ldots,4m-1\}$, in any valid orientation of $C_i$, the
+    For every $i\in \{0,\ldots,4m-1\}$, in any shift orientation of $C_i$, the
     teeth of $C_i$ cannot be all positive, or all negative.  Conversely, any
     orientation of the teeth of $C_i$ in which the incisors are both positive
     (respectively both negative), and in which at least one molar is negative (respectively
-    positive) can be extended to a valid orientation of $C_i$ in which the jaw
+    positive) can be extended to a shift orientation of $C_i$ in which the jaw
     of $C_i$ is a directed path.
   \end{claim}
   \begin{poc}
     We let $aa', \dots, dd'$ denote the four teeth of $C_i$ with jaw
-    $abcd$. Assume towards a contradiction that there exists a valid
+    $abcd$. Assume towards a contradiction that there exists a shift
     orientation $\orCi$ of $C_i$ making all teeth positive. That is, the molars
     $aa'$ and $dd'$ are oriented away from $a$ and $d$, while the incisors
     $bb'$ and $cc'$ are oriented towards $b$ and $c$. Without loss of
-    generality, assume that $b \to c$. By \cref{lem:forbidden_config}, as $c$
+    generality, assume that $b \to c$. By Lemma~\ref{lem:forbidden_config}, as $c$
     has both an in-neighbour and an out-neighbour, the edge $ab$ must be
-    oriented $a \to b$ (see \cref{fig:variable_gadget}). We then obtain a
+    oriented $a \to b$ (see Figure~\ref{fig:variable_gadget}). We then obtain a
     contradiction as the orientation of the induced path $a'abb'$ contradicts
-    the first condition of \cref{lem:forbidden_config}.
+    the first condition of Lemma~\ref{lem:forbidden_config}.
 
     \begin{figure}[htb]
       \centering  
          \includegraphics[scale=1]{3comb}
       \caption{The orientation depicted in the first part of the proof of
-      \cref{cl:clause_orientation}.}
+      Claim~\ref{cl:clause_orientation}.}
       \label{fig:proof_3comb}
     \end{figure}
     
@@ -1645,9 +1647,9 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
     that $bb'$ and $cc'$ are say positive, but not all four edges are
     positive. Say without loss of generality $aa'$ is negative. Then, no matter
     which orientation $dd'$ has, orienting the jaw of $C_i$ as a directed path
-    from $a$ to $d$ (as depicted on \cref{fig:variable_gadget}) gives an
+    from $a$ to $d$ (as depicted on Figure~\ref{fig:variable_gadget}) gives an
     orientation of $C_i$ avoiding the forbidden configurations of
-    \cref{lem:forbidden_config}, and thus which is valid.
+    Lemma~\ref{lem:forbidden_config}, and thus which is shift.
     \begin{figure}[h!]
       \centering
       \begin{tikzpicture}[decoration={
@@ -1671,7 +1673,7 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
         \draw[postaction={decorate}] (b1) -- (c1);
         \draw[postaction={decorate}] (c1) -- (d1);          
       \end{tikzpicture}
-      \caption{A valid orientation of $C_i$. The edge $a_1a_2$ is negative, $b_1b_2$ and
+      \caption{A shift orientation of $C_i$. The edge $a_1a_2$ is negative, $b_1b_2$ and
         $c_1c_2$ are negative, and $d_1d_2$ can either be positive or negative.}
       \label{fig:variable_gadget}
     \end{figure}
@@ -1684,34 +1686,34 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   stronger property that if $\phi$ is not a positive instance of $\MNAE$, then
   $G_\phi$ is not even a shift graph.
 
-  We start proving the reverse implication and consider a valid orientation $\orGphi$ of
-  $G_\phi$. We now consider the following variable assignment: for each variable $x$, set $x$ to true if $w^{0}_x \to v^0_x$ in $\orGphi$ and
+  We start proving the reverse implication and consider a shift orientation $\orGphi$ of
+  $G_\phi$. We now consider the following variable assignment: for every variable $x$, set $x$ to true if $w^{0}_x \to v^0_x$ in $\orGphi$ and
   to false otherwise. We show that with this variable assignment, each clause of $\phi$ contains both variables set to true and false.
   Let $i\in \{0,\ldots,m-1\}$ and $x\lor y\lor z$ be the $i$\textsuperscript{th} clause of $\phi$. 
   Recall that the corresponding comb $C_i$ of length $3$ in $G_{\varphi}$ has
   jaw $a_ib_ic_id_i:=w_x^{4i}w_y^{4i+1}w_y^{4i+3}w_z^{4i}$, and denote $e_1 = w_x^{4i}v_x^{4i}$, $e_2=w_y^{4i+1}v_y^{4i+1}$,
   $e_3=w_y^{4i+3}v_y^{4i+3}$ and $e_4=w_z^{4i}v_z^{4i}$ the teeth of $C_i$.
-%   As $8i+2=2(4i+1)$ and $8i+6=2(4i+3)$, \cref{cl:gadget_orientation} implies that $e_2$ is positive in $\orGphi$ if and only if $e_3$ is.
-Note that \cref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are
+%   As $8i+2=2(4i+1)$ and $8i+6=2(4i+3)$, Claim~\ref{cl:gadget_orientation} implies that $e_2$ is positive in $\orGphi$ if and only if $e_3$ is.
+Note that Claim~\ref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are
 respectively positive in $\orGphi$ if and only if $x,y,z$ are respectively set
 to true, and that $e_3$ is positive if and only if $e_2$ is
-positive. \cref{cl:clause_orientation} then implies that at least one teeth of
+positive. Claim~\ref{cl:clause_orientation} then implies that at least one teeth of
 $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment we defined satisfies the desired properties.
   
-%   By construction and by \cref{cl:gadget_orientation}, each
+%   By construction and by Claim~\ref{cl:gadget_orientation}, each
 %   of the edges $e_1, \ldots, e_4$ attached to the internal vertices of $C_i$ is
 %   positive if and only if the corresponding variable is true. By
-%   \cref{cl:clause_orientation}, the edges $e_1, \ldots, e_4$ cannot be all
-%   positive or all negative because the orientation is valid. Hence
+%   Claim~\ref{cl:clause_orientation}, the edges $e_1, \ldots, e_4$ cannot be all
+%   positive or all negative because the orientation is shift. Hence
 %   $i$\textsuperscript{th} clause contains a true and a false variable, which
 %   concludes the proof.
 
 
   We now prove the direct implication and consider a variable assignment for which each clause of $\phi$ contains both variables set to true and false.
   For
-  each variable $x$, let $\orMx$ denote the (unique) valid orientation of $M_x$ given by \cref{cl:gadget_orientation} such that
+  every variable $x$, let $\orMx$ denote the (unique) shift orientation of $M_x$ given by Claim~\ref{cl:gadget_orientation} such that
   $w^{0}_x \to v^{0}_x$ in $\orMx$ if $x$ is set to true, and such that $v^0_x\to w^0_x$ in $\orMx$ if $x$ is set to false.
-  Then, for each $i\in \{0,\ldots,4m-1\}$, we consider for each copy $H^i_x$ of the four-sun the (unique) valid orientation $\orHxi$ given by \cref{cl:sun_orientation}, such that in  $\orMx\cup\orHxi$, the vertex $t^{i}_x$ has both in- and out-degrees equal to two. We let $\orLx$ denote the orientation obtained after orienting this way $M_x$ and all subgraphs $H_x^i$ of $L_x$. See   \cref{fig:oriented_variable}.
+  Then, for every $i\in \{0,\ldots,4m-1\}$, we consider for every copy $H^i_x$ of the four-sun the (unique) shift orientation $\orHxi$ given by Claim~\ref{cl:sun_orientation}, such that in  $\orMx\cup\orHxi$, the vertex $t^{i}_x$ has both in- and out-degrees equal to two. We let $\orLx$ denote the orientation obtained after orienting this way $M_x$ and all subgraphs $H_x^i$ of $L_x$. See   Figure~\ref{fig:oriented_variable}.
 
   
   
@@ -1720,11 +1722,11 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
 %   abuse of notation, we will name the directed graph arising from the
 %   progressive orientations of our gadgets with the same naming conventions.
 %   For
-%   each variable $x$, choose the unique valid orientation of $M_x$ such that
-%   $w^{0}_x \to v^{0}_x$ if $x$ is true (by \cref{cl:gadget_orientation} there
+%   each variable $x$, choose the unique shift orientation of $M_x$ such that
+%   $w^{0}_x \to v^{0}_x$ if $x$ is true (by Claim~\ref{cl:gadget_orientation} there
 %   exists only one such orientation). Then orient each copy of the four-sun such
 %   that each $t^{2i}_x$ has in and out-degree equal to two (by
-%   \cref{cl:sun_orientation}, there exists a unique such orientation for each
+%   Claim~\ref{cl:sun_orientation}, there exists a unique such orientation for each
 %   $(x,i)$). The orientation of each variable gadget $L_x$ is drawn on
 %   \cref{fig:oriented_variable}.
 
@@ -1844,25 +1846,25 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
   the only edges that remain to be oriented are the edges forming the jaw of
   each clause gadget. For each $i\in \{0,\ldots,m-1\}$, consider the comb $C_i$ corresponding to the
   $i$\textsuperscript{th} clause $x\lor y\lor z$ of $\phi$, and denote with $e_1,\ldots, e_4$ its teeth, again with respect to the order in which they attach to the jaw. 
-  As $\orMy$ is a valid orientation of $M_y$, and as $4i+1$ and $4i+3$ are odd,
+  As $\orMy$ is a shift orientation of $M_y$, and as $4i+1$ and $4i+3$ are odd,
   by
-  \cref{cl:gadget_orientation}, $e_2$ and $e_3$ are either both negative or both
-  positive. Moreover, observe that by definition of the orientations $\orMx, \orMy, \orMz$, \cref{cl:gadget_orientation} implies that $e_1,e_2,e_4$ are respectively positive if and only if $x,y,z$ are respectively set to true.
+  Claim~\ref{cl:gadget_orientation}, $e_2$ and $e_3$ are either both negative or both
+  positive. Moreover, observe that by definition of the orientations $\orMx, \orMy, \orMz$, Claim~\ref{cl:gadget_orientation} implies that $e_1,e_2,e_4$ are respectively positive if and only if $x,y,z$ are respectively set to true.
   Since the clause $x\lor y\lor z$ contains both variables set to true and false, we can apply
-  \cref{cl:clause_orientation} to extend our orientation to a valid orientation $\orCi$ of $C_i$, in which the jaw is a directed path. Fixing such an orientation of each $C_i$, we now obtain an orientation $\orGphi$ of $G_{\phi}$, whose restriction to each subgraph of the form $L_x$ or $C_i$ is valid.
+  Claim~\ref{cl:clause_orientation} to extend our orientation to a shift orientation $\orCi$ of $C_i$, in which the jaw is a directed path. Fixing such an orientation of each $C_i$, we now obtain an orientation $\orGphi$ of $G_{\phi}$, whose restriction to each subgraph of the form $L_x$ or $C_i$ is shift.
   
   \ugo{Do you want to keep the next paragraph? I do not think that it is
     useful.}\clement{It is, So far, we proved that the restriction of our
-    orientation to a clause or a variable gadget is valid, but we haven't proved
-    that the entire oritentation is valid. Namely, we haven't proved that we did
+    orientation to a clause or a variable gadget is shift, but we haven't proved
+    that the entire oritentation is shift. Namely, we haven't proved that we did
     not create any directed cycles and that the junctions between the clause and
     the variable gadgets are not alternating paths of lenght three} In order to
-  prove that $\orGphi$ is a valid orientation, we only need to check the first
-  condition of \cref{lem:forbidden_config} at the junctions between the clause
+  prove that $\orGphi$ is a shift orientation, we only need to check the first
+  condition of Lemma~\ref{lem:forbidden_config} at the junctions between the clause
   and the variable gadgets, and the orientation of the cycles using these
   junctions. Note that any such cycle must pass by some $u^{i}_x$, at which it
   alternates. Finally, as each $v^{i}_x$ is a transitive vertex, the first
-  condition of \cref{lem:forbidden_config} is satisfied and the orientation of
+  condition of Lemma~\ref{lem:forbidden_config} is satisfied and the orientation of
   $G_\phi$ is that of an acyclic line digraph. In other words, $G_\phi$ is a
   shift graph. This concludes the proof for shift graphs, but not for iterated
   shift graphs.
@@ -1871,7 +1873,7 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
   
   To prove that $G_\phi$ is a $k$-iterated shift graph, we now construct an
   oriented acyclic graph $\orGphip$ such that $\orGphi$ is an induced subdigraph
-  of $L^k(\orGphip)$. For each variable $x$, by \cref{lem:shift_tree}, there
+  of $L^k(\orGphip)$. For each variable $x$, by Lemma~\ref{lem:shift_tree}, there
   exists an acyclic oriented graph $\orMxp$ with a convex $k$-shift embedding
   $\psi_x$ of $\orMx- \bigcup_{j} w_x^j$ in $\orMxp$. Similarly, for each clause
   comb $C_i$, there exists an acyclic oriented graph graph $\orCip$ with a
@@ -1910,7 +1912,7 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
 
   
   In order to obtain a $k$-shift embedding of $\orGphi$, we apply iteratively
-  \cref{lem:gluing} on $\psi$ by identifying each leaf of the comb clauses to
+  Lemma~\ref{lem:gluing} on $\psi$ by identifying each leaf of the comb clauses to
   the appropriate vertex $v_x^j$ of one of the subgraphs
   $\orMx - \bigcup_{j} w_x^j$. To do so, we need to justify that during this
   process, the images by the $k$-shift embedding of the vertices to be identified
@@ -1935,9 +1937,9 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
   4-suns.
 
   Finally, we identify each $\psi(t^{4i}_x)$ with the path of length $k$
-  starting in the vertex $t$ of the graph $F$ drawn on \cref{fig:sun_root}. It
+  starting in the vertex $t$ of the graph $F$ drawn on Figure~\ref{fig:sun_root}. It
   is straightforward to check that the $k$-line digraph of the graph drawn on
-  \cref{fig:sun_root} is the 4-sun and the resulting graph $G'_\phi$ is such
+  Figure~\ref{fig:sun_root} is the 4-sun and the resulting graph $G'_\phi$ is such
   that $G_\phi$ is an induced subgraph of $G'_\phi$.
   \begin{figure}[h!]
     \centering
