@@ -1704,7 +1704,7 @@ formulation, sometimes also called property B,  was the one used in \cite{lovasz
   We are now ready to prove that $\phi$ admits a valuation such that each clause
   contains both variables set to true and false if and only if $G_\phi$ is a
   $k$-iterated shift graph. In fact for the reverse direction, we will show the
-  stronger property that if $\phi$ is not a positive instance of $\MNAE$, then
+  stronger property that if $\phi$ is negative instance of $\MNAE$, then
   $G_\phi$ is not even a shift graph.
 
   We start proving the reverse implication and consider a shift orientation $\orGphi$ of
@@ -1734,7 +1734,12 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
   For
   every variable $x$, let $\orMx$ denote the (unique) shift orientation of $M_x$ given by Claim~\ref{cl:gadget_orientation} such that
   $w^{0}_x \to v^{0}_x$ in $\orMx$ if $x$ is set to true, and such that $v^0_x\to w^0_x$ in $\orMx$ if $x$ is set to false.
-  Then, for every $i\in \{0,\ldots,4m-1\}$, we consider for every copy $H^i_x$ of the four-sun the (unique) shift orientation $\orHxi$ given by Claim~\ref{cl:sun_orientation}, such that in  $\orMx\cup\orHxi$, the vertex $t^{i}_x$ has both in- and out-degrees equal to two. We let $\orLx$ denote the orientation obtained after orienting this way $M_x$ and all subgraphs $H_x^i$ of $L_x$. See   Figure~\ref{fig:oriented_variable}.
+  Then, for every $i\in \{0,\ldots,4m-1\}$, we consider for every copy $H^i_x$
+  of the four-sun the (unique) shift orientation $\orHxi$ given by
+  Claim~\ref{cl:sun_orientation}, such that in  $\orMx\cup\orHxi$, the vertex
+  $t^{i}_x$ has both in- and out-degrees equal to two. We let $\orLx$ denote the
+  orientation obtained after orienting this way $M_x$ and all subgraphs $H_x^i$
+  of $L_x$ (see Figure~\ref{fig:oriented_variable}).
 
   
   
@@ -1837,11 +1842,8 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
       }
 
 
-      \node[classic] (a) at (-2,0) {};
       \node[classic] (b) at (-1,0) {};
-      \node[classic] (a4) at (8,0) {};
 
-      \draw[postaction={decorate}] (a) to (b);
       \draw[postaction={decorate}] (b)-- (a0);
 
       \foreach \i in {1,3}{
@@ -1863,7 +1865,7 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
     \label{fig:oriented_variable}    
   \end{figure}
   
-  In order to obtain an orientation of $G_{\phi}$, 
+  In order to complete this partial orientation into a shift orientation of $G_{\phi}$, 
   the only edges that remain to be oriented are the edges forming the jaw of
   each clause gadget. For each $i\in \{0,\ldots,m-1\}$, consider the comb $C_i$ corresponding to the
   $i$\textsuperscript{th} clause $x\lor y\lor z$ of $\phi$, and denote with $e_1,\ldots, e_4$ its teeth, again with respect to the order in which they attach to the jaw. 
@@ -1894,7 +1896,8 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
   
   To prove that $G_\phi$ is a $k$-iterated shift graph, we now construct an
   oriented acyclic graph $\orGphip$ such that $\orGphi$ is an induced subdigraph
-  of $L^k(\orGphip)$. For each variable $x$, by Lemma~\ref{lem:shift_tree}, there
+  of $L^k(\orGphip)$. For each variable $x$, as $\orMx - \bigcup_{j} w_x^j$ is a
+  shift graph whose support is a tree, by Lemma~\ref{lem:shift_tree}, there
   exists an acyclic oriented graph $\orMxp$ with a convex $k$-shift embedding
   $\psi_x$ of $\orMx- \bigcup_{j} w_x^j$ in $\orMxp$. Similarly, for each clause
   comb $C_i$, there exists an acyclic oriented graph graph $\orCip$ with a
@@ -2045,10 +2048,93 @@ a similar counter-example of odd girth $2k+1$ for all $k\geq 2$ by
 taking the disjoint union of $G$ and $C_{2k+1}$.  
 
 \begin{figure}
-  \center
-\includegraphics[width=10cm,angle=-90]{highOddGirth-2.jpeg}
+  \centering
+  \begin{subfigure}[t]{.45\linewidth}
+    \centering
+    \begin{tikzpicture}[decoration={
+        markings,
+        mark=at position 0.5 with {\arrow[scale=1.5]{>}}}]
 
-\caption{A shift graph of infinite odd girth\label{f:oddItt}}
+      \foreach \i in {1,...,6}{
+        \node[classic] (\i) at (150-\i*60:1.5cm) {};}
+      
+      \node[classic] (2p) at (150-2*60:1cm) {};
+      \node[classic] (3p) at (150-3*60:2.5cm) {};
+      \node[classic] (5p) at (150-5*60:2.5cm) {};
+      \node[classic] (6p) at (150-6*60:1cm) {};
+
+      \draw[postaction={decorate}] (6) to (1);
+      \draw[postaction={decorate}] (1) to (2);
+      \draw[postaction={decorate}] (6p) to (1);
+      \draw[postaction={decorate}] (1) to (2p);
+
+      \draw[postaction={decorate}] (6) to (5);
+      \draw[postaction={decorate}] (6p) to (5);
+      \draw[postaction={decorate}] (5) to (4);
+      \draw[postaction={decorate}] (4) to (3);
+      \draw[postaction={decorate}] (3) to (2);
+      \draw[postaction={decorate}] (3) to (2p);
+      
+      \draw[postaction={decorate}] (5) to (5p);
+      \draw[postaction={decorate}] (3p) to (3);
+
+      \node[above] at (1) {$1$}; 
+      \node[above right] at (2) {$2$}; 
+      \node[below left] at (2p) {$2'$}; 
+      \node[below] at (3) {$3$};
+      \node[right] at (3p) {3'};
+      \node[below] at (4) {$4$}; 
+      \node[below] at (5) {$5$};
+      \node[left] at (5p) {$5'$};
+      \node[above left] at (6) {$6$};
+      \node[below right] at (6p) {$6'$};
+    \end{tikzpicture}
+    \caption{The shift graph $\orG$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.45\linewidth}
+    \centering
+    \begin{tikzpicture}[decoration={
+        markings,
+        mark=at position 0.5 with {\arrow[scale=1.5]{>}}}]
+      \node [classic] (0) at (-1, -1) {};
+      \node [classic] (1) at (1, -1) {};
+      \node [classic] (2) at (1, 1) {};
+      \node [classic] (3) at (-1, 1) {};
+      \node [classic] (4) at (-2, -2) {};
+      \node [classic] (5) at (2, -2) {};
+      \node [classic] (6) at (2, 1.5) {};
+      \node [classic] (7) at (1.5, 2) {};
+      \node [classic] (8) at (-2, 1.5) {};
+      \node [classic] (9) at (-1.5, 2) {};      
+
+      
+      \draw[postaction={decorate}] (3) to (2);
+      \node[above] at ($(3)!0.5!(2)$) {$1$};     
+      \draw[postaction={decorate}] (3) to (0);
+      \node[left] at ($(3)!0.5!(0)$) {$5$};     
+      \draw[postaction={decorate}] (0) to (1);
+      \node[below] at ($(0)!0.5!(1)$) {$4$};     
+      \draw[postaction={decorate}] (1) to (2);
+      \node[right] at ($(1)!0.5!(2)$) {$3$};     
+      \draw[postaction={decorate}] (0) to (4);
+      \node[above left] at ($(0)!0.5!(4)$) {$5'$};     
+      \draw[postaction={decorate}] (5) to (1);
+      \node[above right] at ($(5)!0.5!(1)$) {$3'$};     
+      \draw[postaction={decorate}] (2) to (6);
+      \node[below right] at ($(2)!0.5!(6)$) {$2$};     
+      \draw[postaction={decorate}] (2) to (7);
+      \node[above left] at ($(2)!0.5!(7)$) {$2'$};     
+      \draw[postaction={decorate}] (9) to (3);
+      \node[above right] at ($(9)!0.5!(3)$) {$6'$};     
+      \draw[postaction={decorate}] (8) to (3);
+      \node[below left] at ($(8)!0.5!(3)$) {$6$};     
+      
+    \end{tikzpicture}
+    \caption{The unique root digraph of $\orG$.}
+  \end{subfigure}
+
+  \caption{The shift graph $\orG$ is bipartite and hence has infinite odd girth\label{f:oddItt}.}
 \end{figure}
 
 
