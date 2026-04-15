@@ -214,10 +214,12 @@
 \date{}
 
 \author{
-  Bartosz Walczak\footnotemark[1] \and 
-  Cl\'ement Legrand-Duchesne\footnotemark[1]\and
   Ugo Giocanti\footnotemark[1] \and
-  Nicolas Trotignon\footnotemark[2]
+  Cl\'ement Legrand-Duchesne\footnotemark[1]
+  \and
+  Nicolas Trotignon\footnotemark[2]  
+  \and
+  Bartosz Walczak\footnotemark[1]
 }
 
 \begin{document}
@@ -234,10 +236,10 @@
 
 
 \begin{abstract}
-  Shift graphs are one of the classical constructions of triangle-free graphs
+  Shift graphs form one of the classical known classes of triangle-free graphs
   with arbitrarily large chromatic number. We investigate the computational
   complexity of the Recognition, Maximum independent set and 3-Colouring
-  problems on shift graphs and prove that all three problems are NP-complete. 
+  problems restricted to the class of induced subgraphs of shift graphs and prove that all three problems are NP-complete. 
 \end{abstract}
 
 \todo[inline]{TODO:\\
@@ -257,7 +259,7 @@ or some subfamilies of Kneser and Schrijver graphs \cite{lovasz1973Covering, Sch
 For example, Burling graphs have been used to show that the class of intersection graphs of segments in  the plane is not $\chi$-bounded \cite{scott2014Disprove}, disproving an original conjecture of Erd\H{o}s, or more recently on the algorithmic side, to show the existence of classes which are not $\chi$-bounded, but in which \textsc{Maximum Independent Set} is polynomial \cite{rzazewski2024Polynomial}.
 
 % In \cref{tab:complexity}, we review the simplest and most well-known
-% constructions of triangle-free graphs of arbitratily large chromatic number.
+% constructions of triangle-free graphs of arbitrarily large chromatic number.
 % Note that most of these constructions (all of them except shift) are usually
 % obtained by generating a sequence of triangle-free graphs
 % $(G_k)_{k\in \mathbb{N}}$ such that $\chi(G_k) = k$ for all $k$. We turn this
@@ -270,7 +272,7 @@ For example, Burling graphs have been used to show that the class of intersectio
 
 
 In Table~\ref{tab:complexity}, we review some well-known
-constructions of triangle-free graphs with arbitratily large chromatic number.
+constructions of triangle-free graphs with arbitrarily large chromatic number.
 These constructions are often presented by generating a sequence of triangle-free graphs
 $(G_k)_{k\in \mathbb{N}}$ such that $\chi(G_k) = k$ for all $k$. We turn this
 into a hereditary class by considering all induced subgraphs of the graphs in
@@ -302,7 +304,7 @@ problems are NP-complete for shift graphs.
   \end{tabular}  
   \captionsetup{justification=raggedright}
   \caption{Known complexities of \textsc{Recognition}, \textsc{Maximum independent set} and \textsc{3-Colouring} when restricted to the hereditary closure of
-  the main known constructions of triangle-free graph of large chromatic number. Here, P holds for ``Polynomial'', and NPC for ``NP-Complete''. Entries with * correspond to results proved in this paper.}
+  the main known constructions of triangle-free graph of large chromatic number. Here, P holds for ``Polynomial'', and NPC for ``NP-Complete''. Entries with * correspond to results proved in this paper. For the first line, the entries follow from the well-known fact that every triangle-free graph is an induced subgraph of a Mycielski graph.}
   \label{tab:complexity}
 \end{table}
 
