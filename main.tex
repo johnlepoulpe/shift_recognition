@@ -112,9 +112,10 @@
 % \renewcommand{\eps}{\varepsilon}
 \renewcommand{\emptyset}{\varnothing}
 
+\DeclareRobustCommand*{\ora}{\overrightarrow}
 
 \DeclareMathOperator{\og}{og}
-
+ 
 %%%%% mathbold and mathcal
 \newcommand*{\eps}{\varepsilon}
 \renewcommand{\phi}{\varphi}
@@ -141,31 +142,31 @@
 \newcommand*{\cQ}{\mathcal{Q}}
 \newcommand*{\cA}{\mathcal{A}}
 \newcommand*{\cU}{\mathcal{U}}
-\newcommand*{\orC}{\overrightarrow{C}}
-\newcommand*{\orCi}{\overrightarrow{C_i}}
-\newcommand*{\orCip}{\overrightarrow{C'_i}}
-\newcommand*{\orG}{\overrightarrow{G}}
-\newcommand*{\orGp}{\overrightarrow{G'}}
-\newcommand*{\orGphi}{\overrightarrow{G_{\phi}}}
-\newcommand*{\orGphip}{\overrightarrow{G'_{\phi}}}
-\newcommand*{\orH}{\overrightarrow{H}}
-\newcommand*{\orHu}{\overrightarrow{H_u}}
-\newcommand*{\orHv}{\overrightarrow{H_v}}
-\newcommand*{\orHxi}{\overrightarrow{H_x^i}}
-\newcommand*{\orLx}{\overrightarrow{L_x}}
-\newcommand*{\orLy}{\overrightarrow{L_y}}
-\newcommand*{\orMx}{\overrightarrow{M_x}}
-\newcommand*{\orMxp}{\overrightarrow{M'_x}}
-\newcommand*{\orMy}{\overrightarrow{M_y}}
-\newcommand*{\orMz}{\overrightarrow{M_z}}
-\newcommand*{\orGn}{\overrightarrow{G_n}}
-\newcommand*{\orGu}{\overrightarrow{G_1}}
-\newcommand*{\orGd}{\overrightarrow{G_d}}
-\newcommand*{\orGnk}{\overrightarrow{G_{n,k}}}
-\newcommand*{\orT}{\overrightarrow{T}}
-\newcommand*{\orTn}{\overrightarrow{T_n}}
-\newcommand*{\orS}{\overrightarrow{S}}
-\newcommand*{\orSn}{\overrightarrow{S_n}}
+\newcommand*{\orC}{\ora{C}}
+\newcommand*{\orCi}{\ora{C_i}}
+\newcommand*{\orCip}{\ora{C'_i}}
+\newcommand*{\orG}{\ora{G}}
+\newcommand*{\orGp}{\ora{G'}}
+\newcommand*{\orGphi}{\ora{G_{\phi}}}
+\newcommand*{\orGphip}{\ora{G'_{\phi}}}
+\newcommand*{\orH}{\ora{H}}
+\newcommand*{\orHu}{\ora{H_u}}
+\newcommand*{\orHv}{\ora{H_v}}
+\newcommand*{\orHxi}{\ora{H_x^i}}
+\newcommand*{\orLx}{\ora{L_x}}
+\newcommand*{\orLy}{\ora{L_y}}
+\newcommand*{\orMx}{\ora{M_x}}
+\newcommand*{\orMxp}{\ora{M'_x}}
+\newcommand*{\orMy}{\ora{M_y}}
+\newcommand*{\orMz}{\ora{M_z}}
+\newcommand*{\orGn}{\ora{G_n}}
+\newcommand*{\orGu}{\ora{G_1}}
+\newcommand*{\orGd}{\ora{G_d}}
+\newcommand*{\orGnk}{\ora{G_{n,k}}}
+\newcommand*{\orT}{\ora{T}}
+\newcommand*{\orTn}{\ora{T_n}}
+\newcommand*{\orS}{\ora{S}}
+\newcommand*{\orSn}{\ora{S_n}}
 \newcommand*{\Comb}{\mathrm{Comb}}
 \newcommand*{\Col}
 {\textsc{3-Col} }
@@ -594,7 +595,7 @@ part). We include its proof as it is simple.
 % \end{lemma}
 % \ugo{Shall we add a citation?}
 % \begin{proof}
-%   Let $K:=\overrightarrow{T_{2^n+1}}$ be the transitive tournament of order $2^n+1$. Note that we then have
+%   Let $K:=\ora{T_{2^n+1}}$ be the transitive tournament of order $2^n+1$. Note that we then have
 %   $L(K) = G_{2^n+1}$. Assume for a contradiction that there exists a proper $n$-colouring $\alpha$ of $G_{2^n+1}$. Let
 %   $\beta: V(K)\to 2^{[n]}$ be the colouring of $K$ such that for each $v\in V(K)$, $\beta(v)$ is the set of colours
 %   used by $\alpha$ to colour the arcs entering $v$. Then $\beta$ is a
@@ -707,16 +708,16 @@ use this to construct the root graph of some $k$-iterated shift graphs.
   
   Let $a$ be a leaf of $T$, and assume without loss of generality that for some
   $b \in V(T)$ we have $a \to b$ in $\orT$, the case $b\to a$ being symmetric. Let
-  $T':=T-a$, and $\overrightarrow{T'}:=\orT-a$. By induction hypothesis, there
-  exists an acyclic oriented graph $\overrightarrow{G'}$ and a convex $k$-shift
-  embedding $\phi'$ of $\overrightarrow{T'}$ in $\overrightarrow{G'}$. Let $v$,
+  $T':=T-a$, and $\ora{T'}:=\orT-a$. By induction hypothesis, there
+  exists an acyclic oriented graph $\ora{G'}$ and a convex $k$-shift
+  embedding $\phi'$ of $\ora{T'}$ in $\ora{G'}$. Let $v$,
   $w$, $x$, $y$ be the first, second, penultimate and last vertex of $\phi(b)$
   respectively (with $w=x$ if $k = 2$). Let $Q_b$ be the $(k-1)$-prefix of
   $\phi'(b)$.
 
   If $b$ is the only vertex of $\orT'$ with $Q_b$ as the $(k-1)$-prefix of its
   image by $\phi'$, then let $\orG$ be the oriented graph obtained from
-  $\overrightarrow{G'}$ by adding a new vertex $u$ with $u \to v$. This creates
+  $\ora{G'}$ by adding a new vertex $u$ with $u \to v$. This creates
   a $k$-path $P_a$ whose $(k-1)$-suffix is the $(k-1)$-prefix of $\phi'(b)$ but
   of no other $k$-path in $\phi'(V(\orT'))$. Hence, by defining $\phi(a) := P_a$
   and $\phi(c) := \phi'(c)$ for all other vertices, $\phi$ is a $k$-shift
@@ -739,30 +740,30 @@ use this to construct the root graph of some $k$-iterated shift graphs.
 \todo[inline]{update picture with $\psi(b)$}
 
  First, observe that for every $t\in V(G')$ such that $t\to v$ in
- $\overrightarrow{G'}$, we have $tQ_b \notin \phi(V(T'))$. %thus $b$ is a source
-                                % in $\overrightarrow{G'}$.
+ $\ora{G'}$, we have $tQ_b \notin \phi(V(T'))$. %thus $b$ is a source
+                                % in $\ora{G'}$.
  Otherwise there would exist some
  node $d \in V(T')$ such that we both have $d \to c$ and $d \to b$ in
- $\overrightarrow{T'}$ (and thus also in $\orT$). As $a \to b$, Lemma~\ref{lem:forbidden_config}
+ $\ora{T'}$ (and thus also in $\orT$). As $a \to b$, Lemma~\ref{lem:forbidden_config}
  would then imply that $a \to c$ in $\orT$, so $\{a,b,c,d\}$ forms a cycle
  in $T$, contradicting the fact that $T$ is a forest. Thus, $b$ is a source in
- $\orT'$. We now let $\overrightarrow{G''}$ be the oriented graph obtained after
+ $\orT'$. We now let $\ora{G''}$ be the oriented graph obtained after
  duplicating the vertex $v$ by creating a vertex $v'$ that is a false twin of
- $v$ in $\overrightarrow{G'}$, i.e.\ $v'$ has exactly the same out- and
- in-neighbourhoods as $v$ in $\overrightarrow{G}$ (note that such operation
+ $v$ in $\ora{G'}$, i.e.\ $v'$ has exactly the same out- and
+ in-neighbourhoods as $v$ in $\ora{G}$ (note that such operation
  preserves acyclicity). Let $\psi$ be the map from $V(T')$ to the set of
- $k$-walks of $\overrightarrow{G''}$ such that $\psi_{|V(T')\setminus \{b\}} :=
+ $k$-walks of $\ora{G''}$ such that $\psi_{|V(T')\setminus \{b\}} :=
  \phi_{|V(T')\setminus \{b\}}$ and $\psi(b)$ is the $k$-path obatined by
  replacing $v$ by $v'$ in $\phi(b)$.  We claim
  that for every two vertices $i$ and $j$ of $V(T')$ we have $i \to j$ in
- $\overrightarrow{T'}$ if and only if the $(k-1)$-suffix of $\psi(i)$ equals to
+ $\ora{T'}$ if and only if the $(k-1)$-suffix of $\psi(i)$ equals to
  the $(k-1)$-prefix of $\psi(j)$. This is immediate if $i$ and $j$ are different
  from $b$, or if $i=b$ because $\psi(i)$ and $\phi(b)$ have the same
- $(k-1)$-suffix. Since $b$ is source in $\overrightarrow{G'}$, the case $b=j$
+ $(k-1)$-suffix. Since $b$ is source in $\ora{G'}$, the case $b=j$
  does not occur, and as $\phi$ is convex, note that $\psi$ is also
  convex. Thus, we just proved that $\psi$ is a convex $k$-shift embedding of
- $\overrightarrow{T'}$ in $\overrightarrow{G''}$ such that $b$ is the only
- vertex of $\overrightarrow{T'}$ whose corresponding $k$-path $\psi(b)$ starts
+ $\ora{T'}$ in $\ora{G''}$ such that $b$ is the only
+ vertex of $\ora{T'}$ whose corresponding $k$-path $\psi(b)$ starts
  in $v'$. In particular, we are back in the case of the previous paragraph,
  and can thus conclude the proof.
 \end{proof}
@@ -934,7 +935,7 @@ have $G^{\ast 0}=G$.
   % have $\chi(L(S_n)) = \chi(L(T_n)) = 4$.
   Let $\orH$ be the graph obtained from $\orTn$ by iteratively removing arcs entering $v_{n-1}$
   until the chromatic number of its line digraph drops to three. Note that
-  $\overrightarrow{S_n} := \orTn-\{u \to v_{n-1} : u \in V(T_{n})\setminus\{v_{n-1},v_{n}\}\}$ is the
+  $\ora{S_n} := \orTn-\{u \to v_{n-1} : u \in V(T_{n})\setminus\{v_{n-1},v_{n}\}\}$ is the
   transitive tournament on the vertices $V(T_n)\setminus \{v_{n-1}\}$, with an
   additional vertex $v_{n-1}$ whose only incident arc ends in the sink $v_n$. Thus
   $\orSn$ is 3-arc-colourable,  and $\orH$ is well defined.
@@ -1525,7 +1526,7 @@ formulation, sometimes also called property B,  was the one used in \cite{lovasz
     Consider $\orH$ a shift orientation of $H$. Recall that by Lemma~\ref{lem:valid},
     the 4-cycles are alternating at each vertex in a shift orientation of shift graph. \ugo{I do not think that it is enough... I suggest the next arguments (in red).
     
-    As $\orH$ is acyclic, the 4-cycle $C$ of $H$ contains at least one sink and one source (with respect to the induced orientation on the cycle). Moreover, note that every such orientation $\overrightarrow{C}$ of $C$ containing one transitive vertex contradicts either of the two conditions from Lemma~\ref{lem:valid}. It implies that the orientation of $C$ induced by $\orH$ is the alternating orientation depicted in \cref{fig:sun_orientation}.} 
+    As $\orH$ is acyclic, the 4-cycle $C$ of $H$ contains at least one sink and one source (with respect to the induced orientation on the cycle). Moreover, note that every such orientation $\ora{C}$ of $C$ containing one transitive vertex contradicts either of the two conditions from Lemma~\ref{lem:valid}. It implies that the orientation of $C$ induced by $\orH$ is the alternating orientation depicted in \cref{fig:sun_orientation}.} 
 
   \clement{We wrote below Lemma~\ref{lem:valid} that it implies that 4 cycles are
     alternating in shift graphs}
