@@ -554,8 +554,7 @@ for every $1\leq a<b<c\leq n$.
 
 As a consequence of Lemma~\ref{lem:valid}, all 4-cycles in a shift orientation of a
 shift graph are alternating at each vertex and shift graphs are
-triangle-free. The next lemma is a folklore result that shows that shift graphs
-also have unbounded chromatic number (see for example \cite[Theorem
+triangle-free. The next lemma is a folklore result implying that shift graphs have unbounded chromatic number and odd girth (see for example \cite[Theorem
 4]{harner1972Arc} or \cite[Lemma 2.21]{GraphsandHomomorphisms} for the first
 part). We include its proof as it is simple.
 
@@ -570,9 +569,9 @@ part). We include its proof as it is simple.
 %     tournaments, this adaptation to line digraphs of oriented graphs is nearly
 %     identical. I would prefer to keep this proof, it is folklore but gives a
 %     good understanding of the shift graph construction.}
-  To prove the first inequality, consider a proper colouring $c$ of $L(\orG)$
-  using $k$ colours. Then assign to every vertex $v$ of $G$ the set $S_v$ of
-  all colours with of arcs entering $v$ (with respect to $c$). If $(u,v)$ is
+  To prove the first inequality, we consider a proper colouring $c$ of $L(\orG)$
+  using $k$ colours and we assign to every vertex $v$ of $G$ the set $S_v:=\{c(u,v): u\to v\}$ of
+  all colours of arcs entering $v$ (with respect to $c$). If $(u,v)$ is
   an arc of $\orG$, then as $c$ is a proper colouring, $c(u,v)\notin S_u$, so
   $S_u\neq S_v$. It follows that the mapping $u\mapsto S_u$ defines a proper
   colouring of $\orG$ using at most $2^k$ colours, showing
@@ -580,22 +579,21 @@ part). We include its proof as it is simple.
 
   For the second inequality, let $C$ be a shortest odd cycle of the support of $L(\orG)$, and $\orC$ its orientation in $\orG$. Let
   $Q_1, \dots, Q_{2m}$ be directed subpaths of $\orC$ such that for each $i\in [m]$, the heads of
-  $Q_{2i-1}$ and $Q_{2i}$ are equal, we denote it $u_{2i}$, the tail of $Q_{2i}$
-  and $Q_{2i+1 \mod 2m}$ are equal, we denote it $u_{2i+1}$, and such that $C$
-  is the concatenation of the paths $P_i$. As $\orG$ is acyclic, so is $L(\orG)$
+  $Q_{2i-1}$ and $Q_{2i}$ are equal to a vertex which we denote $u_{2i}$, the tails of $Q_{2i}$
+  and $Q_{2i+1}$ are equal to a vertex which we denote $u_{2i+1}$, and such that $C$
+  is the concatenation of the paths $Q_i$ (all indices are taken modulo $2m$). As $\orG$ is acyclic, so is $L(\orG)$
   and $Q_1, \dots, Q_{2m}$ are well defined.
   For each $i$, let $\ell_i$ be the
-  length of $Q_i$. We have $\ell_i \ge 2$ for each $i$, because otherwise $C$
-  would contain an alternating path of lentgh three, which by
-  Lemma~\ref{lem:forbidden_config} implies that there exists a shorter odd cycle in
-  $L(G)$. Note that this argument fails if $C$ is a cycle of length four, which
-  is why the assumption that $C$ has odd length is needed. By definition of the
-  line digraph, each of the path $Q_i$ corresponds to a directed path $P_i$ of
-  $\orG$ of length $\ell_i +1$, whose first and last arcs are $u_{i}$ and
-  $u_{i+1}$ (or $u_i$ and $u_{i+1}$ depending on the parity of $i$). So
-  $\orG\left[\bigcup_i V(P_i)\right]$ contains a cycle $B$ of length
+  length of $Q_i$. We have $\ell_i \ge 2$ for each $i$, as otherwise $C$
+  would contain an alternating path of length three, which by
+  Lemma~\ref{lem:forbidden_config} would the existence of an odd cycle in
+  $L(G)$ striclty shorter than $C$. Note that this argument also applies when $C$ is a triangle as we assumed $\orG$ to be loopless, and that it argument fails if $C$ is a cycle of length four, which
+  is why the assumption that $C$ has odd length is needed. As $\orG$ is acyclic, each of the path $Q_i$ corresponds to a directed path $P_i$ in
+  $\orG$ with length $\ell_i +1$, whose first and last arcs are $u_{i}$ and
+  $u_{i+1}$ (or $u_{i+1}$ and $u_{i}$ according to the parity of $i$). In particular,
+  the graph $G\left[\bigcup_i V(P_i)\right]$ then contains a cycle $B$ of length
   $\sum_i (\ell_i -1) = |C| - 2m$, which is odd and shorter that the length of $C$. This
-  proves the second inequality.
+  proves the second inequality.\UG{TODO: Correct this part.}
 \end{proof}
 
 
