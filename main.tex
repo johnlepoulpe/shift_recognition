@@ -28,6 +28,9 @@
 \setlength{\marginparwidth}{2cm}%to have larger todonotes
 \usepackage{comment}
 
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+
 \usepackage{array}
 \usepackage{ifthen}
 
@@ -70,6 +73,7 @@
 \usepackage{tikz}
 \usetikzlibrary{decorations.markings}
 \usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{arrows.meta}
 \usetikzlibrary{calc}
 \tikzstyle{classic}=[draw=black,fill = black,inner sep = 1.5pt,circle]
 
@@ -175,6 +179,9 @@
 \DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 
+\newcommand{\defin}[1]{\emph{\textcolor{ForestGreen}{#1}}}
+
+
 % Colors
 \newcommand{\colora}{Goldenrod}
 \newcommand{\colorb}{SkyBlue}
@@ -200,7 +207,8 @@
 \newcommand{\nicolas}[1]{{\color{purple} NT: #1}}
 \newcommand{\ugo}[1]{{\color{red} UG: #1}}
 
-\title{Shift graph recognition is NP-complete}
+
+\title{Recognising and colouring shift graphs}
 
 \date{}
 
@@ -227,19 +235,20 @@
 \begin{abstract}
   Shift graphs are one of the classical constructions of triangle-free graphs
   with arbitrarily large chromatic number. We investigate the computational
-  complexity of the recognition, Maximum independent set and 3-Colouring
+  complexity of the Recognition, Maximum independent set and 3-Colouring
   problems on shift graphs and prove that all three problems are NP-complete. 
-  \todo[inline]{TODO, nicolas test git}
 \end{abstract}
 
 \todo[inline]{TODO:\\
   - decide UK/US conventions\\
-  - Fix the proof of Thm 9 for iterated line graphs}
+  - Fix the proof of Thm 9 for iterated line graphs\\
+  -the cleverref package is becoming depreciated. We should avoid using it.
+}
 \section{Introduction}
 \label{sec: intro}
-A class of graphs is \emph{hereditary} if it closed under taking induced
-subgraphs.  A hereditary class $\mathcal C$ of graphs is \emph{$\chi$-bounded} if there
-exists a function $f:\mathbb N\to \mathbb N$ such that for each graph $G\in \mathcal C$,
+A class of graphs is \defin{hereditary} if it closed under taking induced
+subgraphs.  A hereditary class $\mathcal C$ of graphs is \defin{$\chi$-bounded} if there
+exists a function $f:\mathbb N\to \mathbb N$ such that for every graph $G\in \mathcal C$,
 $\chi(G) \le f(\omega(G))$.  A well-known fact is that not all hereditary classes of graphs are
 $\chi$-bounded. Even more, there exist triangle-free graphs with arbitrarily large
 chromatic number. The first such constructions are due to Zykov \cite{Zyk49} and Blanche Descartes \cite{Descartes}, and among other constructions with such properties, one can also mention Mycielski graphs \cite{Mycielski1955}, shift graphs \cite{EH68}, Burling graphs \cite{Burling},
@@ -259,16 +268,16 @@ For example, Burling graphs have been used to show that the class of intersectio
 
 
 
-In \cref{tab:complexity}, we review some well-known
+In Table~\ref{tab:complexity}, we review some well-known
 constructions of triangle-free graphs with arbitratily large chromatic number.
 These constructions are often presented by generating a sequence of triangle-free graphs
 $(G_k)_{k\in \mathbb{N}}$ such that $\chi(G_k) = k$ for all $k$. We turn this
 into a hereditary class by considering all induced subgraphs of the graphs in
-the sequence $(G_k)_{k\in \mathbb N}$. Thus, by abuse of vocabulary, when we say a ``shift/Burling/etc.\ graph'', we mean in particular an induced subgraph of one of the graphs from the sequence $(G_k)_{k\in \mathbb N}$ of shift/Burling/etc.\ graphs (see  \cref{sec:Prelis} for precise definitions).   
+the sequence $(G_k)_{k\in \mathbb N}$. Thus, by abuse of vocabulary, when we say a ``shift/Burling/etc.\ graph'', we mean in particular an induced subgraph of one of the graphs from the sequence $(G_k)_{k\in \mathbb N}$ of shift/Burling/etc.\ graphs (see Section~ \ref{sec:Prelis} for precise definitions).   
 
 
 In view of the explicit constructions of each of the aforementioned classes, a natural question is to determine for each of them, whether there exists an efficient (polynomial time) algorithm solving the associated recognition problem, i.e.\ deciding whether a given graph belongs or not to them. This question has been recently investigated for some of these classes, as well as the complexity of two other natural problems, when restricted to these classes: \textsc{Maximum Independent
-Set} (or \MIS for short) and \textsc{3-Colouring} (see \cref{tab:complexity} for references). The goal of the present paper is to complement these works, and to prove that all three
+Set} (or \MIS for short) and \textsc{3-Colouring} (see Table~\ref{tab:complexity} for references). The goal of the present paper is to complement these works, and to prove that all three
 problems are NP-complete for shift graphs.
 
 % Three problems particularly attracted attention: Recognition, Maximum
@@ -297,7 +306,7 @@ problems are NP-complete for shift graphs.
 \end{table}
 
 Surprisingly, one can observe
-from \cref{tab:complexity} that 3-Colouring is NP-complete in all known
+from Table~\ref{tab:complexity} that 3-Colouring is NP-complete in all known
 constructions of triangle-free graphs of high chromatic number, which motivates
 the following quesiton: \nicolas{we could be more general, by saying
 ``all non-$\chi$-bounded classes (in particular in all triangle-free hereditary graph classes of unbounded
@@ -305,18 +314,18 @@ the following quesiton: \nicolas{we could be more general, by saying
 \begin{question}\label{qu:3col}
   Is \textsc{3-Colouring} NP-complete on all non $\chi$-bounded \ugo{hereditary?} classes?
 \end{question}
-The most natural candidates for possible counterexamples to \cref{qu:3col} are
+The most natural candidates for possible counterexamples to Question~\ref{qu:3col} are
 the classes of Kneser and
 Schrijver graphs.   
 \ugo{We should check first whether Kneser/Schrijver constructions do not give a counterexample... Also, do you really want to state it as a Conjecture, and not as a Question?}
 
-For most of the constructions from \cref{tab:complexity} of triangle-free graphs
+For most of the constructions from Table~\ref{tab:complexity} of triangle-free graphs
 with high chromatic number, there exist variants producing graphs with
 arbitrarily large girth or odd-girth, and unbounded chromatic number. More
 precisely, there exist shift, twincut and Mycielski graphs of arbitrarily
 large odd-girth and chromatic number, and Zykov and Blanche Descartes graphs
 with arbitrarily large girth and chromatic number. The complexity results of
-\cref{tab:complexity} might also hold with this additional condition in these
+Table~\ref{tab:complexity} might also hold with this additional condition in these
 classes. In the particular case of shift graphs, $k$-iterated shift graphs have
 odd-girth at least $2k+3$ but may contain four-cycles. Each of our
 NP-completeness results extends to the class of $k$-iterated shift graphs.
@@ -341,13 +350,13 @@ arbitrarily large girth.
 % hence Zykov graphs cannot form a minimal hereditary class of unbounded chromatic
 % number.
 
-% A class is \emph{abyssal} if it contains no minimal subclass of unbounded
+% A class is \defin{abyssal} if it contains no minimal subclass of unbounded
 % chromatic number. 
 
-We give in \cref{sec:Prelis} all basic definitions concerning shift graphs, as well as some known characterisations. 
-We prove in \cref{sec:MIS} that \textsc{Maximum independent set} is
-NP-complete in shift graphs. \cref{sec:3COL} contains a proof that \textsc{3-Colouring}
-is NP-complete when restricted to shift graphs and \cref{sec:recognition} shows
+We give in Section~\ref{sec:Prelis} all basic definitions concerning shift graphs, as well as some known characterisations. 
+We prove in Section~\ref{sec:MIS} that \textsc{Maximum independent set} is
+NP-complete in shift graphs. Section~\ref{sec:3COL} contains a proof that \textsc{3-Colouring}
+is NP-complete when restricted to shift graphs and Section~\ref{sec:recognition} shows
 that recognising shift graphs is also NP-complete.
 
 \section{Preliminaries}
@@ -357,30 +366,30 @@ For every integer $n\in \mathbb N$, we use the notation $[n]$ to denote the set 
   
 \subsection{Notations and basic definitions} A digraph $D$ consists of a set
 $V(D)$ of vertices and a set $A(D)$ of directed edges denoted $(u,v)$, $uv$ or
-$u \to v$ and called \emph{arcs} \ugo{We should only use one notation. A suggestion: we denote directed edges by $(u,v)$ and write $u\to_D v$ (or simply $u\to v$ when the context is clear) to mean that ``$(u,v)$ is an arc of $D$''.}. Given an arc $a=(u,v)$, we call $v$ its \emph{head} of
-$a$ and $u$ its \emph{tail}. We respectively denote with
+$u \to v$ and called \defin{arcs} \ugo{We should only use one notation. A suggestion: we denote directed edges by $(u,v)$ and write $u\to_D v$ (or simply $u\to v$ when the context is clear) to mean that ``$(u,v)$ is an arc of $D$''.}. Given an arc $a=(u,v)$, we call $v$ its \defin{head} of
+$a$ and $u$ its \defin{tail}. We respectively denote with
 $N^-(u) = \{v \colon v \to u\}$ and $N^+(u) = \{v \colon u \to v\}$ the
-in-neighbourhood and out-neighbourhood of $u$. We call $u$ a \emph{source} of $D$ when $N^-(u)=\emptyset$, and we call it a \emph{sink} of $D$ when $N^+(u)=\emptyset$.  An
-\emph{oriented graph} is a digraph such that for each pair $u,v$ of distinct
+in-neighbourhood and out-neighbourhood of $u$. We call $u$ a \defin{source} of $D$ when $N^-(u)=\emptyset$, and we call it a \defin{sink} of $D$ when $N^+(u)=\emptyset$.  An
+\defin{oriented graph} is a digraph such that for every pair $u,v$ of distinct
 vertices, $A(D)$ contains at most one of the two arcs $u\to v$ and $v\to u$. The
-\emph{support} of a digraph $D$ is the undirected graph $G$ obtained when
+\defin{support} of a digraph $D$ is the undirected graph $G$ obtained when
 removing the orientations of the arcs of $D$, that is $V(G) = V(D)$ and
 $E(G) = \{\{x,y\} \colon (x,y) \in A(D)\}$. We will
 often use the notation $\orG$ to denote an oriented graph whose support is the
 unoriented graph $G$.  We say that a vertex $u$ of a digraph $D$ is
-\emph{transitive} if it is neither a source nor a sink. For $k\in \mathbb N$, a
-\emph{$k$-walk} (resp.\ \emph{$k$-path}) is a sequence $(v_0,\ldots, v_k)$ of
-$k+1$ (distinct) vertices such that $v_i\to v_{i+1}$ for each $0\leq i\leq
-k-1$. The \emph{length} of a path is defined as its number of edges. Again, we
+\defin{transitive} if it is neither a source nor a sink. For $k\in \mathbb N$, a
+\defin{$k$-walk} (resp.\ \defin{$k$-path}) is a sequence $(v_0,\ldots, v_k)$ of
+$k+1$ (distinct) vertices such that $v_i\to v_{i+1}$ for every $0\leq i\leq
+k-1$. The \defin{length} of a path is defined as its number of edges. Again, we
 call $v_k$ the head of the $k$-path $(v_0,\ldots, v_k)$ and $v_0$ its tail. The
-\emph{$k$-prefix} (resp.\ \emph{$k$-suffix}) of a path $P$ is the subpath
+\defin{$k$-prefix} (resp.\ \defin{$k$-suffix}) of a path $P$ is the subpath
 obtained when keeping only its $k+1$ first (resp.\ last) vertices.
 
 Let $D$ be a digraph and let $P$ and $Q$ be two $k$-paths
 $P = (u_0,\ldots, u_k)$ and $Q = (v_0,\ldots, v_k)$ such that $P$ and $Q$ are
 vertex disjoint and there are no arcs between $V(P)$ and $V(Q)$. We
 then denote $D / \{P,Q\}$ the digraph obtained by identifying $P$ and $Q$, that
-is by replacing for each $i$, $u_i$ and $v_i$ by a new vertex $w_i$ whose
+is by replacing for every $i$, $u_i$ and $v_i$ by a new vertex $w_i$ whose
 in-neighbourhood is $N^-(u_i) \cup N^-(v_i)$ and out-neighbourhood is
 $N^+(u_i) \cup N^+(v_i)$. Formally, the vertex set of $D/\{P,Q\}$ is
 $(V(D) \setminus \{u_0,\ldots,u_k,v_0,\ldots,v_k\}) \sqcup \{w_0, \ldots, w_k\}$
@@ -391,28 +400,28 @@ $u_i$ or $v_i$ corresponds to a unique $w_i$ because $V(P)$ and $V(Q)$ are
 disjoint, and $D/ \{P,Q\}$ contains no loop because there are no arcs between
 $V(P)$ and $V(Q)$.
 
-For each $n\in \mathbb N$, the \emph{transitive tournament of order $n$} is the
+For each $n\in \mathbb N$, the \defin{transitive tournament of order $n$} is the
 oriented graph $\orTn$ with vertex set $[n]$, where there is an arc $i\to j$ for
-each $1\leq i<j\leq n$. In this article, the \emph{comb} of length $k$ is the
-graph $\Comb_k$ obtained from a path on $k$ edges (the \emph{jaw} of $\Comb_k$)
+each $1\leq i<j\leq n$. In this article, the \defin{comb} of length $k$ is the
+graph $\Comb_k$ obtained from a path on $k$ edges (the \defin{jaw} of $\Comb_k$)
 to which we attach to each vertex an additional pendant edge (such edges are the
-\emph{teeth} of $\Comb_k$). The comb of length 0 is a single tooth. The teeth
-attached to each extremity of the jaw are called the \emph{molars},
-while the other teeth are called the \emph{incisors}.
+\defin{teeth} of $\Comb_k$). The comb of length 0 is a single tooth. The teeth
+attached to each extremity of the jaw are called the \defin{molars},
+while the other teeth are called the \defin{incisors}.
  
 For a graph $G$, we let $\alpha(G)$ denote the \emph{independance number} of $G$, that is, the maximum possible size of an
 independent set of $G$, and we let $\mathrm g(G)$ and $\og(G)$ denote
-respectively its \emph{girth} (minimim over the sizes of its cycles) and its
-\emph{odd girth} (minimum over the sizes of its odd cycles). If $D$ is a
+respectively its \defin{girth} (minimim over the sizes of its cycles) and its
+\defin{odd girth} (minimum over the sizes of its odd cycles). If $D$ is a
 digraph, we will respectively write $\alpha(D), g(D), \og(D), \chi(D)$ to denote respectively the independance number, girth, odd girth and chromatic number of its support
 graph.
 
 \subsection{Line digraphs}
-Given a digraph $D$, the \emph{line digraph} $L(D)$ of $D$ is the digraph whose
+Given a digraph $D$, the \defin{line digraph} $L(D)$ of $D$ is the digraph whose
 vertices are the arcs of $D$ and in which there is an arc from $a$ to $b$ if the
 head of $a$ is the tail of $b$ in $D$, in other words when $a$ and $b$ are
-consecutive.  We refer to $D$ as a \emph{root} digraph of $L(D)$. For
-$k\in \mathbb N$, the \emph{$k$-iterated line digraph} $L^k(D)$ of $D$ is then
+consecutive.  We refer to $D$ as a \defin{root} digraph of $L(D)$. For
+$k\in \mathbb N$, the \defin{$k$-iterated line digraph} $L^k(D)$ of $D$ is then
 defined recursively by setting $L^k(D) = L(L^{k-1}(D))$ when $k\geq 1$, and
 $L^0(D) = D$. Equivalently, when $k\geq 1$, the vertices of $L^k(D)$ are the
 directed $k$-walks in $D$ and $L^k(D)$ contains an arc from $a$ to $b$ if the
@@ -425,7 +434,7 @@ vertex set of $L^k(D)$ also corresponds to the set of $k$-paths of $D$.
 The following result of Beineke characterises line digraphs of oriented graphs.
 \begin{lemma}[Beineke~\cite{beineke1968Derived}]\label{lem:forbidden_config}
   A digraph $D$ is the line digraph of an oriented graph $\orG$ if and only if the two 
-  following conditions are satisfied (see \cref{fig: Beineke}):
+  following conditions are satisfied (see Figure~\ref{fig: Beineke}):
   \begin{enumerate}
   \item If $D$ contains three arcs $a$, $b$ and $c$ such that $a$ and $b$ have
     the same tail, and $b$ and $c$ have the same head, then $D$ also contains an
@@ -439,7 +448,7 @@ The following result of Beineke characterises line digraphs of oriented graphs.
 \begin{figure}[htb]
   \centering  
   \includegraphics[scale=1]{Line_digraph}
-  \caption{The two configurations depicted in \cref{lem:forbidden_config}.}  
+  \caption{The two configurations depicted in Lemma~\ref{lem:forbidden_config}.}  
   \label{fig: Beineke}
 \end{figure}
 
@@ -485,7 +494,7 @@ one ensures that all the arcs of $\orG$ entering a fixed vertex have identical
 out-neighbourhood in $D$. Moreover, note that these two conditions ensure that
 the only allowed orientation of a triangle is the cyclic one and the only
 allowed orientations of the 4-cycles of $D$ are the cyclic ones and the ones
-alternating at each vertex.
+alternating at each vertex. 
 
 Beineke's characterisation gives in particular a simple polynomial time
 algorithm to recognise line digraphs. On the other hand, Chv\'atal and Ebenegger
@@ -499,8 +508,8 @@ NP-complete~\cite{chvatal1990Note}.
 % that $k$-shift graphs are the supports of the $(k-1)$-iterated line digraphs of
 % all directed acyclic graphs.
 
-The \emph{shift graph sequence} is the sequence of graphs
-$(G_n)_{n\in \mathbb{N}}$, where $G_n$ is the graph whose vertices are all the
+The \defin{shift graph sequence} is the sequence of graphs
+$(G_n)_{n \in \mathbb{N}}$, where $G_n$ is the graph whose vertices are all the
 ordered pairs $(a_1,a_2)$ of $[n]$ such that $1 \le a_1 < a_2 \le n$, in which
 two vertices $a = (a_1, a_2)$ and $b = (b_1, b_2)$ are adjacent if $b_1 = a_2$
 (or $a_1 = b_2$). Note that the vertex set of $G_n$ corresponds equivalently to
@@ -509,27 +518,36 @@ edges between consecutive intervals. From
 this definition, it is straightforward to check that $G_n$ is the support of the
 line digraph of the transitive tournament $\orTn$.
 
-The class of \emph{shift graphs} is the hereditary closure of the graphs
+The class of \defin{shift graphs} is the hereditary closure of the graphs
 $(G_{n})_{n\in \mathbb{N}}$, that is, all induced subgraph of some $G_{n}$. Note
-that in the litterature, shift graphs might sometimes refer to what we will call later
-\emph{iterated shift graphs} in this paper, and corresponds to a subset of the class of graphs defined here \clement{What I understand is rather
-  that ``generalized shift graphs'' correspond to our iterated shift graphs, but
-  our definitions of shift graphs match}\ugo{In \cite{GraphsandHomomorphisms}, they call ``shift'' our iterated shift graphs.}. Observe that every shift graph admits
-a natural acyclic orientation, obtained when considering the arc $(a,b)\to(b,c)$
-for each $1\leq a<b<c\leq n$. We call this orientation the \emph{shift
-  orientation} and denote it with $\orGn$. Since for every oriented graph
-$\orG$, its line graph $L(\orG)$ is acyclic if and only if $\orG$ is acyclic,
-Beineke's characterisation immediately implies the following equivalence:
+that in the litterature, shift graphs might sometimes refer to what we will
+later call
+\emph{iterated} shift graphs, and corresponds to a subset of
+the class of shift graphs defined here \clement{What I understand is rather that
+  ``generalized shift graphs'' correspond to our iterated shift graphs, but our
+  definitions of shift graphs match}\ugo{In \cite{GraphsandHomomorphisms}, they
+  call ``shift'' our iterated shift graphs.}.
+
+Since for every oriented graph $\orG$, the line digraph $L(\orG)$ is acyclic if
+and only if $\orG$ is acyclic, Beineke's characterisation immediately implies
+the following equivalence:
 \begin{lemma}\label{lem:valid}
   A graph is a shift graph if and only if it admits an acyclic
   orientation which is the line digraph of an oriented (acyclic) graph.
 \end{lemma}
+Given a shift graph $G$, we call \defin{shift orientation} any orientation of
+its edges that verifies the conditions of Lemma~\ref{lem:valid}. A shift graph
+may have several shift orientations. However, the graphs $G_n$ of the shift
+graph sequence have a natural shift orientation, which we will denote $\orGn$,
+obtained when considering the arc $(a,b)\to(b,c)$
+for every $1\leq a<b<c\leq n$.
 
-As a result all 4-cycles in the natural orientation of a shift graph are
-alternating at each vertex and shift graphs are triangle-free. The next lemma is
-a folklore result that shows that shift graphs also
-have unbounded chromatic number (see for example \cite[Theorem 4]{harner1972Arc} or \cite[Lemma
-    2.21]{GraphsandHomomorphisms} for the first part). We include its proof as it is simple.
+As a result of Lemma~\ref{lem:valid}, all 4-cycles in a shift orientation of a
+shift graph are alternating at each vertex and shift graphs are
+triangle-free. The next lemma is a folklore result that shows that shift graphs
+also have unbounded chromatic number (see for example \cite[Theorem
+4]{harner1972Arc} or \cite[Lemma 2.21]{GraphsandHomomorphisms} for the first
+part). We include its proof as it is simple.
 
 \begin{lemma}[Folklore]\label{lem:line-graph}
   For any oriented graph $\orG$, $\chi(L(\orG)) \geq \log \chi(G)$. Moreover, if $\orG$ is acyclic, then $\og(L(\orG))
@@ -559,7 +577,7 @@ have unbounded chromatic number (see for example \cite[Theorem 4]{harner1972Arc}
   For each $i$, let $\ell_i$ be the
   length of $Q_i$. We have $\ell_i \ge 2$ for each $i$, because otherwise $C$
   would contain an alternating path of lentgh three, which by
-  \cref{lem:forbidden_config} implies that there exists a shorter odd cycle in
+  Lemma~\ref{lem:forbidden_config} implies that there exists a shorter odd cycle in
   $L(G)$. Note that this argument fails if $C$ is a cycle of length four, which
   is why the assumption that $C$ has odd length is needed. By definition of the
   line digraph, each of the path $Q_i$ corresponds to a directed path $P_i$ of
@@ -589,39 +607,41 @@ have unbounded chromatic number (see for example \cite[Theorem 4]{harner1972Arc}
 % \end{proof}
 
 \paragraph{Iterated shift graphs.}
-For $k\geq 1$, the \emph{$k$-iterated shift graph} $G_{n,k}$ (sometimes referred
-to as generalised shift graph, or shift graph) is the graph whose vertices are
+For every $k\geq 1$, the \defin{$k$-iterated shift graph sequence}
+is the sequence of graphs $(G_{n,k})_{n\in \mathbb{N}}$, where $G_{n,k}$ is the graph whose vertices are
 ordered $(k+1)$-tuples $(a_0, \ldots, a_k)$ of $[n]$ such that
 $1 \le a_0 < a_1 < \ldots < a_k \le n$, in which two vertices
 $a = (a_0, \ldots, a_k)$ and $b = (b_0, \ldots, b_k)$ are adjacent if
 $b_i = a_{i+1}$ for all $i \in [k-1]$ (or $a_i = b_{i+1}$ for all
-$i \in [k-1]$).  From this definition, it is straightforward to check that
+$i \in [k-1]$). From this definition, it is straightforward to check that
 $G_{n,k}$ is the support of the $k$-iterated line digraph $L^k(\orTn)$, where
 $\orTn$ is the transitive tournament on $n$ vertices. Note that for each
 $n\in \mathbb N$, $G_{n,2}$ corresponds exactly to the shift graph $G_n$ defined
 earlier, and that as before, $G_{n,k}$ admits a natural acyclic orientation,
-which we call its \emph{shift orientation}, and denote by $\orGnk$. Note also
+which we call its \defin{shift orientation}, and denote by $\orGnk$. Note also
 that for each $k\geq 1$, the graph $G_{n,k}$ is a shift graph with respect to
 the definition we gave above, i.e.\ it is an induced subgraph of one of the
 graphs $(G_{n})_{n\in \mathbb{N}}$ because $\orGnk$ is the line digraph of the acyclic oriented
 graph $L^{k-1}(\orTn)$.
  
-The main interest of considering the graphs $G_{n,k}$ is that they form a family
+The main interest of the graphs $G_{n,k}$ is that they form a family
 of graphs with unbounded chromatic number and arbitrarily large odd girth. More
-precisely, by \cref{lem:line-graph}, for every $k\geq 1$ and $n\in \mathbb N$,
+precisely, by Lemma~\ref{lem:line-graph}, for every $k\geq 1$ and $n\in \mathbb N$,
 $G_{n,k}$ has odd-girth at least $2k+3$ % (see for example
 % \cite[Lemma 2.22]{GraphsandHomomorphisms}),
 and chromatic number at least $\log^{(k)}(n)$, where $\log^{(k)}$ denotes the
-$k$-iterated logarithm function. The class of \emph{$k$-iterated shift graphs}
+$k$-iterated logarithm function. The class of \defin{$k$-iterated shift graphs}
 is the hereditary closure of $(G_{n,k})_{n \in \mathbb{N}}$, or equivalently,
-the class of all induced subgraphs of $k$-line digraphs of acyclic digraphs.
+the class of all induced subgraphs of $k$-line digraphs of acyclic
+digraphs. Note that in the literature, $k$-iterated shift graphs are sometimes referred
+to as generalised shift graph although they form a subclass of shift graphs.
 
 Given an acyclic digraph $\orG$ and an induced subdigraph $\orH$ of $L^k(\orG)$,
-we call \emph{$k$-shift embedding} of $\orH$ in $\orG$ any injective map $\phi$
+we call \defin{$k$-shift embedding} of $\orH$ in $\orG$ any injective map $\phi$
 from the vertices of $\orH$ to the $k$-paths of $\orG$ such that for all
 $u,v\in V(\orH)$, $u\to v$ in $\orH$ if and only if the $(k-1)$-prefix of
 $\phi(v)$ is the $(k-1)$-suffix of $\phi(u)$. We say that $\phi$ is
-\emph{convex} if for every $u,v,w \in V(\orH)$ such that $v$ is on a
+\defin{convex} if for every $u,v,w \in V(\orH)$ such that $v$ is on a
 (non-directed) path from $u$ to $w$, then
 $V(\phi(u))\cap V(\phi(w)) \subseteq V(\phi(v))$. The next lemma shows that
 $k$-shift embeddings commute with identification:
@@ -646,32 +666,38 @@ $k$-shift embeddings commute with identification:
 
 
   Denote $\phi(u) = (u_1, \dots, u_k)$, $\phi(v) = (v_1, \dots, v_k)$ and
-  $(w_1, \dots w_k)$ be the vertex resulting from the identification of
+  $(w_1, \dots w_k)$ be the $k$ vertices resulting from the identification of
   $\phi(u)$ with $\phi(v)$ in $\orG$. Let
   $p: V(\orG) \to V(\orG/\{\phi(u),\phi(v)\})$ such that $p(x) =x$ for all
   $x \notin V(\phi(u)) \cup V(\phi(v))$ and $\phi(y) = w_i$ if
-  $y \in \{u_i,v_i\}$ for some $i$. As $\phi(u)$ and $\phi(v)$ are
-  vertex-disjoint, there are no arcs between $u$ and $v$, so $p$ is a morphism.
+  $y \in \{u_i,v_i\}$ for some $i$. As there are no arcs between $u$ and $v$, $p$ is a morphism.
   Let $\psi$ be the map from $\orH/\{u,v\}$ to the $k$-paths of
   $\orG/\{\phi(u),\phi(v)\}$ such that for all $x \in V(G)$, we let
   $\psi(p(x)) = (p(x_1), \dots, p(x_k))$ where $(x_1, \dots, x_k) =
-  \phi(x)$. First, note that $\psi(x)$ is a $k$-path for each
-  $x \in V(\orH/\{u,v\})$ because $p$ is a morphism. Moreover, for each arc $xy$
+  \phi(x)$. First, note that $\psi(x)$ is a $k$-path for every
+  $x \in V(\orH/\{u,v\})$ because $p$ is a morphism. Moreover, for every arc $x
+  \to y$
   in $\orH/\{u,v\}$, the $(k-1)$-suffix of $\psi(x) = \phi(p^{-1}(x))$ and the
   $(k-1)$-prefix of $\psi(y) = \phi(p^{-1}(y))$ are equal, so $\psi$ is a
   $k$-shift embedding of $\orH/\{u,v\}$ in $\orG/\{\phi(u),\phi(v)\}$.
 \end{proof}
 
 
-\paragraph{Shift trees.} We now prove a technical lemma that we will use to
-construct the root graph of some $k$-iterated shift graphs. Informally, it
-states that for trees, $k$-iterated shift graphs and shift graphs are the same.
+\paragraph{Shift trees.} Trees are shift graphs as one can construct a shift
+orientation of any tree $T$
+by rooting it in an arbitrary vertex and orient all edges away from it. One can
+easily check that the resulting orientation verifies the conditions of
+Lemma~\ref{lem:forbidden_config}, thereby showing that $T$ is a shift graph.
+
+In fact, the following lemma shows that for every $k$, every shift orientation
+of a tree is also the $k$-iterated line digraph of an acyclic digraph. We will
+use this to construct the root graph of some $k$-iterated shift graphs.
 
 \begin{lemma}\label{lem:shift_tree}
-  Let $T$ be a shift graph which is a tree, with shift orientation $\orT$. Then, for all $k\geq 1$, $T$ is also a $k$-iterated shift graph.\\
-  More precisely, there exists an acyclic oriented graph $\orG$ and a convex
-  $k$-shift embedding $\phi$ of $\orT$ in
-  $\orG$. %such that for each leaf $a$ of $T$, $\phi(a)$ is private.
+  Let $T$ be tree with a shift orientation $\orT$. Then, for every $k\geq 1$,
+  there exists an acyclic directed graph $\orG$ and a convex $k$-shift
+  embedding $\phi$ of $\orT$ in $\orG$. In particular, $T$ is a $k$-iterated
+  shift graph for every $k$.
 \end{lemma}
 \begin{proof}
   We proceed by induction on $|V(T)|$. Clearly, if $|V(T)|\leq 1$, then the
@@ -680,7 +706,7 @@ states that for trees, $k$-iterated shift graphs and shift graphs are the same.
   the oriented path of length $k$. We now assume that $|V(T)|\geq 2$.
   
   Let $a$ be a leaf of $T$, and assume without loss of generality that for some
-  $b \in V(T)$ we have $a \to b$ in $D$, the case $b\to a$ being symmetric. Let
+  $b \in V(T)$ we have $a \to b$ in $\orT$, the case $b\to a$ being symmetric. Let
   $T':=T-a$, and $\overrightarrow{T'}:=\orT-a$. By induction hypothesis, there
   exists an acyclic oriented graph $\overrightarrow{G'}$ and a convex $k$-shift
   embedding $\phi'$ of $\overrightarrow{T'}$ in $\overrightarrow{G'}$. Let $v$,
@@ -688,7 +714,7 @@ states that for trees, $k$-iterated shift graphs and shift graphs are the same.
   respectively (with $w=x$ if $k = 2$). Let $Q_b$ be the $(k-1)$-prefix of
   $\phi'(b)$.
 
-  If $b$ is the only vertex of $T'$ with $Q_b$ as the $(k-1)$-prefix of its
+  If $b$ is the only vertex of $\orT'$ with $Q_b$ as the $(k-1)$-prefix of its
   image by $\phi'$, then let $\orG$ be the oriented graph obtained from
   $\overrightarrow{G'}$ by adding a new vertex $u$ with $u \to v$. This creates
   a $k$-path $P_a$ whose $(k-1)$-suffix is the $(k-1)$-prefix of $\phi'(b)$ but
@@ -700,38 +726,40 @@ states that for trees, $k$-iterated shift graphs and shift graphs are the same.
   V(Q_b)$. % Moreover, $a$ is the only vertex of $T$ whose image by
   % $\phi$ starts by $a$ and by assumption, $a$ is the only of $T$ whose image by
   % $\phi$ has $(k-1)$-suffix equal to $Q_b$, so $\phi(a)$ is private.
-  Thus the
-  second part of the lemma holds as well and we can now assume that there exists
-  $c \in V(T') \setminus\{b\}$ such that $\phi(c)$ has $Q_b$ as $(k-1)$-prefix
-  and ends at $z \in N^+_{G'}(x)$ (see \cref{fig: shiftTree}).
- 
+
+  We can now assume that there exists $c \in V(T') \setminus\{b\}$ such that the
+  prefix of $\phi(c)$ is $Q_b$ and the head of $\phi(c)$ is a vertex
+  $z \in N^+_{G'}(x)$ (see Figure~\ref{fig: shiftTree}).
  \begin{figure}[htb]
   \centering  
   \includegraphics[scale=1]{shiftTree}
-  \caption{Configuration in the proof of \cref{lem:shift_tree}.}  
+  \caption{Configuration in the proof of Lemma~\ref{lem:shift_tree}.}  
   \label{fig: shiftTree}
- \end{figure}
+\end{figure}
+\todo[inline]{update picture with $\psi(b)$}
 
- First, observe that for each $t\in V(G')$ such that $t\to v$ in
- $\overrightarrow{G'}$, we have $tQ_b \notin \phi(V(T'))$, thus $b$ is a source
- in $\overrightarrow{G'}$. Indeed, note that otherwise there would exist some
+ First, observe that for every $t\in V(G')$ such that $t\to v$ in
+ $\overrightarrow{G'}$, we have $tQ_b \notin \phi(V(T'))$. %thus $b$ is a source
+                                % in $\overrightarrow{G'}$.
+ Otherwise there would exist some
  node $d \in V(T')$ such that we both have $d \to c$ and $d \to b$ in
- $\overrightarrow{T'}$ (and thus also in $\orT$). \cref{lem:forbidden_config}
- would then imply that $a \to b$ in $\orT$, contradicting that $a$ is a leaf of
- $T$. We now let $\overrightarrow{G''}$ be the oriented graph obtained after
+ $\overrightarrow{T'}$ (and thus also in $\orT$). As $a \to b$, Lemma~\ref{lem:forbidden_config}
+ would then imply that $a \to c$ in $\orT$, so $\{a,b,c,d\}$ forms a cycle
+ in $T$, contradicting the fact that $T$ is a forest. Thus, $b$ is a source in
+ $\orT'$. We now let $\overrightarrow{G''}$ be the oriented graph obtained after
  duplicating the vertex $v$ by creating a vertex $v'$ that is a false twin of
  $v$ in $\overrightarrow{G'}$, i.e.\ $v'$ has exactly the same out- and
- in-neighbourhoods as $v$ in $\overrightarrow{G''}$ (note that such operation
- preserves acyclicity). We define $\psi$ as the map from $V(T')$ to the set of
- $k$-walks of $G''$ by setting
- $\psi_{|V(T')\setminus \{b\}} := \phi_{|V(T')\setminus \{b\}}$ and define
- $\psi(b)$ as the $k$-path $\phi(b)$ where $v$ was replaced by $v'$.  We claim
- that for any two vertices $i,j$ of $V(T')$ we have $i \to j$ in
+ in-neighbourhoods as $v$ in $\overrightarrow{G}$ (note that such operation
+ preserves acyclicity). Let $\psi$ be the map from $V(T')$ to the set of
+ $k$-walks of $\overrightarrow{G''}$ such that $\psi_{|V(T')\setminus \{b\}} :=
+ \phi_{|V(T')\setminus \{b\}}$ and $\psi(b)$ is the $k$-path obatined by
+ replacing $v$ by $v'$ in $\phi(b)$.  We claim
+ that for every two vertices $i$ and $j$ of $V(T')$ we have $i \to j$ in
  $\overrightarrow{T'}$ if and only if the $(k-1)$-suffix of $\psi(i)$ equals to
  the $(k-1)$-prefix of $\psi(j)$. This is immediate if $i$ and $j$ are different
  from $b$, or if $i=b$ because $\psi(i)$ and $\phi(b)$ have the same
  $(k-1)$-suffix. Since $b$ is source in $\overrightarrow{G'}$, the case $b=j$
- also trivially follows, and as $\phi$ is convex, note that $\psi$ is also
+ does not occur, and as $\phi$ is convex, note that $\psi$ is also
  convex. Thus, we just proved that $\psi$ is a convex $k$-shift embedding of
  $\overrightarrow{T'}$ in $\overrightarrow{G''}$ such that $b$ is the only
  vertex of $\overrightarrow{T'}$ whose corresponding $k$-path $\psi(b)$ starts
@@ -740,7 +768,7 @@ states that for trees, $k$-iterated shift graphs and shift graphs are the same.
 \end{proof}
 
 % \ugo{I hope that I interpretated correctly in the next definition what you meant by ``identifying'' (it was not clear at all for me in a first time).}
-% In a directed graph $D$, if $u,v$ are two distinct vertices, we let $D/\{u,v\}$ denote the digraph obtained after \emph{identifying} $u$ with $v$, i.e.\  $D/\{u,v\}$ is obtained from $D$ after removing $u,v$ and adding a new vertex $z$, with in-neighbourhood $(N^-_D(u)\cup N^-_D(v))\setminus \{u,v\}$ and
+% In a directed graph $D$, if $u,v$ are two distinct vertices, we let $D/\{u,v\}$ denote the digraph obtained after \defin{identifying} $u$ with $v$, i.e.\  $D/\{u,v\}$ is obtained from $D$ after removing $u,v$ and adding a new vertex $z$, with in-neighbourhood $(N^-_D(u)\cup N^-_D(v))\setminus \{u,v\}$ and
 % out-neighbourhood $(N^+_D(u)\cup N^+_D(v))\setminus \{u,v\}$. Note that if $D=\orH$ is an oriented graph, in which $N_H(u)$ and $N_H(v)$ are disjoint, then $D/\{u,v\}$ is also an oriented graph. The next lemma shows that in this case, $k$-shift embeddings are also preserved.
 
 
@@ -769,31 +797,32 @@ have $G^{\ast 0}=G$.
   We show that \MIS on general graphs admits a polynomial time reduction to \MIS
   when restricted to the class of $k$-iterated shift graphs of girth at least
   $\ell$. Let $s$ be an even integer such that $3(s+1) \ge \ell$ and
-  $s \ge k+1$.  Let $G$ be a connected graph and assume that $[n]=V(G)$. We
+  $s \ge k+1$.  Let $G$ be a connected graph and assume that $[n]=V(G)$ so that
+  the vertices of $G$ are totally ordered. We
   claim that $G^{\ast s}$ is a $k$-iterated shift graph of girth at least
-  $3(s+1) \ge \ell$. By \cref{lem:subdivision_MIS}, this will imply directly the
+  $3(s+1) \ge \ell$. By Lemma~\ref{lem:subdivision_MIS}, this will imply directly the
   result.
 
-  To prove our claim, consider the acyclic graph $H$ constructed as follows. Let
+  To prove our claim, consider the acyclic directed graph $\orH$ constructed as follows. Let
   $(P_u)_{u \in V(G)}$ be a collection of disjoint directed paths of length
-  $k$. For each $u$, we denote $u^-$ and $u^+$ the first and last vertex of
+  $k$. For every $u$, we denote $u^-$ and $u^+$ the tail and head of
   $P_u$. For each edge $uv \in E(G)$ with $u < v$, connect $u^+$ with $v^-$ by a
-  directed path $P_{uv}$ of length $s+1 -k > 0$ and let $H$ be the graph
-  obtained. We now prove that the graph $L^k(H)$ is isomorphic to $G^{\ast
-    s}$. Each vertex $u$ of $G$ is mapped to the $k$-path $P_u$. In $L^k(H)$,
+  directed path $P_{uv}$ of length $s+1 -k > 0$ and let $\orH$ be the graph
+  obtained. We now prove that the support of $L^k(\orH)$ is isomorphic to $G^{\ast
+    s}$. Each vertex $u$ of $G$ is mapped to the $k$-path $P_u$. In $L^k(\orH)$,
   for each $uv \in E(G)$ with $u < v$, the vertices $P_u$ and $P_v$ are
   connected by a path $(P_u, Q_1, \dots Q_k, R_1, \dots R_{s-k}, P_v)$, where
   each $Q_i$ is the $k$-path starting at the $(i+1)$\textsuperscript{th} vertex
   of $P_u$ and ending in $V(P_{uv}) \cup V(P_v)$, and each $R_i$ is the $k$-path
   starting at the $(i+1)$\textsuperscript{th} vertex of $P_{uv}$ and ending in
-  $V(P_{uv}) \cup V(P_v)$. Thus $G^{\ast s}$ is a subgraph of $L^k(H)$ and this
-  subgraph is spanning because all $k$-paths of $H$ are of the form described above. All
-  vertices in $V(H) \setminus \{u^+ \colon u\in V(G)\}$ have out-degree equal to
-  one and all vertices in $V(H) \setminus \{u^- \colon u\in V(G)\}$ have
+  $V(P_{uv}) \cup V(P_v)$. Thus $G^{\ast s}$ is a subgraph of the support of $L^k(\orH)$ and this
+  subgraph is spanning because all $k$-paths of $\orH$ are of the form described above. All
+  vertices in $V(\orH) \setminus \{u^+ \colon u\in V(G)\}$ have out-degree equal to
+  one and all vertices in $V(\orH) \setminus \{u^- \colon u\in V(G)\}$ have
   in-degree equal to one. So all the $k$-paths of $H$ that are not some $P_u$
-  have degree exactly two in $L^k(H)$. Combining this with the fact that the
-  $k$-paths $P_u$ have degree $\deg_H^+(u^+) + \deg_H^-(u^-) = \deg_G(u)$, this
-  proves that $G^{\ast s}$ is an induced subgraph of $L^k(H)$, so $L^k(H) =
+  have in-degree and out-degree exactly one in $L^k(\orH)$. Combining this with the fact that the
+  $k$-paths $P_u$ have degree $\deg_{\orH}^+(u^+) + \deg_{\orH}^-(u^-) = \deg_G(u)$, this
+  proves that $G^{\ast s}$ is an induced subgraph of $L^k(\orH)$, so $L^k(\orH) =
   G^{\ast s}$.
   
   \begin{figure}[h!]
@@ -840,36 +869,43 @@ have $G^{\ast 0}=G$.
           \draw[blue] (b\x\y) edge[postaction=decorate] (a\y0);
         }          
       \end{tikzpicture}
-      \caption{The graph $H$ for $k = 3$ and $s = 4$. The black directed paths
+      \caption{The directed graph $\orH$ for $k = 3$ and $s = 4$. The black directed paths
         are the paths $(P_u)_{u \in V(G)}$ and the blue paths are the
         connections $P_{uv}$ of length $s - k +1$ between them.}
     \end{subfigure}
     \caption{An example of our reduction}
   \end{figure}
 
-  Let $C$ be a cycle of $H$ and $u$ the smallest vertex of $G$ such that $C$
-  passes by $u^+$ (such vertex exists because $H - \bigcup_{u \in V(G)} u^+$ is
-  a forest of subdivided stars with central vertices $(v^-)_{v \in V(G)}$). The
-  cycle $C$ alternates at $u^+$ so $H$ is acyclic. Finally, $L^k(H) = G^{\ast
+  Let $C$ be a cycle of $\orH$ and $u$ the smallest vertex of $G$ such that $C$
+  passes by $u^+$ (such vertex exists because $\orH - \{u^+ \colon u \in V(G)\}$ is
+  a forest of subdivided stars with central vertices $\{v^- \colon v \in V(G)\}$). The
+  cycle $C$ alternates at $u^+$ so $\orH$ is acyclic. Finally, $L^k(\orH) = G^{\ast
     s}$ has girth $g(s+1) \ge 3(s+1) \ge \ell$, where $g$ is the girth of $G$. 
   
 \end{proof}
 
 \section{3-Colouring shift graphs}\label{sec:3COL}
 \begin{theorem}\label{thm:3col}
-  For any $k\geq 1$, \Col is NP-complete when restricted on the class of $k$-iterated shift graphs (and
-  \emph{a fortiori} in shift graphs of odd-girth at least $k$).
+  \Col is NP-complete when restricted to the class of shift graphs.
+
+  % For any $k\geq 1$, \Col is NP-complete when restricted on the class of $k$-iterated shift graphs (and
+  % a fortiori in shift graphs of odd-girth at least $k$).
+
 \end{theorem}
 \begin{proof}
-  We design a polynomial time reduction from \Col on general graphs to \Col on $k$-iterated
-  shift graphs. For simplicity, we first describe our reduction for shift graphs
-  before adapting it to $k$-iterated shift graphs, as the latter case is more technical, but the ideas are essentially identical. We will equivalently view proper colourings
-  of $L(\orG)$ as arc-colourings of $\orG$, that is an assignment of colors to $A(G)$
-  such that $u\to v$ and $v\to w$ have distinct colors for all $u,v,w \in V(G)$.
+  We design a polynomial time reduction from \Col on general graphs to \Col on
+  % $k$-iterated
+  shift graphs.
+  % For simplicity, we first describe our reduction for shift graphs before
+  % adapting it to $k$-iterated shift graphs, as the latter case is more
+  % technical, but the ideas are essentially identical.
+  We will equivalently view proper colourings of $L(\orG)$ as arc-colourings of
+  $\orG$, that is an assignment of colors to $A(G)$ such that $u\to v$ and
+  $v\to w$ have distinct colors for all $u,v,w \in V(G)$.
 
-\paragraph{The gadget H.}
-  We construct an acyclic oriented graph $\orH$ such that $\chi(L(\orH))=3$, having a
-  marked vertex $x$ with the following property: in any 3-arc-colouring of $\orH$
+  \paragraph{The gadget $\orH$.}
+  We construct an acyclic oriented graph $\orH$ such that $\chi(L(\orH))=3$,
+  with a marked vertex $x$ satisfying the following property: in every 3-arc-colouring of $\orH$
   the set of arcs entering $x$ uses exactly two colours. 
 
 
@@ -878,6 +914,11 @@ have $G^{\ast 0}=G$.
   $\chi(L(T)) = 4$. Then, we don't have to consider higher odd girths
   separatly. The fact that $T$ comes from a tournament is not
   essential. Very little has to be changed in the proof.}
+\clement{Yes this could salvage the proof for shift graphs of large odd girth,
+  but not for iterated shift graphs. I don't think we can take any such $T$: we
+  are using the fact that $\chi(L(T)) = 4$ but $\chi(L(T-v)) = 3$, where $v$ is
+  a sink of $T$. But surely there exists directed graphs of large odd girth with
+  this property. }
 
   
   Consider the minimum value of $n\in \mathbb N$ such that the transitive $n$-vertex tournament $\orTn$ satisfies
@@ -893,7 +934,7 @@ have $G^{\ast 0}=G$.
   % have $\chi(L(S_n)) = \chi(L(T_n)) = 4$.
   Let $\orH$ be the graph obtained from $\orTn$ by iteratively removing arcs entering $v_{n-1}$
   until the chromatic number of its line digraph drops to three. Note that
-  $\overrightarrow{S_n} := \orTn-\{uv_{n-1} : u \in V(T_{n})\setminus\{v_{n-1},v_{n}\}\}$ is the
+  $\overrightarrow{S_n} := \orTn-\{u \to v_{n-1} : u \in V(T_{n})\setminus\{v_{n-1},v_{n}\}\}$ is the
   transitive tournament on the vertices $V(T_n)\setminus \{v_{n-1}\}$, with an
   additional vertex $v_{n-1}$ whose only incident arc ends in the sink $v_n$. Thus
   $\orSn$ is 3-arc-colourable,  and $\orH$ is well defined.
@@ -904,27 +945,33 @@ have $G^{\ast 0}=G$.
   %   and $c$.}
 
   
-  Let $uv_{n-1}$ be the last arc removed in the construction of $\orH$. We thus have
-  $\chi(L(\orH + uv_{n-1})) = 4$ and $\chi(L(\orH)) = 3$. Let $\alpha$ be a proper
-  3-colouring of $L(\orH)$, where $v_{n-1}v_n$ is without loss of generality
-  coloured 1. The arcs entering $v_{n-1}$ cannot use the colour 1, so they use
-  at most two colours. Suppose that they are all using the same colour, say
-  2 (see \cref{fig: GadgetH}). Let $c := \alpha(uv_n)$ (note that $c$ is well defined as $u\to v_n$ is an arc of $\orH$) and $\beta$ be the 3-colouring of $L(\orH+uv_{n-1})$
-  such that $\beta(uv_{n-1}):= c$,
+  Let $uv_{n-1}$ be the last arc removed in the construction of $\orH$. We thus
+  have $\chi(L(\orH + {uv_{n-1}})) = 4$ and $\chi(L(\orH)) = 3$. Let $\alpha$ be
+  a proper 3-colouring of $L(\orH)$, where $v_{n-1}v_n$ is without loss of
+  generality coloured 1. The arcs entering $v_{n-1}$ cannot use the colour 1, so
+  they use at most two colours. Suppose that they are all using the same colour,
+  say 2 (see Figure~\ref{fig: GadgetH}). Let $c := \alpha(uv_n)$ (note that $c$ is
+  well defined as $u\to v_n$ is an arc of $\orH$) and $\beta$ be the 3-colouring
+  of $L(\orH+uv_{n-1})$ such that $\beta(uv_{n-1}):= c$,
   $\beta(v_{n-1}v_n) \in \{1,3\} \setminus \{c\}$ and $\beta(xy) = \alpha(xy)$
-  for all other arcs. The arc-colouring $\beta$ uses three colours like $\alpha$ and we claim that it
-  is a proper colouring of $L(\orH+uv_n)$. 
-  As $\alpha$ is proper, it suffices to check 
-  that the colourings of the arcs $uv_{n-1}$ and $v_{n-1}v_n$ do not create a monochromatic edge. As $v_n$ is a sink, and as $uv_n$ was colored with $c$ by $\alpha$, note that the arc $uv_{n-1}$ cannot have a neighbour of colour $c$ in $L(\orH+uv_n)$.
-  Moreover, $v_{n-1}v_n$ is the only arc of $L(\orH+uv_n)$ starting in $v_{n-1}$, and uses a colour different from 2 and $c$, showing that $\beta$ is a proper $3$-colouring. This contradicts 
-  $\chi(L(\orH+uv_n))=4$. We thus deduce that the set of arcs entering $v_{n-1}$ in $H$ use both the colours 2 and 3.
-  To sum up, $\orH$ is 3-colourable and in each 3-arc-colouring of $\orH$, the arcs
-  entering the marked vertex $x:=v_{n-1}$ use two different colours.
+  for all other arcs. The arc-colouring $\beta$ uses three colours like $\alpha$
+  and we claim that it is a proper colouring of $L(\orH+uv_n)$.  As $\alpha$ is
+  proper, it suffices to check that the colourings of the arcs $uv_{n-1}$ and
+  $v_{n-1}v_n$ do not create a two consecutive arcs identically coloured. As
+  $v_n$ is a sink, and as $uv_n$ was coloured with $c$ by $\alpha$, note that
+  the arc $uv_{n-1}$ cannot have a neighbour of colour $c$ in $L(\orH+uv_n)$.
+  Moreover, $v_{n-1}v_n$ is the only arc of $L(\orH+uv_n)$ starting in
+  $v_{n-1}$, and uses a colour different from 2 and $c$, showing that $\beta$ is
+  a proper $3$-colouring. This contradicts $\chi(L(\orH+uv_n))=4$. We thus
+  deduce that the set of arcs entering $v_{n-1}$ in $H$ use both the colours 2
+  and 3.  To sum up, $\orH$ is 3-colourable and in each 3-arc-colouring of
+  $\orH$, the arcs entering the marked vertex $x:=v_{n-1}$ use two different
+  colours.
   
 \begin{figure}[htb]
   \centering  
   \includegraphics[scale=1]{GadgetH}
-  \caption{In red, the coloration $\alpha$ depicted in  the first part of the proof of \cref{thm:3col}.}  
+  \caption{In red, the coloration $\alpha$ depicted in  the first part of the proof of Theorem~\ref{thm:3col}.}  
   \label{fig: GadgetH}
 \end{figure}
 
@@ -975,16 +1022,18 @@ have $G^{\ast 0}=G$.
   % \end{figure}
 
   \paragraph{Constructing the shift graph.}
-  Let $G$ be a graph. We contruct an acyclic oriented graph $\orGp$ such that
-  $\chi(G) \le 3$ if and only if $\chi(L(\orGp)) \le 3$ as follows. Fix an arbitrary total order $<$ on the
-  vertex set of $G$ and for each vertex $u$ of $G$, take a copy $\orHu$
-  of $\orH$, with an arc $e_u:=x_u \to y_u$ starting in the marked vertex $x_u$ of
-  $H_u$ and ending in a new pendant vertex $y_u$. For each edge $uv \in E(G)$, with
-  $u < v$, add the arc $x_u \to x_v$ (see \cref{fig:NP-col}). The oriented graph
-  $\orGp$ constructed is acyclic because each copy $\orHu$ of $\orH$ is acyclic and
-  separated from the rest of $G'$ by the cut vertex $x_u$, and the additional
-  edges can be ordered acyclically following the order on the vertices of
-  $G$. Therefore $L(\orGp)$ is a shift graph. 
+  Let $G$ be a graph, where $[n] = V(G)$ so that the vertices of $G$ are totally
+  ordered. We contruct an acyclic oriented graph $\orGp$ such that
+  $\chi(G) \le 3$ if and only if $\chi(L(\orGp)) \le 3$ as follows. For each
+  vertex $u$ of $G$, take a copy $\orHu$ of $\orH$, with an arc
+  $e_u:=x_u \to y_u$ starting in the marked vertex $x_u$ of $H_u$ and ending in
+  a new pendant vertex $y_u$. For each edge $uv \in E(G)$, with $u < v$, add the
+  arc $x_u \to x_v$ (see Figure~\ref{fig:NP-col}). The oriented graph $\orGp$
+  can be constructed in polynomial time. Moreover, $\orGp$ is acyclic because
+  each copy $\orHu$ of $\orH$ is acyclic and separated from the rest of $G'$ by
+  the cut vertex $x_u$, and the additional edges can be ordered acyclically
+  following the order on the vertices of $G$. Therefore $L(\orGp)$ is a shift
+  graph and $L(\orGp)$.
   
   We will now show that $G$ is 3-colourable if and only if $L(\orGp)$ is 3-colourable.
 
@@ -1042,173 +1091,224 @@ have $G^{\ast 0}=G$.
   \end{figure}
 
   \paragraph{Equivalence of the instances.}
-  Assume that there exists proper 3-colouring $\alpha$ of $G$. Colour each arc of $\orGp$
-  starting in $x_u$ with the colour $\alpha(u)$ of $u$. At this stage it remains
-  only to colour the copies of $\orH$. Let $\beta$ be a 3-arc-colouring of $\orH$. For
-  each copy $\orHu$, permute the colours of $\beta$ such that the arcs entering
-  $x_u$ use the two colours in $[3]$ different from $\alpha(u)$. We claim that the resulting colouring
-  is a 3-arc-colouring of $\orGp$. Indeed, at each $x_v$, all the arcs starting in
+  Assume that there exists proper 3-colouring $\alpha$ of $G$. Colour each arc
+  of $\orGp$ starting in $x_u$ with the colour $\alpha(u)$ of $u$. It remains
+  only to colour the arcs in the copies of $\orH$. Let $\beta$ be a
+  3-arc-colouring of $\orH$. For each copy $\orHu$, permute the colours of
+  $\beta$ such that the arcs entering $x_u$ use the two colours in $[3]$
+  different from $\alpha(u)$. We claim that the resulting colouring is a
+  3-arc-colouring of $\orGp$. Indeed, at each $x_v$, all the arcs starting in
   $x_v$ have an identical colour $\alpha(v)$, and the arcs entering $x_v$ are
   either coming from the copy $\orHv$ or of the form $x_u \to x_v$ for some
   $u < v$, in both case they use colours different from $\alpha(v)$. Thus
   $L(\orGp)$ is 3-colourable.
 
-  Conversely, in a proper 3-arc-colouring $\beta$ of $\orGp$, observe that by the aforementioned property of $\orH$, for each $u\in V(G)$, the set of arcs entering the marked vertex $x_u$ uses exactly $2$ colors, hence all the
-  arcs starting in $x_u$ in $\orGp$ are coloured identically. Colour $u$ with this
-  colour for each $u\in V(G)$. We claim that this gives a proper 3-colouring that we denote with $\alpha$. Indeed, given any edge $uv$ in $E(G)$ with $u<v$, the colour of $u \in V(G)$ with respect to $\alpha$
-  is the colour of $x_u\to x_v$ with respect to $\beta$, which must differ from the colour of $x_v \to y_v$ with respect to $\beta$. In particular, note that the colour of $x_v\to y_v$ with respect to $\beta$ is the colour of $v \in V(G)$ with respect to $\alpha$. Thus $G$ is 3-colourable.
+  Conversely, let $\beta$ be a proper 3-arc-colouring of $\orGp$. Observe that
+  by the aforementioned property of $\orH$, for each $u\in V(G)$, the set of
+  arcs entering the marked vertex $x_u$ uses exactly $2$ colours, hence all the
+  arcs starting in $x_u$ in $\orGp$ are coloured identically. Let
+  $\alpha(u) = \beta(x_uy_u)$ for every $u\in V(G)$. We claim that $\alpha$ is a
+  proper 3-colouring of $G$. Indeed, given any edge $uv$ in $E(G)$ with $u<v$,
+  the colour $\alpha(u) = \beta(x_uy_u) =\beta(x_ux_v)$ must differ from the
+  colour $\beta(x_vy_v) = \alpha(v)$ because $\beta$ is a proper
+  arc-colouring of $\orGp$. Thus $G$ is 3-colourable.
 
-  \todo[inline]{the proof is broken for $k$-iterated shift graph.}
-  \paragraph{$k$-iterated shift graphs.}
-  We fix $k\geq 1$.
-  To adapt our reduction to $k$-iterated shift graph, we will first need to
-  change our gadget. Given a $k$-iterated line digraph $\orGd$ of an oriented
-  acyclic graph $\orGu$, we will for convenience see the $k$-colourings of $\orGd$ as
-  $k$-colourings of the $k$-paths of $\orGu$ such that the every two $k$-paths of the form $u_0\dots u_k$ and $u_1\dots u_{k+1}$ are coloured differently.
+%   \todo[inline]{the proof is broken for $k$-iterated shift graph.}
+%   \paragraph{$k$-iterated shift graphs.}
+%   We fix $k\geq 1$.
+%   To adapt our reduction to $k$-iterated shift graph, we will first need to
+%   change our gadget. Given a $k$-iterated line digraph $\orGd$ of an oriented
+%   acyclic graph $\orGu$, we will for convenience see the $k$-colourings of $\orGd$ as
+%   $k$-colourings of the $k$-paths of $\orGu$ such that the every two $k$-paths of the form $u_0\dots u_k$ and $u_1\dots u_{k+1}$ are coloured differently.
 
-  For our gadget, we construct an acyclic oriented graph $\orH$ such that
-  $\chi(L^k(\orH))=3$, with a marked $(k-1)$-path $X$ with the following property:
-  in any 3-colouring of $L^k(\orH)$, the set of $k$-paths with suffix $X$ uses
-  exactly two colours.
+%   For our gadget, we construct an acyclic oriented graph $\orH$ such that
+%   $\chi(L^k(\orH))=3$, with a marked $(k-1)$-path $X$ with the following property:
+%   in any 3-colouring of $L^k(\orH)$, the set of $k$-paths with suffix $X$ uses
+%   exactly two colours.
 
-  Consider the minimum value of $n\in \mathbb N$ such that the vertex transitive tournament $\orTn$ verifies
-  $\chi(L^k(\orTn))=4$. For each $i \in [n]$, let $v_i$ be the (unique) vertex of in-degree
-  $i-1$ in $\orTn$. % Let $S_n$ be the subgraph of $T_n$ obtained by removing all
-  % the arcs $v_jv_{n-i}$  for all $i \in \{0, \dots, k-1\}$ and 
-  % $j<n-i-1$. The oriented graph $S_n$ consists of a transitive tournament on the
-  % vertices $\{v_i : i \in [n-k]\}$, with a $k$-path on the vertices
-  % $v_{n-k}, \dots v_n$. Let $\phi$ be the following map from the $k$-paths of if
-  % $xy\in A(S_n)$ and $\beta(uv_n) = \alpha(uv_{n-1})$ for all
-  % $u \in V(T_n) \setminus \{v_{n-1},v_n\}$. The arc-colouring $\beta$ is proper
-  % because $uv_n$ and $uv_{n-1}$ are twins in $L(T_n)$.  $T_n$ to the $k$-paths
-  % of $S_n$. For all $k$-paths $P$ of $S_n$, $\phi(P) = P$. Any other $k$-path
-  % $P$ of $T_n$ is the concatenation of a $i$-path $Q$ on the vertices of
-  % $\{v_j : j < n-k\}$ and a $k-i-1$-path on vertices of
-  % $\{v_j: \in \{n-k, \dots n\}$. For such paths, $\phi(P)$ is the concatenation
-  % of $Q$ with $v_{n-k}, \dots v_{n-k+i-1}$. In particular, note that $P$ and
-  % $P'$ are consecutive in $T_n$, \emph{i.e.} the suffix of length $k-1$ of $P$
-  % is the prefix of length $k-1$ of $P'$, then $\phi(P)$ and $\phi(P')$ are
-  % consecutive in $S_n$. Thus, given a colouring $\alpha$ of $L^k(S_n)$, the
-  % colouring $\beta$ of $L^k(T_n)$ such that $\beta(P) = \alpha(\phi(P))$ for all
-  % $P$ is a proper colouring. Since $\alpha$ and $\beta$ use the same amount of
-  % colours and $S_n$ is a subgraph of $T_n$, we have
-  % $\chi(L(S_n)) = \chi(L(T_n)) = 4$.
-  Let $\orH$ be the subdigraph of $\orTn$ obtained by removing iteratively arcs of the form
-  $v_iv_{n-k}$ with $i<n-k$ until the chromatic number of its $k$-iterated line
-  digraph drops to three. Note that $\orSn:= \orTn-\{v_iv_{n-k} : i <n-k\}$ is the
-  transitive tournament on the vertices
-  $v_1, \ldots, v_{n-k-1}, v_{n-k+1}, \ldots, v_n$ with the additional vertex
-  $v_{n-k}$ and all arcs of the form $v_{n-k}v_j$ with $j>n-k$. As such,
-  $L^k(\orSn)$ is isomorphic to the $k$-iterated line digraph of the transitive
-  tournament on $n-1$ vertices, with one additional isolated vertex, 
-  corresponding to the $k$-path $v_{n-k} \ldots v_n$. So $L^k(\orSn) = 3$ and $\orH$
-  is well defined. Let $uv_{n-k}$ be the last arc removed in the construction
-  of $\orH$. We then have $\chi(L^k(\orH))= 3$ and $\chi(L^k(\orH+uv_{n-k}))=4$.
+%   Consider the minimum value of $n\in \mathbb N$ such that the vertex transitive tournament $\orTn$ verifies
+%   $\chi(L^k(\orTn))=4$. For each $i \in [n]$, let $v_i$ be the (unique) vertex of in-degree
+%   $i-1$ in $\orTn$. % Let $S_n$ be the subgraph of $T_n$ obtained by removing all
+%   % the arcs $v_jv_{n-i}$  for all $i \in \{0, \dots, k-1\}$ and 
+%   % $j<n-i-1$. The oriented graph $S_n$ consists of a transitive tournament on the
+%   % vertices $\{v_i : i \in [n-k]\}$, with a $k$-path on the vertices
+%   % $v_{n-k}, \dots v_n$. Let $\phi$ be the following map from the $k$-paths of if
+%   % $xy\in A(S_n)$ and $\beta(uv_n) = \alpha(uv_{n-1})$ for all
+%   % $u \in V(T_n) \setminus \{v_{n-1},v_n\}$. The arc-colouring $\beta$ is proper
+%   % because $uv_n$ and $uv_{n-1}$ are twins in $L(T_n)$.  $T_n$ to the $k$-paths
+%   % of $S_n$. For all $k$-paths $P$ of $S_n$, $\phi(P) = P$. Any other $k$-path
+%   % $P$ of $T_n$ is the concatenation of a $i$-path $Q$ on the vertices of
+%   % $\{v_j : j < n-k\}$ and a $k-i-1$-path on vertices of
+%   % $\{v_j: \in \{n-k, \dots n\}$. For such paths, $\phi(P)$ is the concatenation
+%   % of $Q$ with $v_{n-k}, \dots v_{n-k+i-1}$. In particular, note that $P$ and
+%   % $P'$ are consecutive in $T_n$, \emph{i.e.} the suffix of length $k-1$ of $P$
+%   % is the prefix of length $k-1$ of $P'$, then $\phi(P)$ and $\phi(P')$ are
+%   % consecutive in $S_n$. Thus, given a colouring $\alpha$ of $L^k(S_n)$, the
+%   % colouring $\beta$ of $L^k(T_n)$ such that $\beta(P) = \alpha(\phi(P))$ for all
+%   % $P$ is a proper colouring. Since $\alpha$ and $\beta$ use the same amount of
+%   % colours and $S_n$ is a subgraph of $T_n$, we have
+%   % $\chi(L(S_n)) = \chi(L(T_n)) = 4$.
+%   Let $\orH$ be the subdigraph of $\orTn$ obtained by removing iteratively arcs of the form
+%   $v_iv_{n-k}$ with $i<n-k$ until the chromatic number of its $k$-iterated line
+%   digraph drops to three. Note that $\orSn:= \orTn-\{v_iv_{n-k} : i <n-k\}$ is the
+%   transitive tournament on the vertices
+%   $v_1, \ldots, v_{n-k-1}, v_{n-k+1}, \ldots, v_n$ with the additional vertex
+%   $v_{n-k}$ and all arcs of the form $v_{n-k}v_j$ with $j>n-k$. As such,
+%   $L^k(\orSn)$ is isomorphic to the $k$-iterated line digraph of the transitive
+%   tournament on $n-1$ vertices, with one additional isolated vertex, 
+%   corresponding to the $k$-path $v_{n-k} \ldots v_n$. So $L^k(\orSn) = 3$ and $\orH$
+%   is well defined. Let $uv_{n-k}$ be the last arc removed in the construction
+%   of $\orH$. We then have $\chi(L^k(\orH))= 3$ and $\chi(L^k(\orH+uv_{n-k}))=4$.
 
-  Let $\alpha$ be a 3-colouring of $L^k(\orH)$, and without loss of generality
-  assume that the $k$-path $v_{n-k} \dots v_n$ is coloured 1 by $\alpha$. We
-  will now argue that the set of $k$-paths with suffix $X:=v_{n-k}\dots v_{n-1}$
-  uses both the colours 2 and 3.
-%   , and thus that all the $k$-paths with
-%   prefix $X$ in the second part of the reduction are coloured 1. 
-  First, since
-  $P:=v_{n-k}\dots v_n$ is coloured 1 and is the only $k$-path starting in
-  $v_{n-k}$, the $k$-paths of $\orH$ with suffix $X$ all have their colours in
-  $\{2,3\}$.
+%   Let $\alpha$ be a 3-colouring of $L^k(\orH)$, and without loss of generality
+%   assume that the $k$-path $v_{n-k} \dots v_n$ is coloured 1 by $\alpha$. We
+%   will now argue that the set of $k$-paths with suffix $X:=v_{n-k}\dots v_{n-1}$
+%   uses both the colours 2 and 3.
+% %   , and thus that all the $k$-paths with
+% %   prefix $X$ in the second part of the reduction are coloured 1. 
+%   First, since
+%   $P:=v_{n-k}\dots v_n$ is coloured 1 and is the only $k$-path starting in
+%   $v_{n-k}$, the $k$-paths of $\orH$ with suffix $X$ all have their colours in
+%   $\{2,3\}$.
 
 
-  Suppose for a contradiction that they all use the same colour, say 2. In the next paragraph, we let $P_0:=v_{n-k}\dots v_n$. Let $c$ be the colour of
-  the $k$-path $uv_{n-k+1} \dots v_n$. Let $f$ be the map from the
-  $k$-paths of $\orH+uv_{n-k}$ to the $k$-paths of $\orH$ defined as follows. For each $k$-path $P$
-  avoiding the arc $uv_{n-k}$, we let $f(P) =P$. Given a $k$-path $P$ using
-  $uv_{n-k}$, let $Q$ denote its prefix ending at $u$ and $R$ its suffix starting
-  at $v_{n-k}$ and let $f(P)$ be the concatenation of $Q$ and
-  $u v_{n-k+1} \dots v_{n-k+1+q}$ where $q$ is the length of $Q$. Observe that for every 
-  two $k$-paths $P,P'$ in $\orH+uv_{n-k}$ distinct from $P_0$, if $P\to P'$ in $L^k(\orH+uv_{n-k})$, then we also have $f(P)\to f(P')$ in $L^k(\orH)$. In more sophisticated terms, $f$ induces a digraph homomorphism from $L^k((\orH+uv_{n-k})-P_0)$ to $L^k(\orH)$.
-%   In particular,
-%   if $P$ and $P'$ are consecutive in $T_n$, then so are $f(P)$ and
-%   $f(P')$. 
-  Let $\beta$ be the 3-colouring of $L(\orH+uv_{n-k})$ defined as
-  follows. 
-  \begin{enumerate}
-  \item\label{item: k-gadget-1} For any $k$-path $P$ of $\orH+uv_{n-k}$ without $X$ as a suffix or prefix, we let
-  $\beta(P) := \alpha(f(P))$.
-  \item\label{item: k-gadget-2} For any $k$-path $P$ of $\orH+uv_{n-k}$ having $X$ as a suffix, 
-  \begin{enumerate}
-   \item\label{item: k-gadget-2a} either $P$ is a $k$-path of $\orH$ and we set $\beta(P):=\alpha(P)=\alpha(f(P))=2$,
-   \item\label{item: k-gadget-2b} or $P=uv_{n-k}\dots v_{n-1}$ and we set $\beta(P) := \alpha(f(P))=
-   \alpha(uv_{n-k+1}\dots v_n) = c$.
-  \end{enumerate}
-  \item\label{item: k-gadget-2} For $P=P_0$ (which is the only $k$-path of $\orH+uv_{n-k}$ having $X$ as a prefix), we let $\beta(P)$ be any colour from $\{1,3\}\setminus \{c\}$.
-  \end{enumerate}
-  We show that $\beta$ is a 3-colouring of $L^k(\orH+uv_{n-k})$. First, observe that by our previous remark, for every two paths $P,P'$ distinct of $P_0$ from $\orH+uv_{n-k}$, as 
-  $f(P)$ and $f(P')$ are adjacent in $L^k(\orH)$, we have $\beta(P)=\alpha(f(P))\neq\alpha(f(P'))=\beta(P')$.  
-  This implies that the only arcs of $L^k(\orH+uv_{n-k})$ for which it remains to check that $\beta$ does not colour them monochromaticaly are the ones incident to $P_0$. In particular, note that every such arc is of the form $P\to P_0$, for some path $P$ of type \cref{item: k-gadget-2}. If $P$ has type \cref{item: k-gadget-2a}, then we have $\beta(P)=2$, while $\beta(P_0)\neq 2$ by construction. If $P$ has type \cref{item: k-gadget-2b}, then $\beta(P)=c$ and again by construction $c\neq \beta(P_0)$. It thus implies that $\beta$ is indeed a proper 3-colouring of $L^k(\orH+uv_{n-k})$. However, this contradicts our previous observation that $\chi(L^k(\orH+uv_{n-k}))=4$. We thus conclude that every 3-colouring of $L^k(\orH)$ gives to the set of $k$-paths having  $X$ as a suffix exactly two colors.
+%   Suppose for a contradiction that they all use the same colour, say 2. In the next paragraph, we let $P_0:=v_{n-k}\dots v_n$. Let $c$ be the colour of
+%   the $k$-path $uv_{n-k+1} \dots v_n$. Let $f$ be the map from the
+%   $k$-paths of $\orH+uv_{n-k}$ to the $k$-paths of $\orH$ defined as follows. For each $k$-path $P$
+%   avoiding the arc $uv_{n-k}$, we let $f(P) =P$. Given a $k$-path $P$ using
+%   $uv_{n-k}$, let $Q$ denote its prefix ending at $u$ and $R$ its suffix starting
+%   at $v_{n-k}$ and let $f(P)$ be the concatenation of $Q$ and
+%   $u v_{n-k+1} \dots v_{n-k+1+q}$ where $q$ is the length of $Q$. Observe that for every 
+%   two $k$-paths $P,P'$ in $\orH+uv_{n-k}$ distinct from $P_0$, if $P\to P'$ in $L^k(\orH+uv_{n-k})$, then we also have $f(P)\to f(P')$ in $L^k(\orH)$. In more sophisticated terms, $f$ induces a digraph homomorphism from $L^k((\orH+uv_{n-k})-P_0)$ to $L^k(\orH)$.
+% %   In particular,
+% %   if $P$ and $P'$ are consecutive in $T_n$, then so are $f(P)$ and
+% %   $f(P')$. 
+%   Let $\beta$ be the 3-colouring of $L(\orH+uv_{n-k})$ defined as
+%   follows. 
+%   \begin{enumerate}
+%   \item\label{item: k-gadget-1} For any $k$-path $P$ of $\orH+uv_{n-k}$ without $X$ as a suffix or prefix, we let
+%   $\beta(P) := \alpha(f(P))$.
+%   \item\label{item: k-gadget-2} For any $k$-path $P$ of $\orH+uv_{n-k}$ having $X$ as a suffix, 
+%   \begin{enumerate}
+%    \item\label{item: k-gadget-2a} either $P$ is a $k$-path of $\orH$ and we set $\beta(P):=\alpha(P)=\alpha(f(P))=2$,
+%    \item\label{item: k-gadget-2b} or $P=uv_{n-k}\dots v_{n-1}$ and we set $\beta(P) := \alpha(f(P))=
+%    \alpha(uv_{n-k+1}\dots v_n) = c$.
+%   \end{enumerate}
+%   \item\label{item: k-gadget-2} For $P=P_0$ (which is the only $k$-path of $\orH+uv_{n-k}$ having $X$ as a prefix), we let $\beta(P)$ be any colour from $\{1,3\}\setminus \{c\}$.
+%   \end{enumerate}
+%   We show that $\beta$ is a 3-colouring of $L^k(\orH+uv_{n-k})$. First, observe that by our previous remark, for every two paths $P,P'$ distinct of $P_0$ from $\orH+uv_{n-k}$, as 
+%   $f(P)$ and $f(P')$ are adjacent in $L^k(\orH)$, we have $\beta(P)=\alpha(f(P))\neq\alpha(f(P'))=\beta(P')$.  
+%   This implies that the only arcs of $L^k(\orH+uv_{n-k})$ for which it remains to check that $\beta$ does not colour them monochromaticaly are the ones incident to $P_0$. In particular, note that every such arc is of the form $P\to P_0$, for some path $P$ of type \cref{item: k-gadget-2}. If $P$ has type \cref{item: k-gadget-2a}, then we have $\beta(P)=2$, while $\beta(P_0)\neq 2$ by construction. If $P$ has type \cref{item: k-gadget-2b}, then $\beta(P)=c$ and again by construction $c\neq \beta(P_0)$. It thus implies that $\beta$ is indeed a proper 3-colouring of $L^k(\orH+uv_{n-k})$. However, this contradicts our previous observation that $\chi(L^k(\orH+uv_{n-k}))=4$. We thus conclude that every 3-colouring of $L^k(\orH)$ gives to the set of $k$-paths having  $X$ as a suffix exactly two colors.
   
-%   Any $k$-path $P$ with suffix $X$ in
-%   $\orH+uv_{n-k}$ is either a $k$-path of $H$, in which case $\alpha(P)=2$ and we
-%   define $\beta(P) = 2$, or the $k$-path $uv_{n-k}\dots v_{n-1}$, in which
-%   case we let $\beta(P) = \alpha(uv_{n-k+1}\dots v_n) = c$. The only remaining
-%   $k$-path where $\beta$ is undefined is the path $P = v_{n-k} \dots v_n$ with
-%   $X$ as prefix. 
-%   By construction all its incident paths in $L^k(\orH+uv_{n-k})$ are
-%   colored 2 and $c$ by $\beta$, so we can colour this path with a colour from
-%   $\{1,3\}\setminus\{c\}$. The colouring $\beta$ is a proper 3-colouring of
-%   $L^k(\orH+uv_n)$, which contradicts $\chi(L^k(\orH+uv_{n-k}))=4$. So the set of $k$-paths of $\orH$ with suffix $X=v_{n-k}\dots v_{n-1}$ uses both the colours 2 and 3 in $\alpha$. To
-%   sum up, $L^k(\orH)$ is 3-colourable and in each 3-colouring of $L^k(\orH)$, the
-%   $k$-paths with prefix $X$ use two different colours.
+% %   Any $k$-path $P$ with suffix $X$ in
+% %   $\orH+uv_{n-k}$ is either a $k$-path of $H$, in which case $\alpha(P)=2$ and we
+% %   define $\beta(P) = 2$, or the $k$-path $uv_{n-k}\dots v_{n-1}$, in which
+% %   case we let $\beta(P) = \alpha(uv_{n-k+1}\dots v_n) = c$. The only remaining
+% %   $k$-path where $\beta$ is undefined is the path $P = v_{n-k} \dots v_n$ with
+% %   $X$ as prefix. 
+% %   By construction all its incident paths in $L^k(\orH+uv_{n-k})$ are
+% %   colored 2 and $c$ by $\beta$, so we can colour this path with a colour from
+% %   $\{1,3\}\setminus\{c\}$. The colouring $\beta$ is a proper 3-colouring of
+% %   $L^k(\orH+uv_n)$, which contradicts $\chi(L^k(\orH+uv_{n-k}))=4$. So the set of $k$-paths of $\orH$ with suffix $X=v_{n-k}\dots v_{n-1}$ uses both the colours 2 and 3 in $\alpha$. To
+% %   sum up, $L^k(\orH)$ is 3-colourable and in each 3-colouring of $L^k(\orH)$, the
+% %   $k$-paths with prefix $X$ use two different colours.
 
-  We now finish the reduction in a similar way as for shift graphs. Let $G$ be a
-  graph, with an arbitrary order on its vertices. We define an oriented graph $\orGp$ as follows. For each vertex $u$ of $v$,
-  take a copy $\orHu$ of $\orH$ and a new pendant vertex $y_u$, and attach an arc $x_uy_u$ to
-  the last vertex $x_u$ of the marked $(k-1)$-path $X_u$ of $\orHu$. For each edge
-  $uv$ of $G$ with $u<v$, we add a pending arc $x_uz_{uv}$ to $x_u$ and identify
-  the marked $(k-1)$-path $X_v$ with the $(k-1)$-path formed by concatenating
-  the $(k-2)$-suffix of $X_u$ with $x_uz_{uv}$. \ugo{I'm afraid that $\orGp$ is not always well-defined... Unless I missed smg.} As a result, we have an arc $X_ux_v\to X_vy_v$
-  in $L^k(\orGp)$.
-%   the $k$-paths
-%   $X_ux_v$ and $X_vy_v$ are consecutive.  
-  The oriented graph $\orGp$ constructed is
-  acyclic because each copy $\orHu$ is acyclic, and the vertex set of $\orGp$ can be ordered following the
-  order of the vertices of $G$. In such an order for every vertices $u<v$ of $G$, every arc of $\orGp$ between disjoint subgraphs $\orHu$ and $\orHv$ has its tail in $\orHu$ and its head in $\orHv$. It follows that $\orGp$ is indeed acyclic.
-  We consider the subgraph $L$ of $L^k(G')$
-  induced by the $k$-paths that contain at most one arc between different
-  vertices labelled $x_u$ for some $u$.
+%   We now finish the reduction in a similar way as for shift graphs. Let $G$ be a
+%   graph, with an arbitrary order on its vertices. We define an oriented graph $\orGp$ as follows. For each vertex $u$ of $v$,
+%   take a copy $\orHu$ of $\orH$ and a new pendant vertex $y_u$, and attach an arc $x_uy_u$ to
+%   the last vertex $x_u$ of the marked $(k-1)$-path $X_u$ of $\orHu$. For each edge
+%   $uv$ of $G$ with $u<v$, we add a pending arc $x_uz_{uv}$ to $x_u$ and identify
+%   the marked $(k-1)$-path $X_v$ with the $(k-1)$-path formed by concatenating
+%   the $(k-2)$-suffix of $X_u$ with $x_uz_{uv}$. \ugo{I'm afraid that $\orGp$ is not always well-defined... Unless I missed smg.} As a result, we have an arc $X_ux_v\to X_vy_v$
+%   in $L^k(\orGp)$.
+% %   the $k$-paths
+% %   $X_ux_v$ and $X_vy_v$ are consecutive.  
+%   The oriented graph $\orGp$ constructed is
+%   acyclic because each copy $\orHu$ is acyclic, and the vertex set of $\orGp$ can be ordered following the
+%   order of the vertices of $G$. In such an order for every vertices $u<v$ of $G$, every arc of $\orGp$ between disjoint subgraphs $\orHu$ and $\orHv$ has its tail in $\orHu$ and its head in $\orHv$. It follows that $\orGp$ is indeed acyclic.
+%   We consider the subgraph $L$ of $L^k(G')$
+%   induced by the $k$-paths that contain at most one arc between different
+%   vertices labelled $x_u$ for some $u$.
 
-  We will show that $L$ is 3-colourable if and only if $G$ is 3-colourable. 
+%   We will show that $L$ is 3-colourable if and only if $G$ is 3-colourable. 
   
-  \paragraph{Equivalence of the instances for $k$-iterated shift graphs.}
-  We first assume that $G$ is 3-colourable and let
-  $\alpha$ be a proper 3-colouring of $G$. Let $\beta$ be the 3-colouring of $L$
-  defined as follows. First, for each $u \in V(G)$, colour each $k$-path of $G'$
-  with penultimate vertex equal to $x_u$ with the colour $\alpha(u)$. Each
-  remaining $k$-path of $L$ is fully contained in some $H_u$ for some $u$
-  because we removed from $L$ the $k$-paths containing more than one arc between
-  different vertices labelled $x_u$ for some $u$. For each $u$, all the
-  $k$-paths with suffix $X_u$ of $H_u$ are identically coloured, so one can
-  permute the colours in a fixed 3-colouring of $L^k(H)$ to colour
-  $L^k(H_u)$. Two consecutive $k$-paths of $L$ are either both contained in some
-  $H_u$, or with suffix and prefix equal to some $X_u$, or with prefix equal to
-  some $X_u$ and formed by the $(k-2)$-suffix of $X_u$ concatenated with
-  $x_vy_v$ for some $v>u$ with $uv \in E(G)$. In either case, their colours are
-  different by construction. Conversely, given a proper 3-colouring $\beta$ of
-  $L$, let $\alpha$ be the colouring of $G$ such that for each $u$, $\alpha(u)$
-  is the colour in $\beta$ of the $k$-path with prefix $X_u$ finishing in
-  $y_u$. By design of $H$, all $k$-path with prefix $X_u$ are identically
-  coloured and so $\alpha(u)$ and $\alpha(v)$ are different for each
-  $uv \in E(G)$ with $u<v$, because the paths $X_ux_v$ and $X_vy_v$ are
-  consecutive by construction and
-  $\alpha(u) = \beta(X_ux_v) \neq \beta(X_vy_v) = \beta(v)$.
+%   \paragraph{Equivalence of the instances for $k$-iterated shift graphs.}
+%   We first assume that $G$ is 3-colourable and let
+%   $\alpha$ be a proper 3-colouring of $G$. Let $\beta$ be the 3-colouring of $L$
+%   defined as follows. First, for each $u \in V(G)$, colour each $k$-path of $G'$
+%   with penultimate vertex equal to $x_u$ with the colour $\alpha(u)$. Each
+%   remaining $k$-path of $L$ is fully contained in some $H_u$ for some $u$
+%   because we removed from $L$ the $k$-paths containing more than one arc between
+%   different vertices labelled $x_u$ for some $u$. For each $u$, all the
+%   $k$-paths with suffix $X_u$ of $H_u$ are identically coloured, so one can
+%   permute the colours in a fixed 3-colouring of $L^k(H)$ to colour
+%   $L^k(H_u)$. Two consecutive $k$-paths of $L$ are either both contained in some
+%   $H_u$, or with suffix and prefix equal to some $X_u$, or with prefix equal to
+%   some $X_u$ and formed by the $(k-2)$-suffix of $X_u$ concatenated with
+%   $x_vy_v$ for some $v>u$ with $uv \in E(G)$. In either case, their colours are
+%   different by construction. Conversely, given a proper 3-colouring $\beta$ of
+%   $L$, let $\alpha$ be the colouring of $G$ such that for each $u$, $\alpha(u)$
+%   is the colour in $\beta$ of the $k$-path with prefix $X_u$ finishing in
+%   $y_u$. By design of $H$, all $k$-path with prefix $X_u$ are identically
+%   coloured and so $\alpha(u)$ and $\alpha(v)$ are different for each
+%   $uv \in E(G)$ with $u<v$, because the paths $X_ux_v$ and $X_vy_v$ are
+%   consecutive by construction and
+%   $\alpha(u) = \beta(X_ux_v) \neq \beta(X_vy_v) = \beta(v)$.
 \end{proof}
 
-In the next proof, an \emph{in-forest} (resp.\ \emph{out-forest}) is an oriented forest in which each vertex has in-degree (resp.\ out-degree) at most $1$. Observe that in particular, every component of an in-forest (resp.\ out-forest) has exactly one vertex with in-degree (resp. out-degree) equal to 0, which we call the \emph{root} of its component.
+In the next proof, an \defin{in-forest} (resp.\ \defin{out-forest}) is an oriented forest in which each vertex has in-degree (resp.\ out-degree) at most $1$. Observe that in particular, every component of an in-forest (resp.\ out-forest) has exactly one vertex with in-degree (resp. out-degree) equal to 0, which we call the \defin{root} of its component.
 
 We now prove that if one restricts to shift graphs of large girth (and not large
-odd-girth as in \cref{thm:3col}), 3-colouring becomes a trivial problem.
+odd-girth as in Theorem~\ref{thm:3col}), 3-colouring becomes a trivial problem.
 \begin{proposition}
   All shift graphs of girth at least five are 3-colourable.
 \end{proposition}
 \begin{proof}
+  \begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[decoration={
+        markings,
+        mark=at position 0.5 with {\arrow[scale=1.5]{>}}}
+      ]
+      \draw[rounded corners] (0,0) rectangle (2,4);
+      \draw[rounded corners] (4,0) rectangle (6,4);
+
+      \foreach \x/\y/\i in {1.5/1/1, 1.5/3/2}{
+        \begin{scope}[shift={(\x,\y)}]
+          \draw (0,0) -- (-1,.75) -- (-1,-.75) -- (0,0);
+          \draw[-{Stealth}] (-.2,0) -- (-.8,0);
+          \node[classic] (x\i) at (0,0) {};
+        \end{scope}
+      }
+      
+      \node[classic] (x3) at (1.5,2) {};
+      
+      \foreach \x/\y/\i in {4.5/1/1, 4.5/3/2}{
+        \begin{scope}[shift={(\x,\y)}]
+          \draw (0,0) -- (1,.75) -- (1,-.75) -- (0,0);
+          \draw[-{Stealth}] (.8,0) -- (.2,0);
+          \node[classic] (y\i) at (0,0) {};
+        \end{scope}
+      }
+
+      \draw[postaction=decorate,color3] (y1) -- (x1);
+      \draw[postaction=decorate,color3] (y2) -- (x3);
+
+      \draw[postaction=decorate,color1] (.8,1.3) to[out=10, in=210] (y2);
+      \draw[postaction=decorate,color1] (.8,1.3) to[out=10, in=170] (5.2,1.3);
+      \draw[postaction=decorate,color1] (.8,3.3) to[out=10, in=160] (y2);
+      \draw[postaction=decorate,color1] (.8,3.3) to[out=10, in=170] (5.2,3.3);
+      \draw[postaction=decorate,color1] (.8,3.3) to[out=10, in=150] (5.2,1.3);
+
+      \node at (1,-.5) {$X$};
+      \node at (5,-.5) {$Y$};
+    \end{tikzpicture}
+    
+    \caption{The root graph $\orH$ of a shift graph of girth at least five. The
+      black vertices represent the roots of the out-forest $\orH[X]$ and of the
+      in-forest $\orH[Y]$. The arcs in $A_{X \to Y}$ are draw in red and the
+      arcs in $A_{Y\to X}$ in blue.}\label{fig:shiftgirth5}
+  \end{figure}
   Let $G$ be a shift graph of girth at least five and denote $\orG$ its shift
   orientation. Let $\orH$ be an oriented acyclic graph which is a root digraph
   of $\orG$. We will identify $V(G)$ with $A(\orH)$. Observe that each vertex of
@@ -1221,13 +1321,14 @@ odd-girth as in \cref{thm:3col}), 3-colouring becomes a trivial problem.
   respectively denote the sets of arcs having both extremities in $X$ and $Y$
   respectively. We let $A_{X\to Y}$ (resp.\ $A_{Y\to X}$) denote the set of arcs
   of $\orH$ having their tail in $X$ (resp.\ $Y$) and their head in $Y$ (resp.\
-  $X$).  Note that $A_{X\to Y}$ and $A_{X\to Y}$ both form independent sets in
-  $G$. We color all vertices of $A_{X\to Y}$ with one colour, say 1.
+  $X$), see Figure~\ref{fig:shiftgirth5} for a schematic representation of $\orH$.  Note that
+  $A_{X\to Y}$ and $A_{Y\to X}$ both form independent sets in $G$. We color all
+  vertices of $A_{X\to Y}$ with one colour, say 1.
   
   We now show that the arcs of $A_X\cup A_Y \cup A_{Y\to X}$ form a forest in
   $G$, and therefore can be coloured with two additional colours, which results
   in a proper 3-arc-colouring of $\orH$.  First, observe that as $X$ does not
-  contain vertices with in-degree $2$, $\orH[X]=(X,A_X)$ must be an
+  contain vertices with in-degree $2$, so $\orH[X]=(X,A_X)$ must be an
   out-forest. Symmetrically, $\orH[Y]=(Y,A_Y)$ is an in-forest. Observe also
   that the arcs of $A_{Y\to X}$ must form a matching, and can only connect a
   root of some component of $\orH[Y]$ to a root of some component of
@@ -1241,7 +1342,7 @@ odd-girth as in \cref{thm:3col}), 3-colouring becomes a trivial problem.
 
 % By Schaefer's dichotomy theorem~\cite{schaefer1978Complexity}, the following
 % problem is NP-complete.
-Recall that a $3$-CNF formula is a boolean formula $\varphi$ in conjonctive normal form (CNF), in which each clause contains 3 litterals. Such a formula $\varphi$ is called \emph{monotone} if all variables always appear positively, i.e.\ no litteral has the form $\neg x$ for some variable $x$.  
+Recall that a $3$-CNF formula is a boolean formula $\varphi$ in conjonctive normal form (CNF), in which each clause contains 3 litterals. Such a formula $\varphi$ is called \defin{monotone} if all variables always appear positively, i.e.\ no litteral has the form $\neg x$ for some variable $x$.  
 Lov\'asz \cite{lovasz1973Covering} proved that the following problem is NP-complete.
 
 \begin{csproblem}{Monotone Not all equal 3-SAT (MNAE-3SAT)}
@@ -1249,10 +1350,12 @@ Lov\'asz \cite{lovasz1973Covering} proved that the following problem is NP-compl
   the variables such that each clause of $\phi$ contains both variables set ot true and false.
 \end{csproblem}
 
-Note that \MNAE is equivalent to the problem of deciding whether a given $3$-regular hypergraph is $2$-colourable. In particulra, this hypergraph formulation was the one used in \cite{lovasz1973Covering}. In order to prove the next result, we will design a polynomial time reduction to $\MNAE$, inspired by the one from \cite{chvatal1990Note}.
+Note that \MNAE is equivalent to the problem of deciding whether a given
+$3$-regular hypergraph is $2$-colourable. In particular, this hypergraph
+formulation, sometimes also called property B,  was the one used in \cite{lovasz1973Covering}. In order to prove the next result, we will design a polynomial time reduction to $\MNAE$, inspired by the one from \cite{chvatal1990Note}.
 
 \begin{theorem}
-  For each $k \ge 1$, the problem of recognising whether a graph is a $k$-iterated shift graph (or equivalently, the
+  For every $k \ge 1$, the problem of recognising whether a graph is a $k$-iterated shift graph (or equivalently, the
   support of the $k$-iterated line digraph of
   an acyclic oriented graph) is NP-complete.
 \end{theorem}
@@ -1265,23 +1368,22 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   graph. Let $\phi$ be a monotone 3-CNF formula with $m$
   clauses and $n$ variables. We construct a graph $G_\phi$ of size $O(mnk)$ which is a $k$-iterated shift graph if
   $\phi$ is a valid instance of \textsc{MNAE-3SAT}, but is not a shift graph (and
-  \emph{a fortiori} not a $k$-iterated shift graph) if $\phi$ is not a valid
+  a fortiori not a $k$-iterated shift graph) if $\phi$ is not a valid
   instance of \textsc{MNAE-3SAT}. 
 
   \paragraph{Gadgets.}
   We first describe a gadget that will be used later for encoding the
   variables. Let $H$ be the 4-sun, that is the graph on eight vertices composed
   of a 4-cycle with one pendant edge attached to each of the vertices on the
-  cycle. For each variable $x$, consider the gadget composed of a path $U_x$ on
+  cycle. For every variable $x$, consider the gadget composed of a path $U_x$ on
   $8m+1$ vertices. Denote $u_x^0, \dots u_x^{4m-1}$ every other vertex of $U_x$,
-  starting from the second vertex of $U_x$. For each $i \in \{0, \dots, 4m-1\}$
+  starting from the second vertex of $U_x$. For every $i \in \{0, \dots, 4m-1\}$
   we connect $u_x^{i}$ to the first vertex of the jaw of a comb $Q_i$ of length
   $k+1$. Denote $v_x^{i}$ the last vertex of the jaw of this comb and
-  $w_x^{i}$ the vertex adjacent to $v_x^{i}$ via the last tooth.%  \ugo{Why not
-    % simply call them $v_x^i$ and $w_x^i$?}
+  $w_x^{i}$ the vertex adjacent to $v_x^{i}$ via the last tooth.
   Connect each $u_x^{i}$ to a
   distinct copy $H_x^i$ of $H$ via one of its vertices of degree three that we
-  will call $t_x^{i}$ (see \cref{fig:variable_gadget}). For each variable $x$,
+  will call $t_x^{i}$ (see Figure~\ref{fig:variable_gadget}). For every variable $x$,
   let $L_x$ denote a disjoint copy of this graph, and let $M_x$ be the subgraph
   of $L_x$ obtained by removing all vertices of the graphs $H_x^i$, except the
   vertices $(t_x^{i})_{0 \le i \le 4m-1}$. In particular, $M_x$ is connected and contains
@@ -1364,7 +1466,7 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
     \label{fig:variable_gadget}    
   \end{figure}
   
-  For each $i \in \{0,\dots, m-1\}$, if $x,y,z$ denote the three variables
+  For every $i \in \{0,\dots, m-1\}$, if $x,y,z$ denote the three variables
   appearing in the $i$\textsuperscript{th} clause of $\phi$, we attach the
   gadgets $L_x$, $L_y$ and $L_z$ as follows. Add three edges to form a path
   $a_ib_ic_id_i$, where $a_i=w_x^{4i}$, $b_i=w_y^{4i+1}$, $c_i=w_y^{4i+3}$ and
@@ -1373,20 +1475,20 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   v_y^{4i+3}, v_z^{4i}\}$ forms a comb $C_i$ of length three, with jaw
   $w^{4i}_xw_y^{4i+1}w_y^{4i+3}w_z^{4i}$. Denote $G_\phi$ the constructed graph.
 
-  \paragraph{Valid orientations of $G_\phi$.}
-  We call an orientation of a graph \emph{valid} if 
-  it is a line
-  digraph of an acyclic oriented graph. In other words, valid orientations are exactly the acyclic orientations satisfying the two conditions of \cref{lem:line-graph}.
+  \paragraph{Shift orientations of $G_\phi$.}
+  Recall that an orientation of a graph is a \defin{shift orientation} if 
+  it corresponds to a line
+  digraph of an acyclic oriented graph. In other words, shift orientations are exactly the acyclic orientations satisfying the two conditions of Lemma~\ref{lem:line-graph}.
   Before proving that there is a valuation such that
   $\phi$ is a positive instance of $\MNAE$
 %   has both variables set to true and false in each clause 
   if and only if $G_\phi$
-  admits a valid orientation, we prove several lemmas describing valid
+  admits a shift orientation, we prove several lemmas describing shift
   orientations of $G_\phi$ and some of its subgraphs.
 
   \begin{claim}\label{cl:sun_orientation}
-    Up to isomorphism, there are only two valid orientations of the 4-sun, which are opposite from each other (see
-    ~\cref{fig:sun_orientation}). In these orientations, the 4-cycle is
+    Up to isomorphism, there are only two shift orientations of the 4-sun, which are opposite from each other (see
+    Figure~\ref{fig:sun_orientation}). In these orientations, the 4-cycle is
     alternating and all vertices of degree three are transitive.
   \end{claim}
   \begin{figure}[ht]
@@ -1416,28 +1518,29 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
       \draw[postaction={decorate}] (d) -- (d');
 
     \end{tikzpicture}
-    \caption{The only valid orientation of the 4-sun (and its opposite).}
+    \caption{The only shift orientation of the 4-sun (and its opposite).}
     \label{fig:sun_orientation}
   \end{figure}
   \begin{poc}
-    Consider $\orH$ a valid orientation of $H$. Recall that by~\cref{lem:valid},
+    Consider $\orH$ a shift orientation of $H$. Recall that by Lemma~\ref{lem:valid},
     the 4-cycles are alternating at each vertex in a shift orientation of shift graph. \ugo{I do not think that it is enough... I suggest the next arguments (in red).
     
-    As $\orH$ is acyclic, the 4-cycle $C$ of $H$ contains at least one sink and one source (with respect to the induced orientation on the cycle). Moreover, note that every such orientation $\overrightarrow{C}$ of $C$ containing one transitive vertex contradicts either of the two conditions from \cref{lem:valid}. It implies that the orientation of $C$ induced by $\orH$ is the alternating orientation depicted in \cref{fig:sun_orientation}.} 
+    As $\orH$ is acyclic, the 4-cycle $C$ of $H$ contains at least one sink and one source (with respect to the induced orientation on the cycle). Moreover, note that every such orientation $\overrightarrow{C}$ of $C$ containing one transitive vertex contradicts either of the two conditions from Lemma~\ref{lem:valid}. It implies that the orientation of $C$ induced by $\orH$ is the alternating orientation depicted in \cref{fig:sun_orientation}.} 
 
-  \clement{We wrote below \cref{lem:valid} that it implies that 4 cycles are
+  \clement{We wrote below Lemma~\ref{lem:valid} that it implies that 4 cycles are
     alternating in shift graphs}
   
     Now let $v$ be a vertex of degree
     three in $H$. Without loss of generality, assume that $v$ has no in-neighbour in
     $C$, i.e.\ that it is a source of $C$. Let $u$ be the unique neighbour of $v$ which is not on $C$, and $w$ and $x$ be two
-    vertices of $C$ such that $w$ is adjacent to $v$, while $x$ is not. As the orientation of $C$ in $\orH$ alternates, we must have $v\to w$ and $w\to x$ in $\orH$. In particular, the first condition of~\cref{lem:forbidden_config}, then implies that we have $u\to v$ in $\orH$, hence $v$ is transitive. As this reasoning is independent of the choice of $v$ on $C$, we deduce that $\orH$ has the desired form.
+    vertices of $C$ such that $w$ is adjacent to $v$, while $x$ is not. As the orientation of $C$ in $\orH$ alternates, we must have $v\to w$ and $x\to w$ in $\orH$. In particular, the first condition of~Lemma~\ref{lem:forbidden_config} then implies that we have $u\to v$ in $\orH$, hence $v$ is transitive. As this reasoning is independent of the choice of $v$ on $C$, we deduce that $\orH$ has the desired form.
   \end{poc}
 
 
   \begin{claim}\label{cl:gadget_orientation}
-    Consider a valid orientation of $L_x$ for some fixed variable $x$. Then there are only two possible
-    orientations for its restriction to $M_x$, which are opposite from each other, and such that
+    Consider a shift orientation of $L_x$ for some fixed variable $x$. Then there are only two possible
+    orientations for its restriction to $M_x$, which are opposite from each
+    other and satisfy either of the following properties:
     \begin{itemize}
      \item if $w_x^0 \to v_x^0$ then for all $i$, we have $w_x^{i} \to v_x^{i}$ if $i$
     is even and $v_x^{i} \to w_x^{i}$ if $i$ is odd,
@@ -1446,110 +1549,111 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
     \end{itemize}
   \end{claim}
   \begin{poc}
-    Fix a valid orientation $\orLx$ of $L_x$ and without loss of generality, assume that $w_x^0 \to v_x^0$ in $\orLx$, the other case being symmetric.
-    For each $i\in \{0,\ldots,4m-1\}$, we let $\orHxi$ denotes the orientation of the subgraph $H_x^i$ induced by $\orLx$.
-    By~\cref{cl:sun_orientation}, in each $\orHxi$ all the vertices of degree three are transitive (however,
+    Let $\orLx$ be a shift orientation of $L_x$ and without loss of generality, assume that $w_x^0 \to v_x^0$ in $\orLx$, the other case being symmetric.
+    For every $i\in \{0,\ldots,4m-1\}$, we let $\orHxi$ denotes the orientation of the subgraph $H_x^i$ induced by $\orLx$.
+    By~Claim~\ref{cl:sun_orientation}, in every $\orHxi$ all the vertices of degree three are transitive (however,
     each subgraph $H_x^i$ may be oriented in any of its two opposite
     orientations independently of any other copy).
 
-    We first show that for each $i\in \{0,\ldots,4m-1\}$, we have the following
+    We first show that for every $i\in \{0,\ldots,4m-1\}$, we have the following
     \begin{enumerate}
     \item\label{item:sink} if $u^{i}_x \to t^{i}_x$ in $\orLx$, then $u^{i}_x$
       is a sink in $\orLx-t_x^{i}$.
     \item\label{item:source} if $t^{i}_x \to u^{i}_x$ in $\orLx$, then $u^{i}_x$
       is a source in $\orLx-t_x^{i}$,
     \end{enumerate}
-    We only show \ref{item:sink}, as \ref{item:source} is symmetric. Let
+    We only show the first item, as the second is symmetric. Let
     $i \in \{0,\ldots,4m-1\}$ and assume that $u^{i}_x \to t^{i}_x$ in
-    $\orLx$. By \cref{cl:sun_orientation}, $t^{i}_x$ is transitive in $\orHxi$,
-    and thus has an in-neighbour in $\orLx$ distinct from $u_x^{2i}$. In
-    particular, note that the first condition of \cref{lem:forbidden_config}
-    then implies that $u^{2i}_x$ cannot have an out-neighbour in
-    $\orLx-t^{2i}_x$, showing \ref{item:source}.
+    $\orLx$. By Claim~\ref{cl:sun_orientation}, $t^{i}_x$ is transitive in $\orHxi$,
+    and thus has an in-neighbour in $\orLx$ distinct from $u_x^{i}$. In
+    particular, note that the first condition of Lemma~\ref{lem:forbidden_config}
+    then implies that $u^{i}_x$ cannot have an out-neighbour in
+    $\orLx-t^{i}_x$, which proves the first item.
     
-    Using once again the first condition of \cref{lem:forbidden_config}, observe
+    Using once again the first condition of Lemma~\ref{lem:forbidden_config}, observe
     that the vertices of degree two in $U_x \setminus \{u_0, \dots, u_{4m-1}\}$
     are transitive and that the vertices $u^{i}$ are alternatively sources or
     sinks in $\orLx - \bigcup_it^i_x$. In order to conclude the proof of the
-    claim, observe that for $i$ such that $u^i_x$ is a sink in $\orLx - t^i_x$
+    claim, observe that for every $i$ such that $u^i_x$ is a sink in $\orLx - t^i_x$
     (respectively a source), applying iteratively the first condition of
-    \cref{lem:forbidden_config} implies that the jaw of the comb $Q_i$ is
-    oriented towards $u^i_x$ and each teeth $st$ where $s$ belongs to the jaw is
+    Lemma~\ref{lem:forbidden_config} implies that the jaw of the comb $Q_i$ is
+    oriented towards $u^i_x$ and every teeth $st$ where $s$ belongs to the jaw is
     oriented $t \to s$ in $\orLx$ (resp. away from $u^i_x$ and $s \to t$). So
-    for each $i$, $u^i_x$ is a sink if and only if $w^i_x \to v^i_x$.  In
+    for every $i$, $u^i_x$ is a sink if and only if $w^i_x \to v^i_x$.  In
     particular, because the edge $w^0_xv^0_x$ is oriented $w^0_x \to v^0_x$ and
     the vertices $u^i_x$ are alternatively sources and sinks in
     $\orLx - \bigcup_it^i_x$, this proves that we have $w^i_x \to v^i_x$ for all
     even $i$ and $v^i_x \to w^i_x$ for all odd $i$.
-
-
-
-    \clement{The end of the previous proof was false, I changed it.}
-    % In particular, as we
-    % assumed $w_x^0\to v_x^0$, this implies that for each
-    % $i\in \{0,\ldots, 4m-1\}$, if $i$ is even, then $u_x^{2i}$ satisfies
-    % \ref{item:sink}, while if $i$ is odd, then $u_x^{2i}$ satisfies
-    % \ref{item:source}.
-    
-    % (if $u^{2i}_x \to t^{2i}_x$ reverse all the orientations in the following
-    % reasoning). By \cref{cl:sun_orientation}, $t^{2i}_x$ is transitive in the
-    % copy of the 4-sun it belongs to, so $t^{2i}_x$ has an out-neighbour.
-    % Therefore, $u^{2i+1}_x$, $u^{2i-1}_x$ and $v^{2i}_x$ are all
-    % out-neighbours of $u^{2i}_x$, which proves that $u^{2i}_x$ is transitive.
-    % By propagating the same reasoning along the vertices of the jaw of the comb
-    % attached to $u^{i}_x$, the jaw of the comb is oriented away from $u^{2i}x$
-    % and its teeth away from the jaw. In particular, we have
-    % $v^{i}_x \to w^{2i}_x$. We obtain $u^{2i+1}_x \to u^{2i+2}_x$ likewise. The
-    % result follows from a straightforward induction on $i$.
   \end{poc}
   
-  For each $i\in \{0,\ldots,4m-1\}$, and every orientation $\orCi$ of the comb $C_i$, we say that a teeth $e$ of is 
+  For every $i\in \{0,\ldots,4m-1\}$, and every orientation $\orCi$ of the comb $C_i$, we say that a teeth $e$ of is 
   \begin{itemize}
-  \item \emph{positive} if $e$ is a molar and is oriented away from the jaw, or
+  \item \defin{positive} if $e$ is a molar and is oriented away from the jaw, or
     if $e$ is an incisor and is oriented towards the jaw.
-   \item \emph{negative} if $e$ is a molar and is oriented towards the jaw, or
+   \item \defin{negative} if $e$ is a molar and is oriented towards the jaw, or
      if $e$ is an incisor and is oriented away from the jaw.
   \end{itemize}
   
-%   Given a valid orientation of the comb $C_i$, we say that $e_1$ and
+%   Given a shift orientation of the comb $C_i$, we say that $e_1$ and
 %   $e_4$ (respectively $e_2$ and $e_3$) are \emph{positive} if they are oriented
 %   away (resp. towards) the jaw, and that they are \emph{negative} otherwise.
   
   \begin{claim}\label{cl:clause_orientation}
-    For each $i\in \{0,\ldots,4m-1\}$, in any valid orientation of $C_i$, the
-    teeth of $C_i$ cannot be all positive, or all negative.  Conversely, any
+    For every $i\in \{0,\ldots,4m-1\}$, in every shift orientation of $C_i$, the
+    teeth of $C_i$ cannot be all positive, or all negative (see Figure~\ref{fig:variable_gadget1}).  Conversely, any
     orientation of the teeth of $C_i$ in which the incisors are both positive
     (respectively both negative), and in which at least one molar is negative (respectively
-    positive) can be extended to a valid orientation of $C_i$ in which the jaw
-    of $C_i$ is a directed path.
+    positive) can be extended to a shift orientation of $C_i$ in which the jaw
+    of $C_i$ is a directed path (see Figure~\ref{fig:variable_gadget}).
   \end{claim}
   \begin{poc}
     We let $aa', \dots, dd'$ denote the four teeth of $C_i$ with jaw
-    $abcd$. Assume towards a contradiction that there exists a valid
+    $abcd$. Assume towards a contradiction that there exists a shift
     orientation $\orCi$ of $C_i$ making all teeth positive. That is, the molars
     $aa'$ and $dd'$ are oriented away from $a$ and $d$, while the incisors
-    $bb'$ and $cc'$ are oriented towards $b$ and $c$. Without loss of
-    generality, assume that $b \to c$. By \cref{lem:forbidden_config}, as $c$
+    $bb'$ and $cc'$ are oriented towards $b$ and $c$ (see Figure~\ref{fig:variable_gadget1}). Without loss of
+    generality, assume that $b \to c$. By Lemma~\ref{lem:forbidden_config}, as $c$
     has both an in-neighbour and an out-neighbour, the edge $ab$ must be
-    oriented $a \to b$ (see \cref{fig:variable_gadget}). We then obtain a
+    oriented $a \to b$. We then obtain a
     contradiction as the orientation of the induced path $a'abb'$ contradicts
-    the first condition of \cref{lem:forbidden_config}.
+    the first condition of Lemma~\ref{lem:forbidden_config}.
+        \begin{figure}[h!]
+      \centering
+      \begin{tikzpicture}[decoration={
+          markings,
+          mark=at position 0.5 with {\arrow[scale=1.5]{>}}}
+        ]
 
-    \begin{figure}[htb]
-      \centering  
-         \includegraphics[scale=1]{3comb}
-      \caption{The orientation depicted in the first part of the proof of
-      \cref{cl:clause_orientation}.}
-      \label{fig:proof_3comb}
+        \foreach \x/\j in {a/0,b/1,c/2,d/3}{
+          \node[classic] (\x1) at (\j,0) {};
+          \node[classic] (\x2) at (\j,1) {};
+          \node[below] at (\x1) {\small $\x$};
+          \node[above] at (\x2) {\small $\x'$};
+        }
+        
+        \draw[postaction={decorate}] (a1) -- (a2);
+        \draw[postaction={decorate}] (b2) -- (b1);
+        \draw[postaction={decorate}] (c2) -- (c1);
+        \draw[postaction={decorate}] (d1) -- (d2);
+        
+        \draw (a1) -- (b1);
+        \draw (b1) -- (c1);
+        \draw (c1) -- (d1);          
+      \end{tikzpicture}
+      \caption{A (partial) orientation of $C_i$, in which all teeth are
+        positive. Such orientation cannot be extended into a shift orientation
+        of $C_i$.}
+      \label{fig:variable_gadget1}
     \end{figure}
+
     
     Conversely, consider an orientation of the teeth $aa', \ldots, dd'$, such
     that $bb'$ and $cc'$ are say positive, but not all four edges are
     positive. Say without loss of generality $aa'$ is negative. Then, no matter
     which orientation $dd'$ has, orienting the jaw of $C_i$ as a directed path
-    from $a$ to $d$ (as depicted on \cref{fig:variable_gadget}) gives an
+    from $a$ to $d$ (as depicted on Figure~\ref{fig:variable_gadget}) gives an
     orientation of $C_i$ avoiding the forbidden configurations of
-    \cref{lem:forbidden_config}, and thus which is valid.
+    Lemma~\ref{lem:forbidden_config}, and thus which is shift.
     \begin{figure}[h!]
       \centering
       \begin{tikzpicture}[decoration={
@@ -1573,7 +1677,7 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
         \draw[postaction={decorate}] (b1) -- (c1);
         \draw[postaction={decorate}] (c1) -- (d1);          
       \end{tikzpicture}
-      \caption{A valid orientation of $C_i$. The edge $a_1a_2$ is negative, $b_1b_2$ and
+      \caption{A shift orientation of $C_i$. The edge $a_1a_2$ is negative, $b_1b_2$ and
         $c_1c_2$ are negative, and $d_1d_2$ can either be positive or negative.}
       \label{fig:variable_gadget}
     \end{figure}
@@ -1583,37 +1687,42 @@ Note that \MNAE is equivalent to the problem of deciding whether a given $3$-reg
   We are now ready to prove that $\phi$ admits a valuation such that each clause
   contains both variables set to true and false if and only if $G_\phi$ is a
   $k$-iterated shift graph. In fact for the reverse direction, we will show the
-  stronger property that if $\phi$ is not a positive instance of $\MNAE$, then
+  stronger property that if $\phi$ is negative instance of $\MNAE$, then
   $G_\phi$ is not even a shift graph.
 
-  We start proving the reverse implication and consider a valid orientation $\orGphi$ of
-  $G_\phi$. We now consider the following variable assignment: for each variable $x$, set $x$ to true if $w^{0}_x \to v^0_x$ in $\orGphi$ and
+  We start proving the reverse implication and consider a shift orientation $\orGphi$ of
+  $G_\phi$. We now consider the following variable assignment: for every variable $x$, set $x$ to true if $w^{0}_x \to v^0_x$ in $\orGphi$ and
   to false otherwise. We show that with this variable assignment, each clause of $\phi$ contains both variables set to true and false.
   Let $i\in \{0,\ldots,m-1\}$ and $x\lor y\lor z$ be the $i$\textsuperscript{th} clause of $\phi$. 
   Recall that the corresponding comb $C_i$ of length $3$ in $G_{\varphi}$ has
   jaw $a_ib_ic_id_i:=w_x^{4i}w_y^{4i+1}w_y^{4i+3}w_z^{4i}$, and denote $e_1 = w_x^{4i}v_x^{4i}$, $e_2=w_y^{4i+1}v_y^{4i+1}$,
   $e_3=w_y^{4i+3}v_y^{4i+3}$ and $e_4=w_z^{4i}v_z^{4i}$ the teeth of $C_i$.
-%   As $8i+2=2(4i+1)$ and $8i+6=2(4i+3)$, \cref{cl:gadget_orientation} implies that $e_2$ is positive in $\orGphi$ if and only if $e_3$ is.
-Note that \cref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are
+%   As $8i+2=2(4i+1)$ and $8i+6=2(4i+3)$, Claim~\ref{cl:gadget_orientation} implies that $e_2$ is positive in $\orGphi$ if and only if $e_3$ is.
+Note that Claim~\ref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are
 respectively positive in $\orGphi$ if and only if $x,y,z$ are respectively set
 to true, and that $e_3$ is positive if and only if $e_2$ is
-positive. \cref{cl:clause_orientation} then implies that at least one teeth of
+positive. Claim~\ref{cl:clause_orientation} then implies that at least one teeth of
 $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment we defined satisfies the desired properties.
   
-%   By construction and by \cref{cl:gadget_orientation}, each
+%   By construction and by Claim~\ref{cl:gadget_orientation}, each
 %   of the edges $e_1, \ldots, e_4$ attached to the internal vertices of $C_i$ is
 %   positive if and only if the corresponding variable is true. By
-%   \cref{cl:clause_orientation}, the edges $e_1, \ldots, e_4$ cannot be all
-%   positive or all negative because the orientation is valid. Hence
+%   Claim~\ref{cl:clause_orientation}, the edges $e_1, \ldots, e_4$ cannot be all
+%   positive or all negative because the orientation is shift. Hence
 %   $i$\textsuperscript{th} clause contains a true and a false variable, which
 %   concludes the proof.
 
 
   We now prove the direct implication and consider a variable assignment for which each clause of $\phi$ contains both variables set to true and false.
   For
-  each variable $x$, let $\orMx$ denote the (unique) valid orientation of $M_x$ given by \cref{cl:gadget_orientation} such that
+  every variable $x$, let $\orMx$ denote the (unique) shift orientation of $M_x$ given by Claim~\ref{cl:gadget_orientation} such that
   $w^{0}_x \to v^{0}_x$ in $\orMx$ if $x$ is set to true, and such that $v^0_x\to w^0_x$ in $\orMx$ if $x$ is set to false.
-  Then, for each $i\in \{0,\ldots,4m-1\}$, we consider for each copy $H^i_x$ of the four-sun the (unique) valid orientation $\orHxi$ given by \cref{cl:sun_orientation}, such that in  $\orMx\cup\orHxi$, the vertex $t^{i}_x$ has both in- and out-degrees equal to two. We let $\orLx$ denote the orientation obtained after orienting this way $M_x$ and all subgraphs $H_x^i$ of $L_x$. See   \cref{fig:oriented_variable}.
+  Then, for every $i\in \{0,\ldots,4m-1\}$, we consider for every copy $H^i_x$
+  of the four-sun the (unique) shift orientation $\orHxi$ given by
+  Claim~\ref{cl:sun_orientation}, such that in  $\orMx\cup\orHxi$, the vertex
+  $t^{i}_x$ has both in- and out-degrees equal to two. We let $\orLx$ denote the
+  orientation obtained after orienting this way $M_x$ and all subgraphs $H_x^i$
+  of $L_x$ (see Figure~\ref{fig:oriented_variable}).
 
   
   
@@ -1622,11 +1731,11 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
 %   abuse of notation, we will name the directed graph arising from the
 %   progressive orientations of our gadgets with the same naming conventions.
 %   For
-%   each variable $x$, choose the unique valid orientation of $M_x$ such that
-%   $w^{0}_x \to v^{0}_x$ if $x$ is true (by \cref{cl:gadget_orientation} there
+%   each variable $x$, choose the unique shift orientation of $M_x$ such that
+%   $w^{0}_x \to v^{0}_x$ if $x$ is true (by Claim~\ref{cl:gadget_orientation} there
 %   exists only one such orientation). Then orient each copy of the four-sun such
 %   that each $t^{2i}_x$ has in and out-degree equal to two (by
-%   \cref{cl:sun_orientation}, there exists a unique such orientation for each
+%   Claim~\ref{cl:sun_orientation}, there exists a unique such orientation for each
 %   $(x,i)$). The orientation of each variable gadget $L_x$ is drawn on
 %   \cref{fig:oriented_variable}.
 
@@ -1716,11 +1825,8 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
       }
 
 
-      \node[classic] (a) at (-2,0) {};
       \node[classic] (b) at (-1,0) {};
-      \node[classic] (a4) at (8,0) {};
 
-      \draw[postaction={decorate}] (a) to (b);
       \draw[postaction={decorate}] (b)-- (a0);
 
       \foreach \i in {1,3}{
@@ -1742,29 +1848,29 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
     \label{fig:oriented_variable}    
   \end{figure}
   
-  In order to obtain an orientation of $G_{\phi}$, 
+  In order to complete this partial orientation into a shift orientation of $G_{\phi}$, 
   the only edges that remain to be oriented are the edges forming the jaw of
   each clause gadget. For each $i\in \{0,\ldots,m-1\}$, consider the comb $C_i$ corresponding to the
   $i$\textsuperscript{th} clause $x\lor y\lor z$ of $\phi$, and denote with $e_1,\ldots, e_4$ its teeth, again with respect to the order in which they attach to the jaw. 
-  As $\orMy$ is a valid orientation of $M_y$, and as $4i+1$ and $4i+3$ are odd,
+  As $\orMy$ is a shift orientation of $M_y$, and as $4i+1$ and $4i+3$ are odd,
   by
-  \cref{cl:gadget_orientation}, $e_2$ and $e_3$ are either both negative or both
-  positive. Moreover, observe that by definition of the orientations $\orMx, \orMy, \orMz$, \cref{cl:gadget_orientation} implies that $e_1,e_2,e_4$ are respectively positive if and only if $x,y,z$ are respectively set to true.
+  Claim~\ref{cl:gadget_orientation}, $e_2$ and $e_3$ are either both negative or both
+  positive. Moreover, observe that by definition of the orientations $\orMx, \orMy, \orMz$, Claim~\ref{cl:gadget_orientation} implies that $e_1,e_2,e_4$ are respectively positive if and only if $x,y,z$ are respectively set to true.
   Since the clause $x\lor y\lor z$ contains both variables set to true and false, we can apply
-  \cref{cl:clause_orientation} to extend our orientation to a valid orientation $\orCi$ of $C_i$, in which the jaw is a directed path. Fixing such an orientation of each $C_i$, we now obtain an orientation $\orGphi$ of $G_{\phi}$, whose restriction to each subgraph of the form $L_x$ or $C_i$ is valid.
+  Claim~\ref{cl:clause_orientation} to extend our orientation to a shift orientation $\orCi$ of $C_i$, in which the jaw is a directed path. Fixing such an orientation of each $C_i$, we now obtain an orientation $\orGphi$ of $G_{\phi}$, whose restriction to each subgraph of the form $L_x$ or $C_i$ is shift.
   
   \ugo{Do you want to keep the next paragraph? I do not think that it is
     useful.}\clement{It is, So far, we proved that the restriction of our
-    orientation to a clause or a variable gadget is valid, but we haven't proved
-    that the entire oritentation is valid. Namely, we haven't proved that we did
+    orientation to a clause or a variable gadget is shift, but we haven't proved
+    that the entire oritentation is shift. Namely, we haven't proved that we did
     not create any directed cycles and that the junctions between the clause and
     the variable gadgets are not alternating paths of lenght three} In order to
-  prove that $\orGphi$ is a valid orientation, we only need to check the first
-  condition of \cref{lem:forbidden_config} at the junctions between the clause
+  prove that $\orGphi$ is a shift orientation, we only need to check the first
+  condition of Lemma~\ref{lem:forbidden_config} at the junctions between the clause
   and the variable gadgets, and the orientation of the cycles using these
   junctions. Note that any such cycle must pass by some $u^{i}_x$, at which it
   alternates. Finally, as each $v^{i}_x$ is a transitive vertex, the first
-  condition of \cref{lem:forbidden_config} is satisfied and the orientation of
+  condition of Lemma~\ref{lem:forbidden_config} is satisfied and the orientation of
   $G_\phi$ is that of an acyclic line digraph. In other words, $G_\phi$ is a
   shift graph. This concludes the proof for shift graphs, but not for iterated
   shift graphs.
@@ -1773,61 +1879,44 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
   
   To prove that $G_\phi$ is a $k$-iterated shift graph, we now construct an
   oriented acyclic graph $\orGphip$ such that $\orGphi$ is an induced subdigraph
-  of $L^k(\orGphip)$. For each variable $x$, by \cref{lem:shift_tree}, there
-  exists an acyclic oriented graph $\orMxp$ with a convex $k$-shift embedding
-  $\psi_x$ of $\orMx- \bigcup_{j} w_x^j$ in $\orMxp$. Similarly, for each clause
-  comb $C_i$, there exists an acyclic oriented graph graph $\orCip$ with a
-  convex $k$-shift embedding $\psi_i$ of $\orCi$ in $\orCip$. Note that by
-  identifying the leaves of the clause combs $C_i$ with the approriate vertices
-  $v_x^j$ of  the subgraphs $\orMx - \bigcup_{j} w_x^j$, one obtains the graph $\orGphi$.
+  of $L^k(\orGphip)$. For each variable $x$, as $\orMx$ is a shift graph whose
+  support is a tree, by Lemma~\ref{lem:shift_tree}, there exists an acyclic
+  oriented graph $\orMxp$ with a convex $k$-shift embedding $\psi_x$ of $\orMx$
+  in $\orMxp$. Similarly, for each clause comb $C_i$ with jaw $a_ib_ic_id_i$ and teeth
+  $a_ia_i'$\dots $d_id_i'$, there exists an acyclic oriented graph graph $\orCip$ with a
+  convex $k$-shift embedding $\psi_i$ of the jaw $\orCi -\{a_i',b_i',c_i',d_i'\}$ of $\orCi$
+  in $\orCip$. Note that by identifying the vertices of the jaw of each clause combs $C_i$
+  with the approriate vertices $w_x^j$ of the subgraphs
+  $\orMx$, one obtains the graph $\orGphi$.
 
 
   Denote $\psi$ the convex $k$-shift embedding of
-  $\bigsqcup_x (\orMx - \bigcup_j w_x^j) \sqcup \bigsqcup_{i} \orCi$ in
+  $\bigsqcup_x \orMx \sqcup \bigsqcup_{i} (\orCi - \{a_i',b_i',c_i',d_i'\}$ in
   $\bigsqcup_x \orMxp \sqcup \bigsqcup_{i} \orCip$ obtained by taking the union
   of all these $k$-shift embeddings. More precisely, for each vertex $u$ in some
-  $C_i$, we let $\psi(u) = \psi_i(u)$ and for each vertex $u$ in some
-  $(\orMx - \bigcup_j w_x^j)$, $\psi(u) = \psi_x(u)$. \ugo{What do you mean by
+  $C_i - \{a_i',b_i',c_i',d_i'\}$, we let $\psi(u) = \psi_i(u)$ and for each vertex $u$ in some
+  $\orMx$, $\psi(u) = \psi_x(u)$. \ugo{What do you mean by
     union? I think that you need to define the image of $\psi$ properly, I do
-    not understand.}
- 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-%   For each variable $x$, by \cref{lem:shift_tree}, there exists
-%   a graph $M'_x$ with a convex $k$-shift embedding $\psi_x$ of $M_x$ in $M'_x$.
-%   By \cref{lem:shift_tree}, for each clause comb $C_i$, there exists a
-%   graph $C'_i$ with a convex $k$-shift embedding $\psi_i$ of $C_i$ in
-%   $C'_i$. Denote $\psi$ the union of these $k$-shift embedding.
-
+    not understand.} 
   
   In order to obtain a $k$-shift embedding of $\orGphi$, we apply iteratively
-  \cref{lem:gluing} on $\psi$ by identifying each leaf of the comb clauses to
-  the appropriate vertex $v_x^j$ of one of the subgraphs
-  $\orMx - \bigcup_{j} w_x^j$. To do so, we need to justify that during this
-  process, the images by the $k$-shift embedding of the vertices to be identified
-  are vertex disjoint and have no arcs between them. At first, the leaves of the
-  combs $C_i$ and the vertices $(v_x^j)_{j,x}$ lie in different components of
-  $\bigsqcup_x (\orMx - \bigcup_j w_x^j) \sqcup \bigsqcup_{i} \orCi$, so this
-  hypothesis is verified. Moreover, $(\psi(v^{i}_x))_{i,x}$ forms a collection of pairwise
-  disjoint $k$-paths that have no arcs between them because any distinct
-  $v^{i_1}_{x_2}$ and $v^{i_2}_{x_2}$ are either in different component of
-  $(\orMx - \bigcup_j w_x^j)$, or connected by a unique path $P$ containing a
-  directed subpath of length $k+2$ between $v^{i_1}_{x_1}$ and
+  Lemma~\ref{lem:gluing} on $\psi$ by identifying each vertex on the jaw of some
+  the comb clause to the appropriate vertex $w_x^j$ of one of the subgraphs
+  $\orMx$. To do so, we need to justify that during this
+  process, the images by the $k$-shift embedding of the vertices to be
+  identified are vertex disjoint and have no arcs between them. At first, the
+  vertices of the jaws of the combs $C_i$ and the vertices $(w_x^j)_{j,x}$ lie in different
+  components of
+  $\bigsqcup_x \orMx \sqcup \bigsqcup_{i} \orCi - \{a_i',b_i',c_i',d_i'\}$, so this
+  hypothesis is verified. Moreover, $(\psi(w^{j}_x))_{j,x}$ forms a collection
+  of pairwise disjoint $k$-paths that have no arcs between them because any
+  distinct $w^{j_1}_{x_2}$ and $w^{j_2}_{x_2}$ are either in different component
+  of $\orMx$, or connected by a unique path $P$ containing a
+  directed subpath of length $k+3$ between $w^{i_1}_{x_1}$ and
   $u^{i_1}_{x_1}$. As result, $N(\psi(v^{i_1}_{x_1})))$ and
   $\psi(u^{i_1}_{x_1})$ are vertex-disjoint and since $\psi$ is convex, so are
   $N(\psi(v^{i_1}_{x_1})))$ and $\psi(v^{i_2}_{x_2})$. So there are also no arcs
-  between $\psi(v^{i_1}_{x_1})$ and $\psi(v^{i_2}_{x_2})$. 
+  between $\psi(v^{i_1}_{x_1})$ and $\psi(v^{i_2}_{x_2})$.
 
 , one obtains the graph $\orGphi$. During this
   identification process,
@@ -1837,9 +1926,9 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
   4-suns.
 
   Finally, we identify each $\psi(t^{4i}_x)$ with the path of length $k$
-  starting in the vertex $t$ of the graph $F$ drawn on \cref{fig:sun_root}. It
+  starting in the vertex $t$ of the graph $F$ drawn on Figure~\ref{fig:sun_root}. It
   is straightforward to check that the $k$-line digraph of the graph drawn on
-  \cref{fig:sun_root} is the 4-sun and the resulting graph $G'_\phi$ is such
+  Figure~\ref{fig:sun_root} is the 4-sun and the resulting graph $G'_\phi$ is such
   that $G_\phi$ is an induced subgraph of $G'_\phi$.
   \begin{figure}[h!]
     \centering
@@ -1924,11 +2013,178 @@ a similar counter-example of odd girth $2k+1$ for all $k\geq 2$ by
 taking the disjoint union of $G$ and $C_{2k+1}$.  
 
 \begin{figure}
-  \center
-\includegraphics[width=10cm,angle=-90]{highOddGirth-2.jpeg}
+  \centering
+  \begin{subfigure}[t]{.45\linewidth}
+    \centering
+    \begin{tikzpicture}[decoration={
+        markings,
+        mark=at position 0.5 with {\arrow[scale=1.5]{>}}}]
 
-\caption{A shift graph of infinite odd girth\label{f:oddItt}}
+      \foreach \i in {1,...,6}{
+        \node[classic] (\i) at (150-\i*60:1.5cm) {};}
+      
+      \node[classic] (2p) at (150-2*60:1cm) {};
+      \node[classic] (3p) at (150-3*60:2.5cm) {};
+      \node[classic] (5p) at (150-5*60:2.5cm) {};
+      \node[classic] (6p) at (150-6*60:1cm) {};
+
+      \draw[postaction={decorate}] (6) to (1);
+      \draw[postaction={decorate}] (1) to (2);
+      \draw[postaction={decorate}] (6p) to (1);
+      \draw[postaction={decorate}] (1) to (2p);
+
+      \draw[postaction={decorate}] (6) to (5);
+      \draw[postaction={decorate}] (6p) to (5);
+      \draw[postaction={decorate}] (5) to (4);
+      \draw[postaction={decorate}] (4) to (3);
+      \draw[postaction={decorate}] (3) to (2);
+      \draw[postaction={decorate}] (3) to (2p);
+      
+      \draw[postaction={decorate}] (5) to (5p);
+      \draw[postaction={decorate}] (3p) to (3);
+
+      \node[above] at (1) {$1$}; 
+      \node[above right] at (2) {$2$}; 
+      \node[below left] at (2p) {$2'$}; 
+      \node[below] at (3) {$3$};
+      \node[right] at (3p) {3'};
+      \node[below] at (4) {$4$}; 
+      \node[below] at (5) {$5$};
+      \node[left] at (5p) {$5'$};
+      \node[above left] at (6) {$6$};
+      \node[below right] at (6p) {$6'$};
+    \end{tikzpicture}
+    \caption{The shift graph $\orG$.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.45\linewidth}
+    \centering
+    \begin{tikzpicture}[decoration={
+        markings,
+        mark=at position 0.5 with {\arrow[scale=1.5]{>}}}]
+      \node [classic] (0) at (-1, -1) {};
+      \node [classic] (1) at (1, -1) {};
+      \node [classic] (2) at (1, 1) {};
+      \node [classic] (3) at (-1, 1) {};
+      \node [classic] (4) at (-2, -2) {};
+      \node [classic] (5) at (2, -2) {};
+      \node [classic] (6) at (2, 1.5) {};
+      \node [classic] (7) at (1.5, 2) {};
+      \node [classic] (8) at (-2, 1.5) {};
+      \node [classic] (9) at (-1.5, 2) {};      
+
+      
+      \draw[postaction={decorate}] (3) to (2);
+      \node[above] at ($(3)!0.5!(2)$) {$1$};     
+      \draw[postaction={decorate}] (3) to (0);
+      \node[left] at ($(3)!0.5!(0)$) {$5$};     
+      \draw[postaction={decorate}] (0) to (1);
+      \node[below] at ($(0)!0.5!(1)$) {$4$};     
+      \draw[postaction={decorate}] (1) to (2);
+      \node[right] at ($(1)!0.5!(2)$) {$3$};     
+      \draw[postaction={decorate}] (0) to (4);
+      \node[above left] at ($(0)!0.5!(4)$) {$5'$};     
+      \draw[postaction={decorate}] (5) to (1);
+      \node[above right] at ($(5)!0.5!(1)$) {$3'$};     
+      \draw[postaction={decorate}] (2) to (6);
+      \node[below right] at ($(2)!0.5!(6)$) {$2$};     
+      \draw[postaction={decorate}] (2) to (7);
+      \node[above left] at ($(2)!0.5!(7)$) {$2'$};     
+      \draw[postaction={decorate}] (9) to (3);
+      \node[above right] at ($(9)!0.5!(3)$) {$6'$};     
+      \draw[postaction={decorate}] (8) to (3);
+      \node[below left] at ($(8)!0.5!(3)$) {$6$};     
+      
+    \end{tikzpicture}
+    \caption{The unique root digraph of $\orG$.}
+  \end{subfigure}
+
+  \caption{The shift graph $\orG$ is bipartite and hence has infinite odd
+    girth\label{f:oddItt}. However, it is not a $k$-iterated shift graph for any
+    $k \ge2$ as its unique root graph is not a shift graph.}
 \end{figure}
+
+\section{Gyarf\'as-Sumner in shift graphs}
+\begin{theorem}
+  For every tree $T$, every shift graph with chromatic number larger than $\frac{|T|(|T|+1)}2$ contains $T$ as an induced subgraph. 
+\end{theorem}
+\todo[inline]{Work in progress}
+\begin{proof}
+  Given an ordering of the vertices, the first-fit algorithm is the colouring
+  algorithm that colours each vertex after that all smaller vertices are
+  coloured, by using the smallest available colour.
+
+  Let $T$ be a tree and $n = |V(t)|$. Root $T$ in one of its vertices and label
+  the vertices of $T$ with integers from $\{n+1, \dots 2n\}$ such that each vertex is larger
+  than all its descendants.
+
+  We prove by induction on the size of $T$ that for every shift graph with
+  chromatic number at least  $n(n+1)/2$
+  vertices, 
+
+  The first fit algorithm 
+  We proceed by induction on the size of $T$. If $|T| = 1$, the result
+  trivially holds. Let $G$ be a shift graph on the vertex set $V(G) = [n]$,
+  where $n \ge\frac{|T|(|T|+1)}2$. Let $\alpha$ be the colouring produced by the
+  first-fit algorithm: colour each vertex when all smaller vertices are
+  coloured, by using the smallest available colour. Let $u$ a vertex of maximum
+  colour. By assumption, $u$ has at least 
+\end{proof}
+
+\section{Some stuff generated by Mistral AI}
+
+I am afraid what follows is kind of bullshit. As far as I can see, it
+runs in exponential time. Still, it might inspire us. 
+
+
+We are given:
+\begin{itemize}
+    \item A set of disjoint paths $\mathcal{P} = \{P_1, P_2, \ldots, P_k\}$.
+    \item A set of vertices $S$ (not in any path), where each vertex in $S$ has exactly two neighbors, both in the union of the paths $\mathcal{P}$.
+\end{itemize}
+
+The goal is to:
+\begin{itemize}
+    \item For each path $P_i$, choose an edge $e_i$ to remove, splitting $P_i$ into two subpaths $P_{i,A}$ and $P_{i,B}$.
+    \item Assign labels $A$ and $B$ to the resulting subpaths such that for every vertex $s \in S$, one neighbor is in some $P_{i,A}$ and the other is in some $P_{j,B}$ (possibly $i = j$).
+\end{itemize}
+
+The question is: \textbf{Can this be decided in polynomial time?}
+
+\section{Analysis}
+\subsection{Key Insight}
+The problem can be modeled as a constraint satisfaction problem where:
+\begin{itemize}
+    \item The variables are the positions of the edges $e_i$ to remove in each path $P_i$.
+    \item The constraints are that for each $s \in S$, its two neighbors must be in subpaths with different labels ($A$ and $B$).
+\end{itemize}
+
+\subsection{Polynomial-Time Algorithm}
+The problem can be solved in polynomial time using dynamic programming or a network flow approach. Here's why:
+\begin{itemize}
+    \item The number of possible splits for each path is linear in the size of the path.
+    \item The constraints can be checked in polynomial time for each combination of splits.
+\end{itemize}
+
+\subsection{Algorithm Sketch}
+\begin{algorithm}
+\caption{Polynomial-Time Algorithm for Edge Removal and Labeling}
+\begin{algorithmic}[1]
+\For{each path $P_i$}
+    \State Enumerate all possible ways to split $P_i$ into $P_{i,A}$ and $P_{i,B}$ by removing an edge.
+\EndFor
+\For{each combination of splits across all paths}
+    \State Check if the constraints for all vertices in $S$ are satisfied.
+    \If{constraints are satisfied}
+        \State \Return "Yes" and the corresponding splits and labels.
+    \EndIf
+\EndFor
+\State \Return "No".
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Why This Works}
+The problem is not NP-hard because the structure of the input (disjoint paths with limited connections via $S$) allows for a polynomial-time algorithm. The constraints are local, and the paths are disjoint, so the problem decomposes nicely.
 
 
 
@@ -1940,48 +2196,57 @@ It would be great if ``iterated shift'' would be equivalent to ``shift
 of high odd girth''.  Here is an attempt in the infinite odd girth
 case (that is for bipartite graphs).
 
-\begin{theorem}
-  If $G$ is a bipartite acyclic shift graph, then there exits a bipartite
-  acyclic shift graph $H$ such that $G$ is an induced subgraph of $L(H)$.
-\end{theorem}
 
-\begin{proof}
-   Since $G$ is an acyclic shift graph, consider an acyclic graph $R$
-   such that $G = L(R)$.  Assume furthermore that every every
-   source and every sink of $R$ has degree~1 (by some lemma ??).
+% \section{Garbage Attempt for iterated shift}
 
-   We claim that $R$ is bipartite.  Otherwise, consider a smallest odd
-   cycle $C$ in $R$.  Let $v_1$, \dots, $v_k$ be the vertices of
-   $C$. By its minimality, $C$ has no chord, that is $v_iv_j \in E(G)$
-   if and only if  $i=j+1$ or $j=i+1$ modulo $k$.  
+% ALL THIS SECTION FAILS BADLY. IGNORE IT, SEE Section~\ref{sec:ittNEQodd}
 
-   Since $R$ is a acyclic, there exists an interger $\ell\geq 1$ such
-   $C$ is arcwise partitioned into $2\ell$ paths with alternating
-   orientations.  More formally, there exists integers
-   $1\leq i_1 \dots i_{2\ell} \leq k$ such that
-   $v_{i_j} \dots v_{i_{j+1}}$ is oriented forward if $j$ is odd and
-   backward if $j$ is even (subscript is mod $k$ and subsubscript is
-   mod $2\ell$).  Since $v_{i_1}$ is not a source of $R$ (because
-   every source of $R$ has degree~1), there exists an arc $w_1v_{i_1}$
-   in $R$.  Since $C$ has no chord, $w_1$ is not a vertex of $C$.
-   Similarly, for every odd integer $j\in [2\ell]$, there exists a
-   vertex $w_j$ such that $e_j = w_jv_{i_j} \in A(G)$, and for for every
-   even integer $j\in [2\ell]$, there exists a vertex $w_j$ such that
-   $e_j= v_{i_j}w_j \in A(G)$.  The arcs of $C$ together with the arcs
-   $e_1$, dots, $e_{2\ell}$ form an odd cycle in $G$, a
-   contradiction.
+% It would be great if ``iterated shift'' would be equivalent to ``shift
+% of high odd girth''.  Here is an attempt in the infinite odd girth
+% case (that is for bipartite graphs).
+
+% \begin{theorem}
+%   If $G$ is a bipartite acyclic shift graph, then there exits a bipartite
+%   acyclic shift graph $H$ such that $G$ is an induced subgraph of $L(H)$.
+% \end{theorem}
+
+% \begin{proof}
+%    Since $G$ is an acyclic shift graph, consider an acyclic graph $R$
+%    such that $G = L(R)$.  Assume furthermore that every every
+%    source and every sink of $R$ has degree~1 (by some lemma ??).
+
+%    We claim that $R$ is bipartite.  Otherwise, consider a smallest odd
+%    cycle $C$ in $R$.  Let $v_1$, \dots, $v_k$ be the vertices of
+%    $C$. By its minimality, $C$ has no chord, that is $v_iv_j \in E(G)$
+%    if and only if  $i=j+1$ or $j=i+1$ modulo $k$.  
+
+%    Since $R$ is a acyclic, there exists an interger $\ell\geq 1$ such
+%    $C$ is arcwise partitioned into $2\ell$ paths with alternating
+%    orientations.  More formally, there exists integers
+%    $1\leq i_1 \dots i_{2\ell} \leq k$ such that
+%    $v_{i_j} \dots v_{i_{j+1}}$ is oriented forward if $j$ is odd and
+%    backward if $j$ is even (subscript is mod $k$ and subsubscript is
+%    mod $2\ell$).  Since $v_{i_1}$ is not a source of $R$ (because
+%    every source of $R$ has degree~1), there exists an arc $w_1v_{i_1}$
+%    in $R$.  Since $C$ has no chord, $w_1$ is not a vertex of $C$.
+%    Similarly, for every odd integer $j\in [2\ell]$, there exists a
+%    vertex $w_j$ such that $e_j = w_jv_{i_j} \in A(G)$, and for for every
+%    even integer $j\in [2\ell]$, there exists a vertex $w_j$ such that
+%    $e_j= v_{i_j}w_j \in A(G)$.  The arcs of $C$ together with the arcs
+%    $e_1$, dots, $e_{2\ell}$ form an odd cycle in $G$, a
+%    contradiction.
 
 
-   So, $R$ is bipartite as claimed, and we now take advantage that
-   both $G$ and $R$ are bipartite.  Since $G$ is bipartite, the arcs
-   of $R$ can be colored red and green, and no tail of a red (resp.\
-   green) arc is the head of a red (resp.\ green) arc.  Let $A_1$ be
-   the sets of tails of red arcs, and $B_1$ be the set of heads of red
-   arcs.    Let $A_2$ be
-   the sets of tails of green arcs, and $B_2$ be the set of heads of green
-   arcs.   So, $A_1$ is disjoint of $B_1$ and $A_2$ is disjoint of
-   $B_2$, but otherwise these sets may intersect. 
-\end{proof}
+%    So, $R$ is bipartite as claimed, and we now take advantage that
+%    both $G$ and $R$ are bipartite.  Since $G$ is bipartite, the arcs
+%    of $R$ can be colored red and green, and no tail of a red (resp.\
+%    green) arc is the head of a red (resp.\ green) arc.  Let $A_1$ be
+%    the sets of tails of red arcs, and $B_1$ be the set of heads of red
+%    arcs.    Let $A_2$ be
+%    the sets of tails of green arcs, and $B_2$ be the set of heads of green
+%    arcs.   So, $A_1$ is disjoint of $B_1$ and $A_2$ is disjoint of
+%    $B_2$, but otherwise these sets may intersect. 
+% \end{proof}
 
 
 \section*{Acknowledgements}
