@@ -304,7 +304,7 @@ problems are NP-complete for shift graphs.
   \end{tabular}  
   \captionsetup{justification=raggedright}
   \caption{Known complexities of \textsc{Recognition}, \textsc{Maximum independent set} and \textsc{3-Colouring} when restricted to the hereditary closure of
-  the main known constructions of triangle-free graph of large chromatic number. Here, P holds for ``Polynomial'', and NPC for ``NP-Complete''. Entries with * correspond to results proved in this paper. For the first line, the entries follow from the well-known fact that every triangle-free graph is an induced subgraph of a Mycielski graph.}
+  the main known constructions of triangle-free graph of large chromatic number. Here, P holds for ``Polynomial'', and NPC for ``NP-Complete''. Entries with * correspond to results proved in this paper. The first line follows from the well-known fact that every triangle-free graph is an induced subgraph of a Mycielski graph.}
   \label{tab:complexity}
 \end{table}
 
@@ -315,12 +315,12 @@ the following quesiton: \nicolas{we could be more general, by saying
 ``all non-$\chi$-bounded classes (in particular in all triangle-free hereditary graph classes of unbounded
   chromatic number).''}
 \begin{question}\label{qu:3col}
-  Is \textsc{3-Colouring} NP-complete on all non $\chi$-bounded \ugo{hereditary?} classes?
+  Is \textsc{3-Colouring} NP-complete on all hereditary non $\chi$-bounded classes?
 \end{question}
 The most natural candidates for possible counterexamples to Question~\ref{qu:3col} are
-the classes of Kneser and
+the classes of triangle-free Kneser and
 Schrijver graphs.   
-\ugo{We should check first whether Kneser/Schrijver constructions do not give a counterexample... Also, do you really want to state it as a Conjecture, and not as a Question?}
+% \ugo{We should check first whether Kneser/Schrijver constructions do not give a counterexample... Also, do you really want to state it as a Conjecture, and not as a Question?}
 
 For most of the constructions from Table~\ref{tab:complexity} of triangle-free graphs
 with high chromatic number, there exist variants producing graphs with
@@ -332,8 +332,8 @@ Table~\ref{tab:complexity} might also hold with this additional condition in the
 classes. In the particular case of shift graphs, $k$-iterated shift graphs have
 odd-girth at least $2k+3$ but may contain four-cycles. Each of our
 NP-completeness results extends to the class of $k$-iterated shift graphs.
-Moreover, we prove that shift graphs of girth at least five are 3-colourable,
-but that maximum independent set is still NP-complete on shift graphs of
+Moreover, we observe that shift graphs of girth at least five are 3-colourable,
+but that \textsc{Maximum independent set} is still NP-complete on shift graphs of
 arbitrarily large girth.  
 % \paragraph{Abyssal classes}
 % In \cite{abrishami2025Burling}, Abrishami et. al. prove that the class of
@@ -396,15 +396,20 @@ is by replacing for every $i$, $u_i$ and $v_i$ by a new vertex $w_i$ whose
 in-neighbourhood is $N^-(u_i) \cup N^-(v_i)$ and out-neighbourhood is
 $N^+(u_i) \cup N^+(v_i)$. Formally, the vertex set of $D/\{P,Q\}$ is
 $(V(D) \setminus \{u_0,\ldots,u_k,v_0,\ldots,v_k\}) \sqcup \{w_0, \ldots, w_k\}$
-and for all $xy \in A(D)$, we have $p(x)p(y) \in A(D/\{P,Q\})$, where $p(x)=x$
+and for each $(x,y) \in A(D)$, we have $p(x)p(y) \in A(D/\{P,Q\})$, where $p(x)=x$
 if $x \in V(D) \setminus \{u_0,\ldots,u_k,v_0,\ldots,v_k\}$ and $p(x) = w_i$ if
-$x$ is equal to $u_i$ or $v_i$. This operation is well-defined: each vertex
-$u_i$ or $v_i$ corresponds to a unique $w_i$ because $V(P)$ and $V(Q)$ are
-disjoint, and $D/ \{P,Q\}$ contains no loop because there are no arcs between
-$V(P)$ and $V(Q)$.
+$x$ is equal to $u_i$ or $v_i$. 
+$D/\{P,Q\}$ is well defined as $P$ and $Q$ are vertex disjont, and loopless 
+as there is no arc between them. 
+% Note that this operation is well-defined as 
+% 
+% : each vertex
+% $u_i$ or $v_i$ corresponds to a unique $w_i$ because $V(P)$ and $V(Q)$ are
+% disjoint, and $D/ \{P,Q\}$ contains no loop because there are no arcs between
+% $V(P)$ and $V(Q)$.
 
 For each $n\in \mathbb N$, the \defin{transitive tournament of order $n$} is the
-oriented graph $\orTn$ with vertex set $[n]$, where there is an arc $i\to j$ for
+oriented graph $\orTn$ with vertex set $[n]$, where $i\to j$ for
 each $1\leq i<j\leq n$. In this article, the \defin{comb} of length $k$ is the
 graph $\Comb_k$ obtained from a path on $k$ edges (the \defin{jaw} of $\Comb_k$)
 to which we attach to each vertex an additional pendant edge (such edges are the
@@ -436,8 +441,8 @@ vertex set of $L^k(D)$ also corresponds to the set of $k$-paths of $D$.
 
 The following result of Beineke characterises line digraphs of oriented graphs.
 \begin{lemma}[Beineke~\cite{beineke1968Derived}]\label{lem:forbidden_config}
-  A digraph $D$ is the line digraph of an oriented graph $\orG$ if and only if the two 
-  following conditions are satisfied (see Figure~\ref{fig: Beineke}):
+  An oriented graph $D$ is the line digraph of an oriented graph $\orG$ if and only if the 
+  following two conditions are satisfied (see Figure~\ref{fig: Beineke}):
   \begin{enumerate}
   \item If $D$ contains three arcs $a$, $b$ and $c$ such that $a$ and $b$ have
     the same tail, and $b$ and $c$ have the same head, then $D$ also contains an
@@ -525,27 +530,29 @@ The class of \defin{shift graphs} is the hereditary closure of the graphs
 $(G_{n})_{n\in \mathbb{N}}$, that is, all induced subgraph of some $G_{n}$. Note
 that in the litterature, shift graphs might sometimes refer to what we will
 later call
-\emph{iterated} shift graphs, and corresponds to a subset of
-the class of shift graphs defined here \clement{What I understand is rather that
-  ``generalized shift graphs'' correspond to our iterated shift graphs, but our
-  definitions of shift graphs match}\ugo{In \cite{GraphsandHomomorphisms}, they
-  call ``shift'' our iterated shift graphs.}.
+\emph{iterated} shift graphs, and form a subset of
+the class of shift graphs defined here.
+% \clement{What I understand is rather that
+%   ``generalized shift graphs'' correspond to our iterated shift graphs, but our
+%   definitions of shift graphs match}\ugo{In \cite{GraphsandHomomorphisms}, they
+%   call ``shift'' our iterated shift graphs.}.
 
-Since for every oriented graph $\orG$, the line digraph $L(\orG)$ is acyclic if
-and only if $\orG$ is acyclic, Beineke's characterisation immediately implies
-the following equivalence:
+Observe that for every oriented graph $\orG$, the line digraph $L(\orG)$ is acyclic if
+and only if $\orG$ is acyclic.
+Thus Lemma \ref{lem:forbidden_config} immediately implies
+the following characterisation of shift graphs.
 \begin{lemma}\label{lem:valid}
   A graph is a shift graph if and only if it admits an acyclic
   orientation which is the line digraph of an oriented (acyclic) graph.
 \end{lemma}
 Given a shift graph $G$, we call \defin{shift orientation} any orientation of
-its edges that verifies the conditions of Lemma~\ref{lem:valid}. A shift graph
-may have several shift orientations. However, the graphs $G_n$ of the shift
+its edges that verifies the conditions of Lemma~\ref{lem:valid}. Note that a shift graph
+may have several shift orientations. In particular, the graphs $G_n$ of the shift
 graph sequence have a natural shift orientation, which we will denote $\orGn$,
-obtained when considering the arc $(a,b)\to(b,c)$
+obtained when choosing the orientation $(a,b)\to(b,c)$
 for every $1\leq a<b<c\leq n$.
 
-As a result of Lemma~\ref{lem:valid}, all 4-cycles in a shift orientation of a
+As a consequence of Lemma~\ref{lem:valid}, all 4-cycles in a shift orientation of a
 shift graph are alternating at each vertex and shift graphs are
 triangle-free. The next lemma is a folklore result that shows that shift graphs
 also have unbounded chromatic number (see for example \cite[Theorem
