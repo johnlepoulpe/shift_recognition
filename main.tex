@@ -205,7 +205,7 @@
 \newcommand{\ugo}[1]{{\color{red} UG: #1}}
 
 
-\title{Shift graph recognition is NP-complete}
+\title{Recognising and colouring shift graphs}
 
 \date{}
 
@@ -1581,26 +1581,6 @@ formulation, sometimes also called property B,  was the one used in \cite{lovasz
     the vertices $u^i_x$ are alternatively sources and sinks in
     $\orLx - \bigcup_it^i_x$, this proves that we have $w^i_x \to v^i_x$ for all
     even $i$ and $v^i_x \to w^i_x$ for all odd $i$.
-
-
-
-    \clement{The end of the previous proof was false, I changed it.}
-    % In particular, as we
-    % assumed $w_x^0\to v_x^0$, this implies that for every
-    % $i\in \{0,\ldots, 4m-1\}$, if $i$ is even, then $u_x^{2i}$ satisfies
-    % \ref{item:sink}, while if $i$ is odd, then $u_x^{2i}$ satisfies
-    % \ref{item:source}.
-    
-    % (if $u^{2i}_x \to t^{2i}_x$ reverse all the orientations in the following
-    % reasoning). By Claim~\ref{cl:sun_orientation}, $t^{2i}_x$ is transitive in the
-    % copy of the 4-sun it belongs to, so $t^{2i}_x$ has an out-neighbour.
-    % Therefore, $u^{2i+1}_x$, $u^{2i-1}_x$ and $v^{2i}_x$ are all
-    % out-neighbours of $u^{2i}_x$, which proves that $u^{2i}_x$ is transitive.
-    % By propagating the same reasoning along the vertices of the jaw of the comb
-    % attached to $u^{i}_x$, the jaw of the comb is oriented away from $u^{2i}x$
-    % and its teeth away from the jaw. In particular, we have
-    % $v^{i}_x \to w^{2i}_x$. We obtain $u^{2i+1}_x \to u^{2i+2}_x$ likewise. The
-    % result follows from a straightforward induction on $i$.
   \end{poc}
   
   For every $i\in \{0,\ldots,4m-1\}$, and every orientation $\orCi$ of the comb $C_i$, we say that a teeth $e$ of is 
@@ -1896,62 +1876,44 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
   
   To prove that $G_\phi$ is a $k$-iterated shift graph, we now construct an
   oriented acyclic graph $\orGphip$ such that $\orGphi$ is an induced subdigraph
-  of $L^k(\orGphip)$. For each variable $x$, as $\orMx - \bigcup_{j} w_x^j$ is a
-  shift graph whose support is a tree, by Lemma~\ref{lem:shift_tree}, there
-  exists an acyclic oriented graph $\orMxp$ with a convex $k$-shift embedding
-  $\psi_x$ of $\orMx- \bigcup_{j} w_x^j$ in $\orMxp$. Similarly, for each clause
-  comb $C_i$, there exists an acyclic oriented graph graph $\orCip$ with a
-  convex $k$-shift embedding $\psi_i$ of $\orCi$ in $\orCip$. Note that by
-  identifying the leaves of the clause combs $C_i$ with the approriate vertices
-  $v_x^j$ of  the subgraphs $\orMx - \bigcup_{j} w_x^j$, one obtains the graph $\orGphi$.
+  of $L^k(\orGphip)$. For each variable $x$, as $\orMx$ is a shift graph whose
+  support is a tree, by Lemma~\ref{lem:shift_tree}, there exists an acyclic
+  oriented graph $\orMxp$ with a convex $k$-shift embedding $\psi_x$ of $\orMx$
+  in $\orMxp$. Similarly, for each clause comb $C_i$ with jaw $a_ib_ic_id_i$ and teeth
+  $a_ia_i'$\dots $d_id_i'$, there exists an acyclic oriented graph graph $\orCip$ with a
+  convex $k$-shift embedding $\psi_i$ of the jaw $\orCi -\{a_i',b_i',c_i',d_i'\}$ of $\orCi$
+  in $\orCip$. Note that by identifying the vertices of the jaw of each clause combs $C_i$
+  with the approriate vertices $w_x^j$ of the subgraphs
+  $\orMx$, one obtains the graph $\orGphi$.
 
 
   Denote $\psi$ the convex $k$-shift embedding of
-  $\bigsqcup_x (\orMx - \bigcup_j w_x^j) \sqcup \bigsqcup_{i} \orCi$ in
+  $\bigsqcup_x \orMx \sqcup \bigsqcup_{i} (\orCi - \{a_i',b_i',c_i',d_i'\}$ in
   $\bigsqcup_x \orMxp \sqcup \bigsqcup_{i} \orCip$ obtained by taking the union
   of all these $k$-shift embeddings. More precisely, for each vertex $u$ in some
-  $C_i$, we let $\psi(u) = \psi_i(u)$ and for each vertex $u$ in some
-  $(\orMx - \bigcup_j w_x^j)$, $\psi(u) = \psi_x(u)$. \ugo{What do you mean by
+  $C_i - \{a_i',b_i',c_i',d_i'\}$, we let $\psi(u) = \psi_i(u)$ and for each vertex $u$ in some
+  $\orMx$, $\psi(u) = \psi_x(u)$. \ugo{What do you mean by
     union? I think that you need to define the image of $\psi$ properly, I do
-    not understand.}
- 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-%   For each variable $x$, by \cref{lem:shift_tree}, there exists
-%   a graph $M'_x$ with a convex $k$-shift embedding $\psi_x$ of $M_x$ in $M'_x$.
-%   By \cref{lem:shift_tree}, for each clause comb $C_i$, there exists a
-%   graph $C'_i$ with a convex $k$-shift embedding $\psi_i$ of $C_i$ in
-%   $C'_i$. Denote $\psi$ the union of these $k$-shift embedding.
-
+    not understand.} 
   
   In order to obtain a $k$-shift embedding of $\orGphi$, we apply iteratively
-  Lemma~\ref{lem:gluing} on $\psi$ by identifying each leaf of the comb clauses to
-  the appropriate vertex $v_x^j$ of one of the subgraphs
-  $\orMx - \bigcup_{j} w_x^j$. To do so, we need to justify that during this
-  process, the images by the $k$-shift embedding of the vertices to be identified
-  are vertex disjoint and have no arcs between them. At first, the leaves of the
-  combs $C_i$ and the vertices $(v_x^j)_{j,x}$ lie in different components of
-  $\bigsqcup_x (\orMx - \bigcup_j w_x^j) \sqcup \bigsqcup_{i} \orCi$, so this
-  hypothesis is verified. Moreover, $(\psi(v^{i}_x))_{i,x}$ forms a collection of pairwise
-  disjoint $k$-paths that have no arcs between them because any distinct
-  $v^{i_1}_{x_2}$ and $v^{i_2}_{x_2}$ are either in different component of
-  $(\orMx - \bigcup_j w_x^j)$, or connected by a unique path $P$ containing a
-  directed subpath of length $k+2$ between $v^{i_1}_{x_1}$ and
+  Lemma~\ref{lem:gluing} on $\psi$ by identifying each vertex on the jaw of some
+  the comb clause to the appropriate vertex $w_x^j$ of one of the subgraphs
+  $\orMx$. To do so, we need to justify that during this
+  process, the images by the $k$-shift embedding of the vertices to be
+  identified are vertex disjoint and have no arcs between them. At first, the
+  vertices of the jaws of the combs $C_i$ and the vertices $(w_x^j)_{j,x}$ lie in different
+  components of
+  $\bigsqcup_x \orMx \sqcup \bigsqcup_{i} \orCi - \{a_i',b_i',c_i',d_i'\}$, so this
+  hypothesis is verified. Moreover, $(\psi(w^{j}_x))_{j,x}$ forms a collection
+  of pairwise disjoint $k$-paths that have no arcs between them because any
+  distinct $w^{j_1}_{x_2}$ and $w^{j_2}_{x_2}$ are either in different component
+  of $\orMx$, or connected by a unique path $P$ containing a
+  directed subpath of length $k+3$ between $w^{i_1}_{x_1}$ and
   $u^{i_1}_{x_1}$. As result, $N(\psi(v^{i_1}_{x_1})))$ and
   $\psi(u^{i_1}_{x_1})$ are vertex-disjoint and since $\psi$ is convex, so are
   $N(\psi(v^{i_1}_{x_1})))$ and $\psi(v^{i_2}_{x_2})$. So there are also no arcs
-  between $\psi(v^{i_1}_{x_1})$ and $\psi(v^{i_2}_{x_2})$. 
+  between $\psi(v^{i_1}_{x_1})$ and $\psi(v^{i_2}_{x_2})$.
 
 , one obtains the graph $\orGphi$. During this
   identification process,
@@ -2134,61 +2096,88 @@ taking the disjoint union of $G$ and $C_{2k+1}$.
     \caption{The unique root digraph of $\orG$.}
   \end{subfigure}
 
-  \caption{The shift graph $\orG$ is bipartite and hence has infinite odd girth\label{f:oddItt}.}
+  \caption{The shift graph $\orG$ is bipartite and hence has infinite odd
+    girth\label{f:oddItt}. However, it is not a $k$-iterated shift graph for any
+    $k \ge2$ as its unique root graph is not a shift graph.}
 \end{figure}
 
-
-
-\section{Garbage Attempt for iterated shift}
-
-ALL THIS SECTION FAILS BADLY. IGNORE IT, SEE Section~\ref{sec:ittNEQodd}
-
-It would be great if ``iterated shift'' would be equivalent to ``shift
-of high odd girth''.  Here is an attempt in the infinite odd girth
-case (that is for bipartite graphs).
-
+\section{Gyarf\'as-Sumner in shift graphs}
 \begin{theorem}
-  If $G$ is a bipartite acyclic shift graph, then there exits a bipartite
-  acyclic shift graph $H$ such that $G$ is an induced subgraph of $L(H)$.
+  For every tree $T$, every shift graph with chromatic number larger than $\frac{|T|(|T|+1)}2$ contains $T$ as an induced subgraph. 
 \end{theorem}
-
+\todo[inline]{Work in progress}
 \begin{proof}
-   Since $G$ is an acyclic shift graph, consider an acyclic graph $R$
-   such that $G = L(R)$.  Assume furthermore that every every
-   source and every sink of $R$ has degree~1 (by some lemma ??).
+  Given an ordering of the vertices, the first-fit algorithm is the colouring
+  algorithm that colours each vertex after that all smaller vertices are
+  coloured, by using the smallest available colour.
 
-   We claim that $R$ is bipartite.  Otherwise, consider a smallest odd
-   cycle $C$ in $R$.  Let $v_1$, \dots, $v_k$ be the vertices of
-   $C$. By its minimality, $C$ has no chord, that is $v_iv_j \in E(G)$
-   if and only if  $i=j+1$ or $j=i+1$ modulo $k$.  
+  Let $T$ be a tree and $n = |V(t)|$. Root $T$ in one of its vertices and label
+  the vertices of $T$ with integers from $\{n+1, \dots 2n\}$ such that each vertex is larger
+  than all its descendants.
 
-   Since $R$ is a acyclic, there exists an interger $\ell\geq 1$ such
-   $C$ is arcwise partitioned into $2\ell$ paths with alternating
-   orientations.  More formally, there exists integers
-   $1\leq i_1 \dots i_{2\ell} \leq k$ such that
-   $v_{i_j} \dots v_{i_{j+1}}$ is oriented forward if $j$ is odd and
-   backward if $j$ is even (subscript is mod $k$ and subsubscript is
-   mod $2\ell$).  Since $v_{i_1}$ is not a source of $R$ (because
-   every source of $R$ has degree~1), there exists an arc $w_1v_{i_1}$
-   in $R$.  Since $C$ has no chord, $w_1$ is not a vertex of $C$.
-   Similarly, for every odd integer $j\in [2\ell]$, there exists a
-   vertex $w_j$ such that $e_j = w_jv_{i_j} \in A(G)$, and for for every
-   even integer $j\in [2\ell]$, there exists a vertex $w_j$ such that
-   $e_j= v_{i_j}w_j \in A(G)$.  The arcs of $C$ together with the arcs
-   $e_1$, dots, $e_{2\ell}$ form an odd cycle in $G$, a
-   contradiction.
+  We prove by induction on the size of $T$ that for every shift graph with
+  chromatic number at least  $n(n+1)/2$
+  vertices, 
 
-
-   So, $R$ is bipartite as claimed, and we now take advantage that
-   both $G$ and $R$ are bipartite.  Since $G$ is bipartite, the arcs
-   of $R$ can be colored red and green, and no tail of a red (resp.\
-   green) arc is the head of a red (resp.\ green) arc.  Let $A_1$ be
-   the sets of tails of red arcs, and $B_1$ be the set of heads of red
-   arcs.    Let $A_2$ be
-   the sets of tails of green arcs, and $B_2$ be the set of heads of green
-   arcs.   So, $A_1$ is disjoint of $B_1$ and $A_2$ is disjoint of
-   $B_2$, but otherwise these sets may intersect. 
+  The first fit algorithm 
+  We proceed by induction on the size of $T$. If $|T| = 1$, the result
+  trivially holds. Let $G$ be a shift graph on the vertex set $V(G) = [n]$,
+  where $n \ge\frac{|T|(|T|+1)}2$. Let $\alpha$ be the colouring produced by the
+  first-fit algorithm: colour each vertex when all smaller vertices are
+  coloured, by using the smallest available colour. Let $u$ a vertex of maximum
+  colour. By assumption, $u$ has at least 
 \end{proof}
+
+% \section{Garbage Attempt for iterated shift}
+
+% ALL THIS SECTION FAILS BADLY. IGNORE IT, SEE Section~\ref{sec:ittNEQodd}
+
+% It would be great if ``iterated shift'' would be equivalent to ``shift
+% of high odd girth''.  Here is an attempt in the infinite odd girth
+% case (that is for bipartite graphs).
+
+% \begin{theorem}
+%   If $G$ is a bipartite acyclic shift graph, then there exits a bipartite
+%   acyclic shift graph $H$ such that $G$ is an induced subgraph of $L(H)$.
+% \end{theorem}
+
+% \begin{proof}
+%    Since $G$ is an acyclic shift graph, consider an acyclic graph $R$
+%    such that $G = L(R)$.  Assume furthermore that every every
+%    source and every sink of $R$ has degree~1 (by some lemma ??).
+
+%    We claim that $R$ is bipartite.  Otherwise, consider a smallest odd
+%    cycle $C$ in $R$.  Let $v_1$, \dots, $v_k$ be the vertices of
+%    $C$. By its minimality, $C$ has no chord, that is $v_iv_j \in E(G)$
+%    if and only if  $i=j+1$ or $j=i+1$ modulo $k$.  
+
+%    Since $R$ is a acyclic, there exists an interger $\ell\geq 1$ such
+%    $C$ is arcwise partitioned into $2\ell$ paths with alternating
+%    orientations.  More formally, there exists integers
+%    $1\leq i_1 \dots i_{2\ell} \leq k$ such that
+%    $v_{i_j} \dots v_{i_{j+1}}$ is oriented forward if $j$ is odd and
+%    backward if $j$ is even (subscript is mod $k$ and subsubscript is
+%    mod $2\ell$).  Since $v_{i_1}$ is not a source of $R$ (because
+%    every source of $R$ has degree~1), there exists an arc $w_1v_{i_1}$
+%    in $R$.  Since $C$ has no chord, $w_1$ is not a vertex of $C$.
+%    Similarly, for every odd integer $j\in [2\ell]$, there exists a
+%    vertex $w_j$ such that $e_j = w_jv_{i_j} \in A(G)$, and for for every
+%    even integer $j\in [2\ell]$, there exists a vertex $w_j$ such that
+%    $e_j= v_{i_j}w_j \in A(G)$.  The arcs of $C$ together with the arcs
+%    $e_1$, dots, $e_{2\ell}$ form an odd cycle in $G$, a
+%    contradiction.
+
+
+%    So, $R$ is bipartite as claimed, and we now take advantage that
+%    both $G$ and $R$ are bipartite.  Since $G$ is bipartite, the arcs
+%    of $R$ can be colored red and green, and no tail of a red (resp.\
+%    green) arc is the head of a red (resp.\ green) arc.  Let $A_1$ be
+%    the sets of tails of red arcs, and $B_1$ be the set of heads of red
+%    arcs.    Let $A_2$ be
+%    the sets of tails of green arcs, and $B_2$ be the set of heads of green
+%    arcs.   So, $A_1$ is disjoint of $B_1$ and $A_2$ is disjoint of
+%    $B_2$, but otherwise these sets may intersect. 
+% \end{proof}
 
 
 \section*{Acknowledgements}
