@@ -383,10 +383,10 @@ unoriented graph $G$.  We say that a vertex $u$ of a digraph $D$ is
 \defin{transitive} if it is neither a source nor a sink. For $k\in \mathbb N$, a
 \defin{$k$-walk} (resp.\ \defin{$k$-path}) is a sequence $(v_0,\ldots, v_k)$ of
 $k+1$ (distinct) vertices such that $v_i\to v_{i+1}$ for every $0\leq i\leq
-k-1$. The \defin{length} of a path is defined as its number of edges. Again, we
+k-1$. In an unoriented graph, we define $k$-walks and $k$-paths similarly, by just asking instead $v_iv_{i+1}$ to be an edge. The \defin{length} of a path is defined as its number of edges. Again, we
 call $v_k$ the head of the $k$-path $(v_0,\ldots, v_k)$ and $v_0$ its tail. The
 \defin{$k$-prefix} (resp.\ \defin{$k$-suffix}) of a path $P$ is the subpath
-obtained when keeping only its $k+1$ first (resp.\ last) vertices.
+obtained when keeping only its $k+1$ first (resp.\ last) vertices. 
 
 Let $D$ be a digraph and let $P$ and $Q$ be two $k$-paths
 $P = (u_0,\ldots, u_k)$ and $Q = (v_0,\ldots, v_k)$ such that $P$ and $Q$ are
@@ -583,17 +583,18 @@ part). We include its proof as it is simple.
   and $Q_{2i+1}$ are equal to a vertex which we denote $u_{2i+1}$, and such that $C$
   is the concatenation of the paths $Q_i$ (all indices are taken modulo $2m$). As $\orG$ is acyclic, so is $L(\orG)$
   and $Q_1, \dots, Q_{2m}$ are well defined.
-  For each $i$, let $\ell_i$ be the
+  For each $i$, let $\ell_i$ denote the
   length of $Q_i$. We have $\ell_i \ge 2$ for each $i$, as otherwise $C$
   would contain an alternating path of length three, which by
-  Lemma~\ref{lem:forbidden_config} would the existence of an odd cycle in
-  $L(G)$ striclty shorter than $C$. Note that this argument also applies when $C$ is a triangle as we assumed $\orG$ to be loopless, and that it argument fails if $C$ is a cycle of length four, which
-  is why the assumption that $C$ has odd length is needed. As $\orG$ is acyclic, each of the path $Q_i$ corresponds to a directed path $P_i$ in
-  $\orG$ with length $\ell_i +1$, whose first and last arcs are $u_{i}$ and
-  $u_{i+1}$ (or $u_{i+1}$ and $u_{i}$ according to the parity of $i$). In particular,
-  the graph $G\left[\bigcup_i V(P_i)\right]$ then contains a cycle $B$ of length
-  $\sum_i (\ell_i -1) = |C| - 2m$, which is odd and shorter that the length of $C$. This
-  proves the second inequality.\UG{TODO: Correct this part.}
+  Lemma~\ref{lem:forbidden_config} would imply the existence of an odd cycle in
+  $L(G)$ striclty shorter than $C$. Note that this argument also applies when $C$ is a triangle as we assumed $\orG$ to be loopless, and that it fails if $C$ is a cycle of length four, which
+  is why the assumption that $C$ has odd length is needed. As $\orG$ is acyclic, each of the path $Q_i$ corresponds to a directed path $\ora{P_i}$ in
+  $\orG$ with length $\ell_i +1\geq 3$, whose first and last arcs are $u_{i}$ and
+  $u_{i+1}$ (or $u_{i+1}$ and $u_{i}$ according to the parity of $i$). For each $i\in [2m]$, we let $\ora{Q_i}$ denote the subpath of $\ora{P_i}$ with length $\ell_i-1$ obtained when removing the arcs $u_i$ and $u_{i+1}$, ans we let $W:=\bigcup_{i=1}^{2m}Q_i$. As $C$ is a cycle, observe that the $Q_i$'s must be pairwise edge-disjoint, and also do not contain any of the supports of the arcs $u_i$. In particular, it implies that $W$ is a closed walk in $G$, which does not use the same edge twice, with length $\sum_i (\ell_i -1) = |C| - 2m < \og(L(\orG))$. Thus $W$ has odd length and is a union of edge-disjoint cycles, so in particular, one of these cycles must be of odd length. This concludes the proof of the second inequality.
+%   In particular,
+%   the graph $G\left[\bigcup_i V(P_i)\right]$ then contains a cycle $B$ of length
+%   $\sum_i (\ell_i -1) = |C| - 2m$, which is odd and shorter that the length of $C$. This
+%   proves the second inequality.\ugo{TODO: Correct this part.}
 \end{proof}
 
 
