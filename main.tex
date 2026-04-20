@@ -722,7 +722,7 @@ use this to construct the root graph of some $k$-iterated shift graphs.
   $T':=T-a$, and $\ora{T'}:=\orT-a$. By induction hypothesis, there
   exists an acyclic oriented graph $\ora{G'}$ and a safe $k$-shift
   embedding $\phi': V(\ora{T'})\to \Pc_k(\ora{G'})$ of $\ora{T'}$ in $\ora{G'}$. Let $v$,
-  $w$, $x$, $y$ be the first, second, penultimate and last vertex of $\phi(b)$
+  $w$, $x$, $y$ be the first, second, penultimate and last vertex of $\phi'(b)$
   respectively (with $w=x$ if $k = 2$). Let $Q_b$ be the $(k-1)$-prefix of
   $\phi'(b)$.
 
@@ -734,49 +734,61 @@ use this to construct the root graph of some $k$-iterated shift graphs.
   and $\phi(c) := \phi'(c)$ for all $c\in V(\ora{T'})$, we obtain a $k$-shift
   embedding $\phi$ of $\orT$ in $\orG$. The safety of $\phi$ comes from the fact that
   $\phi'$ was also safe, and that for each $u\in V(T')$,
-  $\phi(u)\cap \phi(a)\subseteq
+  $\phi'(u)\cap \phi(a)\subseteq
   V(Q_b)$. \ugo{Check this point again once previous lemma will be corrected.}% Moreover, $a$ is the only vertex of $T$ whose image by
   % $\phi$ starts by $a$ and by assumption, $a$ is the only of $T$ whose image by
   % $\phi$ has $(k-1)$-suffix equal to $Q_b$, so $\phi(a)$ is private.
 
   We now assume that there exists $c \in V(T') \setminus\{b\}$ such that the
-  prefix of $\phi(c)$ is $Q_b$ and the head of $\phi(c)$ is a vertex
+  prefix of $\phi'(c)$ is $Q_b$ and the head of $\phi'(c)$ is a vertex
   $z \in N^+_{G'}(x)$ (see Figure~\ref{fig: shiftTree}).
  \begin{figure}[htb]
   \centering  
-  \includegraphics[scale=1]{shiftTree}
-  \caption{Configuration in the proof of Lemma~\ref{lem:shift_tree}.}  
+  \includegraphics[scale=1, page=1]{shiftTree}
+  \caption{Configuration in the first case of the proof of Lemma~\ref{lem:shift_tree}.}  
   \label{fig: shiftTree}
 \end{figure}
-\todo[inline]{update picture with $\psi(b)$}
+% \todo[inline]{update picture with $\psi(b)$}
 
  First, observe that for every $t\in V(G')$ such that $t\to v$ in
- $\ora{G'}$, we have $(t,v)\cdot Q_b \notin \phi(V(T'))$. %thus $b$ is a source
+ $\ora{G'}$, we have $(t,v)\cdot Q_b \notin \phi'(V(T'))$, %thus $b$ is a source
                                 % in $\ora{G'}$.
- Otherwise there would exist some
+ as otherwise there would exist some
  node $d \in V(T')$ such that we both have $d \to c$ and $d \to b$ in
- $\ora{T'}$ (and thus also in $\orT$). As $a \to b$, Lemma~\ref{lem:forbidden_config}
- would then imply that $a \to c$ in $\orT$, so $\{a,b,c,d\}$ forms a cycle
- in $T$, contradicting the fact that $T$ is a forest. Thus, $b$ is a source in
- $\orT'$. We now let $\ora{G''}$ be the oriented graph obtained after
- duplicating the vertex $v$ by creating a vertex $v'$ that is a false twin of
- $v$ in $\ora{G'}$, i.e.\ $v'$ has exactly the same out- and
- in-neighbourhoods as $v$ in $\ora{G}$ (note that such operation
+ $\ora{T'}$ (and thus also in $\orT$). As $a \to b$ in $\orT$, Lemma~\ref{lem:forbidden_config}
+ would then imply that $a \to c$ in $\orT$, contradicting the fact that $a$ is a leaf of $T$. 
+ Thus, $b$ must be a source in
+ $\orT'$. We now let $\ora{G^{\ast}}$ be the oriented graph obtained from $\ora{G'}$ after
+ duplicating the vertex $v$ by adding a new vertex $v'$ that is a false twin of
+ $v$, i.e.\ $v'$ has exactly the same in- and
+ out-neighbourhoods as $v$ in $\ora{G^{\ast}}$ (note that this operation
  preserves acyclicity). Let $\psi$ be the map from $V(T')$ to the set of
- $k$-walks of $\ora{G''}$ such that $\psi_{|V(T')\setminus \{b\}} :=
- \phi_{|V(T')\setminus \{b\}}$ and $\psi(b)$ is the $k$-path obatined by
- replacing $v$ by $v'$ in $\phi(b)$.  We claim
- that for every two vertices $i$ and $j$ of $V(T')$ we have $i \to j$ in
- $\ora{T'}$ if and only if the $(k-1)$-suffix of $\psi(i)$ equals to
- the $(k-1)$-prefix of $\psi(j)$. This is immediate if $i$ and $j$ are different
- from $b$, or if $i=b$ because $\psi(i)$ and $\phi(b)$ have the same
- $(k-1)$-suffix. Since $b$ is source in $\ora{G'}$, the case $b=j$
- does not occur, and as $\phi$ is safe, note that $\psi$ is also
- safe. Thus, we just proved that $\psi$ is a safe $k$-shift embedding of
- $\ora{T'}$ in $\ora{G''}$ such that $b$ is the only
+ $k$-walks of $\ora{G^{\ast}}$ such that $\psi_{|V(T')\setminus \{b\}} :=
+ \phi'_{|V(T')\setminus \{b\}}$ and $\psi(b)$ is the $k$-path obtained when
+ replacing $v$ by $v'$ in $\phi'(b)$.  We claim
+ that for every two vertices $s$ and $t$ of $V(T')$ we have $s \to t$ in
+ $\ora{T'}$ if and only if $\psi(s)\to \psi(t)$ in $L^{k}(\ora{G^{\ast}})$.
+%  the $(k-1)$-suffix of $\psi(s)$ equals to
+%  the $(k-1)$-prefix of $\psi(t)$ in $\ora{G^{\ast}}$.
+ This is immediate if $s$ and $t$ are different
+ from $b$, or if $s=b$ because $\psi(s)$ and $\phi'(b)$ have the same
+ $(k-1)$-suffix. Moreover, recall that $b$ is a source in $\ora{G'}$, and note moreover that there cannot exist some $t\in V(\ora{G^{\ast}})$ such that $\psi(t)\to \psi(b)$ in $L^{k}(\ora{G^{\ast}})$, as by definition of $\psi$, $b$ is the only vertex in $\ora{G^{\ast}}$ such that $v'\in V(\psi(b))$, which proves the claim when $t=b$. Moreover, as $\phi'$ is safe, note that $\psi$ is also
+ safe. \ugo{Check this sentence again when def of safe will change.}
+%  Since $b$ is source in $\ora{G'}$, the case $b=t$
+%  does not occur, and as $\phi'$ is safe, note that $\psi$ is also
+%  safe. 
+ Thus, we just proved that $\psi$ is a safe $k$-shift embedding of
+ $\ora{T'}$ in $\ora{G^{\ast}}$ such that $b$ is the only
  vertex of $\ora{T'}$ whose corresponding $k$-path $\psi(b)$ starts
  in $v'$. In particular, we are back in the case of the previous paragraph,
- and can thus conclude the proof.
+ and can thus conclude the proof with $\psi, \ora{G^{\ast}}$ playing respectively the roles of $\phi'$ and $\ora{G'}$.
+ 
+  \begin{figure}[htb]
+  \centering  
+  \includegraphics[scale=1, page=2]{shiftTree}
+  \caption{Configuration in the end of the proof of Lemma~\ref{lem:shift_tree}.}  
+  \label{fig: shiftTree2}
+\end{figure}
 \end{proof}
 
 % \ugo{I hope that I interpretated correctly in the next definition what you meant by ``identifying'' (it was not clear at all for me in a first time).}
