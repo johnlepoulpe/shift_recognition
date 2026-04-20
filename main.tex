@@ -174,6 +174,8 @@
 {\textsc{MIS} }
 \DeclareMathOperator{\sq}{\square}
 \newcommand*{\MNAE}{\textsc{MNAE-3SAT} }
+\newcommand*{\Pc}{\mathcal{P}}
+
 
 \DeclarePairedDelimiter{\set}{\{}{\}}
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
@@ -389,9 +391,10 @@ call $v_k$ the head of the $k$-path $(v_0,\ldots, v_k)$ and $v_0$ its tail. The
 obtained when keeping only its $k+1$ first (resp.\ last) vertices. 
 
 Let $D$ be a digraph and let $P$ and $Q$ be two $k$-paths
-$P = (u_0,\ldots, u_k)$ and $Q = (v_0,\ldots, v_k)$ such that $P$ and $Q$ are
-vertex disjoint and there are no arcs between $V(P)$ and $V(Q)$. We
-then denote $D / \{P,Q\}$ the digraph obtained by identifying $P$ and $Q$, that
+$P = (u_0,\ldots, u_k)$ and $Q = (v_0,\ldots, v_k)$. If
+$P$ and $Q$ are
+vertex disjoint and there are no arcs between $V(P)$ and $V(Q)$, then we say that they are \defin{independent}. If $P$ and $Q$ are independent in $D$, 
+we then denote $D / \{P,Q\}$ the digraph obtained by identifying $P$ and $Q$, that
 is by replacing for every $i$, $u_i$ and $v_i$ by a new vertex $w_i$ whose
 in-neighbourhood is $N^-(u_i) \cup N^-(v_i)$ and out-neighbourhood is
 $N^+(u_i) \cup N^+(v_i)$. Formally, the vertex set of $D/\{P,Q\}$ is
@@ -456,7 +459,7 @@ The following result of Beineke characterises line digraphs of oriented graphs.
 \begin{figure}[htb]
   \centering  
   \includegraphics[scale=1]{Line_digraph}
-  \caption{The two configurations depicted in Lemma~\ref{lem:forbidden_config}.}  
+  \caption{The two configurations depicted in Lemma~\ref{lem:forbidden_config}.}
   \label{fig: Beineke}
 \end{figure}
 
@@ -622,7 +625,7 @@ ordered $(k+1)$-tuples $(a_0, \ldots, a_k)$ of $[n]$ such that
 $1 \le a_0 < a_1 < \ldots < a_k \le n$, in which two vertices
 $a = (a_0, \ldots, a_k)$ and $b = (b_0, \ldots, b_k)$ are adjacent if
 $b_i = a_{i+1}$ for all $i \in [k-1]$ (or $a_i = b_{i+1}$ for all
-$i \in [k-1]$). From this definition, it is straightforward to check that
+$i \in [k-1]$). From this definition, it is not hard to check that
 $G_{n,k}$ is the support of the $k$-iterated line digraph $L^k(\orTn)$, where
 $\orTn$ is the transitive tournament on $n$ vertices. Note that for each
 $n\in \mathbb N$, $G_{n,2}$ corresponds exactly to the shift graph $G_n$ defined
@@ -641,50 +644,50 @@ $G_{n,k}$ has odd-girth at least $2k+3$ % (see for example
 and chromatic number at least $\log^{(k)}(n)$, where $\log^{(k)}$ denotes the
 $k$-iterated logarithm function. The class of \defin{$k$-iterated shift graphs}
 is the hereditary closure of $(G_{n,k})_{n \in \mathbb{N}}$, or equivalently,
-the class of all induced subgraphs of $k$-line digraphs of acyclic
+the class of all induced subgraphs of $k$-iterated line digraphs of acyclic
 digraphs. Note that in the literature, $k$-iterated shift graphs are sometimes referred
 to as generalised shift graph although they form a subclass of shift graphs.
 
 Given an acyclic digraph $\orG$ and an induced subdigraph $\orH$ of $L^k(\orG)$,
 we call \defin{$k$-shift embedding} of $\orH$ in $\orG$ any injective map $\phi$
-from the vertices of $\orH$ to the $k$-paths of $\orG$ such that for all
+from the vertex set of $\orH$ to the set $\Pc_k(\orG)$ of $k$-paths of $\orG$ such that for all
 $u,v\in V(\orH)$, $u\to v$ in $\orH$ if and only if the $(k-1)$-prefix of
 $\phi(v)$ is the $(k-1)$-suffix of $\phi(u)$. We say that $\phi$ is
-\defin{convex} if for every $u,v,w \in V(\orH)$ such that $v$ is on a
+\defin{safe} if for every $u,v,w \in V(\orH)$ such that $v$ is on a
 (non-directed) path from $u$ to $w$, then
 $V(\phi(u))\cap V(\phi(w)) \subseteq V(\phi(v))$. The next lemma shows that
-$k$-shift embeddings commute with identification:
+$k$-shift embeddings commute with the operation of identifying independent paths, which we defined earlier.
 
-\ugo{I do not  understand at all the next lemma... Could you define what it does mean to identify $\phi(u)$ with $\phi(v)$? Is $G$ oriented?}
+
 \begin{lemma}\label{lem:gluing}
-  Let $\orH$ and $\orG$ be two oriented acyclic graphs and $\phi$ be a $k$-shift
+  Let $\orH$ and $\orG$ be two oriented acyclic graphs and $\phi: V(\orH)\to \Pc_k(\orG)$ be a $k$-shift
   embedding of $\orH$ in $\orG$. Let $u,v$ be two vertices of $\orH$, such that
-  $\phi(u)$ and $\phi(v)$ are vertex disjoint, and there are no arcs $\phi(u)$
-  between $\phi(v)$, and no directed path from $u$ to $v$ or vice-versa. Then
+  $\phi(u)$ and $\phi(v)$ are independent in $\orH$ and such that there is no path from $u$ to $v$ or vice-versa in $\orH$. Then $\orH / \{u,v\}$ and
+  $\orG / \{\phi(u),\phi(v)\}$, are both oriented acyclic graphs \ugo{a stronger hypothesis than independent needed here}, and   
   there exists a $k$-shift embedding of $\orH / \{u,v\}$ in
-  $\orG / \{\phi(u),\phi(v)\}$, which are both oriented acyclic graphs.
+  $\orG / \{\phi(u),\phi(v)\}$.
 \end{lemma}
 
 \begin{proof}
   First, note that the identification is well-defined because $\phi(u)$ and
   $\phi(v)$ are vertex-disjoint and have no arc between them. Moreover, these
   identifications create no directed cycles because there are no directed paths
-  between $V(\phi(u))$ and $V(\phi(v))$ in $\orG$, and in particular between $u$
+  between $V(\phi(u))$ and $V(\phi(v))$ in $\orG$ \ugo{I think that I disagree.}, and in particular between $u$
   and $v$ in $\orH$. Hence $\orH/\{u,v\}$ and $\orG/\{\phi(u),\phi(v)\}$ are
-  oriented acyclic graphs.
+  oriented acyclic graphs. 
 
 
-  Denote $\phi(u) = (u_1, \dots, u_k)$, $\phi(v) = (v_1, \dots, v_k)$ and
-  $(w_1, \dots w_k)$ be the $k$ vertices resulting from the identification of
+  Write $\phi(u) = (u_1, \dots, u_k)$, $\phi(v) = (v_1, \dots, v_k)$ and let
+  $(w_1, \dots w_k)$ denote the $k$ vertices resulting from the identification of
   $\phi(u)$ with $\phi(v)$ in $\orG$. Let
   $p: V(\orG) \to V(\orG/\{\phi(u),\phi(v)\})$ such that $p(x) =x$ for all
   $x \notin V(\phi(u)) \cup V(\phi(v))$ and $\phi(y) = w_i$ if
-  $y \in \{u_i,v_i\}$ for some $i$. As there are no arcs between $u$ and $v$, $p$ is a morphism.
+  $y \in \{u_i,v_i\}$ for some $i$. As there are no arcs between $u$ and $v$, $p$ is a digraph homomorphism.
   Let $\psi$ be the map from $\orH/\{u,v\}$ to the $k$-paths of
   $\orG/\{\phi(u),\phi(v)\}$ such that for all $x \in V(G)$, we let
   $\psi(p(x)) = (p(x_1), \dots, p(x_k))$ where $(x_1, \dots, x_k) =
   \phi(x)$. First, note that $\psi(x)$ is a $k$-path for every
-  $x \in V(\orH/\{u,v\})$ because $p$ is a morphism. Moreover, for every arc $x
+  $x \in V(\orH/\{u,v\})$ because $p$ is an homomorphism \ugo{and because $\orG/\{\phi(u),\phi(v)\}$ is acyclic}. Moreover, for every arc $x
   \to y$
   in $\orH/\{u,v\}$, the $(k-1)$-suffix of $\psi(x) = \phi(p^{-1}(x))$ and the
   $(k-1)$-prefix of $\psi(y) = \phi(p^{-1}(y))$ are equal, so $\psi$ is a
@@ -704,39 +707,39 @@ use this to construct the root graph of some $k$-iterated shift graphs.
 
 \begin{lemma}\label{lem:shift_tree}
   Let $T$ be tree with a shift orientation $\orT$. Then, for every $k\geq 1$,
-  there exists an acyclic directed graph $\orG$ and a convex $k$-shift
-  embedding $\phi$ of $\orT$ in $\orG$. In particular, $T$ is a $k$-iterated
+  there exists an acyclic directed graph $\orG$ and a safe $k$-shift
+  embedding $\phi: V(\orT)\to \Pc_k(\orG)$ of $\orT$ in $\orG$. In particular, $T$ is a $k$-iterated
   shift graph for every $k$.
 \end{lemma}
 \begin{proof}
   We proceed by induction on $|V(T)|$. Clearly, if $|V(T)|\leq 1$, then the
   result is immediate, as if $V(T)$ is empty, then $\orG$ can be chosen as the
   empty digraph, and if $T$ has a single vertex, then $\orG$ can be chosen as
-  the oriented path of length $k$. We now assume that $|V(T)|\geq 2$.
+  the oriented path of length $k$. We now assume that $|V(T)|\geq 2$ and $k\geq 2$. 
   
   Let $a$ be a leaf of $T$, and assume without loss of generality that for some
   $b \in V(T)$ we have $a \to b$ in $\orT$, the case $b\to a$ being symmetric. Let
   $T':=T-a$, and $\ora{T'}:=\orT-a$. By induction hypothesis, there
-  exists an acyclic oriented graph $\ora{G'}$ and a convex $k$-shift
-  embedding $\phi'$ of $\ora{T'}$ in $\ora{G'}$. Let $v$,
+  exists an acyclic oriented graph $\ora{G'}$ and a safe $k$-shift
+  embedding $\phi': V(\ora{T'})\to \Pc_k(\ora{G'})$ of $\ora{T'}$ in $\ora{G'}$. Let $v$,
   $w$, $x$, $y$ be the first, second, penultimate and last vertex of $\phi(b)$
   respectively (with $w=x$ if $k = 2$). Let $Q_b$ be the $(k-1)$-prefix of
   $\phi'(b)$.
 
-  If $b$ is the only vertex of $\orT'$ with $Q_b$ as the $(k-1)$-prefix of its
-  image by $\phi'$, then let $\orG$ be the oriented graph obtained from
+  If $b$ is the only vertex of $\orT'$ having $Q_b$ as the $(k-1)$-prefix of its
+  image by $\phi'$, then we let $\orG$ be the oriented graph obtained from
   $\ora{G'}$ by adding a new vertex $u$ with $u \to v$. This creates
-  a $k$-path $P_a$ whose $(k-1)$-suffix is the $(k-1)$-prefix of $\phi'(b)$ but
-  of no other $k$-path in $\phi'(V(\orT'))$. Hence, by defining $\phi(a) := P_a$
-  and $\phi(c) := \phi'(c)$ for all other vertices, $\phi$ is a $k$-shift
-  embedding of $\orT$ in $\orG$. The convexity of $\phi$ comes from the fact that
-  $\phi'$ was also convex, and that for each $u\in V(T')$,
+  a $k$-path $P_a$ whose $(k-1)$-suffix is $Q_b$, and which is the prefix
+  of no other $k$-path than $\phi'(b)$ in $\phi'(V(\orT'))$. Hence, by defining $\phi(a) := P_a$
+  and $\phi(c) := \phi'(c)$ for all $c\in V(\ora{T'})$, we obtain a $k$-shift
+  embedding $\phi$ of $\orT$ in $\orG$. The safety of $\phi$ comes from the fact that
+  $\phi'$ was also safe, and that for each $u\in V(T')$,
   $\phi(u)\cap \phi(a)\subseteq
-  V(Q_b)$. % Moreover, $a$ is the only vertex of $T$ whose image by
+  V(Q_b)$. \ugo{Check this point again once previous lemma will be corrected.}% Moreover, $a$ is the only vertex of $T$ whose image by
   % $\phi$ starts by $a$ and by assumption, $a$ is the only of $T$ whose image by
   % $\phi$ has $(k-1)$-suffix equal to $Q_b$, so $\phi(a)$ is private.
 
-  We can now assume that there exists $c \in V(T') \setminus\{b\}$ such that the
+  We now assume that there exists $c \in V(T') \setminus\{b\}$ such that the
   prefix of $\phi(c)$ is $Q_b$ and the head of $\phi(c)$ is a vertex
   $z \in N^+_{G'}(x)$ (see Figure~\ref{fig: shiftTree}).
  \begin{figure}[htb]
@@ -748,7 +751,7 @@ use this to construct the root graph of some $k$-iterated shift graphs.
 \todo[inline]{update picture with $\psi(b)$}
 
  First, observe that for every $t\in V(G')$ such that $t\to v$ in
- $\ora{G'}$, we have $tQ_b \notin \phi(V(T'))$. %thus $b$ is a source
+ $\ora{G'}$, we have $(t,v)\cdot Q_b \notin \phi(V(T'))$. %thus $b$ is a source
                                 % in $\ora{G'}$.
  Otherwise there would exist some
  node $d \in V(T')$ such that we both have $d \to c$ and $d \to b$ in
@@ -768,8 +771,8 @@ use this to construct the root graph of some $k$-iterated shift graphs.
  the $(k-1)$-prefix of $\psi(j)$. This is immediate if $i$ and $j$ are different
  from $b$, or if $i=b$ because $\psi(i)$ and $\phi(b)$ have the same
  $(k-1)$-suffix. Since $b$ is source in $\ora{G'}$, the case $b=j$
- does not occur, and as $\phi$ is convex, note that $\psi$ is also
- convex. Thus, we just proved that $\psi$ is a convex $k$-shift embedding of
+ does not occur, and as $\phi$ is safe, note that $\psi$ is also
+ safe. Thus, we just proved that $\psi$ is a safe $k$-shift embedding of
  $\ora{T'}$ in $\ora{G''}$ such that $b$ is the only
  vertex of $\ora{T'}$ whose corresponding $k$-path $\psi(b)$ starts
  in $v'$. In particular, we are back in the case of the previous paragraph,
@@ -1890,16 +1893,16 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
   oriented acyclic graph $\orGphip$ such that $\orGphi$ is an induced subdigraph
   of $L^k(\orGphip)$. For each variable $x$, as $\orMx$ is a shift graph whose
   support is a tree, by Lemma~\ref{lem:shift_tree}, there exists an acyclic
-  oriented graph $\orMxp$ with a convex $k$-shift embedding $\psi_x$ of $\orMx$
+  oriented graph $\orMxp$ with a safe $k$-shift embedding $\psi_x$ of $\orMx$
   in $\orMxp$. Similarly, for each clause comb $C_i$ with jaw $a_ib_ic_id_i$ and teeth
   $a_ia_i'$\dots $d_id_i'$, there exists an acyclic oriented graph graph $\orCip$ with a
-  convex $k$-shift embedding $\psi_i$ of the jaw $\orCi -\{a_i',b_i',c_i',d_i'\}$ of $\orCi$
+  safe $k$-shift embedding $\psi_i$ of the jaw $\orCi -\{a_i',b_i',c_i',d_i'\}$ of $\orCi$
   in $\orCip$. Note that by identifying the vertices of the jaw of each clause combs $C_i$
   with the approriate vertices $w_x^j$ of the subgraphs
   $\orMx$, one obtains the graph $\orGphi$.
 
 
-  Denote $\psi$ the convex $k$-shift embedding of
+  Denote $\psi$ the safe $k$-shift embedding of
   $\bigsqcup_x \orMx \sqcup \bigsqcup_{i} (\orCi - \{a_i',b_i',c_i',d_i'\}$ in
   $\bigsqcup_x \orMxp \sqcup \bigsqcup_{i} \orCip$ obtained by taking the union
   of all these $k$-shift embeddings. More precisely, for each vertex $u$ in some
@@ -1923,7 +1926,7 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
   of $\orMx$, or connected by a unique path $P$ containing a
   directed subpath of length $k+3$ between $w^{i_1}_{x_1}$ and
   $u^{i_1}_{x_1}$. As result, $N(\psi(v^{i_1}_{x_1})))$ and
-  $\psi(u^{i_1}_{x_1})$ are vertex-disjoint and since $\psi$ is convex, so are
+  $\psi(u^{i_1}_{x_1})$ are vertex-disjoint and since $\psi$ is safe, so are
   $N(\psi(v^{i_1}_{x_1})))$ and $\psi(v^{i_2}_{x_2})$. So there are also no arcs
   between $\psi(v^{i_1}_{x_1})$ and $\psi(v^{i_2}_{x_2})$.
 
