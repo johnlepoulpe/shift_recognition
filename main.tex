@@ -420,7 +420,7 @@ to which we attach to each vertex an additional pendant edge (such edges are the
 attached to each extremity of the jaw are called the \defin{molars},
 while the other teeth are called the \defin{incisors}.
  
-For a graph $G$, we let $\alpha(G)$ denote the \emph{independance number} of $G$, that is, the maximum possible size of an
+For a graph $G$, we let $\alpha(G)$ denote the \defin{independance number} of $G$, that is, the maximum possible size of an
 independent set of $G$, and we let $\mathrm g(G)$ and $\og(G)$ denote
 respectively its \defin{girth} (minimim over the sizes of its cycles) and its
 \defin{odd girth} (minimum over the sizes of its odd cycles). If $D$ is a
@@ -533,7 +533,7 @@ The class of \defin{shift graphs} is the hereditary closure of the graphs
 $(G_{n})_{n\in \mathbb{N}}$, that is, all induced subgraph of some $G_{n}$. Note
 that in the litterature, shift graphs might sometimes refer to what we will
 later call
-\emph{iterated} shift graphs, and form a subset of
+\defin{iterated} shift graphs, and form a subset of
 the class of shift graphs defined here.
 % \clement{What I understand is rather that
 %   ``generalized shift graphs'' correspond to our iterated shift graphs, but our
@@ -624,17 +624,17 @@ is the sequence of graphs $(G_{n,k})_{n\in \mathbb{N}}$, where $G_{n,k}$ is the 
 ordered $(k+1)$-tuples $(a_0, \ldots, a_k)$ of $[n]$ such that
 $1 \le a_0 < a_1 < \ldots < a_k \le n$, in which two vertices
 $a = (a_0, \ldots, a_k)$ and $b = (b_0, \ldots, b_k)$ are adjacent if
-$b_i = a_{i+1}$ for all $i \in [k-1]$ (or $a_i = b_{i+1}$ for all
-$i \in [k-1]$). From this definition, it is not hard to check that
+$b_i = a_{i+1}$ for all $i \in [k]$ (or $a_i = b_{i+1}$ for all
+$i \in [k]$). From this definition, it is not hard to check that
 $G_{n,k}$ is the support of the $k$-iterated line digraph $L^k(\orTn)$, where
 $\orTn$ is the transitive tournament on $n$ vertices. Note that for each
-$n\in \mathbb N$, $G_{n,2}$ corresponds exactly to the shift graph $G_n$ defined
+$n\in \mathbb N$, $G_{n,1}$  corresponds exactly to the shift graph $G_n$ defined
 earlier, and that as before, $G_{n,k}$ admits a natural acyclic orientation,
 which we call its \defin{shift orientation}, and denote by $\orGnk$. Note also
 that for each $k\geq 1$, the graph $G_{n,k}$ is a shift graph with respect to
 the definition we gave above, i.e.\ it is an induced subgraph of one of the
 graphs $(G_{n})_{n\in \mathbb{N}}$ because $\orGnk$ is the line digraph of the acyclic oriented
-graph $L^{k-1}(\orTn)$.
+graph $L^{k}(\orTn)$.
  
 The main interest of the graphs $G_{n,k}$ is that they form a family
 of graphs with unbounded chromatic number and arbitrarily large odd girth. More
@@ -796,7 +796,9 @@ use this to construct the root graph of some $k$-iterated shift graphs.
 % out-neighbourhood $(N^+_D(u)\cup N^+_D(v))\setminus \{u,v\}$. Note that if $D=\orH$ is an oriented graph, in which $N_H(u)$ and $N_H(v)$ are disjoint, then $D/\{u,v\}$ is also an oriented graph. The next lemma shows that in this case, $k$-shift embeddings are also preserved.
 
 
-\section{Maximum independent set problem}\label{sec:MIS}
+\section{\textsc{maximum independent set} on shift graphs}\label{sec:MIS}
+
+In this section, we observe that \textsc{maximum independent set} is NP-complete when restricted to iterated shift graphs, even if when one restrains further to the classes of iterated shift graphs having arbitrary large girth.
 
 Given a graph $G$ and an integer $s \in \mathbb N$, denote $G^{\ast s}$ the
 graph obtained by subdividing $s$ times each edge of $G$. In particular, we
@@ -812,42 +814,46 @@ have $G^{\ast 0}=G$.
   $k$-iterated shift graphs of girth at least $\ell$.
 \end{proposition}
 \begin{proof}
-  \ugo{Don't you need some condition on $k$? If $\ell=0$, the result does
-    clearly not hold, did I miss something? And shouldn't $\ell$ be even?}
-  \clement{the lemma holds for any $\ell$ even $\ell = 0$, but the graphs
-    produced by the reduction may have girth $3(s+1) > \ell$, which is not a
-    problem.}
-
-  We show that \MIS on general graphs admits a polynomial time reduction to \MIS
+%   \ugo{Don't you need some condition on $k$? If $\ell=0$, the result does
+%     clearly not hold, did I miss something? And shouldn't $\ell$ be even?}
+%   \clement{the lemma holds for any $\ell$ even $\ell = 0$, but the graphs
+%     produced by the reduction may have girth $3(s+1) > \ell$, which is not a
+%     problem.}
+  We fix some positive integers $k,\ell$ 
+  and show that \MIS on general graphs admits a polynomial time reduction to \MIS
   when restricted to the class of $k$-iterated shift graphs of girth at least
-  $\ell$. Let $s$ be an even integer such that $3(s+1) \ge \ell$ and
-  $s \ge k+1$.  Let $G$ be a connected graph and assume that $[n]=V(G)$ so that
+  $\ell$. We let $s$ be an even integer such that $3(s+1) \ge \ell$ and
+  $s \ge k+1$. Let $G$ be a connected graph and assume that $[n]=V(G)$ so that
   the vertices of $G$ are totally ordered. We
   claim that $G^{\ast s}$ is a $k$-iterated shift graph of girth at least
-  $3(s+1) \ge \ell$. By Lemma~\ref{lem:subdivision_MIS}, this will imply directly the
-  result.
+  $3(s+1) \ge \ell$. By Lemma~\ref{lem:subdivision_MIS}, this will then immediately complete the reduction, as $G^{\ast s}$ has order $(s+1)n$ and independance number $\alpha(G)+\tfrac{s}{2}|E(G)|$.
 
   To prove our claim, consider the acyclic directed graph $\orH$ constructed as follows. Let
-  $(P_u)_{u \in V(G)}$ be a collection of disjoint directed paths of length
-  $k$. For every $u$, we denote $u^-$ and $u^+$ the tail and head of
-  $P_u$. For each edge $uv \in E(G)$ with $u < v$, connect $u^+$ with $v^-$ by a
-  directed path $P_{uv}$ of length $s+1 -k > 0$ and let $\orH$ be the graph
-  obtained. We now prove that the support of $L^k(\orH)$ is isomorphic to $G^{\ast
-    s}$. Each vertex $u$ of $G$ is mapped to the $k$-path $P_u$. In $L^k(\orH)$,
-  for each $uv \in E(G)$ with $u < v$, the vertices $P_u$ and $P_v$ are
-  connected by a path $(P_u, Q_1, \dots Q_k, R_1, \dots R_{s-k}, P_v)$, where
-  each $Q_i$ is the $k$-path starting at the $(i+1)$\textsuperscript{th} vertex
-  of $P_u$ and ending in $V(P_{uv}) \cup V(P_v)$, and each $R_i$ is the $k$-path
-  starting at the $(i+1)$\textsuperscript{th} vertex of $P_{uv}$ and ending in
-  $V(P_{uv}) \cup V(P_v)$. Thus $G^{\ast s}$ is a subgraph of the support of $L^k(\orH)$ and this
-  subgraph is spanning because all $k$-paths of $\orH$ are of the form described above. All
+  $(\ora{P_u})_{u \in V(G)}$ be a collection of disjoint directed paths of length
+  $k$. For every $u$, we let $u^-$ and $u^+$ respectively denote the tail and head of
+  $\ora{P_u}$. For each edge $uv \in E(G)$ with $u < v$, we connect $u^+$ with $v^-$ by a
+  directed path $\ora{P_{uv}}$ of length $s+1 -k > 0$ and let $\orH$ be the obtained graph.  See Figure \ref{fig:MIS} for an example. 
+  We now prove that the support of $L^k(\orH)$ is isomorphic to $G^{\ast s}$. For this we define a mapping $f: V(G)\to V(L^k(\orH))$ as follows. First, for each vertex $u$ of $G$,  we let $f(u):=\ora{P_u}$. Observe that in $L^k(\orH)$,
+  for each $uv \in E(G)$ with $u < v$, the vertices $\ora{P_u}$ and $\ora{P_v}$ are
+  connected by a path of length $s$ of the form $(\ora{P_u}, \ora{Q_1}, \dots, \ora{Q_k}, \ora{R_1}, \dots, \ora{R_{s-k}}, \ora{P_v})$, where
+  each $\ora{Q_i}$ is the unique $k$-path of $\orH$ starting at the $(i+1)$\textsuperscript{th} vertex
+  of $\ora{P_u}$ and ending in $V(P_{uv}) \cup V(P_v)$, and each $\ora{R_i}$ is the unique $k$-path of $\orH$
+  starting at the $(i+1)$\textsuperscript{th} vertex of $\ora{P_{uv}}$ and ending in
+  $V(P_{uv}) \cup V(P_v)$. We thus extend $f$ on $V(G)$ in a natural way, so that each $uv$-path in $G^{\ast s}$ corresponding to the subdivision of an edge $uv\in E(G)$ is mapped isomorphically to the corresponding path $(\ora{P_u}, \ora{Q_1}, \dots, \ora{Q_k}, \ora{R_1}, \dots, \ora{R_{s-k}}, \ora{P_v})$ of $L^k(\orH)$.
+  
+  In particular, observe that $f$ is an injective graph homomorphism. Moreover, it is not hard to check that $d$ is also surjective, as all $k$-paths of $\orH$ must be either equal to some $\ora{P_u}$, or to some $\ora{P_u}\cup \ora{P_{uv}}\cup\ora{P_v}$ for some $uv\in E(G)$. 
+%   $G^{\ast s}$ is a subgraph of the support of $L^k(\orH)$ and this
+%   subgraph is spanning 
+  As all
   vertices in $V(\orH) \setminus \{u^+ \colon u\in V(G)\}$ have out-degree equal to
   one and all vertices in $V(\orH) \setminus \{u^- \colon u\in V(G)\}$ have
-  in-degree equal to one. So all the $k$-paths of $H$ that are not some $P_u$
-  have in-degree and out-degree exactly one in $L^k(\orH)$. Combining this with the fact that the
-  $k$-paths $P_u$ have degree $\deg_{\orH}^+(u^+) + \deg_{\orH}^-(u^-) = \deg_G(u)$, this
-  proves that $G^{\ast s}$ is an induced subgraph of $L^k(\orH)$, so $L^k(\orH) =
-  G^{\ast s}$.
+  in-degree equal to one, all the $k$-paths of $\orH$ which are equal to some $\ora{P_u}$
+  must have in-degree and out-degree exactly one in $L^k(\orH)$. Combining this with the fact that the
+  $k$-paths $\ora{P_u}$ have degree $\deg_{\orH}^+(u^+) + \deg_{\orH}^-(u^-) = \deg_G(u)$ in $L^k(\orH)$, this
+  proves that if $xy\notin E(G^{\ast})$ for some $x,y\in V(G^{\ast})$, then $f(x)f(y)\notin E(L^k(\orH))$, implying that $f$ induces a graph isomorphism between $G$ and the the support of $L^{k}(\orH)$.
+%   
+%   $G^{\ast s}$ is an induced subgraph of $L^k(\orH)$, so $L^k(\orH) =
+%   G^{\ast s}$.
   
   \begin{figure}[h!]
     \centering
@@ -898,17 +904,16 @@ have $G^{\ast 0}=G$.
         connections $P_{uv}$ of length $s - k +1$ between them.}
     \end{subfigure}
     \caption{An example of our reduction}
+    \label{fig:MIS}
   \end{figure}
 
-  Let $C$ be a cycle of $\orH$ and $u$ the smallest vertex of $G$ such that $C$
-  passes by $u^+$ (such vertex exists because $\orH - \{u^+ \colon u \in V(G)\}$ is
-  a forest of subdivided stars with central vertices $\{v^- \colon v \in V(G)\}$). The
-  cycle $C$ alternates at $u^+$ so $\orH$ is acyclic. Finally, $L^k(\orH) = G^{\ast
-    s}$ has girth $g(s+1) \ge 3(s+1) \ge \ell$, where $g$ is the girth of $G$. 
-  
+  It remains to check that $L^k(\orH)$ (or equivalently $\orH$) is acyclic and has girth at least $\ell$. The acyclicity easily follows from the simple obervation that in $\orH$, from a vertex lying on a path $\ora{P_u}$ one can only reach vertices lying on paths $\ora{P_{uv}}$ or on paths $\ora{P_v}$ for some $v>u$. Eventually, note that $L^k(\orH) = G^{\ast
+    s}$ has girth $g(s+1) \ge 3(s+1) \ge \ell$, where $g$ is the girth of $G$.
 \end{proof}
 
 \section{3-Colouring shift graphs}\label{sec:3COL}
+In this section, we prove that \Col is NP-complete when restricted on the class of shift graphs. We further observe in Proposition \ref{prop: 3-col_girth} that the problem becomes immediate when considering shift graphs of larger girth, as shift graphs of girth at least $5$ are $3$-colourable.
+ 
 \begin{theorem}\label{thm:3col}
   \Col is NP-complete when restricted to the class of shift graphs.
 
@@ -1285,6 +1290,7 @@ In the next proof, an \defin{in-forest} (resp.\ \defin{out-forest}) is an orient
 We now prove that if one restricts to shift graphs of large girth (and not large
 odd-girth as in Theorem~\ref{thm:3col}), 3-colouring becomes a trivial problem.
 \begin{proposition}
+\label{prop: 3-col_girth}
   All shift graphs of girth at least five are 3-colourable.
 \end{proposition}
 \begin{proof}
@@ -2286,7 +2292,7 @@ at Jagiellonian University in January 2025, supported by the grant FILL.
 % To check that all 3-arc-colourings of $H$ colour the two arcs entering $x$ with
 % different colours, we compute the number of 3-colourings of $L(H)$ and the
 % number of 3-colourings of $G$, where $G$ is obtained from $L(H)$ by
-% adding an edge betwenn the vertices correspoding to arcs entering $x$ in
+% adding an edge betwenn the vertices corresponding to arcs entering $x$ in
 % $H$. The following code shows that these numbers are equal, so all 3-colourings
 % of $L(H)$ are 3-colourings of $G$, which implies the desired result.
 % \begin{lstlisting}[language=Python]
