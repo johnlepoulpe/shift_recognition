@@ -930,7 +930,7 @@ In this section, we prove that \Col is NP-complete when restricted on the class 
   % For simplicity, we first describe our reduction for shift graphs before
   % adapting it to $k$-iterated shift graphs, as the latter case is more
   % technical, but the ideas are essentially identical.
-  When convenient, we will equivalently consider proper colourings of $L(\orG)$ as arc-colourings of
+  When convenient, we will equivalently consider proper colourings of $L(\orG)$ as \defin{arc-colourings} of
   $\orG$, that is a assignments of colors on $A(\orG)$ such that every two arcs $(u,v)$ and
   $(v,w)$ in $A(\orG)$ have distinct colors.
 
@@ -977,12 +977,12 @@ In this section, we prove that \Col is NP-complete when restricted on the class 
 
   \begin{claim}
    \label{clm: H}
-   For every proper $3$-arc-colouring of $\orH$, the set of arcs entering $v_{t-1}$ uses exactly two colours.
+   For every proper $3$-colouring of $L(\orH)$, the set of arcs entering $v_{t-1}$ uses exactly two colours.
   \end{claim}
 
    \begin{proof}[Proof of the Claim]   
   Let $\alpha$ be
-  a proper 3-colouring of $L(\orH)$, where $v_{t-1}v_t$ is without loss of
+  a proper 3-colouring of $L(\orH)$, where $(v_{t-1},v_t)$ is without loss of
   generality coloured 1. The arcs entering $v_{t-1}$ cannot use the colour 1, so
   they use at most two colours. Suppose for a contradiction that they are all using the same colour,
   say 2 (see Figure~\ref{fig: GadgetH}). 
@@ -1140,28 +1140,35 @@ In this section, we prove that \Col is NP-complete when restricted on the class 
   \end{figure}
 
   \paragraph{Equivalence of the instances.}
-  Assume that there exists proper 3-colouring $\alpha$ of $G$. Colour each arc
-  of $\orGp$ starting in $x_u$ with the colour $\alpha(u)$ of $u$. It remains
-  only to colour the arcs in the copies of $\orH$. Let $\beta$ be a
-  3-arc-colouring of $\orH$. For each copy $\orHu$, permute the colours of
-  $\beta$ such that the arcs entering $x_u$ use the two colours in $[3]$
-  different from $\alpha(u)$. We claim that the resulting colouring is a
-  3-arc-colouring of $\orGp$. Indeed, at each $x_v$, all the arcs starting in
-  $x_v$ have an identical colour $\alpha(v)$, and the arcs entering $x_v$ are
-  either coming from the copy $\orHv$ or of the form $x_u \to x_v$ for some
-  $u < v$, in both case they use colours different from $\alpha(v)$. Thus
-  $L(\orGp)$ is 3-colourable.
+  Assume first that there exists a proper 3-colouring $\alpha$ of $G$. We construct a proper 3-colouring $\beta$ of $L(\orGp)$ as follows. Note that for $u\in V(G)$, the vertex $x_u$ has a unique out-neighbour $z_u$ in $H_u$, hence for each $u\in V(G)$, there exists a proper $3$-colouring $\beta_u$ of $L(\orHu)$ such that $\beta_u(x_u,z_u)=\alpha(u)$. We define $\beta$ as follows. For each $u\in V(G)$ and each $y\in N^+_{\orGp}(x_u)$ we set $\beta(x_u,y):=\alpha(u)$, and for each arc $e\in E(H_u)$, we let $\beta(e):=\beta_u(e)$. Note that $\beta$ is well defined by choice of the colourings $\beta_u$. 
+  
+  We now show that $\beta$ is a proper colouring of $L(\orGp)$.
+  For this, consider two consecutive arcs $(x,y)$ and $(y,z)$ of $\orGp$. If $y$ is not one of the $x_u$'s, then both arcs must belong to a common copy $\orHu$ of $\orH$, and are thus coloured differently by $\beta_u$. Otherwise assume that $y=x_u$ for some $u\in V(G)$. Then $\beta(y,z)=\alpha(u)$. If $(x,y)$ is in $\orHu$, then by choice of $\beta_u$, it is not coloured $\alpha(u)$. Otherwise we have $x=x_v$ for some $v\in N_G(u)$, and then $\beta(x,y)=\alpha(v)\neq \alpha(u)$ as $\alpha$ is a proper colouring of $G$. Thus $\beta$ is indeed a proper $3$-colouring of $L(\orGp)$.
+  
+%   while $\beta(x,y)\neq \alpha(u)$ (for this, we use that $(x,y)$ is either in $\orHu$, in which case by choice of $\beta_u$, it is not coloured $\alpha(u)$, or $x=x_v$ for some $v\in N_G(u)$, and then $\beta(x,y)=\alpha(v)\neq \alpha(u)$.
+%   
+%   one can extend $\beta$ to a colouring of $\orGp$ by extending for each $u\in V(G)$ the colouring to a proper colouring of $\orHu$ 
+%   
+%   It remains
+%   only to colour the arcs in the copies of $\orH$. Let $\beta$ be a
+%   3-arc-colouring of $\orH$. For each copy $\orHu$, permute the colours of
+%   $\beta$ such that the arcs entering $x_u$ use the two colours in $[3]$
+%   different from $\alpha(u)$. We claim that the resulting colouring is a
+%   3-arc-colouring of $\orGp$. Indeed, at each $x_v$, all the arcs starting in
+%   $x_v$ have an identical colour $\alpha(v)$, and the arcs entering $x_v$ are
+%   either coming from the copy $\orHv$ or of the form $x_u \to x_v$ for some
+%   $u < v$, in both case they use colours different from $\alpha(v)$. Thus
+%   $L(\orGp)$ is 3-colourable.
 
-  Conversely, let $\beta$ be a proper 3-arc-colouring of $\orGp$. Observe that
-  by the aforementioned property of $\orH$, for each $u\in V(G)$, the set of
-  arcs entering the marked vertex $x_u$ uses exactly $2$ colours, hence all the
-  arcs starting in $x_u$ in $\orGp$ are coloured identically. Let
-  $\alpha(u) = \beta(x_uy_u)$ for every $u\in V(G)$. We claim that $\alpha$ is a
+  Conversely, let $\beta$ be a proper 3-colouring of $L(\orGp)$. Then by Claim \ref{clm: H}, for each $u\in V(G)$, the set of
+  arcs of $\orGp$ entering the vertex $x_u$ uses exactly $2$ colours, hence all the
+  arcs starting in $x_u$ in $\orGp$ must be coloured identically. We set
+  $\alpha(u) := \beta(x_uy_u)$ for every $u\in V(G)$, and claim that $\alpha$ is a
   proper 3-colouring of $G$. Indeed, given any edge $uv$ in $E(G)$ with $u<v$,
   the colour $\alpha(u) = \beta(x_uy_u) =\beta(x_ux_v)$ must differ from the
   colour $\beta(x_vy_v) = \alpha(v)$ because $\beta$ is a proper
   arc-colouring of $\orGp$. Thus $G$ is 3-colourable.
-
+\end{proof}
 %   \todo[inline]{the proof is broken for $k$-iterated shift graph.}
 %   \paragraph{$k$-iterated shift graphs.}
 %   We fix $k\geq 1$.
@@ -1169,7 +1176,6 @@ In this section, we prove that \Col is NP-complete when restricted on the class 
 %   change our gadget. Given a $k$-iterated line digraph $\orGd$ of an oriented
 %   acyclic graph $\orGu$, we will for convenience see the $k$-colourings of $\orGd$ as
 %   $k$-colourings of the $k$-paths of $\orGu$ such that the every two $k$-paths of the form $u_0\dots u_k$ and $u_1\dots u_{k+1}$ are coloured differently.
-
 %   For our gadget, we construct an acyclic oriented graph $\orH$ such that
 %   $\chi(L^k(\orH))=3$, with a marked $(k-1)$-path $X$ with the following property:
 %   in any 3-colouring of $L^k(\orH)$, the set of $k$-paths with suffix $X$ uses
@@ -1303,12 +1309,13 @@ In this section, we prove that \Col is NP-complete when restricted on the class 
 %   $uv \in E(G)$ with $u<v$, because the paths $X_ux_v$ and $X_vy_v$ are
 %   consecutive by construction and
 %   $\alpha(u) = \beta(X_ux_v) \neq \beta(X_vy_v) = \beta(v)$.
-\end{proof}
+% \end{proof}
 
-In the next proof, an \defin{in-forest} (resp.\ \defin{out-forest}) is an oriented forest in which each vertex has in-degree (resp.\ out-degree) at most $1$. Observe that in particular, every component of an in-forest (resp.\ out-forest) has exactly one vertex with in-degree (resp. out-degree) equal to 0, which we call the \defin{root} of its component.
-
-We now prove that if one restricts to shift graphs of large girth (and not large
-odd-girth as in Theorem~\ref{thm:3col}), 3-colouring becomes a trivial problem.
+In the next proof, an \defin{in-forest} (resp.\ \defin{out-forest}) is an oriented forest in which all edges are oriented towards (resp.\ away from) a root of their component, i.e.\
+each vertex has out-degree (resp.\ in-degree) at most $1$. Observe that in particular, every component of an in-forest (resp.\ out-forest) has exactly one vertex with out-degree (resp. out-degree) equal to 0, which we call the \defin{root} of its component.
+% We now prove that if one restricts to shift graphs of large girth (and not large
+% odd-girth as in Theorem~\ref{thm:3col}), 3-colouring becomes a trivial problem.
+We conclude this section with the the following.
 \begin{proposition}
 \label{prop: 3-col_girth}
   All shift graphs of girth at least five are 3-colourable.
