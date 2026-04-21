@@ -557,7 +557,7 @@ graph sequence have a natural shift orientation, which we will denote $\orGn$,
 obtained when choosing the orientation $(a,b)\to(b,c)$
 for every $1\leq a<b<c\leq n$.
 
-As a consequence of Lemma~\ref{lem:valid}, all 4-cycles in a shift orientation of a
+As a consequence of Lemma~\ref{lem:valid} combined with Lemma \ref{lem:forbidden_config}, all 4-cycles in a shift orientation of a
 shift graph are alternating at each vertex and shift graphs are
 triangle-free. The next lemma is a folklore result implying that shift graphs have unbounded chromatic number and odd girth (see for example \cite[Theorem
 4]{harner1972Arc} or \cite[Lemma 2.21]{GraphsandHomomorphisms} for the first
@@ -980,7 +980,7 @@ In this section, we prove that \Col is NP-complete when restricted on the class 
    For every proper $3$-colouring of $L(\orH)$, the set of arcs entering $v_{t-1}$ uses exactly two colours.
   \end{claim}
 
-   \begin{proof}[Proof of the Claim]   
+   \begin{poc}
   Let $\alpha$ be
   a proper 3-colouring of $L(\orH)$, where $(v_{t-1},v_t)$ is without loss of
   generality coloured 1. The arcs entering $v_{t-1}$ cannot use the colour 1, so
@@ -1007,7 +1007,7 @@ In this section, we prove that \Col is NP-complete when restricted on the class 
 %   To sum up, $\orH$ is 3-colourable and in each 3-arc-colouring of
 %   $\orH$, the arcs entering the marked vertex $x:=v_{t-1}$ use two different
 %   colours.
- \end{proof}
+ \end{poc}
 
 \begin{figure}[htb]
   \centering  
@@ -1408,7 +1408,7 @@ Lov\'asz \cite{lovasz1973Covering} proved that the following problem is NP-compl
 
 Note that \MNAE is equivalent to the problem of deciding whether a given
 $3$-regular hypergraph is $2$-colourable. In particular, this hypergraph
-formulation, sometimes also called property B,  was the one used in \cite{lovasz1973Covering}. In order to prove the next result, we will design a polynomial time reduction to $\MNAE$, inspired by the one from \cite{chvatal1990Note}.
+formulation, sometimes also called property B,  was the one initially used in \cite{lovasz1973Covering}. In order to prove the next result, we will design a polynomial time reduction to $\MNAE$, similar in spirit to the one from \cite{chvatal1990Note}.
 
 \begin{theorem}
   For every $k \ge 1$, the problem of recognising whether a graph is a $k$-iterated shift graph (or equivalently, the
@@ -1422,22 +1422,23 @@ formulation, sometimes also called property B,  was the one used in \cite{lovasz
   % to iterated shift graphs.
   Let $k \in \mathbb{N}$. We reduce \MNAE to the problem of recognising a $k$-iterated shift
   graph. Let $\phi$ be a monotone 3-CNF formula with $m$
-  clauses and $n$ variables. We construct a graph $G_\phi$ of size $O(mnk)$ which is a $k$-iterated shift graph if
-  $\phi$ is a valid instance of \textsc{MNAE-3SAT}, but is not a shift graph (and
-  a fortiori not a $k$-iterated shift graph) if $\phi$ is not a valid
-  instance of \textsc{MNAE-3SAT}. 
+  clauses and $n$ variables. We construct a graph $G_\phi$ of size $O(mnk)$ which is a $k$-iterated shift graph if and only if
+  $\phi$ is a valid instance of \textsc{MNAE-3SAT}.
+%   , but is not a shift graph (and
+%   a fortiori not a $k$-iterated shift graph) if $\phi$ is not a valid
+%   instance of \textsc{MNAE-3SAT}. 
 
   \paragraph{Gadgets.}
   We first describe a gadget that will be used later for encoding the
   variables. Let $H$ be the 4-sun, that is the graph on eight vertices composed
   of a 4-cycle with one pendant edge attached to each of the vertices on the
   cycle. For every variable $x$, consider the gadget composed of a path $U_x$ on
-  $8m+1$ vertices. Denote $u_x^0, \dots u_x^{4m-1}$ every other vertex of $U_x$,
+  $8m+1$ vertices. Denote $u_x^0, \dots u_x^{4m-1}$ every second vertex of $U_x$,
   starting from the second vertex of $U_x$. For every $i \in \{0, \dots, 4m-1\}$
   we connect $u_x^{i}$ to the first vertex of the jaw of a comb $Q_i$ of length
   $k+1$. Denote $v_x^{i}$ the last vertex of the jaw of this comb and
   $w_x^{i}$ the vertex adjacent to $v_x^{i}$ via the last tooth.
-  Connect each $u_x^{i}$ to a
+  We attach to each $u_x^{i}$ a
   distinct copy $H_x^i$ of $H$ via one of its vertices of degree three that we
   will call $t_x^{i}$ (see Figure~\ref{fig:variable_gadget}). For every variable $x$,
   let $L_x$ denote a disjoint copy of this graph, and let $M_x$ be the subgraph
@@ -1522,6 +1523,7 @@ formulation, sometimes also called property B,  was the one used in \cite{lovasz
     \label{fig:variable_gadget}    
   \end{figure}
   
+  \paragraph{The graph $G_{\phi}$.} We now construct the graph $G_{\phi}$. We start by considering the disjoint union of all graphs $L_x$ where $x$ ranges over the variables of $\phi$. 
   For every $i \in \{0,\dots, m-1\}$, if $x,y,z$ denote the three variables
   appearing in the $i$\textsuperscript{th} clause of $\phi$, we attach the
   gadgets $L_x$, $L_y$ and $L_z$ as follows. Add three edges to form a path
@@ -1529,8 +1531,16 @@ formulation, sometimes also called property B,  was the one used in \cite{lovasz
   $d_i=w_z^{4i}$, so that the vertex set
   $\{w_x^{4i}, w_y^{4i+1}, w_y^{4i+3}, w_z^{4i}, v_x^{4i}, v_y^{4i+1},
   v_y^{4i+3}, v_z^{4i}\}$ forms a comb $C_i$ of length three, with jaw
-  $w^{4i}_xw_y^{4i+1}w_y^{4i+3}w_z^{4i}$. Denote $G_\phi$ the constructed graph.
+  $w^{4i}_xw_y^{4i+1}w_y^{4i+3}w_z^{4i}$ (see Figure \ref{fig: clause_comb}). We let $G_\phi$ be the obtained graph.
 
+\begin{figure}[htb]
+  \centering  
+  \includegraphics[scale=0.75]{clause}
+  \caption{In red, an illustration of the comb of length $3$ corresponding to the $i$\textsuperscript{th} clause $x\lor y\lor z$.}  
+  \label{fig: clause_comb}
+\end{figure}
+  
+  
   \paragraph{Shift orientations of $G_\phi$.}
   Recall that an orientation of a graph is a \defin{shift orientation} if 
   it corresponds to a line
@@ -1578,23 +1588,23 @@ formulation, sometimes also called property B,  was the one used in \cite{lovasz
     \label{fig:sun_orientation}
   \end{figure}
   \begin{poc}
-    Consider $\orH$ a shift orientation of $H$. Recall that by Lemma~\ref{lem:valid},
-    the 4-cycles are alternating at each vertex in a shift orientation of shift graph. \ugo{I do not think that it is enough... I suggest the next arguments (in red).
-    
-    As $\orH$ is acyclic, the 4-cycle $C$ of $H$ contains at least one sink and one source (with respect to the induced orientation on the cycle). Moreover, note that every such orientation $\ora{C}$ of $C$ containing one transitive vertex contradicts either of the two conditions from Lemma~\ref{lem:valid}. It implies that the orientation of $C$ induced by $\orH$ is the alternating orientation depicted in \cref{fig:sun_orientation}.} 
-
-  \clement{We wrote below Lemma~\ref{lem:valid} that it implies that 4 cycles are
-    alternating in shift graphs}
+    We let $C$ denote the cycle of length $4$ in $H$, and 
+    fix a shift orientation $\orH$ of $H$. Recall that by Lemma~\ref{lem:valid},
+    the induced orientation $\orC$ must be alternating at each vertex.
   
     Now let $v$ be a vertex of degree
     three in $H$. Without loss of generality, assume that $v$ has no in-neighbour in
     $C$, i.e.\ that it is a source of $C$. Let $u$ be the unique neighbour of $v$ which is not on $C$, and $w$ and $x$ be two
-    vertices of $C$ such that $w$ is adjacent to $v$, while $x$ is not. As the orientation of $C$ in $\orH$ alternates, we must have $v\to w$ and $x\to w$ in $\orH$. In particular, the first condition of~Lemma~\ref{lem:forbidden_config} then implies that we have $u\to v$ in $\orH$, hence $v$ is transitive. As this reasoning is independent of the choice of $v$ on $C$, we deduce that $\orH$ has the desired form.
+    vertices of $C$ such that $w$ is adjacent to $v$, while $x$ is not. As $v$ is a source in $\orC$ and the orientation $\orC$ alternates, we must have $v\to w$ and $x\to w$ in $\orH$. In particular, the first condition of~Lemma~\ref{lem:forbidden_config} then implies that we have $u\to v$ in $\orH$, hence $v$ is transitive. As this reasoning is independent of the choice of $v$ on $C$, we deduce that $\orH$ has the desired form.
   \end{poc}
 
 
   \begin{claim}\label{cl:gadget_orientation}
-    Consider a shift orientation of $L_x$ for some fixed variable $x$. Then there are only two possible
+  For each variable $x$, $L_x$ is a shift graph. Moreover, a shift orientation of $L_x$ can only induce two  
+%   
+%   Moreover, for each shift orientation $L_x$ for some fixed variable $x$. Then there are only 
+%   two 
+    possible
     orientations for its restriction to $M_x$, which are opposite from each
     other and satisfy either of the following properties:
     \begin{itemize}
@@ -1605,7 +1615,11 @@ formulation, sometimes also called property B,  was the one used in \cite{lovasz
     \end{itemize}
   \end{claim}
   \begin{poc}
-    Let $\orLx$ be a shift orientation of $L_x$ and without loss of generality, assume that $w_x^0 \to v_x^0$ in $\orLx$, the other case being symmetric.
+  We start describing a shift orientation $\orLx$ of $L_x$. 
+  We start orienting each star around the vertices $u_x^i$, so that $u_x^i$ is a source when $i$ is even, and a sink when $i$ is odd. Then, for each $i\in \{0, \ldots,4m-1\}$ we orient the subgraph $H^i_x$ with the unique possible shift orientation given by Claim \ref{cl:sun_orientation} and coherent with the orientation of the star around $u_x^i$. Eventually, for each $i\in \{0,\ldots,4m-1\}$, we extend the obtained orientation to $\orLx$ by giving to each comb $Q_i$ the orientation $\ora{Q_i}$ of an out-forest when $i$ is even and of an in-forest when $i$ is odd. We claim that the obtained orientation is indeed a shift orientation, as it is not hard to check that it satifies the conditions of Lemma \ref{lem:forbidden_config}.
+  
+  
+  We now show the second part of the claim, and let $\orLx$ be a shift orientation of $L_x$. We assume without loss of generality that $w_x^0 \to v_x^0$ in $\orLx$, the other case being symmetric.
     For every $i\in \{0,\ldots,4m-1\}$, we let $\orHxi$ denotes the orientation of the subgraph $H_x^i$ induced by $\orLx$.
     By~Claim~\ref{cl:sun_orientation}, in every $\orHxi$ all the vertices of degree three are transitive (however,
     each subgraph $H_x^i$ may be oriented in any of its two opposite
@@ -1620,8 +1634,10 @@ formulation, sometimes also called property B,  was the one used in \cite{lovasz
     \end{enumerate}
     We only show the first item, as the second is symmetric. Let
     $i \in \{0,\ldots,4m-1\}$ and assume that $u^{i}_x \to t^{i}_x$ in
-    $\orLx$. By Claim~\ref{cl:sun_orientation}, $t^{i}_x$ is transitive in $\orHxi$,
-    and thus has an in-neighbour in $\orLx$ distinct from $u_x^{i}$. In
+    $\orLx$. By Claim~\ref{cl:sun_orientation}, $t^{i}_x$ must
+%     is transitive in $\orHxi$,
+%     and thus has 
+    have an in-neighbour in $\orHxi$ distinct from $u_x^{i}$. In
     particular, note that the first condition of Lemma~\ref{lem:forbidden_config}
     then implies that $u^{i}_x$ cannot have an out-neighbour in
     $\orLx-t^{i}_x$, which proves the first item.
@@ -1642,13 +1658,14 @@ formulation, sometimes also called property B,  was the one used in \cite{lovasz
     even $i$ and $v^i_x \to w^i_x$ for all odd $i$.
   \end{poc}
   
-  For every $i\in \{0,\ldots,4m-1\}$, and every orientation $\orCi$ of the comb $C_i$, we say that a teeth $e$ of is 
+  For every $i\in \{0,\ldots,4m-1\}$, and every orientation $\orCi$ of the comb $C_i$ of length $4$, we say that a teeth $e$ of is 
   \begin{itemize}
   \item \defin{positive} if $e$ is a molar and is oriented away from the jaw, or
     if $e$ is an incisor and is oriented towards the jaw.
    \item \defin{negative} if $e$ is a molar and is oriented towards the jaw, or
      if $e$ is an incisor and is oriented away from the jaw.
   \end{itemize}
+Note that $e$ is always positive or negative.
   
 %   Given a shift orientation of the comb $C_i$, we say that $e_1$ and
 %   $e_4$ (respectively $e_2$ and $e_3$) are \emph{positive} if they are oriented
@@ -1667,12 +1684,12 @@ formulation, sometimes also called property B,  was the one used in \cite{lovasz
     $abcd$. Assume towards a contradiction that there exists a shift
     orientation $\orCi$ of $C_i$ making all teeth positive. That is, the molars
     $aa'$ and $dd'$ are oriented away from $a$ and $d$, while the incisors
-    $bb'$ and $cc'$ are oriented towards $b$ and $c$ (see Figure~\ref{fig:variable_gadget1}). Without loss of
+    $bb'$ and $cc'$ are oriented towards $b$ and $c$, as depicted in Figure~\ref{fig:variable_gadget1}. Without loss of
     generality, assume that $b \to c$. By Lemma~\ref{lem:forbidden_config}, as $c$
     has both an in-neighbour and an out-neighbour, the edge $ab$ must be
     oriented $a \to b$. We then obtain a
     contradiction as the orientation of the induced path $a'abb'$ contradicts
-    the first condition of Lemma~\ref{lem:forbidden_config}.
+    the first condition of Lemma~\ref{lem:forbidden_config}.  The case where all teeth are negative is symmetric.
         \begin{figure}[h!]
       \centering
       \begin{tikzpicture}[decoration={
@@ -1707,7 +1724,7 @@ formulation, sometimes also called property B,  was the one used in \cite{lovasz
     that $bb'$ and $cc'$ are say positive, but not all four edges are
     positive. Say without loss of generality $aa'$ is negative. Then, no matter
     which orientation $dd'$ has, orienting the jaw of $C_i$ as a directed path
-    from $a$ to $d$ (as depicted on Figure~\ref{fig:variable_gadget}) gives an
+    from $a$ to $d$ as depicted on Figure~\ref{fig:variable_gadget} gives an
     orientation of $C_i$ avoiding the forbidden configurations of
     Lemma~\ref{lem:forbidden_config}, and thus which is shift.
     \begin{figure}[h!]
@@ -1743,7 +1760,7 @@ formulation, sometimes also called property B,  was the one used in \cite{lovasz
   We are now ready to prove that $\phi$ admits a valuation such that each clause
   contains both variables set to true and false if and only if $G_\phi$ is a
   $k$-iterated shift graph. In fact for the reverse direction, we will show the
-  stronger property that if $\phi$ is negative instance of $\MNAE$, then
+  stronger property that if $\phi$ is a negative instance of $\MNAE$, then
   $G_\phi$ is not even a shift graph.
 
   We start proving the reverse implication and consider a shift orientation $\orGphi$ of
@@ -1772,7 +1789,7 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
   We now prove the direct implication and consider a variable assignment for which each clause of $\phi$ contains both variables set to true and false.
   For
   every variable $x$, let $\orMx$ denote the (unique) shift orientation of $M_x$ given by Claim~\ref{cl:gadget_orientation} such that
-  $w^{0}_x \to v^{0}_x$ in $\orMx$ if $x$ is set to true, and such that $v^0_x\to w^0_x$ in $\orMx$ if $x$ is set to false.
+  $w^{0}_x \to v^{0}_x$ in $\orMx$ if $x$ is set to true, and such that $v^0_x\to w^0_x$ in $\orMx$ if $x$ is set to false.\ugo{Pour l'instant, le claim ne donne pas vraiment l'existence d'orientations shift.}
   Then, for every $i\in \{0,\ldots,4m-1\}$, we consider for every copy $H^i_x$
   of the four-sun the (unique) shift orientation $\orHxi$ given by
   Claim~\ref{cl:sun_orientation}, such that in  $\orMx\cup\orHxi$, the vertex
