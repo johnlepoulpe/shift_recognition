@@ -1616,7 +1616,7 @@ formulation, sometimes also called property B,  was the one initially used in \c
   \end{claim}
   \begin{poc}
   We start describing a shift orientation $\orLx$ of $L_x$. 
-  We start orienting each star around the vertices $u_x^i$, so that $u_x^i$ is a source when $i$ is even, and a sink when $i$ is odd. Then, for each $i\in \{0, \ldots,4m-1\}$ we orient the subgraph $H^i_x$ with the unique possible shift orientation given by Claim \ref{cl:sun_orientation} and coherent with the orientation of the star around $u_x^i$. Eventually, for each $i\in \{0,\ldots,4m-1\}$, we extend the obtained orientation to $\orLx$ by giving to each comb $Q_i$ the orientation $\ora{Q_i}$ of an out-forest when $i$ is even and of an in-forest when $i$ is odd. We claim that the obtained orientation is indeed a shift orientation, as it is not hard to check that it satifies the conditions of Lemma \ref{lem:forbidden_config}.
+  We start orienting each star around the vertices $u_x^i$, so that $u_x^i$ is a source when $i$ is even, and a sink when $i$ is odd. Then, for each $i\in \{0, \ldots,4m-1\}$ we orient the subgraph $H^i_x$ with the unique possible shift orientation given by Claim \ref{cl:sun_orientation} and coherent with the orientation of the star around $u_x^i$. Eventually, for each $i\in \{0,\ldots,4m-1\}$, we extend the obtained orientation to $\orLx$ by giving to each comb $Q_i$ the orientation $\ora{Q_i}$ of an out-forest when $i$ is even and of an in-forest when $i$ is odd (see Figure~\ref{fig:oriented_variable}). We claim that the obtained orientation is indeed a shift orientation, as it is not hard to check that it satifies the conditions of Lemma \ref{lem:forbidden_config}.
   
   
   We now show the second part of the claim, and let $\orLx$ be a shift orientation of $L_x$. We assume without loss of generality that $w_x^0 \to v_x^0$ in $\orLx$, the other case being symmetric.
@@ -1774,8 +1774,8 @@ Note that $e$ is always positive or negative.
 Note that Claim~\ref{cl:gadget_orientation} implies that $e_1, e_2, e_4$ are
 respectively positive in $\orGphi$ if and only if $x,y,z$ are respectively set
 to true, and that $e_3$ is positive if and only if $e_2$ is
-positive. Claim~\ref{cl:clause_orientation} then implies that at least one teeth of
-$C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment we defined satisfies the desired properties.
+positive. By Claim~\ref{cl:clause_orientation}, at least one teeth of
+$C_i$ is positive, and one is negative in $\orGphi$. Thus the variable assignment we defined does not assign all three variables $x,y,z$ the same value. This implies that $\varphi$ is indeed a positive instance of \MNAE.
   
 %   By construction and by Claim~\ref{cl:gadget_orientation}, each
 %   of the edges $e_1, \ldots, e_4$ attached to the internal vertices of $C_i$ is
@@ -1789,7 +1789,7 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
   We now prove the direct implication and consider a variable assignment for which each clause of $\phi$ contains both variables set to true and false.
   For
   every variable $x$, let $\orMx$ denote the (unique) shift orientation of $M_x$ given by Claim~\ref{cl:gadget_orientation} such that
-  $w^{0}_x \to v^{0}_x$ in $\orMx$ if $x$ is set to true, and such that $v^0_x\to w^0_x$ in $\orMx$ if $x$ is set to false.\ugo{Pour l'instant, le claim ne donne pas vraiment l'existence d'orientations shift.}
+  $w^{0}_x \to v^{0}_x$ in $\orMx$ if $x$ is set to true, and that $v^0_x\to w^0_x$ otherwise.
   Then, for every $i\in \{0,\ldots,4m-1\}$, we consider for every copy $H^i_x$
   of the four-sun the (unique) shift orientation $\orHxi$ given by
   Claim~\ref{cl:sun_orientation}, such that in  $\orMx\cup\orHxi$, the vertex
@@ -1932,22 +1932,16 @@ $C_i$ is positive, and one is negative in $\orGphi$. So the variable assignment 
   Since the clause $x\lor y\lor z$ contains both variables set to true and false, we can apply
   Claim~\ref{cl:clause_orientation} to extend our orientation to a shift orientation $\orCi$ of $C_i$, in which the jaw is a directed path. Fixing such an orientation of each $C_i$, we now obtain an orientation $\orGphi$ of $G_{\phi}$, whose restriction to each subgraph of the form $L_x$ or $C_i$ is shift.
   
-  \ugo{Do you want to keep the next paragraph? I do not think that it is
-    useful.}\clement{It is, So far, we proved that the restriction of our
-    orientation to a clause or a variable gadget is shift, but we haven't proved
-    that the entire oritentation is shift. Namely, we haven't proved that we did
-    not create any directed cycles and that the junctions between the clause and
-    the variable gadgets are not alternating paths of lenght three} In order to
-  prove that $\orGphi$ is a shift orientation, we only need to check the first
+  In order to
+  prove that $\orGphi$ is a shift orientation, we only need to check that the orientation is acyclic, and that the first
   condition of Lemma~\ref{lem:forbidden_config} at the junctions between the clause
-  and the variable gadgets, and the orientation of the cycles using these
-  junctions. Note that any such cycle must pass by some $u^{i}_x$, at which it
-  alternates. Finally, as each $v^{i}_x$ is a transitive vertex, the first
+  and the variable gadgets hold.
+  For the acyclicity, note that any cycle $C$ in $G_{\phi}$ is either equal to the cycle of length $4$ of some $\orHxi$, or 
+  must pass by some $u^{i}_x$. In particular, as these vertices are either sinks or sources in $\orGphi$, $C$ cannot be oriented cyclically. Eventually, as each $v^{i}_x$ is a transitive vertex of degree $2$, the first
   condition of Lemma~\ref{lem:forbidden_config} is satisfied and the orientation of
-  $G_\phi$ is that of an acyclic line digraph. In other words, $G_\phi$ is a
-  shift graph. This concludes the proof for shift graphs, but not for iterated
+  $G_\phi$ is indeed a shift orientation. This concludes the proof for shift graphs, but not for iterated
   shift graphs.
-
+  \ugo{Je m'arrête là en attendant les modifs sur les embeddings safe.}
   
   
   To prove that $G_\phi$ is a $k$-iterated shift graph, we now construct an
